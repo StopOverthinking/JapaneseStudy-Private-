@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일본어 단어 학습</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- 시작 화면 / 모드 선택 -->
+        <div id="start-screen" class="screen active">
+            <h1>일본어 단어 학습</h1>
+            <div class="mode-selection">
+                <button id="start-list-btn">목록 모드</button>
+                <p class="mode-description">전체 단어를 목록으로 봅니다.</p>
+            </div>
+            <div class="mode-selection">
+                <button id="start-learning-btn">학습 모드</button>
+                <p class="mode-description">카드를 넘기며 단어를 학습합니다.</p>
+            </div>
+        </div>
+
+        <!-- 목록 모드 -->
+        <div id="list-mode" class="screen">
+            <h2>단어 목록</h2>
+            <div id="vocabulary-list-container"></div>
+            <button id="back-to-start-btn">돌아가기</button>
+        </div>
+
+        <!-- 학습 모드 -->
+        <div id="learning-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-learning" class="back-btn">‹ 돌아가기</button>
+            </div>
+            <h2>학습 모드</h2>
+            <div id="learning-setup">
+                <div class="setting-item">
+                    <label for="vocab-set-select">학습할 단어장:</label>
+                    <select id="vocab-set-select"></select>
+                </div>
+                <div class="setting-item" id="range-setting-container">
+                    <label class="range-toggle-label">
+                        <input type="checkbox" id="range-checkbox"> 학습 범위 지정
+                    </label>
+                    <div id="range-selection" class="hidden">
+                        <input type="number" id="range-start" min="1" placeholder="시작">
+                        <span>~</span>
+                        <input type="number" id="range-end" min="1" placeholder="끝">
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label for="word-count">학습할 단어 개수:</label>
+                    <div class="word-count-wrapper">
+                        <input type="number" id="word-count" value="10" min="1">
+                        <div id="word-count-controls" class="word-count-controls">
+                            <button data-value="10">+10</button> <button data-value="5">+5</button> <button data-value="1">+1</button>
+                            <button data-value="-10">-10</button> <button data-value="-5">-5</button> <button data-value="-1">-1</button>
+                        </div>
+                    </div>
+                </div>
+                <fieldset>
+                    <legend>카드 앞면 표시:</legend>
+                    <label><input type="radio" name="initial-display" value="japanese" checked> 일본어/독음</label>
+                    <label><input type="radio" name="initial-display" value="meaning"> 뜻</label>
+                </fieldset>
+                <button id="start-session-btn">학습 시작</button>
+            </div>
+
+            <div id="flashcard-session" class="hidden">
+                <div class="card-container">
+                    <button id="btn-prev-card" class="prev-card-btn">‹</button>
+                    <button id="btn-favorite" class="favorite-btn">☆</button>
+                    <div id="flashcard" class="flashcard">
+                        <div class="card-face card-front">
+                            <!-- 일본어/독음 또는 뜻이 여기에 표시됩니다. -->
+                            <p class="japanese-text"></p>
+                            <p class="reading-text"></p>
+                        </div>
+                        <div class="card-face card-back">
+                            <!-- 반대 내용이 여기에 표시됩니다. -->
+                            <p class="meaning-text"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button id="btn-known" class="action-btn known">알고 있음</button>
+                    <button id="btn-unknown" class="action-btn unknown">모름</button>
+                </div>
+                <p id="progress-text">0/0</p>
+            </div>
+        </div>
+
+        <!-- 결과 화면 (선택 사항) -->
+        <div id="results-screen" class="screen">
+            <h2>학습 결과</h2>
+            <p>모든 단어를 학습했습니다!</p>
+            <button id="restart-learning-btn">다시 학습하기</button>
+        </div>
+    </div>
+
+    <script src="vocabulary.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
