@@ -12,6 +12,9 @@ const backToStartFromLearningBtn = document.getElementById('back-to-start-from-l
 
 const backToStartBtn = document.getElementById('back-to-start-btn');
 const vocabularyListContainer = document.getElementById('vocabulary-list-container');
+const listControls = document.getElementById('list-controls');
+const toggleWordBtn = document.getElementById('toggle-word-btn');
+const toggleMeaningBtn = document.getElementById('toggle-meaning-btn');
 const wordCountInput = document.getElementById('word-count');
 const vocabSetSelect = document.getElementById('vocab-set-select');
 const wordCountControls = document.getElementById('word-count-controls');
@@ -28,6 +31,7 @@ const flashcard = document.getElementById('flashcard');
 const cardFront = flashcard.querySelector('.card-front');
 const cardBack = flashcard.querySelector('.card-back');
 
+const toggleReadingCheckbox = document.getElementById('toggle-reading-checkbox');
 const btnPrevCard = document.getElementById('btn-prev-card');
 const btnKnown = document.getElementById('btn-known');
 const btnFavorite = document.getElementById('btn-favorite');
@@ -44,6 +48,8 @@ let displayFrontFirst = 'japanese'; // 'japanese' (일본어/독음) 또는 'mea
 let isCardFlipped = false; // 카드가 뒤집혔는지 여부
 let favoriteWordIds = []; // 즐겨찾기된 단어 ID 목록
 let isViewingWordList = false; // 목록 모드에서 단어 목록을 보고 있는지 여부
+let areWordsHidden = false; // 목록 모드에서 단어가 숨겨졌는지 여부
+let areMeaningsHidden = false; // 목록 모드에서 뜻이 숨겨졌는지 여부
 
 
 // --- 즐겨찾기 관리 함수 (localStorage 사용) ---
@@ -113,6 +119,14 @@ function showVocabSetList() {
     listModeScreen.querySelector('h2').textContent = '단어장';
     vocabularyListContainer.innerHTML = '';
 
+    // 목록 모드 상태 초기화
+    areWordsHidden = false;
+    areMeaningsHidden = false;
+    toggleWordBtn.textContent = '단어 숨기기';
+    toggleMeaningBtn.textContent = '뜻 숨기기';
+    listControls.classList.add('hidden');
+
+
     // 즐겨찾기 단어장 추가
     const favoriteSetItem = document.createElement('div');
     favoriteSetItem.className = 'vocab-set-item favorite-set';
@@ -148,6 +162,9 @@ function showWordList(type, index = -1) {
         wordsToShow = selectedSet.words;
     }
 
+    // 단어 목록이 표시될 때만 컨트롤 버튼 보이기
+    listControls.classList.remove('hidden');
+
     // 선택된 단어 목록을 화면에 표시
     wordsToShow.forEach(word => {
         const isFav = isFavorite(word.id);
@@ -156,11 +173,11 @@ function showWordList(type, index = -1) {
         item.dataset.id = word.id;
         item.innerHTML = `
             <div class="word-id">${word.id.split('_')[1]}</div>
-            <div class="japanese-group">
+            <div class="japanese-group ${areWordsHidden ? 'concealed' : ''}">
                 <div class="japanese">${word.japanese}</div>
                 <div class="reading">${word.reading}</div>
             </div>
-            <div class="meaning">${word.meaning}</div>
+            <div class="meaning ${areMeaningsHidden ? 'concealed' : ''}">${word.meaning}</div>
             <button class="list-favorite-btn ${isFav ? 'favorited' : ''}" data-id="${word.id}">
                 ${isFav ? '★' : '☆'}
             </button>
@@ -390,6 +407,12 @@ vocabularyListContainer.addEventListener('click', (e) => {
         const isFav = isFavorite(wordId);
         e.target.textContent = isFav ? '★' : '☆';
         e.target.classList.toggle('favorited', isFav);
+    } else if (target.classList.contains('concealed')) {
+        // 숨겨진 단어/뜻 클릭 시 해당 항목만 보이기
+        target.classList.add('revealed');
+    } else if (target.parentElement.classList.contains('concealed')) {
+        // 숨겨진 항목의 자식 요소(p 태그 등)를 클릭했을 경우
+        target.parentElement.classList.add('revealed');
     }
 });
 
@@ -439,10 +462,39 @@ rangeCheckbox.addEventListener('change', () => {
     rangeSelection.classList.toggle('hidden', !rangeCheckbox.checked);
 });
 
+toggleWordBtn.addEventListener('click', () => {
+    areWordsHidden = !areWordsHidden;
+    toggleWordBtn.textContent = areWordsHidden ? '단어 보이기' : '단어 숨기기';
+    document.querySelectorAll('.vocab-item .japanese-group').forEach(el => {
+        el.classList.toggle('concealed', areWordsHidden);
+        // 전체 토글 시 개별적으로 'revealed' 된 상태는 초기화
+        if (areWordsHidden) {
+            el.classList.remove('revealed');
+        }
+    });
+});
+
+toggleMeaningBtn.addEventListener('click', () => {
+    areMeaningsHidden = !areMeaningsHidden;
+    toggleMeaningBtn.textContent = areMeaningsHidden ? '뜻 보이기' : '뜻 숨기기';
+    document.querySelectorAll('.vocab-item .meaning').forEach(el => {
+        el.classList.toggle('concealed', areMeaningsHidden);
+        // 전체 토글 시 개별적으로 'revealed' 된 상태는 초기화
+        if (areMeaningsHidden) {
+            el.classList.remove('revealed');
+        }
+    });
+});
+
 
 startSessionBtn.addEventListener('click', () => startSession(false)); // 첫 학습 세션 시작
 
 flashcard.addEventListener('click', flipCard); // 카드 클릭 시 뒤집기
+
+toggleReadingCheckbox.addEventListener('change', () => {
+    // 체크박스 상태에 따라 flashcard에 'reading-hidden' 클래스를 토글
+    flashcard.classList.toggle('reading-hidden', toggleReadingCheckbox.checked);
+});
 
 btnPrevCard.addEventListener('click', prevCard);
 
