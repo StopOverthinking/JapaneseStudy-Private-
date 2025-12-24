@@ -84,6 +84,32 @@ function toggleFavorite(wordId) {
     saveFavoriteIds();
 }
 
+// 즐겨찾기 데이터 내보내기
+function exportFavorites() {
+    const data = JSON.stringify(favoriteWordIds);
+    prompt("아래 코드를 전체 복사(Ctrl+A, Ctrl+C)하여 다른 기기에서 '가져오기'를 하세요.", data);
+}
+
+// 즐겨찾기 데이터 가져오기
+function importFavorites() {
+    const data = prompt("다른 기기에서 복사한 코드를 여기에 붙여넣으세요.");
+    if (data) {
+        try {
+            const parsed = JSON.parse(data);
+            if (Array.isArray(parsed)) {
+                favoriteWordIds = parsed;
+                saveFavoriteIds();
+                alert("즐겨찾기 데이터가 성공적으로 복원되었습니다.");
+                showVocabSetList(); // 목록 화면 갱신
+            } else {
+                alert("올바르지 않은 데이터 형식입니다.");
+            }
+        } catch (e) {
+            alert("데이터 처리 중 오류가 발생했습니다. 코드를 정확히 복사했는지 확인해주세요.");
+        }
+    }
+}
+
 // --- 유틸리티 함수 ---
 // 배열 섞기 (Fisher-Yates 셔플 알고리즘)
 function shuffleArray(array) {
@@ -143,6 +169,26 @@ function showVocabSetList() {
         setItem.dataset.index = index;
         vocabularyListContainer.appendChild(setItem);
     });
+
+    // 데이터 관리(내보내기/가져오기) 버튼 영역 추가
+    const dataManageContainer = document.createElement('div');
+    dataManageContainer.style.marginTop = '30px';
+    dataManageContainer.style.textAlign = 'center';
+    dataManageContainer.style.borderTop = '1px solid #ddd';
+    dataManageContainer.style.paddingTop = '15px';
+
+    const exportBtn = document.createElement('button');
+    exportBtn.textContent = '즐겨찾기 내보내기';
+    exportBtn.onclick = exportFavorites;
+    exportBtn.style.marginRight = '10px';
+
+    const importBtn = document.createElement('button');
+    importBtn.textContent = '즐겨찾기 가져오기';
+    importBtn.onclick = importFavorites;
+
+    dataManageContainer.appendChild(exportBtn);
+    dataManageContainer.appendChild(importBtn);
+    vocabularyListContainer.appendChild(dataManageContainer);
 
     showScreen(listModeScreen);
 }
