@@ -27,8 +27,8 @@ body {
 
 #app-container {
     width: 100%;
-    max-width: 400px; /* 모바일 기본 최대 너비 (4:3 비율의 기준) */
-    height: calc(100vw * 4 / 3); /* 뷰포트 너비에 맞춰 4:3 비율 높이 계산 */
+    max-width: 100vh; /* 최대 너비는 화면 높이에 맞춰 정사각형 형태가 되도록 함 */
+    height: min(100vh, calc(100vw * 4 / 3)); /* 4:3 비율을 유지하되 화면 높이를 넘지 않도록 함 */
     max-height: 100vh; /* 뷰포트 높이를 초과하지 않도록 */
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -37,15 +37,6 @@ body {
     flex-direction: column;
     overflow: hidden; /* 화면 전환 시 내용 숨김 */
     position: relative; /* 자식 화면들의 절대 위치 기준 */
-}
-
-/* 데스크톱 환경을 위한 미디어 쿼리 */
-@media (min-width: 768px) {
-    #app-container {
-        max-width: 600px; /* 데스크톱에서 더 넓게 */
-        height: calc(600px * 4 / 3); /* 데스크톱에서도 4:3 비율 유지 */
-        max-height: 90vh; /* 데스크톱 뷰포트 높이의 90%를 넘지 않도록 */
-    }
 }
 
 /* 나머지 CSS는 아래 코드 스니펫에서 확인하세요. */
@@ -268,15 +259,16 @@ button:hover {
 #list-controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 #list-controls button {
     background-color: #f0f0f0;
     color: #333;
-    padding: 8px 12px;
-    font-size: 0.9em;
+    padding: 4px 8px;
+    font-size: 0.8em;
     width: auto;
+    margin-top: 5px;
 }
 
 /* 목록 모드 특정 스타일 */
@@ -287,6 +279,8 @@ button:hover {
 
 #list-mode h2 {
     flex-shrink: 0; /* 제목이 줄어들지 않도록 함 */
+    margin: 2px 0; /* 제목 영역 세로 폭 대폭 축소 */
+    font-size: 1.2em;
 }
 
 #vocabulary-list-container {
