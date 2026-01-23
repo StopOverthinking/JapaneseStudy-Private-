@@ -39,6 +39,10 @@ const btnUnknown = document.getElementById('btn-unknown');
 const progressText = document.getElementById('progress-text');
 const restartLearningBtn = document.getElementById('restart-learning-btn');
 
+const resumeOverlay = document.getElementById('resume-overlay');
+const btnResumeYes = document.getElementById('btn-resume-yes');
+const btnResumeNo = document.getElementById('btn-resume-no');
+
 // --- 전역 상태 변수 ---
 let currentVocabulary = []; // 현재 라운드에 학습할 단어들
 let knownWords = []; // '알고 있음'으로 분류된 단어들
@@ -51,6 +55,27 @@ let isViewingWordList = false; // 목록 모드에서 단어 목록을 보고 �
 let areWordsHidden = false; // 목록 모드에서 단어가 숨겨졌는지 여부
 let areMeaningsHidden = false; // 목록 모드에서 뜻이 숨겨졌는지 여부
 
+const SESSION_KEY = 'japaneseAppSessionData';
+
+// 학습 상태 저장
+function saveSessionState() {
+    // 학습 모드가 활성화되어 있을 때만 저장
+    if (!flashcardSession.classList.contains('hidden')) {
+        const sessionData = {
+            currentVocabulary,
+            knownWords,
+            unknownWords,
+            currentCardIndex,
+            displayFrontFirst
+        };
+        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    }
+}
+
+// 학습 상태 삭제
+function clearSessionState() {
+    localStorage.removeItem(SESSION_KEY);
+}
 
 // --- 즐겨찾기 관리 함수 (localStorage 사용) ---
 const FAVORITES_KEY = 'japaneseAppFavorites';
@@ -277,6 +302,7 @@ function prevCard() {
         if (currentCardIndex === 0) {
             btnPrevCard.classList.add('hidden');
         }
+        saveSessionState(); // 상태 저장
     }
 }
 
@@ -315,6 +341,7 @@ function markCard(status) {
 
         // 3. 새 카드가 준비되면 fade-out 클래스를 제거하여 카드를 다시 표시
         flashcard.classList.remove('fade-out');
+        saveSessionState(); // 상태 저장
     }, 200); // CSS transition 시간과 일치
 }
 
@@ -399,6 +426,7 @@ function startSession(isRetryRound = false) {
     btnPrevCard.classList.add('hidden'); // 첫 카드이므로 '이전' 버튼 숨기기
     updateCardContent(currentVocabulary[currentCardIndex]);
     updateProgress();
+    saveSessionState(); // 초기 상태 저장
 }
 
 // 라운드 종료 처리
@@ -412,6 +440,7 @@ function endRound() {
         showScreen(resultsScreen);
         flashcardSession.classList.add('hidden'); // 플래시카드 화면 숨기기
         learningSetup.classList.remove('hidden'); // 다음 학습을 위해 설정 화면 다시 보이기
+        clearSessionState(); // 학습 완료 시 임시 데이터 삭제
     }
 }
 
@@ -435,6 +464,7 @@ backToStartFromLearningBtn.addEventListener('click', () => {
     flashcardSession.classList.add('hidden');
     learningSetup.classList.remove('hidden');
     showScreen(startScreen);
+    clearSessionState(); // 학습 중단 시 임시 데이터 삭제
 });
 
 vocabularyListContainer.addEventListener('click', (e) => {
@@ -558,12 +588,63 @@ restartLearningBtn.addEventListener('click', () => {
     // 필요하다면 세션 관련 상태 초기화
 });
 
+// 페이지 이탈 시 확인 메시지
+window.addEventListener('beforeunload', (e) => {
+    // 학습 세션이 진행 중일 때만 확인
+    if (!flashcardSession.classList.contains('hidden')) {
+        e.preventDefault();
+        e.returnValue = ''; // Chrome 등 최신 브라우저를 위한 설정
+    }
+});
+
+// 이어하기 버튼 이벤트
+btnResumeYes.addEventListener('click', () => {
+    const savedSession = localStorage.getItem(SESSION_KEY);
+    if (savedSession) {
+        const data = JSON.parse(savedSession);
+        currentVocabulary = data.currentVocabulary;
+        knownWords = data.knownWords;
+        unknownWords = data.unknownWords;
+        currentCardIndex = data.currentCardIndex;
+        displayFrontFirst = data.displayFrontFirst;
+
+        // UI 복원
+        resumeOverlay.classList.add('hidden');
+        learningSetup.classList.add('hidden');
+        flashcardSession.classList.remove('hidden');
+        showScreen(learningMode);
+
+        // 카드 상태 복원
+        if (currentCardIndex === 0) {
+            btnPrevCard.classList.add('hidden');
+        } else {
+            btnPrevCard.classList.remove('hidden');
+        }
+        updateCardContent(currentVocabulary[currentCardIndex]);
+        updateProgress();
+    }
+});
+
+btnResumeNo.addEventListener('click', () => {
+    clearSessionState();
+    resumeOverlay.classList.add('hidden');
+});
+
 // --- 초기 설정 ---
 document.addEventListener('DOMContentLoaded', () => {
+    // 등록된 모든 단어장을 합쳐서 전체 단어 목록 생성
+    allVocabulary = vocabularySets.flatMap(set => set.words);
+
     loadFavoriteIds(); // 페이지 로드 시 localStorage에서 즐겨찾기 목록 불러오기
     showScreen(startScreen); // 페이지 로드 시 시작 화면 표시
     // 단어 개수 입력 필드에 기본값 설정
     if (wordCountInput.value === '' || parseInt(wordCountInput.value, 10) <= 0) {
         wordCountInput.value = 10;
+    }
+
+    // 저장된 학습 세션이 있는지 확인
+    const savedSession = localStorage.getItem(SESSION_KEY);
+    if (savedSession) {
+        resumeOverlay.classList.remove('hidden');
     }
 });

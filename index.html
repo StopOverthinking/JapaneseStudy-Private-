@@ -5,6 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일본어 단어 학습</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 이어하기 오버레이 스타일 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .overlay-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 90%;
+            width: 400px;
+        }
+        .overlay-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .overlay-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.1s;
+        }
+        .overlay-buttons button:active {
+            transform: scale(0.98);
+        }
+        #btn-resume-yes {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: scale(1.05); /* '예' 버튼 강조 */
+        }
+        #btn-resume-no {
+            background-color: #9e9e9e;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div id="app-container">
@@ -106,7 +158,21 @@
         </div>
     </div>
 
+    <!-- 이어하기 확인 오버레이 -->
+    <div id="resume-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h3>학습 기록 발견</h3>
+            <p>이전에 완료하지 못한 학습이 있습니다.<br>이어서 진행하시겠습니까?</p>
+            <div class="overlay-buttons">
+                <button id="btn-resume-yes">예, 이어서 합니다</button>
+                <button id="btn-resume-no">아니오, 새로 시작합니다</button>
+            </div>
+        </div>
+    </div>
+
     <script src="vocabulary.js"></script>
+    <script src="vocab/vocab_pagoda.js"></script>
+    <script src="vocab/vocab_example.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
