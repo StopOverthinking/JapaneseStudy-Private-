@@ -71,6 +71,10 @@
                 <button id="start-learning-btn">학습 모드</button>
                 <p class="mode-description">카드를 넘기며 단어를 학습합니다.</p>
             </div>
+            <div class="mode-selection">
+                <button id="start-game-mode-btn" style="background-color: #9C27B0;">게임 모드</button>
+                <p class="mode-description">다양한 학습 게임을 즐겨보세요.</p>
+            </div>
         </div>
 
         <!-- 목록 모드 -->
@@ -150,6 +154,77 @@
             </div>
         </div>
 
+        <!-- 게임 선택 모드 (신규) -->
+        <div id="game-selection-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-game-selection" class="back-btn">‹ 돌아가기</button>
+            </div>
+            <h2>게임 선택</h2>
+            <div class="mode-selection">
+                <button id="open-speed-quiz-btn" style="background-color: #FF9800;">스피드퀴즈</button>
+                <p class="mode-description">스피드 객관식 퀴즈 (30문제)</p>
+            </div>
+        </div>
+
+        <!-- 스피드퀴즈 모드 -->
+        <div id="speed-quiz-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-speed-quiz" class="back-btn">‹ 그만두기</button>
+            </div>
+
+            <!-- 모드 선택 메뉴 (신규) -->
+            <div id="speed-quiz-menu">
+                <h2 style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
+                <div class="quiz-mode-buttons">
+                    <button id="btn-single-mode" class="mode-select-btn">싱글 플레이</button>
+                    <button id="btn-vs-bot-mode" class="mode-select-btn">VS 봇 대결 (준비중)</button>
+                </div>
+                
+                <!-- 싱글 플레이 기록 -->
+                <div id="single-mode-records" class="records-container">
+                    <h3>🏆 명예의 전당 (Top 10)</h3>
+                    <ul id="record-list"></ul>
+                </div>
+            </div>
+
+            <!-- 게임 영역 (기존 요소를 감쌈) -->
+            <div id="speed-quiz-game-area" class="hidden">
+                <!-- 레이스 바 (신규) -->
+                <div id="speed-quiz-race-track">
+                    <div class="race-bar-row">
+                        <span class="race-label">나</span>
+                        <div class="race-bar"><div id="player-race-fill" class="race-fill"></div></div>
+                    </div>
+                    <div class="race-bar-row hidden" id="bot-race-row">
+                        <span class="race-label">봇</span>
+                        <div class="race-bar"><div id="bot-race-fill" class="race-fill bot"></div></div>
+                    </div>
+                </div>
+                <div id="speed-quiz-status-bar">
+                    <span id="speed-quiz-progress">1/30</span>
+                    <span id="speed-quiz-score">점수: 0</span>
+                    <span id="speed-quiz-bot-score" class="hidden">봇: 0</span>
+                </div>
+                <div id="speed-quiz-timer-bar"><div id="speed-quiz-timer-fill"></div></div>
+                
+                <div id="speed-quiz-content">
+                    <div id="speed-quiz-question"></div>
+                    <div id="speed-quiz-options"></div>
+                </div>
+
+                <!-- 디버그 정보 (신규) -->
+                <div id="speed-quiz-debug-info" class="hidden"></div>
+            </div>
+            
+            <div id="speed-quiz-result" class="hidden">
+                <h2>퀴즈 종료!</h2>
+                <p style="font-size: 1.5em; margin: 20px;">최종 점수: <span id="final-score" style="font-weight:bold; color:#4CAF50;"></span></p>
+                <p style="font-size: 1.1em; margin: 10px;">평균 소요 시간: <span id="average-time" style="font-weight:bold;"></span>초</p>
+                <div id="speed-quiz-wrong-list"></div>
+                <button id="restart-speed-quiz-btn">메뉴로 돌아가기</button>
+            </div>
+        </div>
+
         <!-- 결과 화면 (선택 사항) -->
         <div id="results-screen" class="screen">
             <h2>학습 결과</h2>
@@ -173,6 +248,7 @@
     <script src="vocabulary.js"></script>
     <script src="vocab/vocab_pagoda.js"></script>
     <script src="vocab/vocab_example.js"></script>
+    <script src="speed_quiz_mode.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

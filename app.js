@@ -5,9 +5,11 @@ const startScreen = document.getElementById('start-screen');
 const listModeScreen = document.getElementById('list-mode');
 const learningMode = document.getElementById('learning-mode');
 const resultsScreen = document.getElementById('results-screen');
+const gameSelectionMode = document.getElementById('game-selection-mode'); // 게임 선택 화면
 
 const startListBtn = document.getElementById('start-list-btn');
 const startLearningBtn = document.getElementById('start-learning-btn');
+const startGameModeBtn = document.getElementById('start-game-mode-btn'); // 게임 모드 진입 버튼
 const backToStartFromLearningBtn = document.getElementById('back-to-start-from-learning');
 
 const backToStartBtn = document.getElementById('back-to-start-btn');
@@ -43,6 +45,12 @@ const resumeOverlay = document.getElementById('resume-overlay');
 const btnResumeYes = document.getElementById('btn-resume-yes');
 const btnResumeNo = document.getElementById('btn-resume-no');
 
+// 스피드퀴즈 모드 관련 요소
+const backToStartFromGameSelectionBtn = document.getElementById('back-to-start-from-game-selection');
+const openSpeedQuizBtn = document.getElementById('open-speed-quiz-btn');
+const backToStartFromSpeedQuizBtn = document.getElementById('back-to-start-from-speed-quiz');
+const restartSpeedQuizBtn = document.getElementById('restart-speed-quiz-btn');
+
 // --- 전역 상태 변수 ---
 let currentVocabulary = []; // 현재 라운드에 학습할 단어들
 let knownWords = []; // '알고 있음'으로 분류된 단어들
@@ -54,6 +62,7 @@ let favoriteWordIds = []; // 즐겨찾기된 단어 ID 목록
 let isViewingWordList = false; // 목록 모드에서 단어 목록을 보고 있는지 여부
 let areWordsHidden = false; // 목록 모드에서 단어가 숨겨졌는지 여부
 let areMeaningsHidden = false; // 목록 모드에서 뜻이 숨겨졌는지 여부
+let screenHistory = []; // 화면 이동 기록 스택
 
 const SESSION_KEY = 'japaneseAppSessionData';
 
@@ -155,11 +164,26 @@ function getRandomWords(count, data) {
 }
 
 // 화면 전환 함수
-function showScreen(screenElement) {
+function showScreen(screenElement, addToHistory = true) {
+    const activeScreen = document.querySelector('.screen.active');
+    if (addToHistory && activeScreen && activeScreen !== screenElement) {
+        screenHistory.push(activeScreen);
+    }
+
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
     screenElement.classList.add('active');
+}
+
+// 뒤로가기 함수
+function goBack() {
+    if (screenHistory.length > 0) {
+        const previousScreen = screenHistory.pop();
+        showScreen(previousScreen, false);
+    } else {
+        showScreen(startScreen, false);
+    }
 }
 
 // --- 목록 모드 함수 ---
@@ -236,16 +260,31 @@ function showWordList(type, index = -1) {
     // 단어 목록이 표시될 때만 컨트롤 버튼 보이기
     listControls.classList.remove('hidden');
 
+    // 품사 태그 맵핑
+    const posMap = {
+        'noun': '(명)',
+        'verb': '(동)',
+        'i_adj': '(い)',
+        'na_adj': '(な)',
+        'conj': '(접)',
+        'interj': '(감)',
+        'rentaishi': '(연)',
+        'adv': '(부)',
+        'particle': '(조)',
+        'aux_verb': '(조동)'
+    };
+
     // 선택된 단어 목록을 화면에 표시
     wordsToShow.forEach(word => {
         const isFav = isFavorite(word.id);
+        const posTag = word.type && posMap[word.type] ? `<span class="pos-tag">${posMap[word.type]}</span>` : '';
         const item = document.createElement('div');
         item.className = 'vocab-item';
         item.dataset.id = word.id;
         item.innerHTML = `
             <div class="word-id">${word.id.split('_')[1]}</div>
             <div class="japanese-group ${areWordsHidden ? 'concealed' : ''}">
-                <div class="japanese">${word.japanese}</div>
+                <div class="japanese">${word.japanese}${posTag}</div>
                 <div class="reading">${word.reading}</div>
             </div>
             <div class="meaning ${areMeaningsHidden ? 'concealed' : ''}">${word.meaning}</div>
@@ -453,7 +492,7 @@ backToStartBtn.addEventListener('click', () => {
         showVocabSetList();
     } else {
         // 단어장 목록을 보고 있었다면 시작 화면으로 돌아감
-        showScreen(startScreen);
+        goBack();
     }
 });
 
@@ -463,7 +502,7 @@ backToStartFromLearningBtn.addEventListener('click', () => {
     currentCardIndex = 0;
     flashcardSession.classList.add('hidden');
     learningSetup.classList.remove('hidden');
-    showScreen(startScreen);
+    goBack();
     clearSessionState(); // 학습 중단 시 임시 데이터 삭제
 });
 
@@ -498,6 +537,21 @@ startLearningBtn.addEventListener('click', () => {
     learningSetup.classList.remove('hidden');
     flashcardSession.classList.add('hidden');
     populateVocabSetSelect(); // 학습 모드 진입 시 드롭다운 메뉴 채우기
+});
+
+// 게임 모드 진입 버튼
+startGameModeBtn.addEventListener('click', () => {
+    showScreen(gameSelectionMode);
+});
+
+// 게임 선택 화면에서 스피드퀴즈 시작
+openSpeedQuizBtn.addEventListener('click', () => {
+    SpeedQuizMode.start();
+});
+
+// 게임 선택 화면에서 시작 화면으로 돌아가기
+backToStartFromGameSelectionBtn.addEventListener('click', () => {
+    goBack();
 });
 
 // 학습 모드의 단어장 선택 드롭다운 메뉴를 채우는 함수
@@ -628,6 +682,16 @@ btnResumeYes.addEventListener('click', () => {
 btnResumeNo.addEventListener('click', () => {
     clearSessionState();
     resumeOverlay.classList.add('hidden');
+});
+
+// 스피드퀴즈 모드에서 게임 선택 화면으로 돌아가기
+backToStartFromSpeedQuizBtn.addEventListener('click', () => {
+    goBack();
+});
+
+// 스피드퀴즈 다시 하기
+restartSpeedQuizBtn.addEventListener('click', () => {
+    SpeedQuizMode.start();
 });
 
 // --- 초기 설정 ---

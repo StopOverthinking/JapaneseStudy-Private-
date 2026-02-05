@@ -588,3 +588,264 @@ button:hover {
 .hidden {
     display: none !important;
 }
+
+/* --- 스피드퀴즈 모드 스타일 --- */
+#speed-quiz-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.quiz-mode-buttons {
+    display: flex;
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.mode-select-btn {
+    flex: 1;
+    padding: 20px 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+#btn-single-mode { background-color: #2196F3; }
+#btn-vs-bot-mode { background-color: #9C27B0; }
+
+#speed-quiz-game-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+/* 레이스 바 스타일 */
+#speed-quiz-race-track {
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.race-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.race-label {
+    font-weight: bold;
+    width: 30px;
+    text-align: right;
+    font-size: 0.9em;
+}
+
+.race-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.race-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease-out;
+}
+
+.race-fill.bot {
+    background-color: #9C27B0; /* 봇은 보라색 */
+}
+
+#speed-quiz-status-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555;
+}
+
+#speed-quiz-timer-bar {
+    width: 90%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 15px 0 30px 0;
+    overflow: hidden;
+}
+
+#speed-quiz-timer-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 100%;
+    transition: width 0.1s linear, background-color 0.3s;
+}
+
+#speed-quiz-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+#speed-quiz-question {
+    font-size: 2.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#speed-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.speed-quiz-option-btn {
+    background-color: white;
+    color: var(--text-color);
+    border: 2px solid #e0e0e0;
+    padding: 15px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0; /* 기존 button 마진 덮어쓰기 */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.speed-quiz-option-btn:hover:not(:disabled) { background-color: #f5f5f5; border-color: #ccc; }
+.speed-quiz-option-btn:active { transform: scale(0.98); }
+.speed-quiz-option-btn.correct { background-color: #d4edda; border-color: #28a745; color: #155724; }
+.speed-quiz-option-btn.wrong { background-color: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+/* 틀린 단어 목록 스타일 */
+#speed-quiz-wrong-list {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+/* 품사 태그 스타일 */
+.pos-tag {
+    font-size: 0.6em;
+    color: #999;
+    margin-left: 8px; /* 여백 추가 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+/* 결과 화면 스타일 조정 */
+#speed-quiz-result {
+    width: 100%;
+    max-width: 600px; /* 너비 증가 */
+    height: 100%; /* 전체 높이 사용 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* 내용을 상단으로 정렬 */
+}
+
+/* 기록 목록 스타일 */
+.records-container {
+    width: 90%;
+    max-width: 400px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.records-container h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #555;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+#record-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#record-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f9f9f9;
+    font-size: 0.95em;
+}
+
+#record-list li:last-child { border-bottom: none; }
+.record-rank { font-weight: bold; width: 30px; color: #888; }
+.record-score { font-weight: bold; color: var(--primary-color); }
+.record-time { color: #666; font-size: 0.9em; }
+.record-date { color: #aaa; font-size: 0.8em; }
+
+/* 디버그 정보 스타일 */
+#speed-quiz-debug-info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.8em;
+    color: #666;
+    width: 90%;
+    text-align: center;
+}
+
+/* 정답/오답 시각 효과 */
+@keyframes flash-green {
+    0% { background-color: #d4edda; }
+    100% { background-color: var(--background-color); }
+}
+
+@keyframes flash-red {
+    0% { background-color: #f8d7da; }
+    100% { background-color: var(--background-color); }
+}
+
+.flash-correct {
+    animation: flash-green 1.0s ease-out;
+}
+
+.flash-wrong {
+    animation: flash-red 1.0s ease-out;
+}
