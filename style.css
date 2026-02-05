@@ -373,17 +373,21 @@ button:hover {
 .vocab-item .japanese-group.concealed .reading,
 .vocab-item .japanese-group.concealed .pos-tag {
     color: transparent;
+    opacity: 0;
 }
 
 /* .revealed 내부의 텍스트 색상을 원래대로 복원 */
 .vocab-item .japanese-group.revealed .japanese {
     color: #007bff;
+    opacity: 1;
 }
 .vocab-item .japanese-group.revealed .reading {
     color: #6c757d;
+    opacity: 1;
 }
 .vocab-item .japanese-group.revealed .pos-tag {
     color: #999;
+    opacity: 1;
 }
 
 .vocab-item .list-favorite-btn {
