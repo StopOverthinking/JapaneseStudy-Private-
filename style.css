@@ -370,7 +370,8 @@ button:hover {
 
 /* .concealed 내부의 텍스트 색상을 투명하게 만들어 숨김 처리 */
 .vocab-item .japanese-group.concealed .japanese,
-.vocab-item .japanese-group.concealed .reading {
+.vocab-item .japanese-group.concealed .reading,
+.vocab-item .japanese-group.concealed .pos-tag {
     color: transparent;
 }
 
@@ -380,6 +381,9 @@ button:hover {
 }
 .vocab-item .japanese-group.revealed .reading {
     color: #6c757d;
+}
+.vocab-item .japanese-group.revealed .pos-tag {
+    color: #999;
 }
 
 .vocab-item .list-favorite-btn {
