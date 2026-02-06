@@ -113,6 +113,7 @@ const ExamMode = (() => {
                 if (hasSavedSession()) {
                     if (confirm('완료하지 않은 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
                         clearSession();
+                        document.getElementById('app-container').classList.remove('tablet-mode');
                         startExam(index);
                     }
                 } else {
@@ -229,6 +230,7 @@ const ExamMode = (() => {
 
         showScreen(examResultScreen);
         clearSession(); // 시험 완료 후 세션 삭제
+        document.getElementById('app-container').classList.remove('tablet-mode');
     }
 
     // 손글씨 관련 기능
@@ -236,6 +238,18 @@ const ExamMode = (() => {
         isHandwritingMode = !isHandwritingMode;
         handwritingArea.classList.toggle('hidden', !isHandwritingMode);
         toggleInputMethodBtn.textContent = isHandwritingMode ? '키보드 입력만 사용' : '손글씨 입력 열기';
+        
+        const appContainer = document.getElementById('app-container');
+        if (isHandwritingMode) {
+            appContainer.classList.add('tablet-mode');
+            setTimeout(() => {
+                hwCanvas.width = hwCanvas.clientWidth;
+                hwCanvas.height = hwCanvas.clientHeight;
+                HandwritingRecognizer.init(hwCanvas);
+            }, 50);
+        } else {
+            appContainer.classList.remove('tablet-mode');
+        }
     }
 
     async function recognizeHandwriting() {

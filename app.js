@@ -254,7 +254,13 @@ function showWordList(type, index = -1) {
     // 선택된 단어 목록을 화면에 표시
     wordsToShow.forEach(word => {
         const isFav = isFavorite(word.id);
-        const posTag = word.type && posMap[word.type] ? `<span class="pos-tag">${posMap[word.type]}</span>` : '';
+        let posTagContent = word.type && posMap[word.type] ? posMap[word.type] : '';
+        
+        if (word.verb_info) {
+            posTagContent += `(${word.verb_info})`;
+        }
+        
+        const posTag = posTagContent ? `<span class="pos-tag">${posTagContent}</span>` : '';
         const item = document.createElement('div');
         item.className = 'vocab-item';
         item.dataset.id = word.id;

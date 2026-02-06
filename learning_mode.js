@@ -21,6 +21,19 @@ const LearningMode = (() => {
     const progressText = document.getElementById('progress-text');
     const resultsScreen = document.getElementById('results-screen');
 
+    // --- 동적 생성 요소 변수 ---
+    let modeToggleBtn;
+    let inputSection;
+    let learningInput;
+    let checkAnswerBtn;
+    let feedbackDiv;
+    let toggleHandwritingBtn;
+    let handwritingArea;
+    let learningCanvas;
+    let hwClearBtn;
+    let hwRecognizeBtn;
+    let hwCandidates;
+
     // --- 상태 변수 ---
     let currentVocabulary = [];
     let knownWords = [];
@@ -28,10 +41,78 @@ const LearningMode = (() => {
     let currentCardIndex = 0;
     let displayFrontFirst = 'japanese';
     let isCardFlipped = false;
+    let isInputMode = false; // 입력 모드 활성화 여부
+    let isHandwritingOpen = false;
 
     const SESSION_KEY = 'japaneseAppSessionData';
 
     // --- 내부 함수 ---
+
+    // UI 요소 동적 생성 및 초기화
+    function initDynamicUI() {
+        if (modeToggleBtn) return; // 이미 초기화됨
+
+        // 1. 모드 토글 버튼 (카드 컨테이너 위에 삽입)
+        modeToggleBtn = document.createElement('button');
+        modeToggleBtn.id = 'learning-mode-toggle';
+        modeToggleBtn.innerHTML = '👁️'; // 기본: 보기 모드
+        modeToggleBtn.title = '정답 확인 모드 변경 (직접 확인 / 입력하여 확인)';
+        flashcardSession.insertBefore(modeToggleBtn, flashcardSession.querySelector('.card-container'));
+
+        // 2. 입력 섹션 (카드 컨테이너 아래에 삽입)
+        inputSection = document.createElement('div');
+        inputSection.id = 'learning-input-section';
+        inputSection.className = 'hidden';
+        inputSection.innerHTML = `
+            <div class="input-row">
+                <input type="text" id="learning-input" placeholder="일본어 정답 입력" autocomplete="off">
+                <button id="btn-check-answer">확인</button>
+            </div>
+            <div id="learning-feedback"></div>
+            <button id="btn-toggle-learning-hw" class="secondary-btn" style="margin-top:10px; width:100%;">손글씨 입력 열기</button>
+            <div id="learning-handwriting-area" class="hidden">
+                <canvas id="learning-handwriting-canvas" width="300" height="200" style="background:white; border:1px solid #ccc; cursor:crosshair; touch-action:none;"></canvas>
+                <div class="hw-controls" style="width:100%; display:flex; gap:5px; margin-top:5px;">
+                    <button id="learning-hw-clear" style="flex:1;">지우기</button>
+                    <button id="learning-hw-recognize" style="flex:1;">인식하기</button>
+                </div>
+                <div id="learning-hw-candidates" style="display:flex; gap:5px; flex-wrap:wrap; margin-top:5px; min-height:30px;"></div>
+            </div>
+        `;
+        
+        // .learning-options (독음 숨기기 체크박스) 다음에 삽입
+        const learningOptions = flashcardSession.querySelector('.learning-options');
+        learningOptions.parentNode.insertBefore(inputSection, learningOptions.nextSibling);
+
+        // 요소 참조 저장
+        learningInput = inputSection.querySelector('#learning-input');
+        checkAnswerBtn = inputSection.querySelector('#btn-check-answer');
+        feedbackDiv = inputSection.querySelector('#learning-feedback');
+        toggleHandwritingBtn = inputSection.querySelector('#btn-toggle-learning-hw');
+        handwritingArea = inputSection.querySelector('#learning-handwriting-area');
+        learningCanvas = inputSection.querySelector('#learning-handwriting-canvas');
+        hwClearBtn = inputSection.querySelector('#learning-hw-clear');
+        hwRecognizeBtn = inputSection.querySelector('#learning-hw-recognize');
+        hwCandidates = inputSection.querySelector('#learning-hw-candidates');
+
+        // 이벤트 리스너 연결
+        modeToggleBtn.addEventListener('click', toggleInputMode);
+        checkAnswerBtn.addEventListener('click', checkAnswer);
+        toggleHandwritingBtn.addEventListener('click', toggleHandwritingArea);
+        hwClearBtn.addEventListener('click', () => {
+            HandwritingRecognizer.clear();
+            hwCandidates.innerHTML = '';
+        });
+        hwRecognizeBtn.addEventListener('click', recognizeHandwriting);
+        
+        hwCandidates.addEventListener('click', (e) => {
+            if (e.target.tagName === 'SPAN') {
+                learningInput.value = e.target.textContent;
+                HandwritingRecognizer.clear();
+                hwCandidates.innerHTML = '';
+            }
+        });
+    }
 
     function saveSessionState() {
         if (!flashcardSession.classList.contains('hidden')) {
@@ -40,7 +121,8 @@ const LearningMode = (() => {
                 knownWords,
                 unknownWords,
                 currentCardIndex,
-                displayFrontFirst
+                displayFrontFirst,
+                isInputMode
             };
             localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
         }
@@ -52,7 +134,14 @@ const LearningMode = (() => {
 
     function updateCardContent(card) {
         flashcard.classList.remove('flipped');
+        flashcard.classList.remove('card-correct', 'card-wrong'); // 피드백 스타일 초기화
         isCardFlipped = false;
+        
+        // 입력 모드 초기화
+        if (learningInput) {
+            learningInput.value = '';
+            feedbackDiv.textContent = '';
+        }
 
         // 전역 함수 isFavorite 사용 (app.js에 정의됨)
         const isFav = typeof isFavorite === 'function' ? isFavorite(card.id) : false;
@@ -72,6 +161,10 @@ const LearningMode = (() => {
     }
 
     function flipCard() {
+        // 입력 모드에서 아직 정답 확인 안 했으면 뒤집기(정답 보기) 허용하되, 피드백은 초기화
+        if (isInputMode && !isCardFlipped) {
+            feedbackDiv.textContent = '';
+        }
         flashcard.classList.toggle('flipped');
         isCardFlipped = !isCardFlipped;
     }
@@ -156,6 +249,7 @@ const LearningMode = (() => {
             const displayRadio = document.querySelector('input[name="initial-display"]:checked');
             displayFrontFirst = displayRadio ? displayRadio.value : 'japanese';
             const selectedSetKey = vocabSetSelect.value;
+            isInputMode = false; // 새 세션 시작 시 기본값
 
             let sourceWords = [];
             if (selectedSetKey === 'all') {
@@ -212,9 +306,107 @@ const LearningMode = (() => {
         if (typeof showScreen === 'function') showScreen(learningModeScreen);
 
         btnPrevCard.classList.add('hidden');
+        
+        // UI 초기화 및 모드 설정
+        initDynamicUI();
+        updateModeUI();
+        
         updateCardContent(currentVocabulary[currentCardIndex]);
         updateProgress();
         saveSessionState();
+    }
+
+    // --- 입력 모드 관련 함수 ---
+
+    function updateModeUI() {
+        // 뜻 먼저 보기 모드일 때만 입력 모드 사용 가능
+        if (displayFrontFirst === 'meaning') {
+            modeToggleBtn.classList.remove('hidden');
+        } else {
+            modeToggleBtn.classList.add('hidden');
+            isInputMode = false;
+        }
+
+        if (isInputMode) {
+            modeToggleBtn.innerHTML = '✏️'; // 입력 모드 아이콘
+            modeToggleBtn.classList.add('input-mode');
+            inputSection.classList.remove('hidden');
+            // 입력 모드 진입 시 손글씨 인식기 초기화 (캔버스 연결)
+            if (isHandwritingOpen) {
+                HandwritingRecognizer.init(learningCanvas);
+            }
+        } else {
+            modeToggleBtn.innerHTML = '👁️'; // 보기 모드 아이콘
+            modeToggleBtn.classList.remove('input-mode');
+            inputSection.classList.add('hidden');
+            
+            // 입력 모드가 꺼지면 손글씨 모드도 강제 종료
+            if (isHandwritingOpen) {
+                toggleHandwritingArea();
+            }
+        }
+    }
+
+    function toggleInputMode() {
+        isInputMode = !isInputMode;
+        updateModeUI();
+        saveSessionState();
+    }
+
+    function checkAnswer() {
+        const input = learningInput.value.trim();
+        const currentCard = currentVocabulary[currentCardIndex];
+        
+        if (!input) return;
+
+        // 이전 피드백 초기화
+        flashcard.classList.remove('card-correct', 'card-wrong');
+
+        if (input === currentCard.japanese) {
+            feedbackDiv.textContent = '정답입니다! (O)';
+            feedbackDiv.className = 'feedback-correct';
+            flashcard.classList.add('card-correct');
+        } else {
+            feedbackDiv.textContent = '틀렸습니다. (X)';
+            feedbackDiv.className = 'feedback-wrong';
+            flashcard.classList.add('card-wrong');
+        }
+
+        // 정답 확인 후 카드 뒤집어서 보여주기
+        if (!isCardFlipped) {
+            flipCard();
+        }
+    }
+
+    function toggleHandwritingArea() {
+        isHandwritingOpen = !isHandwritingOpen;
+        handwritingArea.classList.toggle('hidden', !isHandwritingOpen);
+        toggleHandwritingBtn.textContent = isHandwritingOpen ? '손글씨 입력 닫기' : '손글씨 입력 열기';
+        
+        const appContainer = document.getElementById('app-container');
+        if (isHandwritingOpen) {
+            appContainer.classList.add('tablet-mode');
+            // 캔버스 크기 조정 (레이아웃 변경 후)
+            setTimeout(() => {
+                learningCanvas.width = learningCanvas.clientWidth;
+                learningCanvas.height = learningCanvas.clientHeight;
+                HandwritingRecognizer.init(learningCanvas);
+            }, 50);
+            HandwritingRecognizer.init(learningCanvas);
+        } else {
+            appContainer.classList.remove('tablet-mode');
+        }
+    }
+
+    async function recognizeHandwriting() {
+        const results = await HandwritingRecognizer.recognize();
+        hwCandidates.innerHTML = '';
+        results.forEach(text => {
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.style.cssText = 'background:white; border:1px solid #ccc; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:1.2em;';
+            hwCandidates.appendChild(span);
+        });
     }
 
     // --- 이벤트 리스너 등록 ---
@@ -252,6 +444,7 @@ const LearningMode = (() => {
                 unknownWords = data.unknownWords;
                 currentCardIndex = data.currentCardIndex;
                 displayFrontFirst = data.displayFrontFirst;
+                isInputMode = data.isInputMode || false;
 
                 learningSetup.classList.add('hidden');
                 flashcardSession.classList.remove('hidden');
@@ -260,6 +453,9 @@ const LearningMode = (() => {
                 if (currentCardIndex === 0) btnPrevCard.classList.add('hidden');
                 else btnPrevCard.classList.remove('hidden');
                 
+                initDynamicUI();
+                updateModeUI();
+
                 updateCardContent(currentVocabulary[currentCardIndex]);
                 updateProgress();
             }
@@ -271,6 +467,7 @@ const LearningMode = (() => {
             currentCardIndex = 0;
             flashcardSession.classList.add('hidden');
             learningSetup.classList.remove('hidden');
+            document.getElementById('app-container').classList.remove('tablet-mode');
             clearSessionState();
         }
     };

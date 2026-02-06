@@ -433,6 +433,7 @@ button:hover {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
 }
 
 .card-container {
@@ -445,7 +446,8 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 0; /* 카드 컨테이너가 불필요하게 늘어나지 않도록 수정 */
+    flex-grow: 0;
+    flex-shrink: 0; /* 공간이 부족해도 카드가 찌그러지지 않도록 설정 */
 }
 
 .favorite-btn {
@@ -520,6 +522,18 @@ button:hover {
     background-color: var(--card-background);
     border-radius: 15px;
     text-align: center;
+    transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+}
+
+/* 정답/오답 피드백 스타일 */
+.flashcard.card-correct .card-face {
+    background-color: #e8f5e9;
+    border: 2px solid #4CAF50;
+}
+
+.flashcard.card-wrong .card-face {
+    background-color: #ffebee;
+    border: 2px solid #f44336;
 }
 
 .card-front {
@@ -567,8 +581,8 @@ button:hover {
 }
 
 .card-actions {
-    display: grid; /* flex에서 grid로 변경하여 더 유연한 레이아웃 구성 */
-    grid-template-columns: 1fr 1fr; /* 두 버튼이 공간을 균등하게 나누도록 설정 */
+    display: flex;
+    justify-content: center;
     gap: 15px;
     margin-top: auto; /* 버튼을 하단으로 밀어냄 */
     width: 100%;
@@ -579,7 +593,7 @@ button:hover {
     padding: 15px 10px;
     font-size: 1.2em;
     border-radius: 10px;
-    width: 100%;
+    width: 130px;
     font-weight: bold;
 }
 
@@ -996,3 +1010,186 @@ button:hover {
 .wrong-text { color: #dc3545; font-weight: bold; text-decoration: line-through; }
 .correct-text { color: #28a745; font-weight: bold; }
 .score-display { font-size: 2em; font-weight: bold; color: var(--primary-color); margin: 10px 0; }
+
+/* --- 학습 모드 입력 기능 스타일 --- */
+#learning-mode-toggle {
+    background: #fff;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#learning-mode-toggle.input-mode {
+    background: var(--primary-color);
+    color: white;
+}
+
+#learning-input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#learning-input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+#btn-check-answer {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#learning-feedback {
+    font-weight: bold;
+    font-size: 1.2em;
+    min-height: 1.5em;
+    margin-top: 5px;
+}
+.feedback-correct { color: var(--known-color); }
+.feedback-wrong { color: var(--unknown-color); }
+
+#learning-handwriting-area {
+    width: 100%;
+    max-width: 300px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* --- 태블릿 모드 (필기 인식 활성화 시 가로 확장) --- */
+#app-container.tablet-mode {
+    max-width: 95vw;
+    width: 95vw;
+    height: 90vh;
+    max-height: none;
+    aspect-ratio: auto;
+}
+
+/* 학습 모드 태블릿 레이아웃 */
+#app-container.tablet-mode #flashcard-session {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto auto auto;
+    gap: 20px;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+}
+
+#app-container.tablet-mode #flashcard-session #learning-mode-toggle {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 0;
+}
+
+#app-container.tablet-mode #flashcard-session .card-container {
+    grid-column: 1;
+    grid-row: 2;
+    height: 100%;
+    max-height: 400px;
+    margin-bottom: 0;
+}
+
+#app-container.tablet-mode #flashcard-session .learning-options {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#app-container.tablet-mode #flashcard-session .card-actions {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+#app-container.tablet-mode #flashcard-session #progress-text {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+#app-container.tablet-mode #flashcard-session #learning-input-section {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+#app-container.tablet-mode #learning-handwriting-area {
+    flex: 1;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+}
+
+#app-container.tablet-mode #learning-handwriting-canvas {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+
+/* 시험 모드 태블릿 레이아웃 */
+#app-container.tablet-mode .exam-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    align-items: center;
+}
+
+#app-container.tablet-mode #exam-question { grid-column: 1; grid-row: 1; }
+#app-container.tablet-mode #exam-input { grid-column: 1; grid-row: 2; }
+#app-container.tablet-mode #toggle-input-method { grid-column: 1; grid-row: 3; }
+#app-container.tablet-mode #exam-next-btn { grid-column: 1; grid-row: 4; margin-top: auto; }
+
+#app-container.tablet-mode #handwriting-area {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#app-container.tablet-mode #handwriting-canvas {
+    flex: 1;
+    width: 100%;
+    height: 0; /* flex grow */
+}
