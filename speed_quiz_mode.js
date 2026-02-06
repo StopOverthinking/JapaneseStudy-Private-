@@ -175,8 +175,19 @@ const SpeedQuizMode = (() => {
     function generateOptions(currentQ) {
         const correct = currentQ.correctAnswer;
         const targetType = currentQ.word.type;
+        const targetVerbInfo = currentQ.word.verb_info;
+
         const distractors = allVocabulary
-            .filter(w => w.id !== currentQ.word.id && w.type === targetType) // 정답 단어 제외 및 같은 품사 필터링
+            .filter(w => {
+                if (w.id === currentQ.word.id) return false; // 정답 단어 제외
+                if (w.type !== targetType) return false; // 품사 다르면 제외
+                
+                // 동사이고 verb_info가 있는 경우, 같은 종류끼리만 묶음
+                if (targetType === 'verb' && targetVerbInfo) {
+                    return w.verb_info === targetVerbInfo;
+                }
+                return true;
+            })
             .sort(() => 0.5 - Math.random()) // 섞기
             .slice(0, 4) // 4개 선택 (부족하면 부족한 대로)
             .map(w => currentQ.type === 'word_to_meaning' ? w.meaning : w.japanese);
