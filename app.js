@@ -18,27 +18,10 @@ const listControls = document.getElementById('list-controls');
 const toggleWordBtn = document.getElementById('toggle-word-btn');
 const toggleMeaningBtn = document.getElementById('toggle-meaning-btn');
 const wordCountInput = document.getElementById('word-count');
-const vocabSetSelect = document.getElementById('vocab-set-select');
 const wordCountControls = document.getElementById('word-count-controls');
 const rangeCheckbox = document.getElementById('range-checkbox');
 const rangeSelection = document.getElementById('range-selection');
-const rangeStartInput = document.getElementById('range-start');
-const rangeEndInput = document.getElementById('range-end');
-const initialDisplayRadios = document.querySelectorAll('input[name="initial-display"]');
-const startSessionBtn = document.getElementById('start-session-btn');
 
-const learningSetup = document.getElementById('learning-setup');
-const flashcardSession = document.getElementById('flashcard-session');
-const flashcard = document.getElementById('flashcard');
-const cardFront = flashcard.querySelector('.card-front');
-const cardBack = flashcard.querySelector('.card-back');
-
-const toggleReadingCheckbox = document.getElementById('toggle-reading-checkbox');
-const btnPrevCard = document.getElementById('btn-prev-card');
-const btnKnown = document.getElementById('btn-known');
-const btnFavorite = document.getElementById('btn-favorite');
-const btnUnknown = document.getElementById('btn-unknown');
-const progressText = document.getElementById('progress-text');
 const restartLearningBtn = document.getElementById('restart-learning-btn');
 
 const resumeOverlay = document.getElementById('resume-overlay');
@@ -52,39 +35,11 @@ const backToStartFromSpeedQuizBtn = document.getElementById('back-to-start-from-
 const restartSpeedQuizBtn = document.getElementById('restart-speed-quiz-btn');
 
 // --- 전역 상태 변수 ---
-let currentVocabulary = []; // 현재 라운드에 학습할 단어들
-let knownWords = []; // '알고 있음'으로 분류된 단어들
-let unknownWords = []; // '모름'으로 분류된 단어들
-let currentCardIndex = 0; // 현재 표시 중인 카드의 인덱스
-let displayFrontFirst = 'japanese'; // 'japanese' (일본어/독음) 또는 'meaning' (뜻)
-let isCardFlipped = false; // 카드가 뒤집혔는지 여부
 let favoriteWordIds = []; // 즐겨찾기된 단어 ID 목록
 let isViewingWordList = false; // 목록 모드에서 단어 목록을 보고 있는지 여부
 let areWordsHidden = false; // 목록 모드에서 단어가 숨겨졌는지 여부
 let areMeaningsHidden = false; // 목록 모드에서 뜻이 숨겨졌는지 여부
 let screenHistory = []; // 화면 이동 기록 스택
-
-const SESSION_KEY = 'japaneseAppSessionData';
-
-// 학습 상태 저장
-function saveSessionState() {
-    // 학습 모드가 활성화되어 있을 때만 저장
-    if (!flashcardSession.classList.contains('hidden')) {
-        const sessionData = {
-            currentVocabulary,
-            knownWords,
-            unknownWords,
-            currentCardIndex,
-            displayFrontFirst
-        };
-        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
-    }
-}
-
-// 학습 상태 삭제
-function clearSessionState() {
-    localStorage.removeItem(SESSION_KEY);
-}
 
 // --- 즐겨찾기 관리 함수 (localStorage 사용) ---
 const FAVORITES_KEY = 'japaneseAppFavorites';
@@ -300,189 +255,6 @@ function showWordList(type, index = -1) {
     }
 }
 
-// --- 학습 모드 핵심 함수 ---
-
-// 카드 내용 업데이트 및 초기화
-function updateCardContent(card) {
-    // 카드 뒤집힘 상태 초기화
-    flashcard.classList.remove('flipped');
-    isCardFlipped = false;
-
-    // 즐겨찾기 버튼 상태 업데이트
-    btnFavorite.textContent = isFavorite(card.id) ? '★' : '☆';
-
-    // 사용자의 초기 표시 설정에 따라 앞면과 뒷면 내용 설정
-    if (displayFrontFirst === 'japanese') {
-        cardFront.innerHTML = `<p class="japanese-text">${card.japanese}</p><p class="reading-text">${card.reading}</p>`;
-        cardBack.innerHTML = `<p class="meaning-text">${card.meaning}</p>`;
-    } else { // displayFrontFirst === 'meaning'
-        cardFront.innerHTML = `<p class="meaning-text">${card.meaning}</p>`;
-        cardBack.innerHTML = `<p class="japanese-text">${card.japanese}</p><p class="reading-text">${card.reading}</p>`;
-    }
-}
-
-// 카드 뒤집기
-function flipCard() {
-    flashcard.classList.toggle('flipped');
-    isCardFlipped = !isCardFlipped;
-}
-
-// 진행 상황 텍스트 업데이트
-function updateProgress() {
-    progressText.textContent = `${currentCardIndex + 1}/${currentVocabulary.length}`;
-}
-
-// 이전 카드로 이동
-function prevCard() {
-    if (currentCardIndex > 0) {
-        currentCardIndex--;
-        updateCardContent(currentVocabulary[currentCardIndex]);
-        updateProgress();
-        if (currentCardIndex === 0) {
-            btnPrevCard.classList.add('hidden');
-        }
-        saveSessionState(); // 상태 저장
-    }
-}
-
-// 다음 카드로 이동
-function nextCard() {
-    currentCardIndex++;
-    if (currentCardIndex < currentVocabulary.length) {
-        updateCardContent(currentVocabulary[currentCardIndex]);
-        updateProgress();
-        // 다음 카드로 이동하면 '이전' 버튼 활성화
-        if (btnPrevCard.classList.contains('hidden')) {
-            btnPrevCard.classList.remove('hidden');
-        }
-    } else {
-        // 현재 라운드의 모든 카드를 확인했으면 라운드 종료
-        endRound();
-    }
-}
-
-// 카드 분류 ('알고 있음' 또는 '모름')
-function markCard(status) {
-    // 1. 카드에 fade-out 클래스를 추가하여 애니메이션 시작
-    flashcard.classList.add('fade-out');
-
-    // 2. 애니메이션 시간(0.2초)만큼 기다린 후 다음 로직 실행
-    setTimeout(() => {
-        const currentCard = currentVocabulary[currentCardIndex];
-        if (status === 'known') {
-            knownWords.push(currentCard);
-        } else { // status === 'unknown'
-            unknownWords.push(currentCard);
-        }
-        
-        // 다음 카드로 이동
-        nextCard();
-
-        // 3. 새 카드가 준비되면 fade-out 클래스를 제거하여 카드를 다시 표시
-        flashcard.classList.remove('fade-out');
-        saveSessionState(); // 상태 저장
-    }, 200); // CSS transition 시간과 일치
-}
-
-// 학습 세션 시작 (초기 시작 또는 '모름' 단어 재학습)
-function startSession(isRetryRound = false) {
-    if (!isRetryRound) {
-        const wordCount = parseInt(wordCountInput.value, 10);
-        displayFrontFirst = document.querySelector('input[name="initial-display"]:checked').value;
-        const selectedSetKey = vocabSetSelect.value;
-
-        let sourceWords = [];
-        if (selectedSetKey === 'all') {
-            sourceWords = allVocabulary;
-        } else if (selectedSetKey === 'favorites') {
-            sourceWords = allVocabulary.filter(word => isFavorite(word.id));
-        } else {
-            // 'set-0', 'set-1' ...
-            const setIndex = parseInt(selectedSetKey.split('-')[1], 10);
-            if (vocabularySets[setIndex]) {
-                sourceWords = vocabularySets[setIndex].words;
-            }
-        }
-
-        // 범위 지정이 활성화된 경우 단어 필터링
-        if (rangeCheckbox.checked) {
-            const start = parseInt(rangeStartInput.value, 10);
-            const end = parseInt(rangeEndInput.value, 10);
-
-            if (isNaN(start) || isNaN(end) || start <= 0 || end <= 0) {
-                alert('학습 범위를 올바르게 입력해주세요.');
-                return;
-            }
-            if (start > end) {
-                alert('시작 번호는 끝 번호보다 클 수 없습니다.');
-                return;
-            }
-
-            // 단어 ID를 기준으로 필터링합니다.
-            // vocabulary.js의 단어 ID는 1부터 순차적으로 증가한다고 가정합니다.
-            sourceWords = sourceWords.filter(word => {
-                const wordNum = parseInt(word.id.split('_')[1], 10);
-                return wordNum >= start && wordNum <= end;
-            });
-
-            if (sourceWords.length === 0) {
-                alert('지정한 범위에 해당하는 단어가 없습니다. 범위를 다시 확인해주세요.');
-                return;
-            }
-        }
-
-
-        // 첫 학습 세션 설정
-        if (wordCount <= 0 || isNaN(wordCount)) {
-            alert('학습할 단어 개수를 올바르게 입력해주세요.');
-            return;
-        }
-        currentVocabulary = getRandomWords(wordCount, sourceWords);
-        knownWords = [];
-        unknownWords = [];
-    } else {
-        // '모름' 단어 재학습 라운드
-        if (unknownWords.length === 0) {
-            showScreen(resultsScreen); // 모든 단어를 학습 완료!
-            return;
-        }
-        currentVocabulary = shuffleArray([...unknownWords]); // '모름' 단어만 섞어서 재학습
-        knownWords = []; // 이번 라운드의 '알고 있음' 초기화
-        unknownWords = []; // 이번 라운드의 '모름' 초기화
-    }
-
-    if (currentVocabulary.length === 0) {
-        alert('학습할 단어가 없습니다. 단어 목록을 확인해주세요.');
-        showScreen(startScreen);
-        return;
-    }
-
-    currentCardIndex = 0;
-    learningSetup.classList.add('hidden'); // 설정 화면 숨기기
-    flashcardSession.classList.remove('hidden'); // 플래시카드 화면 보이기
-    showScreen(learningMode); // 학습 모드 화면 활성화
-
-    btnPrevCard.classList.add('hidden'); // 첫 카드이므로 '이전' 버튼 숨기기
-    updateCardContent(currentVocabulary[currentCardIndex]);
-    updateProgress();
-    saveSessionState(); // 초기 상태 저장
-}
-
-// 라운드 종료 처리
-function endRound() {
-    if (unknownWords.length > 0) {
-        // '모름' 단어가 남아있으면 해당 단어들로 새 라운드 시작
-        alert(`${unknownWords.length}개의 단어를 다시 학습합니다.`);
-        startSession(true); // 재학습 라운드 시작
-    } else {
-        // 모든 단어를 '알고 있음'으로 분류했으면 학습 완료
-        showScreen(resultsScreen);
-        flashcardSession.classList.add('hidden'); // 플래시카드 화면 숨기기
-        learningSetup.classList.remove('hidden'); // 다음 학습을 위해 설정 화면 다시 보이기
-        clearSessionState(); // 학습 완료 시 임시 데이터 삭제
-    }
-}
-
 // --- 이벤트 리스너 ---
 startListBtn.addEventListener('click', showVocabSetList);
 
@@ -498,12 +270,8 @@ backToStartBtn.addEventListener('click', () => {
 
 backToStartFromLearningBtn.addEventListener('click', () => {
     // 학습 세션 중단 및 상태 초기화 (선택적)
-    currentVocabulary = [];
-    currentCardIndex = 0;
-    flashcardSession.classList.add('hidden');
-    learningSetup.classList.remove('hidden');
+    LearningMode.reset();
     goBack();
-    clearSessionState(); // 학습 중단 시 임시 데이터 삭제
 });
 
 vocabularyListContainer.addEventListener('click', (e) => {
@@ -532,11 +300,8 @@ vocabularyListContainer.addEventListener('click', (e) => {
 });
 
 startLearningBtn.addEventListener('click', () => {
-    // 학습 모드 화면을 먼저 보여주고, 그 안의 설정 화면을 표시
-    showScreen(learningMode);
-    learningSetup.classList.remove('hidden');
-    flashcardSession.classList.add('hidden');
-    populateVocabSetSelect(); // 학습 모드 진입 시 드롭다운 메뉴 채우기
+    // LearningMode 모듈을 통해 학습 모드 진입
+    LearningMode.show();
 });
 
 // 게임 모드 진입 버튼
@@ -553,25 +318,6 @@ openSpeedQuizBtn.addEventListener('click', () => {
 backToStartFromGameSelectionBtn.addEventListener('click', () => {
     goBack();
 });
-
-// 학습 모드의 단어장 선택 드롭다운 메뉴를 채우는 함수
-function populateVocabSetSelect() {
-    vocabSetSelect.innerHTML = ''; // 기존 옵션 초기화
-
-    // 1. 전체 단어
-    const allOption = new Option(`전체 단어 (${allVocabulary.length}개)`, 'all');
-    vocabSetSelect.add(allOption);
-
-    // 2. 즐겨찾기
-    const favOption = new Option(`★ 즐겨찾기 (${favoriteWordIds.length}개)`, 'favorites');
-    vocabSetSelect.add(favOption);
-
-    // 3. 나머지 단어장
-    vocabularySets.forEach((set, index) => {
-        const setOption = new Option(`${set.name} (${set.words.length}개)`, `set-${index}`);
-        vocabSetSelect.add(setOption);
-    });
-};
 
 wordCountControls.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
@@ -616,27 +362,6 @@ toggleMeaningBtn.addEventListener('click', () => {
     });
 });
 
-
-startSessionBtn.addEventListener('click', () => startSession(false)); // 첫 학습 세션 시작
-
-flashcard.addEventListener('click', flipCard); // 카드 클릭 시 뒤집기
-
-toggleReadingCheckbox.addEventListener('change', () => {
-    // 체크박스 상태에 따라 flashcard에 'reading-hidden' 클래스를 토글
-    flashcard.classList.toggle('reading-hidden', toggleReadingCheckbox.checked);
-});
-
-btnPrevCard.addEventListener('click', prevCard);
-
-btnKnown.addEventListener('click', () => markCard('known'));
-
-btnFavorite.addEventListener('click', () => {
-    const currentCard = currentVocabulary[currentCardIndex];
-    toggleFavorite(currentCard.id);
-    btnFavorite.textContent = isFavorite(currentCard.id) ? '★' : '☆'; // 즉시 버튼 모양 변경
-});
-btnUnknown.addEventListener('click', () => markCard('unknown'));
-
 restartLearningBtn.addEventListener('click', () => {
     showScreen(startScreen); // 시작 화면으로 돌아가기
     // 필요하다면 세션 관련 상태 초기화
@@ -645,7 +370,7 @@ restartLearningBtn.addEventListener('click', () => {
 // 페이지 이탈 시 확인 메시지
 window.addEventListener('beforeunload', (e) => {
     // 학습 세션이 진행 중일 때만 확인
-    if (!flashcardSession.classList.contains('hidden')) {
+    if (!document.getElementById('flashcard-session').classList.contains('hidden')) {
         e.preventDefault();
         e.returnValue = ''; // Chrome 등 최신 브라우저를 위한 설정
     }
@@ -653,34 +378,12 @@ window.addEventListener('beforeunload', (e) => {
 
 // 이어하기 버튼 이벤트
 btnResumeYes.addEventListener('click', () => {
-    const savedSession = localStorage.getItem(SESSION_KEY);
-    if (savedSession) {
-        const data = JSON.parse(savedSession);
-        currentVocabulary = data.currentVocabulary;
-        knownWords = data.knownWords;
-        unknownWords = data.unknownWords;
-        currentCardIndex = data.currentCardIndex;
-        displayFrontFirst = data.displayFrontFirst;
-
-        // UI 복원
-        resumeOverlay.classList.add('hidden');
-        learningSetup.classList.add('hidden');
-        flashcardSession.classList.remove('hidden');
-        showScreen(learningMode);
-
-        // 카드 상태 복원
-        if (currentCardIndex === 0) {
-            btnPrevCard.classList.add('hidden');
-        } else {
-            btnPrevCard.classList.remove('hidden');
-        }
-        updateCardContent(currentVocabulary[currentCardIndex]);
-        updateProgress();
-    }
+    LearningMode.resume();
+    resumeOverlay.classList.add('hidden');
 });
 
 btnResumeNo.addEventListener('click', () => {
-    clearSessionState();
+    LearningMode.clearSession();
     resumeOverlay.classList.add('hidden');
 });
 
@@ -707,8 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 저장된 학습 세션이 있는지 확인
-    const savedSession = localStorage.getItem(SESSION_KEY);
-    if (savedSession) {
+    if (LearningMode.hasSavedSession()) {
         resumeOverlay.classList.remove('hidden');
     }
 });

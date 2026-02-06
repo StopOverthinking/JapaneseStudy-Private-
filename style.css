@@ -121,6 +121,19 @@ button:hover {
     margin-top: 5px;
 }
 
+/* 메인 화면 버튼 색상 */
+#start-list-btn {
+    background-color: #2196F3; /* 파란색 */
+}
+
+#start-learning-btn {
+    background-color: #FF9800; /* 주황색 */
+}
+
+#start-game-mode-btn {
+    background-color: #9C27B0; /* 보라색 */
+}
+
 /* 학습 모드 특정 스타일 */
 #learning-setup {
     display: flex;
