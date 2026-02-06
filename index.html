@@ -75,6 +75,10 @@
                 <button id="start-game-mode-btn">게임 모드</button>
                 <p class="mode-description">다양한 학습 게임을 즐겨보세요.</p>
             </div>
+            <div class="mode-selection">
+                <button id="start-exam-mode-btn" style="background-color: #E91E63;">시험 모드</button>
+                <p class="mode-description">단어장 전체를 테스트합니다.</p>
+            </div>
         </div>
 
         <!-- 목록 모드 -->
@@ -225,6 +229,51 @@
             </div>
         </div>
 
+        <!-- 시험 모드: 단어장 선택 -->
+        <div id="exam-selection-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-exam-select" class="back-btn">‹ 돌아가기</button>
+            </div>
+            <h2>시험 볼 단어장 선택</h2>
+            <div id="exam-set-list" class="mode-selection">
+                <!-- 자바스크립트로 버튼 생성 -->
+            </div>
+        </div>
+
+        <!-- 시험 모드: 진행 화면 -->
+        <div id="exam-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-exam" class="back-btn">‹ 그만두기</button>
+            </div>
+            <h2 id="exam-progress">문제 1 / 10</h2>
+            <div class="exam-container">
+                <div id="exam-question" class="meaning-text"></div>
+                <input type="text" id="exam-input" placeholder="일본어 정답 입력" autocomplete="off">
+                
+                <button id="toggle-input-method" class="secondary-btn">손글씨 입력 열기</button>
+                
+                <div id="handwriting-area" class="hidden">
+                    <canvas id="handwriting-canvas" width="300" height="200"></canvas>
+                    <div class="hw-controls">
+                        <button id="hw-clear">지우기</button>
+                        <button id="hw-recognize">인식하기</button>
+                    </div>
+                    <div id="hw-candidates"></div>
+                </div>
+
+                <button id="exam-next-btn">다음</button>
+            </div>
+        </div>
+
+        <!-- 시험 모드: 결과 화면 -->
+        <div id="exam-result-mode" class="screen">
+            <h2>시험 결과</h2>
+            <p class="score-display">점수: <span id="exam-score"></span></p>
+            <div id="exam-wrong-list"></div>
+            <button id="restart-exam-btn">다른 시험 보기</button>
+            <button id="back-to-start-from-exam-result">메인으로</button>
+        </div>
+
         <!-- 결과 화면 (선택 사항) -->
         <div id="results-screen" class="screen">
             <h2>학습 결과</h2>
@@ -250,6 +299,8 @@
     <script src="vocab/vocab_example.js"></script>
     <script src="learning_mode.js"></script>
     <script src="speed_quiz_mode.js"></script>
+    <script src="handwriting_recognition.js"></script>
+    <script src="exam_mode.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

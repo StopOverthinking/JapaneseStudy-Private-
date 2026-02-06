@@ -322,6 +322,10 @@ button:hover {
 .vocab-set-item.favorite-set {
     color: var(--secondary-color);
 }
+.vocab-set-item.wrong-answer-set {
+    color: #dc3545;
+    font-weight: bold;
+}
 
 .vocab-item {
     display: flex;
@@ -870,3 +874,125 @@ button:hover {
 .flash-wrong {
     animation: flash-red 1.0s ease-out;
 }
+
+/* --- 시험 모드 스타일 --- */
+.exam-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+#exam-question {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 20px 0;
+    color: var(--text-color);
+}
+
+#exam-input {
+    width: 90%;
+    padding: 15px;
+    font-size: 1.5em;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+#handwriting-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+#handwriting-canvas {
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.hw-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.hw-controls button {
+    flex: 1;
+    padding: 8px;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+#hw-candidates {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 30px;
+}
+
+#hw-candidates span {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.secondary-btn {
+    background-color: #607D8B;
+    font-size: 0.9em;
+    padding: 8px 15px;
+    width: auto;
+}
+
+.exam-wrong-item {
+    background-color: white;
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrong-content {
+    flex: 1;
+}
+
+.exam-wrong-item .list-favorite-btn {
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0 10px;
+    width: auto;
+    margin: 0;
+}
+
+.exam-wrong-item .list-favorite-btn.favorited {
+    color: var(--secondary-color);
+}
+
+.wrong-text { color: #dc3545; font-weight: bold; text-decoration: line-through; }
+.correct-text { color: #28a745; font-weight: bold; }
+.score-display { font-size: 2em; font-weight: bold; color: var(--primary-color); margin: 10px 0; }

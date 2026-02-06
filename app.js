@@ -6,10 +6,14 @@ const listModeScreen = document.getElementById('list-mode');
 const learningMode = document.getElementById('learning-mode');
 const resultsScreen = document.getElementById('results-screen');
 const gameSelectionMode = document.getElementById('game-selection-mode'); // 게임 선택 화면
+const examSelectionScreen = document.getElementById('exam-selection-mode'); // 시험 선택 화면
+const examScreen = document.getElementById('exam-mode'); // 시험 화면
+const examResultScreen = document.getElementById('exam-result-mode'); // 시험 결과 화면
 
 const startListBtn = document.getElementById('start-list-btn');
 const startLearningBtn = document.getElementById('start-learning-btn');
 const startGameModeBtn = document.getElementById('start-game-mode-btn'); // 게임 모드 진입 버튼
+const startExamModeBtn = document.getElementById('start-exam-mode-btn'); // 시험 모드 진입 버튼
 const backToStartFromLearningBtn = document.getElementById('back-to-start-from-learning');
 
 const backToStartBtn = document.getElementById('back-to-start-btn');
@@ -33,6 +37,11 @@ const backToStartFromGameSelectionBtn = document.getElementById('back-to-start-f
 const openSpeedQuizBtn = document.getElementById('open-speed-quiz-btn');
 const backToStartFromSpeedQuizBtn = document.getElementById('back-to-start-from-speed-quiz');
 const restartSpeedQuizBtn = document.getElementById('restart-speed-quiz-btn');
+
+// 시험 모드 관련 요소
+const backToStartFromExamSelectBtn = document.getElementById('back-to-start-from-exam-select');
+const backToStartFromExamBtn = document.getElementById('back-to-start-from-exam');
+const backToStartFromExamResultBtn = document.getElementById('back-to-start-from-exam-result');
 
 // --- 전역 상태 변수 ---
 let favoriteWordIds = []; // 즐겨찾기된 단어 ID 목록
@@ -164,6 +173,16 @@ function showVocabSetList() {
     favoriteSetItem.dataset.type = 'favorites';
     vocabularyListContainer.appendChild(favoriteSetItem);
 
+    // 시험 오답 노트 추가
+    const wrongAnswers = JSON.parse(localStorage.getItem('japaneseAppExamWrongAnswers') || '[]');
+    if (wrongAnswers.length > 0) {
+        const wrongSetItem = document.createElement('div');
+        wrongSetItem.className = 'vocab-set-item wrong-answer-set';
+        wrongSetItem.textContent = `! 시험 오답 노트 (${wrongAnswers.length}개)`;
+        wrongSetItem.dataset.type = 'wrong_answers';
+        vocabularyListContainer.appendChild(wrongSetItem);
+    }
+
     // 나머지 단어장 목록 추가
     vocabularySets.forEach((set, index) => {
         const setItem = document.createElement('div');
@@ -206,6 +225,9 @@ function showWordList(type, index = -1) {
     if (type === 'favorites') {
         listModeScreen.querySelector('h2').textContent = '즐겨찾기';
         wordsToShow = allVocabulary.filter(word => isFavorite(word.id));
+    } else if (type === 'wrong_answers') {
+        listModeScreen.querySelector('h2').textContent = '시험 오답 노트';
+        wordsToShow = JSON.parse(localStorage.getItem('japaneseAppExamWrongAnswers') || '[]');
     } else { // type === 'set'
         const selectedSet = vocabularySets[index];
         listModeScreen.querySelector('h2').textContent = selectedSet.name;
@@ -309,6 +331,11 @@ startGameModeBtn.addEventListener('click', () => {
     showScreen(gameSelectionMode);
 });
 
+// 시험 모드 진입 버튼
+startExamModeBtn.addEventListener('click', () => {
+    ExamMode.showSelection();
+});
+
 // 게임 선택 화면에서 스피드퀴즈 시작
 openSpeedQuizBtn.addEventListener('click', () => {
     SpeedQuizMode.start();
@@ -397,6 +424,21 @@ restartSpeedQuizBtn.addEventListener('click', () => {
     SpeedQuizMode.start();
 });
 
+// 시험 모드 뒤로가기 버튼들
+backToStartFromExamSelectBtn.addEventListener('click', () => {
+    goBack();
+});
+
+backToStartFromExamBtn.addEventListener('click', () => {
+    if(confirm('시험을 중단하고 나가시겠습니까? 진행 상황은 저장됩니다.')) {
+        showScreen(startScreen);
+    }
+});
+
+backToStartFromExamResultBtn.addEventListener('click', () => {
+    showScreen(startScreen);
+});
+
 // --- 초기 설정 ---
 document.addEventListener('DOMContentLoaded', () => {
     // 등록된 모든 단어장을 합쳐서 전체 단어 목록 생성
@@ -413,4 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (LearningMode.hasSavedSession()) {
         resumeOverlay.classList.remove('hidden');
     }
+
+    // 시험 모드 초기화
+    ExamMode.init();
 });
