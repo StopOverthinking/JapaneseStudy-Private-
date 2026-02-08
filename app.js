@@ -9,11 +9,13 @@ const gameSelectionMode = document.getElementById('game-selection-mode'); // 게
 const examSelectionScreen = document.getElementById('exam-selection-mode'); // 시험 선택 화면
 const examScreen = document.getElementById('exam-mode'); // 시험 화면
 const examResultScreen = document.getElementById('exam-result-mode'); // 시험 결과 화면
+const dataManagementScreen = document.getElementById('data-management-mode'); // 데이터 관리 화면
 
 const startListBtn = document.getElementById('start-list-btn');
 const startLearningBtn = document.getElementById('start-learning-btn');
 const startGameModeBtn = document.getElementById('start-game-mode-btn'); // 게임 모드 진입 버튼
 const startExamModeBtn = document.getElementById('start-exam-mode-btn'); // 시험 모드 진입 버튼
+const startDataManagementBtn = document.getElementById('start-data-management-btn'); // 데이터 관리 진입 버튼
 const backToStartFromLearningBtn = document.getElementById('back-to-start-from-learning');
 
 const backToStartBtn = document.getElementById('back-to-start-btn');
@@ -37,12 +39,19 @@ const backToStartFromGameSelectionBtn = document.getElementById('back-to-start-f
 const openSpeedQuizBtn = document.getElementById('open-speed-quiz-btn');
 const backToStartFromSpeedQuizBtn = document.getElementById('back-to-start-from-speed-quiz');
 const restartSpeedQuizBtn = document.getElementById('restart-speed-quiz-btn');
-const playerNicknameInput = document.getElementById('player-nickname-input');
 
 // 시험 모드 관련 요소
 const backToStartFromExamSelectBtn = document.getElementById('back-to-start-from-exam-select');
 const backToStartFromExamBtn = document.getElementById('back-to-start-from-exam');
 const backToStartFromExamResultBtn = document.getElementById('back-to-start-from-exam-result');
+
+// 데이터 관리 관련 요소
+const backToStartFromDataMgmtBtn = document.getElementById('back-to-start-from-data-mgmt');
+const exportClipboardBtn = document.getElementById('export-clipboard-btn');
+const exportFileBtn = document.getElementById('export-file-btn');
+const importClipboardBtn = document.getElementById('import-clipboard-btn');
+const importFileBtn = document.getElementById('import-file-btn');
+const importFileInput = document.getElementById('import-file-input');
 
 // --- 전역 상태 변수 ---
 let favoriteWordIds = []; // 즐겨찾기된 단어 ID 목록
@@ -83,29 +92,29 @@ function toggleFavorite(wordId) {
     saveFavoriteIds();
 }
 
-// 즐겨찾기 데이터 내보내기
-function exportFavorites() {
-    const data = JSON.stringify(favoriteWordIds);
-    prompt("아래 코드를 전체 복사(Ctrl+A, Ctrl+C)하여 다른 기기에서 '가져오기'를 하세요.", data);
+// --- 데이터 관리 함수 (전체 localStorage) ---
+function getAllData() {
+    return JSON.stringify(localStorage);
 }
 
-// 즐겨찾기 데이터 가져오기
-function importFavorites() {
-    const data = prompt("다른 기기에서 복사한 코드를 여기에 붙여넣으세요.");
-    if (data) {
-        try {
-            const parsed = JSON.parse(data);
-            if (Array.isArray(parsed)) {
-                favoriteWordIds = parsed;
-                saveFavoriteIds();
-                alert("즐겨찾기 데이터가 성공적으로 복원되었습니다.");
-                showVocabSetList(); // 목록 화면 갱신
-            } else {
-                alert("올바르지 않은 데이터 형식입니다.");
+function restoreData(jsonString) {
+    try {
+        const data = JSON.parse(jsonString);
+        if (typeof data === 'object' && data !== null) {
+            // 현재 데이터 초기화 후 복원
+            localStorage.clear();
+            for (const key in data) {
+                if (Object.prototype.hasOwnProperty.call(data, key)) {
+                    localStorage.setItem(key, data[key]);
+                }
             }
-        } catch (e) {
-            alert("데이터 처리 중 오류가 발생했습니다. 코드를 정확히 복사했는지 확인해주세요.");
+            alert('데이터가 성공적으로 복원되었습니다. 앱을 재시작합니다.');
+            location.reload();
+        } else {
+            alert('올바르지 않은 데이터 형식입니다.');
         }
+    } catch (e) {
+        alert('데이터 처리 중 오류가 발생했습니다: ' + e.message);
     }
 }
 
@@ -193,26 +202,6 @@ function showVocabSetList() {
         setItem.dataset.index = index;
         vocabularyListContainer.appendChild(setItem);
     });
-
-    // 데이터 관리(내보내기/가져오기) 버튼 영역 추가
-    const dataManageContainer = document.createElement('div');
-    dataManageContainer.style.marginTop = '30px';
-    dataManageContainer.style.textAlign = 'center';
-    dataManageContainer.style.borderTop = '1px solid #ddd';
-    dataManageContainer.style.paddingTop = '15px';
-
-    const exportBtn = document.createElement('button');
-    exportBtn.textContent = '즐겨찾기 내보내기';
-    exportBtn.onclick = exportFavorites;
-    exportBtn.style.marginRight = '10px';
-
-    const importBtn = document.createElement('button');
-    importBtn.textContent = '즐겨찾기 가져오기';
-    importBtn.onclick = importFavorites;
-
-    dataManageContainer.appendChild(exportBtn);
-    dataManageContainer.appendChild(importBtn);
-    vocabularyListContainer.appendChild(dataManageContainer);
 
     showScreen(listModeScreen);
 }
@@ -335,11 +324,6 @@ startLearningBtn.addEventListener('click', () => {
 
 // 게임 모드 진입 버튼
 startGameModeBtn.addEventListener('click', () => {
-    // 닉네임 불러오기 (화면 진입 시)
-    const savedNickname = localStorage.getItem('japaneseAppNickname');
-    if (savedNickname && playerNicknameInput) {
-        playerNicknameInput.value = savedNickname;
-    }
     showScreen(gameSelectionMode);
 });
 
@@ -348,12 +332,13 @@ startExamModeBtn.addEventListener('click', () => {
     ExamMode.showSelection();
 });
 
+// 데이터 관리 모드 진입 버튼
+startDataManagementBtn.addEventListener('click', () => {
+    showScreen(dataManagementScreen);
+});
+
 // 게임 선택 화면에서 스피드퀴즈 시작
 openSpeedQuizBtn.addEventListener('click', () => {
-    // 게임 시작 전 현재 입력된 닉네임 저장 (확실하게 하기 위함)
-    if (playerNicknameInput) {
-        localStorage.setItem('japaneseAppNickname', playerNicknameInput.value.trim());
-    }
     SpeedQuizMode.start();
 });
 
@@ -430,9 +415,13 @@ btnResumeNo.addEventListener('click', () => {
     resumeOverlay.classList.add('hidden');
 });
 
-// 스피드퀴즈 모드에서 뒤로가기 (이탈 처리)
+// 스피드퀴즈 모드에서 게임 선택 화면으로 돌아가기
 backToStartFromSpeedQuizBtn.addEventListener('click', () => {
-    SpeedQuizMode.handleQuit();
+    if (SpeedQuizMode.isGameRunning()) {
+        SpeedQuizMode.handleQuit();
+    } else {
+        goBack();
+    }
 });
 
 // 스피드퀴즈 다시 하기
@@ -455,17 +444,68 @@ backToStartFromExamResultBtn.addEventListener('click', () => {
     showScreen(startScreen);
 });
 
+// 데이터 관리 화면 이벤트 리스너
+backToStartFromDataMgmtBtn.addEventListener('click', () => {
+    goBack();
+});
+
+exportClipboardBtn.addEventListener('click', () => {
+    const data = getAllData();
+    navigator.clipboard.writeText(data).then(() => {
+        alert('모든 데이터가 클립보드에 복사되었습니다.');
+    }).catch(err => {
+        prompt("아래 코드를 전체 복사(Ctrl+A, Ctrl+C)하세요.", data);
+    });
+});
+
+exportFileBtn.addEventListener('click', () => {
+    const data = getAllData();
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `japanese-study-backup-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
+
+importClipboardBtn.addEventListener('click', async () => {
+    try {
+        const text = await navigator.clipboard.readText();
+        if (text && confirm('현재 데이터가 모두 삭제되고 복원됩니다. 진행하시겠습니까?')) {
+            restoreData(text);
+        }
+    } catch (err) {
+        const data = prompt("복사한 데이터를 여기에 붙여넣으세요.");
+        if (data && confirm('현재 데이터가 모두 삭제되고 복원됩니다. 진행하시겠습니까?')) {
+            restoreData(data);
+        }
+    }
+});
+
+importFileBtn.addEventListener('click', () => {
+    importFileInput.click();
+});
+
+importFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        if(confirm('현재 데이터가 모두 삭제되고 복원됩니다. 진행하시겠습니까?')) {
+            restoreData(e.target.result);
+        }
+    };
+    reader.readAsText(file);
+    importFileInput.value = '';
+});
+
 // --- 초기 설정 ---
 document.addEventListener('DOMContentLoaded', () => {
     // 등록된 모든 단어장을 합쳐서 전체 단어 목록 생성
     allVocabulary = vocabularySets.flatMap(set => set.words);
-
-    // 닉네임 입력 시 저장 리스너
-    if (playerNicknameInput) {
-        playerNicknameInput.addEventListener('change', (e) => {
-            localStorage.setItem('japaneseAppNickname', e.target.value.trim());
-        });
-    }
 
     loadFavoriteIds(); // 페이지 로드 시 localStorage에서 즐겨찾기 목록 불러오기
     showScreen(startScreen); // 페이지 로드 시 시작 화면 표시

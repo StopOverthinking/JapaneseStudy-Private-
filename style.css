@@ -639,8 +639,9 @@ button:hover {
 }
 
 .quiz-mode-buttons {
-    display: flex;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     width: 90%;
     max-width: 400px;
     margin-bottom: 30px;
@@ -683,9 +684,12 @@ button:hover {
 
 .race-label {
     font-weight: bold;
-    width: 30px;
+    width: 80px;
     text-align: right;
     font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .race-bar {
@@ -1174,10 +1178,10 @@ button:hover {
     align-items: center;
 }
 
-#app-container.tablet-mode #exam-question { grid-column: 1; grid-row: 1; justify-self: center; }
+#app-container.tablet-mode #exam-question { grid-column: 1; grid-row: 1; }
 #app-container.tablet-mode #exam-input { grid-column: 1; grid-row: 2; }
-#app-container.tablet-mode #toggle-input-method { grid-column: 1; grid-row: 3; justify-self: center; }
-#app-container.tablet-mode #exam-next-btn { grid-column: 1; grid-row: 4; margin-top: auto; justify-self: center; }
+#app-container.tablet-mode #toggle-input-method { grid-column: 1; grid-row: 3; }
+#app-container.tablet-mode #exam-next-btn { grid-column: 1; grid-row: 4; margin-top: auto; }
 
 #app-container.tablet-mode #handwriting-area {
     grid-column: 2;
@@ -1194,110 +1198,155 @@ button:hover {
     height: 0; /* flex grow */
 }
 
-/* 점수 획득 애니메이션 */
-.score-popup {
-    position: absolute;
-    color: var(--secondary-color);
-    font-weight: bold;
-    font-size: 1.5em;
-    pointer-events: none;
-    animation: score-float 1.0s ease-out forwards;
-    z-index: 9999;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-@keyframes score-float {
-    0% { opacity: 1; transform: translateY(0) scale(1); }
-    100% { opacity: 0; transform: translateY(-40px) scale(1.2); }
-}
-
-/* --- 티어 시스템 스타일 --- */
-#tier-result-screen {
+/* --- 데이터 관리 화면 스타일 --- */
+.data-mgmt-container {
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    gap: 20px;
+    padding: 10px;
+    overflow-y: auto;
 }
 
-.tier-animation-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-    animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.tier-badge {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-color: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3em;
-    font-weight: bold;
-    color: white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    margin-bottom: 15px;
-    border: 5px solid white;
-}
-
-.tier-name {
-    font-size: 2em;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.tier-division {
-    font-size: 1.5em;
-    color: #666;
-    margin-top: 5px;
-}
-
-#mmr-progress-container {
-    width: 80%;
-    max-width: 400px;
-    height: 20px;
-    background-color: rgba(255,255,255,0.5);
+.data-section {
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-#mmr-progress-bar {
-    height: 100%;
-    background-color: var(--primary-color);
-    width: 0%;
-    transition: width 1.0s ease-out;
+.data-section h3 {
+    margin-top: 0;
+    color: #555;
 }
 
-#mmr-change-text {
+.data-section p {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+/* --- 매치 인트로 화면 스타일 --- */
+#match-intro-screen {
+    background-color: rgba(0, 0, 0, 0.95);
+    color: white;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vs-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.player-intro, .bot-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+}
+
+.player-intro { animation: slideInLeft 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+.bot-intro { animation: slideInRight 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+.avatar {
+    font-size: 5em;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+}
+
+.player-intro .avatar { color: #4CAF50; }
+.bot-intro .avatar { color: #9C27B0; }
+
+.name {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+#intro-player-name { color: #4CAF50; }
+#intro-bot-name { color: #9C27B0; }
+
+.vs-logo {
+    font-size: 5em;
+    font-weight: 900;
+    color: #ff5722;
+    font-style: italic;
+    text-shadow: 0 0 20px #ff5722;
+    opacity: 0;
+    animation: zoomIn 0.4s ease-out 0.4s forwards;
+    margin: 0 20px;
+}
+
+@keyframes slideInLeft { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes zoomIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1.2); opacity: 1; } }
+
+/* --- 로딩 스피너 --- */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- 닉네임 관리 스타일 --- */
+.nickname-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#nickname-display-area {
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 30px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-@keyframes pop-in {
-    0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1); }
+.small-btn {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    width: auto;
+    margin: 0;
+    background-color: #607D8B;
 }
 
-/* 카운트다운 애니메이션 */
-#countdown-number {
-    animation: countdown-pop 0.9s infinite;
+/* --- 주관식 퀴즈 입력 스타일 --- */
+#speed-quiz-input-area {
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-@keyframes countdown-pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1.0); opacity: 1; }
+#speed-quiz-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.2em;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    text-align: center;
 }
 
-#match-intro-screen {
-    z-index: 3000; /* 최상단 */
+#btn-submit-answer {
+    width: auto;
+    margin: 0;
+    padding: 0 20px;
+    background-color: var(--primary-color);
 }

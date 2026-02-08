@@ -79,6 +79,10 @@
                 <button id="start-exam-mode-btn" style="background-color: #E91E63;">시험 모드</button>
                 <p class="mode-description">단어장 전체를 테스트합니다.</p>
             </div>
+            <div class="mode-selection">
+                <button id="start-data-management-btn" style="background-color: #607D8B;">데이터 관리</button>
+                <p class="mode-description">학습 기록을 백업하거나 복원합니다.</p>
+            </div>
         </div>
 
         <!-- 목록 모드 -->
@@ -168,12 +172,6 @@
                 <button id="open-speed-quiz-btn" style="background-color: #FF9800;">스피드퀴즈</button>
                 <p class="mode-description">스피드 객관식 퀴즈 (30문제)</p>
             </div>
-            
-            <!-- 닉네임 설정 (신규) -->
-            <div class="nickname-setting" style="margin-top: 30px; text-align: center;">
-                <label for="player-nickname-input" style="font-size: 1.1em; color: #555;">내 닉네임: </label>
-                <input type="text" id="player-nickname-input" placeholder="닉네임 입력" style="padding: 8px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; width: 150px; text-align: center;">
-            </div>
         </div>
 
         <!-- 스피드퀴즈 모드 -->
@@ -184,21 +182,27 @@
 
             <!-- 모드 선택 메뉴 (신규) -->
             <div id="speed-quiz-menu">
-                <h2 id="speed-quiz-title" style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
+                <h2 style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
                 
-                <!-- 단계 1: 모드 선택 -->
-                <div id="speed-quiz-mode-select" class="quiz-mode-buttons">
-                    <button id="btn-single-mode" class="mode-select-btn">싱글 플레이</button>
-                    <button id="btn-vs-bot-mode" class="mode-select-btn">PVP (봇 대결)</button>
+                <!-- 닉네임 관리 영역 -->
+                <div class="nickname-container">
+                    <div id="nickname-display-area">
+                        <span id="current-nickname">플레이어</span>
+                        <button id="btn-edit-nickname" class="small-btn">수정</button>
+                    </div>
+                </div>
+
+                <div class="quiz-mode-buttons">
+                    <button id="btn-single-objective" class="mode-select-btn" style="background-color: #2196F3;">싱글 - 객관식</button>
+                    <button id="btn-single-subjective" class="mode-select-btn" style="background-color: #03A9F4;">싱글 - 발음</button>
+                    <button id="btn-vs-objective" class="mode-select-btn" style="background-color: #9C27B0;">대전 - 객관식</button>
+                    <button id="btn-vs-subjective" class="mode-select-btn" style="background-color: #673AB7;">대전 - 발음</button>
                 </div>
                 
-                <!-- 단계 2: 싱글 플레이 대기 (기록 + 시작 버튼) -->
-                <div id="single-mode-pre-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-                    <div id="single-mode-records" class="records-container">
-                        <h3>🏆 명예의 전당 (Top 10)</h3>
-                        <ul id="record-list"></ul>
-                    </div>
-                    <button id="btn-start-single-game" style="margin-top: 20px; background-color: #4CAF50; font-size: 1.2em; padding: 15px 40px; width: auto;">게임 시작</button>
+                <!-- 싱글 플레이 기록 -->
+                <div id="single-mode-records" class="records-container">
+                    <h3>🏆 명예의 전당 (Top 10)</h3>
+                    <ul id="record-list"></ul>
                 </div>
             </div>
 
@@ -218,13 +222,18 @@
                 <div id="speed-quiz-status-bar">
                     <span id="speed-quiz-progress">1/30</span>
                     <span id="speed-quiz-score">점수: 0</span>
-                    <span id="speed-quiz-bot-score" class="hidden">상대: 0</span>
+                    <span id="speed-quiz-bot-score" class="hidden">봇: 0</span>
                 </div>
                 <div id="speed-quiz-timer-bar"><div id="speed-quiz-timer-fill"></div></div>
                 
                 <div id="speed-quiz-content">
                     <div id="speed-quiz-question"></div>
                     <div id="speed-quiz-options"></div>
+                    <!-- 주관식 입력 영역 -->
+                    <div id="speed-quiz-input-area" class="hidden">
+                        <input type="text" id="speed-quiz-input" placeholder="발음을 입력하세요 (예: あした, ashita)" autocomplete="off">
+                        <button id="btn-submit-answer">제출</button>
+                    </div>
                 </div>
 
                 <!-- 디버그 정보 (신규) -->
@@ -238,34 +247,6 @@
                 <div id="speed-quiz-wrong-list"></div>
                 <button id="restart-speed-quiz-btn">메뉴로 돌아가기</button>
             </div>
-        </div>
-
-        <!-- 대전 상대 소개 화면 (신규) -->
-        <div id="match-intro-screen" class="overlay hidden" style="background-color: rgba(0,0,0,0.9); color: white; flex-direction: column;">
-            <h2 style="color: #FFC107; font-size: 2em; margin-bottom: 10px;">MATCH FOUND!</h2>
-            <div style="display: flex; align-items: center; gap: 20px; font-size: 1.5em;">
-                <span id="intro-player-name" style="color: #4CAF50; font-weight: bold;">나</span>
-                <span style="font-size: 0.8em;">VS</span>
-                <span id="intro-bot-name" style="color: #FF5722; font-weight: bold;">상대방</span>
-            </div>
-        </div>
-
-        <!-- 카운트다운 오버레이 (신규) -->
-        <div id="countdown-overlay" class="overlay hidden" style="background: rgba(255,255,255,0.3); backdrop-filter: blur(2px);">
-            <div id="countdown-number" style="font-size: 10em; font-weight: bold; color: var(--primary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">3</div>
-        </div>
-
-        <!-- 티어 결과 화면 (신규) -->
-        <div id="tier-result-screen" class="screen">
-            <h2>티어 변동</h2>
-            <div class="tier-animation-container">
-                <div id="tier-badge" class="tier-badge"></div>
-                <div id="tier-name" class="tier-name"></div>
-                <div id="tier-division" class="tier-division"></div>
-            </div>
-            <div id="mmr-progress-container"><div id="mmr-progress-bar"></div></div>
-            <p id="mmr-change-text"></p>
-            <button id="close-tier-screen-btn">확인</button>
         </div>
 
         <!-- 시험 모드: 단어장 선택 -->
@@ -313,11 +294,83 @@
             <button id="back-to-start-from-exam-result">메인으로</button>
         </div>
 
+        <!-- 데이터 관리 모드 -->
+        <div id="data-management-mode" class="screen">
+            <div class="screen-header">
+                <button id="back-to-start-from-data-mgmt" class="back-btn">‹ 돌아가기</button>
+            </div>
+            <h2>데이터 관리</h2>
+            <div class="data-mgmt-container">
+                <div class="data-section">
+                    <h3>데이터 내보내기 (백업)</h3>
+                    <p>현재 기기의 모든 학습 데이터를 저장합니다.</p>
+                    <button id="export-clipboard-btn">클립보드로 복사</button>
+                    <button id="export-file-btn">파일로 저장 (.json)</button>
+                </div>
+                <div class="data-section">
+                    <h3>데이터 가져오기 (복원)</h3>
+                    <p>이전 데이터를 불러옵니다.<br>(주의: 현재 데이터는 덮어씌워집니다)</p>
+                    <button id="import-clipboard-btn">클립보드에서 가져오기</button>
+                    <button id="import-file-btn">파일에서 불러오기</button>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                </div>
+            </div>
+        </div>
+
         <!-- 결과 화면 (선택 사항) -->
         <div id="results-screen" class="screen">
             <h2>학습 결과</h2>
             <p>모든 단어를 학습했습니다!</p>
             <button id="restart-learning-btn">다시 학습하기</button>
+        </div>
+
+        <!-- 티어 결과 화면 (신규) -->
+        <div id="tier-result-screen" class="screen">
+            <h2>대전 결과</h2>
+            <div class="tier-container" style="text-align: center;">
+                <div id="tier-badge" style="width: 100px; height: 100px; border-radius: 50%; background: #ccc; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 3em; color: white; font-weight: bold;">?</div>
+                <h3 id="tier-name" style="margin: 10px 0; font-size: 2em;">Unranked</h3>
+                <p id="tier-division" style="color: #666;">0 LP</p>
+                
+                <div class="mmr-progress-container" style="width: 80%; max-width: 300px; height: 10px; background: #eee; border-radius: 5px; margin: 20px auto; overflow: hidden;">
+                    <div id="mmr-progress-bar" style="width: 0%; height: 100%; background: #4CAF50; transition: width 1s ease-out;"></div>
+                </div>
+                <p id="mmr-change-text" style="font-weight: bold; font-size: 1.2em; margin-top: 10px;">+0 LP</p>
+            </div>
+            <button id="close-tier-screen-btn" style="margin-top: 30px;">확인</button>
+        </div>
+
+        <!-- 매치 인트로 화면 (신규) -->
+        <div id="match-intro-screen" class="screen hidden">
+            <div class="vs-container">
+                <div class="player-intro">
+                    <div class="avatar">👤</div>
+                    <div id="intro-player-name" class="name">Player</div>
+                </div>
+                <div class="vs-logo">VS</div>
+                <div class="bot-intro">
+                    <div class="avatar">👤</div>
+                    <div id="intro-bot-name" class="name">Bot</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 매칭 중 오버레이 (신규) -->
+        <div id="matchmaking-overlay" class="overlay hidden" style="background: rgba(0,0,0,0.85); z-index: 2200; flex-direction: column; color: white;">
+            <div class="spinner"></div>
+            <h2 style="margin-top: 20px; font-weight: normal;">대전 상대 찾는 중...</h2>
+        </div>
+
+        <!-- 닉네임 수정 모달 -->
+        <div id="nickname-modal" class="overlay hidden">
+            <div class="overlay-content">
+                <h3>닉네임 수정</h3>
+                <input type="text" id="nickname-edit-input" placeholder="새 닉네임 입력" style="width: 80%; padding: 10px; margin: 15px 0; font-size: 1.1em; text-align: center;">
+                <div class="overlay-buttons">
+                    <button id="btn-save-nickname">저장</button>
+                    <button id="btn-cancel-nickname" style="background-color: #999;">취소</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -333,11 +386,16 @@
         </div>
     </div>
 
+    <!-- 카운트다운 오버레이 -->
+    <div id="countdown-overlay" class="overlay hidden" style="background: rgba(0,0,0,0.3); z-index: 2100;">
+        <div id="countdown-number" style="font-size: 8em; font-weight: bold; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5);">3</div>
+    </div>
+
     <script src="vocabulary.js"></script>
     <script src="vocab/vocab_pagoda.js"></script>
     <script src="vocab/vocab_example.js"></script>
-    <script src="bot_nicknames.js"></script>
     <script src="learning_mode.js"></script>
+    <script src="bot_nicknames.js"></script>
     <script src="speed_quiz_mode.js"></script>
     <script src="handwriting_recognition.js"></script>
     <script src="exam_mode.js"></script>
