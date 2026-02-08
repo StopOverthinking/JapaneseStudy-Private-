@@ -168,6 +168,12 @@
                 <button id="open-speed-quiz-btn" style="background-color: #FF9800;">스피드퀴즈</button>
                 <p class="mode-description">스피드 객관식 퀴즈 (30문제)</p>
             </div>
+            
+            <!-- 닉네임 설정 (신규) -->
+            <div class="nickname-setting" style="margin-top: 30px; text-align: center;">
+                <label for="player-nickname-input" style="font-size: 1.1em; color: #555;">내 닉네임: </label>
+                <input type="text" id="player-nickname-input" placeholder="닉네임 입력" style="padding: 8px; font-size: 1em; border: 1px solid #ccc; border-radius: 5px; width: 150px; text-align: center;">
+            </div>
         </div>
 
         <!-- 스피드퀴즈 모드 -->
@@ -178,16 +184,21 @@
 
             <!-- 모드 선택 메뉴 (신규) -->
             <div id="speed-quiz-menu">
-                <h2 style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
-                <div class="quiz-mode-buttons">
+                <h2 id="speed-quiz-title" style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
+                
+                <!-- 단계 1: 모드 선택 -->
+                <div id="speed-quiz-mode-select" class="quiz-mode-buttons">
                     <button id="btn-single-mode" class="mode-select-btn">싱글 플레이</button>
-                    <button id="btn-vs-bot-mode" class="mode-select-btn">VS 봇 대결 (준비중)</button>
+                    <button id="btn-vs-bot-mode" class="mode-select-btn">PVP (봇 대결)</button>
                 </div>
                 
-                <!-- 싱글 플레이 기록 -->
-                <div id="single-mode-records" class="records-container">
-                    <h3>🏆 명예의 전당 (Top 10)</h3>
-                    <ul id="record-list"></ul>
+                <!-- 단계 2: 싱글 플레이 대기 (기록 + 시작 버튼) -->
+                <div id="single-mode-pre-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <div id="single-mode-records" class="records-container">
+                        <h3>🏆 명예의 전당 (Top 10)</h3>
+                        <ul id="record-list"></ul>
+                    </div>
+                    <button id="btn-start-single-game" style="margin-top: 20px; background-color: #4CAF50; font-size: 1.2em; padding: 15px 40px; width: auto;">게임 시작</button>
                 </div>
             </div>
 
@@ -207,7 +218,7 @@
                 <div id="speed-quiz-status-bar">
                     <span id="speed-quiz-progress">1/30</span>
                     <span id="speed-quiz-score">점수: 0</span>
-                    <span id="speed-quiz-bot-score" class="hidden">봇: 0</span>
+                    <span id="speed-quiz-bot-score" class="hidden">상대: 0</span>
                 </div>
                 <div id="speed-quiz-timer-bar"><div id="speed-quiz-timer-fill"></div></div>
                 
@@ -227,6 +238,34 @@
                 <div id="speed-quiz-wrong-list"></div>
                 <button id="restart-speed-quiz-btn">메뉴로 돌아가기</button>
             </div>
+        </div>
+
+        <!-- 대전 상대 소개 화면 (신규) -->
+        <div id="match-intro-screen" class="overlay hidden" style="background-color: rgba(0,0,0,0.9); color: white; flex-direction: column;">
+            <h2 style="color: #FFC107; font-size: 2em; margin-bottom: 10px;">MATCH FOUND!</h2>
+            <div style="display: flex; align-items: center; gap: 20px; font-size: 1.5em;">
+                <span id="intro-player-name" style="color: #4CAF50; font-weight: bold;">나</span>
+                <span style="font-size: 0.8em;">VS</span>
+                <span id="intro-bot-name" style="color: #FF5722; font-weight: bold;">상대방</span>
+            </div>
+        </div>
+
+        <!-- 카운트다운 오버레이 (신규) -->
+        <div id="countdown-overlay" class="overlay hidden" style="background: rgba(255,255,255,0.3); backdrop-filter: blur(2px);">
+            <div id="countdown-number" style="font-size: 10em; font-weight: bold; color: var(--primary-color); text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">3</div>
+        </div>
+
+        <!-- 티어 결과 화면 (신규) -->
+        <div id="tier-result-screen" class="screen">
+            <h2>티어 변동</h2>
+            <div class="tier-animation-container">
+                <div id="tier-badge" class="tier-badge"></div>
+                <div id="tier-name" class="tier-name"></div>
+                <div id="tier-division" class="tier-division"></div>
+            </div>
+            <div id="mmr-progress-container"><div id="mmr-progress-bar"></div></div>
+            <p id="mmr-change-text"></p>
+            <button id="close-tier-screen-btn">확인</button>
         </div>
 
         <!-- 시험 모드: 단어장 선택 -->
@@ -297,6 +336,7 @@
     <script src="vocabulary.js"></script>
     <script src="vocab/vocab_pagoda.js"></script>
     <script src="vocab/vocab_example.js"></script>
+    <script src="bot_nicknames.js"></script>
     <script src="learning_mode.js"></script>
     <script src="speed_quiz_mode.js"></script>
     <script src="handwriting_recognition.js"></script>

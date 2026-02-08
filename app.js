@@ -37,6 +37,7 @@ const backToStartFromGameSelectionBtn = document.getElementById('back-to-start-f
 const openSpeedQuizBtn = document.getElementById('open-speed-quiz-btn');
 const backToStartFromSpeedQuizBtn = document.getElementById('back-to-start-from-speed-quiz');
 const restartSpeedQuizBtn = document.getElementById('restart-speed-quiz-btn');
+const playerNicknameInput = document.getElementById('player-nickname-input');
 
 // 시험 모드 관련 요소
 const backToStartFromExamSelectBtn = document.getElementById('back-to-start-from-exam-select');
@@ -334,6 +335,11 @@ startLearningBtn.addEventListener('click', () => {
 
 // 게임 모드 진입 버튼
 startGameModeBtn.addEventListener('click', () => {
+    // 닉네임 불러오기 (화면 진입 시)
+    const savedNickname = localStorage.getItem('japaneseAppNickname');
+    if (savedNickname && playerNicknameInput) {
+        playerNicknameInput.value = savedNickname;
+    }
     showScreen(gameSelectionMode);
 });
 
@@ -344,6 +350,10 @@ startExamModeBtn.addEventListener('click', () => {
 
 // 게임 선택 화면에서 스피드퀴즈 시작
 openSpeedQuizBtn.addEventListener('click', () => {
+    // 게임 시작 전 현재 입력된 닉네임 저장 (확실하게 하기 위함)
+    if (playerNicknameInput) {
+        localStorage.setItem('japaneseAppNickname', playerNicknameInput.value.trim());
+    }
     SpeedQuizMode.start();
 });
 
@@ -420,9 +430,9 @@ btnResumeNo.addEventListener('click', () => {
     resumeOverlay.classList.add('hidden');
 });
 
-// 스피드퀴즈 모드에서 게임 선택 화면으로 돌아가기
+// 스피드퀴즈 모드에서 뒤로가기 (이탈 처리)
 backToStartFromSpeedQuizBtn.addEventListener('click', () => {
-    goBack();
+    SpeedQuizMode.handleQuit();
 });
 
 // 스피드퀴즈 다시 하기
@@ -449,6 +459,13 @@ backToStartFromExamResultBtn.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // 등록된 모든 단어장을 합쳐서 전체 단어 목록 생성
     allVocabulary = vocabularySets.flatMap(set => set.words);
+
+    // 닉네임 입력 시 저장 리스너
+    if (playerNicknameInput) {
+        playerNicknameInput.addEventListener('change', (e) => {
+            localStorage.setItem('japaneseAppNickname', e.target.value.trim());
+        });
+    }
 
     loadFavoriteIds(); // 페이지 로드 시 localStorage에서 즐겨찾기 목록 불러오기
     showScreen(startScreen); // 페이지 로드 시 시작 화면 표시
