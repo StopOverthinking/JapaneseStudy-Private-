@@ -13,6 +13,7 @@ const SpeedQuizMode = (() => {
     let timerInterval = null;
     let timeLeft = 0;
     let isGameActive = false;
+    let allWords = []; // 현재 게임에 사용할 전체 단어 목록
     let wrongAnswers = []; // 틀린 단어 저장
     
     // 신규 추가 상태 변수
@@ -162,7 +163,8 @@ const SpeedQuizMode = (() => {
 
     // 모드 진입 (메뉴 표시)
     function showMenu() {
-        if (allVocabulary.length < 5) {
+        const totalCount = vocabularySets.reduce((acc, set) => acc + set.words.length, 0);
+        if (totalCount < 5) {
             alert('스피드퀴즈 모드를 시작하려면 최소 5개의 단어가 필요합니다.');
             return;
         }
@@ -228,6 +230,9 @@ const SpeedQuizMode = (() => {
             return;
         }
         
+        // 게임 시작 시 모든 단어장에서 최신 단어 목록 가져오기 (누락 방지)
+        allWords = vocabularySets.flatMap(set => set.words);
+
         // 퀴즈 타입 설정
         currentQuizType = type;
         totalQuestions = currentQuizType === 'objective' ? QUESTIONS_COUNT_OBJECTIVE : QUESTIONS_COUNT_SUBJECTIVE;
@@ -282,7 +287,7 @@ const SpeedQuizMode = (() => {
         }
         
         // 문제 생성 (타입에 따라 개수 및 유형 다름)
-        questions = generateQuestions(allVocabulary, totalQuestions);
+        questions = generateQuestions(allWords, totalQuestions);
         
         // 전체 만점 점수 계산 (진행 바 비율 계산용)
         totalMaxScore = questions.reduce((sum, q) => {
@@ -479,7 +484,7 @@ const SpeedQuizMode = (() => {
         }
 
         const distractors = [];
-        const candidates = [...allVocabulary].sort(() => 0.5 - Math.random());
+        const candidates = [...allWords].sort(() => 0.5 - Math.random());
 
         for (const w of candidates) {
             if (distractors.length >= 4) break;

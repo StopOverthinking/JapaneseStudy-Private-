@@ -1,5 +1,5 @@
 registerVocabularySet({
-    name: '파고다 JLPT 최빈출 한자 어휘',
+    name: '파고다 JLPT N3 최빈출 한자 어휘',
     words: [
         { id: '1_1', japanese: "飽きる", reading: "あきる", meaning: "질리다, 싫증나다", type: 'verb', difficulty: 35, verb_info: '2자' },
         { id: '1_2', japanese: "預ける", reading: "あずける", meaning: "맡기다", type: 'verb', difficulty: 38, verb_info: '2타' },
