@@ -571,6 +571,9 @@ button:hover {
     flex-shrink: 0;
     font-size: 1em;
     color: #555;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .learning-options label {
@@ -1033,27 +1036,6 @@ button:hover {
 .score-display { font-size: 2em; font-weight: bold; color: var(--primary-color); margin: 10px 0; }
 
 /* --- 학습 모드 입력 기능 스타일 --- */
-#learning-mode-toggle {
-    background: #fff;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    border-radius: 10px; /* 원형에서 둥근 사각형으로 변경하여 공간 절약 */
-    width: auto;
-    padding: 5px 15px;
-    font-size: 1.5em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 5px auto;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-#learning-mode-toggle.input-mode {
-    background: var(--primary-color);
-    color: white;
-}
 
 #learning-input-section {
     width: 100%;
@@ -1092,15 +1074,6 @@ button:hover {
     white-space: nowrap;
 }
 
-#learning-feedback {
-    font-weight: bold;
-    font-size: 1.2em;
-    min-height: 1.5em;
-    margin-top: 5px;
-}
-.feedback-correct { color: var(--known-color); }
-.feedback-wrong { color: var(--unknown-color); }
-
 #learning-handwriting-area {
     width: 100%;
     max-width: 300px;
@@ -1134,14 +1107,6 @@ button:hover {
     justify-items: center;
     overflow: hidden;
     padding: 5px;
-}
-
-#app-container.tablet-mode #flashcard-session #learning-mode-toggle {
-    grid-column: 1;
-    grid-row: 1;
-    margin: 0;
-    font-size: 1.2em; /* 버튼 크기 축소 */
-    padding: 5px 10px;
 }
 
 #app-container.tablet-mode #flashcard-session .card-container {

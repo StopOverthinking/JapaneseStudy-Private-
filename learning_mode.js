@@ -22,11 +22,10 @@ const LearningMode = (() => {
     const resultsScreen = document.getElementById('results-screen');
 
     // --- 동적 생성 요소 변수 ---
-    let modeToggleBtn;
+    let inputModeCheckbox;
     let inputSection;
     let learningInput;
     let checkAnswerBtn;
-    let feedbackDiv;
     let toggleHandwritingBtn;
     let handwritingArea;
     let learningCanvas;
@@ -50,14 +49,16 @@ const LearningMode = (() => {
 
     // UI 요소 동적 생성 및 초기화
     function initDynamicUI() {
-        if (modeToggleBtn) return; // 이미 초기화됨
+        if (inputModeCheckbox) return; // 이미 초기화됨
 
-        // 1. 모드 토글 버튼 (카드 컨테이너 위에 삽입)
-        modeToggleBtn = document.createElement('button');
-        modeToggleBtn.id = 'learning-mode-toggle';
-        modeToggleBtn.innerHTML = '👁️'; // 기본: 보기 모드
-        modeToggleBtn.title = '정답 확인 모드 변경 (직접 확인 / 입력하여 확인)';
-        flashcardSession.insertBefore(modeToggleBtn, flashcardSession.querySelector('.card-container'));
+        // 1. 정답 입력 모드 체크박스 (독음 숨기기 옆에 삽입)
+        const learningOptions = flashcardSession.querySelector('.learning-options');
+        const label = document.createElement('label');
+        label.innerHTML = '<input type="checkbox" id="toggle-input-mode-checkbox"> 정답 입력 모드';
+        learningOptions.appendChild(label);
+        
+        inputModeCheckbox = label.querySelector('input');
+        // 이벤트 리스너는 아래에서 연결
 
         // 2. 입력 섹션 (카드 컨테이너 아래에 삽입)
         inputSection = document.createElement('div');
@@ -68,7 +69,6 @@ const LearningMode = (() => {
                 <input type="text" id="learning-input" placeholder="일본어 정답 입력" autocomplete="off">
                 <button id="btn-check-answer">확인</button>
             </div>
-            <div id="learning-feedback"></div>
             <button id="btn-toggle-learning-hw" class="secondary-btn" style="margin-top:10px; width:100%;">손글씨 입력 열기</button>
             <div id="learning-handwriting-area" class="hidden">
                 <canvas id="learning-handwriting-canvas" width="300" height="200" style="background:white; border:1px solid #ccc; cursor:crosshair; touch-action:none;"></canvas>
@@ -80,14 +80,11 @@ const LearningMode = (() => {
             </div>
         `;
         
-        // .learning-options (독음 숨기기 체크박스) 다음에 삽입
-        const learningOptions = flashcardSession.querySelector('.learning-options');
         learningOptions.parentNode.insertBefore(inputSection, learningOptions.nextSibling);
 
         // 요소 참조 저장
         learningInput = inputSection.querySelector('#learning-input');
         checkAnswerBtn = inputSection.querySelector('#btn-check-answer');
-        feedbackDiv = inputSection.querySelector('#learning-feedback');
         toggleHandwritingBtn = inputSection.querySelector('#btn-toggle-learning-hw');
         handwritingArea = inputSection.querySelector('#learning-handwriting-area');
         learningCanvas = inputSection.querySelector('#learning-handwriting-canvas');
@@ -96,8 +93,17 @@ const LearningMode = (() => {
         hwCandidates = inputSection.querySelector('#learning-hw-candidates');
 
         // 이벤트 리스너 연결
-        modeToggleBtn.addEventListener('click', toggleInputMode);
+        inputModeCheckbox.addEventListener('change', (e) => {
+            if (isInputMode !== e.target.checked) {
+                toggleInputMode();
+            }
+        });
         checkAnswerBtn.addEventListener('click', checkAnswer);
+        learningInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
         toggleHandwritingBtn.addEventListener('click', toggleHandwritingArea);
         hwClearBtn.addEventListener('click', () => {
             HandwritingRecognizer.clear();
@@ -140,7 +146,6 @@ const LearningMode = (() => {
         // 입력 모드 초기화
         if (learningInput) {
             learningInput.value = '';
-            feedbackDiv.textContent = '';
         }
 
         // 전역 함수 isFavorite 사용 (app.js에 정의됨)
@@ -162,9 +167,6 @@ const LearningMode = (() => {
 
     function flipCard() {
         // 입력 모드에서 아직 정답 확인 안 했으면 뒤집기(정답 보기) 허용하되, 피드백은 초기화
-        if (isInputMode && !isCardFlipped) {
-            feedbackDiv.textContent = '';
-        }
         flashcard.classList.toggle('flipped');
         isCardFlipped = !isCardFlipped;
     }
@@ -321,23 +323,22 @@ const LearningMode = (() => {
     function updateModeUI() {
         // 뜻 먼저 보기 모드일 때만 입력 모드 사용 가능
         if (displayFrontFirst === 'meaning') {
-            modeToggleBtn.classList.remove('hidden');
+            inputModeCheckbox.parentElement.classList.remove('hidden');
+            inputModeCheckbox.disabled = false;
         } else {
-            modeToggleBtn.classList.add('hidden');
+            inputModeCheckbox.parentElement.classList.add('hidden');
             isInputMode = false;
         }
 
+        inputModeCheckbox.checked = isInputMode;
+
         if (isInputMode) {
-            modeToggleBtn.innerHTML = '✏️'; // 입력 모드 아이콘
-            modeToggleBtn.classList.add('input-mode');
             inputSection.classList.remove('hidden');
             // 입력 모드 진입 시 손글씨 인식기 초기화 (캔버스 연결)
             if (isHandwritingOpen) {
                 HandwritingRecognizer.init(learningCanvas);
             }
         } else {
-            modeToggleBtn.innerHTML = '👁️'; // 보기 모드 아이콘
-            modeToggleBtn.classList.remove('input-mode');
             inputSection.classList.add('hidden');
             
             // 입력 모드가 꺼지면 손글씨 모드도 강제 종료
@@ -363,12 +364,8 @@ const LearningMode = (() => {
         flashcard.classList.remove('card-correct', 'card-wrong');
 
         if (input === currentCard.japanese) {
-            feedbackDiv.textContent = '정답입니다! (O)';
-            feedbackDiv.className = 'feedback-correct';
             flashcard.classList.add('card-correct');
         } else {
-            feedbackDiv.textContent = '틀렸습니다. (X)';
-            feedbackDiv.className = 'feedback-wrong';
             flashcard.classList.add('card-wrong');
         }
 
