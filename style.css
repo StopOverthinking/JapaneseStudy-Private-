@@ -21,15 +21,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100dvh; /* 뷰포트 전체 높이 사용 */
+    height: 100dvh; /* 높이 고정하여 자식 요소 높이 계산 보장 */
     overflow: hidden; /* 모바일에서 4:3 비율 유지 시 스크롤 방지 */
 }
 
 #app-container {
     width: 100%;
-    max-width: 100dvh; /* 최대 너비는 화면 높이에 맞춰 정사각형 형태가 되도록 함 */
-    height: min(100dvh, calc(100vw * 4 / 3)); /* 4:3 비율을 유지하되 화면 높이를 넘지 않도록 함 */
-    max-height: 100dvh; /* 뷰포트 높이를 초과하지 않도록 */
+    max-width: 100dvh; /* 기본적으로 모바일 비율 유지 */
+    height: 100dvh; /* 내부 요소가 absolute라 높이가 0이 되는 문제 해결 */
+    max-height: 100dvh;
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -86,6 +86,7 @@ body {
 h1, h2 {
     color: var(--primary-color);
     margin-bottom: 10px;
+    font-size: clamp(1.2em, 4vh, 1.8em); /* 화면 높이에 따라 폰트 크기 조절 */
     text-align: center;
 }
 
@@ -101,9 +102,9 @@ button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: clamp(8px, 1.5vh, 12px) clamp(12px, 2vw, 20px); /* 패딩 반응형 조절 */
     border-radius: 8px;
-    font-size: 1.1em;
+    font-size: clamp(0.9em, 2.5vh, 1.1em); /* 폰트 크기 반응형 조절 */
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
@@ -441,7 +442,7 @@ button:hover {
     width: 100%;
     flex: 1;
     min-height: 0;
-    height: auto;
+    height: 100%; /* 높이를 꽉 채우도록 변경 */
     max-height: none;
     margin-bottom: 5px;
     display: flex;
@@ -547,19 +548,19 @@ button:hover {
 }
 
 .japanese-text {
-    font-size: clamp(1.5em, 5vh, 2.5em);
+    font-size: clamp(1.5em, 6vh, 3em); /* 카드 텍스트는 상대적으로 크게 유지 */
     font-weight: bold;
     margin-bottom: 10px;
     color: #007bff;
 }
 
 .reading-text {
-    font-size: clamp(1em, 3vh, 1.5em);
+    font-size: clamp(1em, 3.5vh, 1.8em);
     color: #6c757d;
 }
 
 .meaning-text {
-    font-size: clamp(1.2em, 4vh, 1.8em);
+    font-size: clamp(1.2em, 5vh, 2.2em);
     font-weight: bold;
     color: var(--primary-color);
 }
@@ -594,7 +595,7 @@ button:hover {
 .action-btn {
     /* flex: 1; 속성 제거 */
     padding: 12px 10px;
-    font-size: 1.2em;
+    font-size: clamp(1em, 3vh, 1.2em);
     border-radius: 10px;
     width: 130px;
     font-weight: bold;
@@ -1036,9 +1037,9 @@ button:hover {
     background: #fff;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border-radius: 10px; /* 원형에서 둥근 사각형으로 변경하여 공간 절약 */
+    width: auto;
+    padding: 5px 15px;
     font-size: 1.5em;
     cursor: pointer;
     display: flex;
@@ -1115,59 +1116,75 @@ button:hover {
 
 /* --- 태블릿 모드 (필기 인식 활성화 시 가로 확장) --- */
 #app-container.tablet-mode {
-    max-width: 95vw;
-    width: 95vw;
-    height: 90vh;
+    max-width: 100vw; /* 화면 꽉 채우기 */
+    width: 100vw;
+    height: 100dvh;
     max-height: none;
     aspect-ratio: auto;
+    border-radius: 0; /* 전체 화면 시 둥근 모서리 제거 */
 }
 
 /* 학습 모드 태블릿 레이아웃 */
 #app-container.tablet-mode #flashcard-session {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto auto auto;
-    gap: 20px;
+    grid-template-columns: 1fr 1.2fr; /* 입력 영역(오른쪽)을 조금 더 넓게 */
+    grid-template-rows: auto 1fr auto auto; /* 행 구조 최적화 */
+    gap: 10px;
     align-items: center;
     justify-items: center;
     overflow: hidden;
+    padding: 5px;
 }
 
 #app-container.tablet-mode #flashcard-session #learning-mode-toggle {
     grid-column: 1;
     grid-row: 1;
-    margin-bottom: 0;
+    margin: 0;
+    font-size: 1.2em; /* 버튼 크기 축소 */
+    padding: 5px 10px;
 }
 
 #app-container.tablet-mode #flashcard-session .card-container {
     grid-column: 1;
     grid-row: 2;
     height: 100%;
-    max-height: 400px;
-    margin-bottom: 0;
+    width: 100%;
+    max-height: none; /* 높이 제한 해제 */
+    margin: 0;
 }
 
 #app-container.tablet-mode #flashcard-session .learning-options {
     grid-column: 1;
     grid-row: 3;
+    margin: 0;
+    font-size: 0.9em;
 }
 
 #app-container.tablet-mode #flashcard-session .card-actions {
     grid-column: 1;
     grid-row: 4;
+    margin: 0;
+    gap: 10px;
+}
+
+/* 태블릿 모드에서 버튼 크기 강제 축소 */
+#app-container.tablet-mode .action-btn {
+    padding: 8px 0;
+    font-size: 1em;
+    width: 45%; /* 너비 유동적 */
 }
 
 #app-container.tablet-mode #flashcard-session #progress-text {
-    grid-column: 1;
-    grid-row: 5;
+    display: none; /* 공간 부족 시 진행 상황 텍스트 숨김 (선택적) */
 }
 
 #app-container.tablet-mode #flashcard-session #learning-input-section {
     grid-column: 2;
-    grid-row: 1 / span 5;
+    grid-row: 1 / span 4; /* 전체 행 차지 */
     height: 100%;
     width: 100%;
     justify-content: center;
+    gap: 5px;
 }
 
 #app-container.tablet-mode #learning-handwriting-area {
@@ -1175,6 +1192,8 @@ button:hover {
     width: 100%;
     max-width: none;
     height: 100%;
+    margin-top: 0;
+    padding: 5px;
 }
 
 #app-container.tablet-mode #learning-handwriting-canvas {
