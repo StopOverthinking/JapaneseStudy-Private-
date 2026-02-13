@@ -21,15 +21,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+    min-height: 100dvh; /* 뷰포트 전체 높이 사용 */
     overflow: hidden; /* 모바일에서 4:3 비율 유지 시 스크롤 방지 */
 }
 
 #app-container {
     width: 100%;
-    max-width: 100vh; /* 최대 너비는 화면 높이에 맞춰 정사각형 형태가 되도록 함 */
-    height: min(100vh, calc(100vw * 4 / 3)); /* 4:3 비율을 유지하되 화면 높이를 넘지 않도록 함 */
-    max-height: 100vh; /* 뷰포트 높이를 초과하지 않도록 */
+    max-width: 100dvh; /* 최대 너비는 화면 높이에 맞춰 정사각형 형태가 되도록 함 */
+    height: min(100dvh, calc(100vw * 4 / 3)); /* 4:3 비율을 유지하되 화면 높이를 넘지 않도록 함 */
+    max-height: 100dvh; /* 뷰포트 높이를 초과하지 않도록 */
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
