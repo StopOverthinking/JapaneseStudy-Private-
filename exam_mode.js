@@ -239,6 +239,12 @@ const ExamMode = (() => {
         handwritingArea.classList.toggle('hidden', !isHandwritingMode);
         toggleInputMethodBtn.textContent = isHandwritingMode ? '키보드 입력만 사용' : '손글씨 입력 열기';
         
+        // 필기 인식 활성화 시 키보드 입력 비활성화
+        if (examInput) {
+            examInput.disabled = isHandwritingMode;
+            examInput.placeholder = isHandwritingMode ? '손글씨로 입력하세요' : '일본어 정답 입력';
+        }
+        
         const appContainer = document.getElementById('app-container');
         if (isHandwritingMode) {
             appContainer.classList.add('tablet-mode');
