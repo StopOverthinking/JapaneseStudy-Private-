@@ -1351,3 +1351,22 @@ button:hover {
     padding: 0 20px;
     background-color: var(--primary-color);
 }
+
+/* 시험 결과 화면 스크롤 처리 */
+#exam-result-mode {
+    justify-content: flex-start;
+    padding-top: 20px;
+    overflow: hidden;
+}
+
+#exam-wrong-list {
+    flex: 1;
+    width: 100%;
+    max-width: 500px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+}

@@ -77,11 +77,16 @@ const ExamMode = (() => {
             } else if (vocabularySets[sessionData.currentSetIndex]) {
                 setName = vocabularySets[sessionData.currentSetIndex].name;
             }
-            const progress = `${sessionData.currentIndex + 1} / ${sessionData.questions.length}`;
 
             const resumeBtn = document.createElement('button');
-            resumeBtn.textContent = `완료하지 않은 시험 이어하기\n${setName} (${progress})`;
-            resumeBtn.style.backgroundColor = '#FF5722';
+            if (sessionData.isCompleted) {
+                resumeBtn.textContent = `이전 시험 결과 보기\n${setName}`;
+                resumeBtn.style.backgroundColor = '#4CAF50';
+            } else {
+                const progress = `${sessionData.currentIndex + 1} / ${sessionData.questions.length}`;
+                resumeBtn.textContent = `완료하지 않은 시험 이어하기\n${setName} (${progress})`;
+                resumeBtn.style.backgroundColor = '#FF5722';
+            }
             resumeBtn.style.whiteSpace = 'pre-line';
             resumeBtn.onclick = () => resumeSession();
             examSetList.appendChild(resumeBtn);
@@ -95,7 +100,7 @@ const ExamMode = (() => {
             btn.style.backgroundColor = '#FF5722';
             btn.onclick = () => {
                 if (hasSavedSession()) {
-                    if (confirm('완료하지 않은 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
+                    if (confirm('이전 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
                         clearSession();
                         startExam('wrong_answers');
                     }
@@ -111,7 +116,7 @@ const ExamMode = (() => {
             btn.textContent = `${set.name} (${set.words.length}문제)`;
             btn.onclick = () => {
                 if (hasSavedSession()) {
-                    if (confirm('완료하지 않은 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
+                    if (confirm('이전 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
                         clearSession();
                         document.getElementById('app-container').classList.remove('tablet-mode');
                         startExam(index);
@@ -183,6 +188,21 @@ const ExamMode = (() => {
 
     // 시험 종료 및 채점
     function finishExam() {
+        // 세션을 완료 상태로 저장
+        const data = {
+            currentSetIndex,
+            questions,
+            userAnswers,
+            currentIndex,
+            isCompleted: true
+        };
+        localStorage.setItem(EXAM_SESSION_KEY, JSON.stringify(data));
+
+        showResults();
+        document.getElementById('app-container').classList.remove('tablet-mode');
+    }
+
+    function showResults() {
         let correctCount = 0;
         const wrongDetails = [];
 
@@ -229,8 +249,6 @@ const ExamMode = (() => {
         }
 
         showScreen(examResultScreen);
-        clearSession(); // 시험 완료 후 세션 삭제
-        document.getElementById('app-container').classList.remove('tablet-mode');
     }
 
     // 손글씨 관련 기능
@@ -300,8 +318,12 @@ const ExamMode = (() => {
             userAnswers = data.userAnswers;
             currentIndex = data.currentIndex;
             
-            showScreen(examScreen);
-            renderQuestion();
+            if (data.isCompleted) {
+                showResults();
+            } else {
+                showScreen(examScreen);
+                renderQuestion();
+            }
         }
     }
 
