@@ -157,7 +157,7 @@ const SpeedQuizMode = (() => {
             if (currentNicknameEl) currentNicknameEl.textContent = playerName;
             closeNicknameModal();
         } else {
-            alert('닉네임을 입력해주세요.');
+            window.AppUI.showToast('닉네임을 입력해주세요.', 'error');
         }
     }
 
@@ -165,7 +165,7 @@ const SpeedQuizMode = (() => {
     function showMenu() {
         const totalCount = vocabularySets.reduce((acc, set) => acc + set.words.length, 0);
         if (totalCount < 5) {
-            alert('스피드퀴즈 모드를 시작하려면 최소 5개의 단어가 필요합니다.');
+            window.AppUI.showToast('스피드퀴즈 모드를 시작하려면 최소 5개의 단어가 필요합니다.', 'error');
             return;
         }
         
@@ -198,7 +198,7 @@ const SpeedQuizMode = (() => {
     // 매칭 시작 함수 (신규)
     function startMatchmaking(type) {
         if (!playerName) {
-            alert('닉네임을 설정해주세요.');
+            window.AppUI.showToast('닉네임을 설정해주세요.', 'error');
             openNicknameModal();
             return;
         }
@@ -225,7 +225,7 @@ const SpeedQuizMode = (() => {
         gameMode = mode;
         
         if (!playerName) {
-            alert('닉네임을 설정해주세요.');
+            window.AppUI.showToast('닉네임을 설정해주세요.', 'error');
             openNicknameModal();
             return;
         }
@@ -313,12 +313,8 @@ const SpeedQuizMode = (() => {
         const typeText = currentQuizType === 'objective' ? '객관식 스피드 퀴즈 (30문제)' : '주관식 발음 퀴즈 (10문제)';
         const typeEl = document.createElement('div');
         typeEl.id = 'intro-quiz-type';
+        typeEl.className = 'intro-quiz-type';
         typeEl.textContent = typeText;
-        typeEl.style.position = 'absolute';
-        typeEl.style.bottom = '20%';
-        typeEl.style.fontSize = '1.5em';
-        typeEl.style.color = '#FFC107';
-        typeEl.style.fontWeight = 'bold';
         
         // 기존 타입 표시가 있다면 제거
         const oldTypeEl = document.getElementById('intro-quiz-type');
@@ -759,18 +755,12 @@ const SpeedQuizMode = (() => {
     function showScorePopup(points) {
         const rect = scoreEl.getBoundingClientRect();
         const popup = document.createElement('div');
-        popup.className = 'score-popup';
+        popup.className = 'score-popup score-popup-float';
         popup.textContent = `+${points}`;
         
         // 점수판 오른쪽 근처에 표시
-        popup.style.position = 'fixed';
         popup.style.left = `${rect.right + 20}px`;
         popup.style.top = `${rect.top}px`;
-        popup.style.zIndex = '9999';
-        popup.style.color = '#ff5722';
-        popup.style.fontWeight = 'bold';
-        popup.style.fontSize = '1.5em';
-        popup.style.pointerEvents = 'none';
         
         document.body.appendChild(popup);
         
@@ -833,9 +823,8 @@ const SpeedQuizMode = (() => {
                 // 대기 메시지 표시
                 const waitMsg = document.createElement('div');
                 waitMsg.id = 'waiting-msg';
-                waitMsg.innerHTML = '<h2 style="color:#555;">상대방이 문제를 푸는 중입니다...</h2><p>잠시만 기다려주세요.</p>';
-                waitMsg.style.textAlign = 'center';
-                waitMsg.style.marginTop = '50px';
+                waitMsg.className = 'waiting-message';
+                waitMsg.innerHTML = '<h2 class="waiting-message-title">상대방이 문제를 푸는 중입니다...</h2><p>잠시만 기다려주세요.</p>';
                 gameAreaEl.appendChild(waitMsg);
             }
         }
@@ -856,7 +845,7 @@ const SpeedQuizMode = (() => {
         gameResult.classList.remove('hidden');
         
         // 결과 메시지 구성
-        let resultText = `${score}점`;
+        let resultText = `<span class="speed-quiz-result-score">${score}점</span>`;
         if (gameMode === 'bot') {
             // 봇 대전일 경우 결과 화면 버튼 변경 (티어 확인하러 가기)
             const restartBtn = document.getElementById('restart-speed-quiz-btn');
@@ -864,17 +853,17 @@ const SpeedQuizMode = (() => {
             restartBtn.onclick = () => showTierResult(score > botScore, botSurrendered);
 
             if (botSurrendered) {
-                resultText += ` <span style="color:blue; font-size:1.2em;">(WIN!)</span>`;
-                resultText += `<br><span style="font-size:0.9em; color:#FF5722; font-weight:bold;">상대방이 게임을 포기했습니다. (기권)</span>`;
-                resultText += `<br><span style="font-size:0.8em; color:#666;">(${botName} 점수: ${botScore}점 / ${botCurrentIndex}문제)</span>`;
+                resultText += ' <span class="speed-quiz-result-badge is-win">(WIN!)</span>';
+                resultText += '<div class="speed-quiz-result-detail is-surrender">상대방이 게임을 포기했습니다. (기권)</div>';
+                resultText += `<div class="speed-quiz-result-detail is-meta">(${botName} 점수: ${botScore}점 / ${botCurrentIndex}문제)</div>`;
             } else if (score > botScore) {
-                resultText += ` <span style="color:blue; font-size:1.2em;">(WIN!)</span>`;
+                resultText += ' <span class="speed-quiz-result-badge is-win">(WIN!)</span>';
             } else if (score < botScore) {
-                resultText += ` <span style="color:red; font-size:1.2em;">(LOSE...)</span>`;
+                resultText += ' <span class="speed-quiz-result-badge is-lose">(LOSE...)</span>';
             } else {
-                resultText += ` <span style="color:gray; font-size:1.2em;">(DRAW)</span>`;
+                resultText += ' <span class="speed-quiz-result-badge is-draw">(DRAW)</span>';
             }
-            resultText += `<br><span style="font-size:0.8em; color:#666;">(${botName} 점수: ${botScore}점)</span>`;
+            resultText += `<div class="speed-quiz-result-detail is-meta">(${botName} 점수: ${botScore}점)</div>`;
         }
         else {
             // 싱글 모드일 경우 원래대로
@@ -901,7 +890,7 @@ const SpeedQuizMode = (() => {
         if (wrongAnswers.length > 0) {
             const h3 = document.createElement('h3');
             h3.textContent = '틀린 단어 복습';
-            h3.style.color = '#dc3545';
+            h3.className = 'wrong-list-title';
             wrongListContainer.appendChild(h3);
 
             wrongAnswers.forEach(word => {
@@ -923,7 +912,7 @@ const SpeedQuizMode = (() => {
                 wrongListContainer.appendChild(item);
             });
         } else {
-            wrongListContainer.innerHTML = '<p style="color: #4CAF50; font-weight: bold; margin-top: 20px;">축하합니다! 모든 문제를 맞췄습니다!</p>';
+            wrongListContainer.innerHTML = '<p class="wrong-list-success">축하합니다! 모든 문제를 맞췄습니다!</p>';
         }
     }
 
@@ -1086,7 +1075,7 @@ const SpeedQuizMode = (() => {
         recordListEl.innerHTML = '';
         
         if (records.length === 0) {
-            recordListEl.innerHTML = '<li style="justify-content:center; color:#999;">아직 만점 기록이 없습니다.</li>';
+            recordListEl.innerHTML = '<li class="record-empty-item">아직 만점 기록이 없습니다.</li>';
             return;
         }
 
@@ -1235,7 +1224,7 @@ const SpeedQuizMode = (() => {
     }
 
     // 게임 중 이탈 처리
-    function handleQuit() {
+    async function handleQuit() {
         if (!isGameActive) {
             showMenu();
             return;
@@ -1246,7 +1235,15 @@ const SpeedQuizMode = (() => {
             msg = '게임 중 이탈하면 패배 처리됩니다.\n(점수/LP가 하락합니다)\n정말 나가시겠습니까?';
         }
 
-        if (confirm(msg)) {
+        const confirmed = await window.AppUI.showConfirmModal({
+            eyebrow: '게임 종료',
+            title: '스피드퀴즈를 종료할까요?',
+            message: msg.replace(/\n/g, ' '),
+            confirmText: '종료하기',
+            cancelText: '계속하기'
+        });
+
+        if (confirmed) {
             // 패배 처리 로직
             isGameActive = false;
             clearInterval(timerInterval);

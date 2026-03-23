@@ -20,6 +20,10 @@ const LearningMode = (() => {
     const toggleReadingCheckbox = document.getElementById('toggle-reading-checkbox');
     const progressText = document.getElementById('progress-text');
     const resultsScreen = document.getElementById('results-screen');
+    const learningInlineMessage = document.getElementById('learning-inline-message');
+    const learningContextBadge = document.getElementById('learning-context-badge');
+    const learningSessionSet = document.getElementById('learning-session-set');
+    const learningSessionPhase = document.getElementById('learning-session-phase');
 
     // --- 동적 생성 요소 변수 ---
     let inputModeCheckbox;
@@ -42,8 +46,36 @@ const LearningMode = (() => {
     let isCardFlipped = false;
     let isInputMode = false; // 입력 모드 활성화 여부
     let isHandwritingOpen = false;
+    let currentSessionLabel = '전체 단어';
+    let currentRound = 1;
 
     const SESSION_KEY = 'japaneseAppSessionData';
+
+    function setLearningMessage(message, tone = 'error') {
+        if (window.AppUI && typeof window.AppUI.setInlineMessage === 'function') {
+            window.AppUI.setInlineMessage(learningInlineMessage, message, tone);
+        }
+    }
+
+    function clearLearningMessage() {
+        if (window.AppUI && typeof window.AppUI.clearInlineMessage === 'function') {
+            window.AppUI.clearInlineMessage(learningInlineMessage);
+        }
+    }
+
+    function updateLearningHeader(isSetup = false) {
+        if (learningContextBadge) {
+            learningContextBadge.textContent = isSetup ? '설정' : `${currentRound}차`;
+        }
+
+        if (learningSessionSet) {
+            learningSessionSet.textContent = currentSessionLabel;
+        }
+
+        if (learningSessionPhase) {
+            learningSessionPhase.textContent = isSetup ? '시작 전' : `${currentRound}차 학습`;
+        }
+    }
 
     // --- 내부 함수 ---
 
@@ -69,14 +101,14 @@ const LearningMode = (() => {
                 <input type="text" id="learning-input" placeholder="일본어 정답 입력" autocomplete="off">
                 <button id="btn-check-answer">확인</button>
             </div>
-            <button id="btn-toggle-learning-hw" class="secondary-btn" style="margin-top:10px; width:100%;">손글씨 입력 열기</button>
+            <button id="btn-toggle-learning-hw" class="secondary-btn full-width-button">손글씨 입력 열기</button>
             <div id="learning-handwriting-area" class="hidden">
-                <canvas id="learning-handwriting-canvas" width="300" height="200" style="background:white; border:1px solid #ccc; cursor:crosshair; touch-action:none;"></canvas>
-                <div class="hw-controls" style="width:100%; display:flex; gap:5px; margin-top:5px;">
-                    <button id="learning-hw-clear" style="flex:1;">지우기</button>
-                    <button id="learning-hw-recognize" style="flex:1;">인식하기</button>
+                <canvas id="learning-handwriting-canvas" class="handwriting-canvas" width="300" height="200"></canvas>
+                <div class="hw-controls learning-hw-controls">
+                    <button id="learning-hw-clear" class="hw-flex-btn">지우기</button>
+                    <button id="learning-hw-recognize" class="hw-flex-btn">인식하기</button>
                 </div>
-                <div id="learning-hw-candidates" style="display:flex; gap:5px; flex-wrap:wrap; margin-top:5px; min-height:30px;"></div>
+                <div id="learning-hw-candidates" class="learning-hw-candidates"></div>
             </div>
         `;
         
@@ -128,7 +160,9 @@ const LearningMode = (() => {
                 unknownWords,
                 currentCardIndex,
                 displayFrontFirst,
-                isInputMode
+                isInputMode,
+                currentSessionLabel,
+                currentRound
             };
             localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
         }
@@ -207,6 +241,9 @@ const LearningMode = (() => {
 
             if (status === 'known') {
                 knownWords.push(currentCard);
+                if (window.AppUI && typeof window.AppUI.recordLearnedWord === 'function') {
+                    window.AppUI.recordLearnedWord(currentCard.id);
+                }
             } else {
                 unknownWords.push(currentCard);
             }
@@ -218,13 +255,16 @@ const LearningMode = (() => {
 
     function endRound() {
         if (unknownWords.length > 0) {
-            alert(`${unknownWords.length}개의 단어를 다시 학습합니다.`);
+            if (window.AppUI && typeof window.AppUI.showToast === 'function') {
+                window.AppUI.showToast(`${unknownWords.length}개의 단어를 다시 학습합니다.`, 'info');
+            }
             startSession(true);
         } else {
             // 전역 함수 showScreen 사용
             if (typeof showScreen === 'function') showScreen(resultsScreen);
             flashcardSession.classList.add('hidden');
             learningSetup.classList.remove('hidden');
+            updateLearningHeader(true);
             clearSessionState();
         }
     }
@@ -251,6 +291,9 @@ const LearningMode = (() => {
             const displayRadio = document.querySelector('input[name="initial-display"]:checked');
             displayFrontFirst = displayRadio ? displayRadio.value : 'japanese';
             const selectedSetKey = vocabSetSelect.value;
+            currentRound = 1;
+            currentSessionLabel = vocabSetSelect.options[vocabSetSelect.selectedIndex]?.textContent || '전체 단어';
+            clearLearningMessage();
             isInputMode = false; // 새 세션 시작 시 기본값
 
             let sourceWords = [];
@@ -269,7 +312,7 @@ const LearningMode = (() => {
                 const start = parseInt(rangeStartInput.value, 10);
                 const end = parseInt(rangeEndInput.value, 10);
                 if (isNaN(start) || isNaN(end) || start <= 0 || end <= 0 || start > end) {
-                    alert('학습 범위를 올바르게 입력해주세요.');
+                    setLearningMessage('학습 범위를 올바르게 입력해주세요.');
                     return;
                 }
                 sourceWords = sourceWords.filter(word => {
@@ -277,13 +320,13 @@ const LearningMode = (() => {
                     return wordNum >= start && wordNum <= end;
                 });
                 if (sourceWords.length === 0) {
-                    alert('지정한 범위에 해당하는 단어가 없습니다.');
+                    setLearningMessage('지정한 범위에 해당하는 단어가 없습니다.');
                     return;
                 }
             }
 
             if (wordCount <= 0 || isNaN(wordCount)) {
-                alert('학습할 단어 개수를 올바르게 입력해주세요.');
+                setLearningMessage('학습할 단어 개수를 올바르게 입력해주세요.');
                 return;
             }
             // 전역 함수 getRandomWords 사용
@@ -295,10 +338,11 @@ const LearningMode = (() => {
             currentVocabulary = typeof shuffleArray === 'function' ? shuffleArray([...unknownWords]) : [...unknownWords];
             knownWords = [];
             unknownWords = [];
+            currentRound += 1;
         }
 
         if (currentVocabulary.length === 0) {
-            alert('학습할 단어가 없습니다.');
+            setLearningMessage('학습할 단어가 없습니다.');
             return;
         }
 
@@ -306,6 +350,7 @@ const LearningMode = (() => {
         learningSetup.classList.add('hidden');
         flashcardSession.classList.remove('hidden');
         if (typeof showScreen === 'function') showScreen(learningModeScreen);
+        updateLearningHeader(false);
 
         btnPrevCard.classList.add('hidden');
         
@@ -407,7 +452,7 @@ const LearningMode = (() => {
         results.forEach(text => {
             const span = document.createElement('span');
             span.textContent = text;
-            span.style.cssText = 'background:white; border:1px solid #ccc; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:1.2em;';
+            span.className = 'handwriting-candidate';
             hwCandidates.appendChild(span);
         });
     }
@@ -436,7 +481,11 @@ const LearningMode = (() => {
             if (typeof showScreen === 'function') showScreen(learningModeScreen);
             learningSetup.classList.remove('hidden');
             flashcardSession.classList.add('hidden');
+            currentSessionLabel = '전체 단어';
+            currentRound = 1;
             populateVocabSetSelect();
+            clearLearningMessage();
+            updateLearningHeader(true);
         },
         resume: () => {
             const savedSession = localStorage.getItem(SESSION_KEY);
@@ -448,6 +497,8 @@ const LearningMode = (() => {
                 currentCardIndex = data.currentCardIndex;
                 displayFrontFirst = data.displayFrontFirst;
                 isInputMode = data.isInputMode || false;
+                currentSessionLabel = data.currentSessionLabel || currentSessionLabel;
+                currentRound = data.currentRound || 1;
 
                 learningSetup.classList.add('hidden');
                 flashcardSession.classList.remove('hidden');
@@ -458,6 +509,7 @@ const LearningMode = (() => {
                 
                 initDynamicUI();
                 updateModeUI();
+                updateLearningHeader(false);
 
                 updateCardContent(currentVocabulary[currentCardIndex]);
                 updateProgress();
@@ -468,9 +520,13 @@ const LearningMode = (() => {
         reset: () => {
             currentVocabulary = [];
             currentCardIndex = 0;
+            currentSessionLabel = '전체 단어';
+            currentRound = 1;
             flashcardSession.classList.add('hidden');
             learningSetup.classList.remove('hidden');
             document.getElementById('app-container').classList.remove('tablet-mode');
+            clearLearningMessage();
+            updateLearningHeader(true);
             clearSessionState();
         }
     };

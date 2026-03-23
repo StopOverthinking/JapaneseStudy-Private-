@@ -4,107 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일본어 단어 학습</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* 이어하기 오버레이 스타일 */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        .overlay-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            max-width: 90%;
-            width: 400px;
-        }
-        .overlay-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        .overlay-buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: transform 0.1s;
-        }
-        .overlay-buttons button:active {
-            transform: scale(0.98);
-        }
-        #btn-resume-yes {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transform: scale(1.05); /* '예' 버튼 강조 */
-        }
-        #btn-resume-no {
-            background-color: #9e9e9e;
-            color: white;
-        }
-    </style>
 </head>
 <body>
     <div id="app-container">
-        <!-- 시작 화면 / 모드 선택 -->
         <div id="start-screen" class="screen active">
-            <h1>일본어 단어 학습</h1>
-            <div class="mode-selection">
-                <button id="start-list-btn">목록 모드</button>
-                <p class="mode-description">전체 단어를 목록으로 봅니다.</p>
-            </div>
-            <div class="mode-selection">
-                <button id="start-learning-btn">학습 모드</button>
-                <p class="mode-description">카드를 넘기며 단어를 학습합니다.</p>
-            </div>
-            <div class="mode-selection">
-                <button id="start-game-mode-btn">게임 모드</button>
-                <p class="mode-description">다양한 학습 게임을 즐겨보세요.</p>
-            </div>
-            <div class="mode-selection">
-                <button id="start-exam-mode-btn" style="background-color: #E91E63;">시험 모드</button>
-                <p class="mode-description">단어장 전체를 테스트합니다.</p>
-            </div>
-            <div class="mode-selection">
-                <button id="start-data-management-btn" style="background-color: #607D8B;">데이터 관리</button>
-                <p class="mode-description">학습 기록을 백업하거나 복원합니다.</p>
+            <div class="start-shell">
+                <section class="start-hero">
+                    <p class="eyebrow">Japanese Study</p>
+                    <h1>일본어 단어 학습</h1>
+                    <p class="start-subtitle">오늘의 학습 흐름을 확인하고 필요한 모드로 바로 이동하세요.</p>
+                </section>
+
+                <section class="dashboard-panel">
+                    <div class="dashboard-panel-header">
+                        <div>
+                            <p class="eyebrow">학습 대시보드</p>
+                            <h2 class="dashboard-title">접속 기록과 학습 캘린더</h2>
+                        </div>
+                        <div class="calendar-nav">
+                            <button id="dashboard-prev-month" class="icon-toolbar-btn" type="button" aria-label="이전 달 보기">
+                                <span class="toolbar-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" focusable="false">
+                                        <path d="M15 18l-6-6 6-6"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div id="dashboard-month-label" class="calendar-month-label" aria-live="polite"></div>
+                            <button id="dashboard-next-month" class="icon-toolbar-btn" type="button" aria-label="다음 달 보기">
+                                <span class="toolbar-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" focusable="false">
+                                        <path d="M9 6l6 6-6 6"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-summary">
+                        <article class="summary-card">
+                            <span class="summary-label">최근 접속</span>
+                            <strong id="dashboard-last-visit" class="summary-value">-</strong>
+                            <span id="dashboard-last-visit-detail" class="summary-meta">기록이 아직 없습니다.</span>
+                        </article>
+                        <article class="summary-card">
+                            <span class="summary-label">이번 달 접속일</span>
+                            <strong id="dashboard-visit-days" class="summary-value">0</strong>
+                            <span class="summary-meta">앱을 연 날짜 수</span>
+                        </article>
+                        <article class="summary-card accent-card">
+                            <span class="summary-label">이번 달 배운 단어</span>
+                            <strong id="dashboard-learned-count" class="summary-value">0</strong>
+                            <span id="dashboard-learned-detail" class="summary-meta">학습 모드 기준</span>
+                        </article>
+                    </div>
+
+                    <div class="calendar-legend">
+                        <span class="legend-item"><span class="legend-swatch legend-swatch-visit"></span>접속한 날</span>
+                        <span class="legend-item"><span class="legend-swatch legend-swatch-learn"></span>학습한 단어 수</span>
+                    </div>
+
+                    <div class="calendar-weekdays" aria-hidden="true">
+                        <span>일</span>
+                        <span>월</span>
+                        <span>화</span>
+                        <span>수</span>
+                        <span>목</span>
+                        <span>금</span>
+                        <span>토</span>
+                    </div>
+                    <div id="dashboard-calendar" class="dashboard-calendar"></div>
+                </section>
+
+                <section class="mode-grid">
+                    <div class="mode-selection">
+                        <button id="start-learning-btn" class="mode-button mode-button-learning">학습 모드</button>
+                        <p class="mode-description">카드를 넘기며 단어를 학습합니다.</p>
+                    </div>
+                    <div class="mode-selection">
+                        <button id="start-list-btn" class="mode-button mode-button-list">목록 모드</button>
+                        <p class="mode-description">전체 단어를 목록으로 봅니다.</p>
+                    </div>
+                    <div class="mode-selection">
+                        <button id="start-game-mode-btn" class="mode-button mode-button-game">게임 모드</button>
+                        <p class="mode-description">다양한 학습 게임을 즐겨보세요.</p>
+                    </div>
+                    <div class="mode-selection">
+                        <button id="start-exam-mode-btn" class="mode-button mode-button-exam">시험 모드</button>
+                        <p class="mode-description">단어장 전체를 테스트합니다.</p>
+                    </div>
+                    <div class="mode-selection">
+                        <button id="start-data-management-btn" class="mode-button mode-button-data">데이터 관리</button>
+                        <p class="mode-description">학습 기록을 백업하거나 복원합니다.</p>
+                    </div>
+                </section>
             </div>
         </div>
 
-        <!-- 목록 모드 -->
         <div id="list-mode" class="screen">
-            <h2>단어 목록</h2>
-            <div id="list-controls" class="hidden">
-                <button id="toggle-word-btn">단어 숨기기</button>
-                <button id="toggle-meaning-btn">뜻 숨기기</button>
+            <div class="app-header list-toolbar">
+                <button id="back-to-start-btn" class="icon-toolbar-btn" type="button" aria-label="뒤로 가기" title="뒤로 가기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">뒤로 가기</span>
+                </button>
+                <h2 id="list-mode-title" class="app-title">단어장</h2>
+                <div id="list-controls" class="app-header-actions hidden">
+                    <button id="toggle-word-btn" class="icon-toolbar-btn" type="button" aria-label="단어 숨기기" title="단어 숨기기" aria-pressed="false">
+                        <span class="toolbar-glyph" aria-hidden="true">あ</span>
+                        <span class="sr-only">단어 숨기기</span>
+                    </button>
+                    <button id="toggle-meaning-btn" class="icon-toolbar-btn" type="button" aria-label="뜻 숨기기" title="뜻 숨기기" aria-pressed="false">
+                        <span class="toolbar-glyph" aria-hidden="true">한</span>
+                        <span class="sr-only">뜻 숨기기</span>
+                    </button>
+                </div>
             </div>
+            <div id="list-jump-nav" class="list-jump-nav hidden"></div>
             <div id="vocabulary-list-container"></div>
-            <button id="back-to-start-btn">돌아가기</button>
         </div>
 
-        <!-- 학습 모드 -->
         <div id="learning-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-learning" class="back-btn">‹ 돌아가기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-learning" class="icon-toolbar-btn back-btn" type="button" aria-label="뒤로 가기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">뒤로 가기</span>
+                </button>
+                <h2 class="app-title">학습 모드</h2>
+                <div class="app-header-actions">
+                    <span id="learning-context-badge" class="header-badge">설정</span>
+                </div>
             </div>
-            <h2>학습 모드</h2>
+
             <div id="learning-setup">
+                <div id="learning-inline-message" class="inline-message hidden" role="status"></div>
                 <div class="setting-item">
-                    <label for="vocab-set-select">학습할 단어장:</label>
+                    <label for="vocab-set-select">학습할 단어장</label>
                     <select id="vocab-set-select"></select>
                 </div>
                 <div class="setting-item" id="range-setting-container">
@@ -122,8 +165,12 @@
                     <div class="word-count-wrapper">
                         <input type="number" id="word-count" value="10" min="1">
                         <div id="word-count-controls" class="word-count-controls">
-                            <button data-value="10">+10</button> <button data-value="5">+5</button> <button data-value="1">+1</button>
-                            <button data-value="-10">-10</button> <button data-value="-5">-5</button> <button data-value="-1">-1</button>
+                            <button data-value="10">+10</button>
+                            <button data-value="5">+5</button>
+                            <button data-value="1">+1</button>
+                            <button data-value="-10">-10</button>
+                            <button data-value="-5">-5</button>
+                            <button data-value="-1">-1</button>
                         </div>
                     </div>
                 </div>
@@ -136,17 +183,19 @@
             </div>
 
             <div id="flashcard-session" class="hidden">
+                <div class="session-status-bar">
+                    <span id="learning-session-set" class="session-status-chip">전체 단어</span>
+                    <span id="learning-session-phase" class="session-status-chip">1차 학습</span>
+                </div>
                 <div class="card-container">
-                    <button id="btn-prev-card" class="prev-card-btn">‹</button>
+                    <button id="btn-prev-card" class="prev-card-btn">←</button>
                     <button id="btn-favorite" class="favorite-btn">☆</button>
                     <div id="flashcard" class="flashcard">
                         <div class="card-face card-front">
-                            <!-- 일본어/독음 또는 뜻이 여기에 표시됩니다. -->
                             <p class="japanese-text"></p>
                             <p class="reading-text"></p>
                         </div>
                         <div class="card-face card-back">
-                            <!-- 반대 내용이 여기에 표시됩니다. -->
                             <p class="meaning-text"></p>
                         </div>
                     </div>
@@ -162,29 +211,40 @@
             </div>
         </div>
 
-        <!-- 게임 선택 모드 (신규) -->
         <div id="game-selection-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-game-selection" class="back-btn">‹ 돌아가기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-game-selection" class="icon-toolbar-btn back-btn" type="button" aria-label="뒤로 가기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">뒤로 가기</span>
+                </button>
+                <h2 class="app-title">게임 선택</h2>
+                <div class="app-header-actions"></div>
             </div>
-            <h2>게임 선택</h2>
             <div class="mode-selection">
-                <button id="open-speed-quiz-btn" style="background-color: #FF9800;">스피드퀴즈</button>
+                <button id="open-speed-quiz-btn" class="mode-button mode-button-learning">스피드퀴즈</button>
                 <p class="mode-description">스피드 객관식 퀴즈 (30문제)</p>
             </div>
         </div>
 
-        <!-- 스피드퀴즈 모드 -->
         <div id="speed-quiz-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-speed-quiz" class="back-btn">‹ 그만두기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-speed-quiz" class="icon-toolbar-btn back-btn" type="button" aria-label="그만두기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">그만두기</span>
+                </button>
+                <h2 id="speed-quiz-title" class="app-title">스피드퀴즈 모드 선택</h2>
+                <div class="app-header-actions"></div>
             </div>
 
-            <!-- 모드 선택 메뉴 (신규) -->
             <div id="speed-quiz-menu">
-                <h2 id="speed-quiz-title" style="margin-top: 0;">스피드퀴즈 모드 선택</h2>
-                
-                <!-- 닉네임 관리 영역 -->
                 <div class="nickname-container">
                     <div id="nickname-display-area">
                         <span id="current-nickname">플레이어</span>
@@ -194,26 +254,23 @@
 
                 <div id="speed-quiz-mode-select">
                     <div class="quiz-mode-buttons">
-                        <button id="btn-single-objective" class="mode-select-btn" style="background-color: #2196F3;">싱글 - 객관식</button>
-                        <button id="btn-single-subjective" class="mode-select-btn" style="background-color: #03A9F4;">싱글 - 발음</button>
-                        <button id="btn-vs-objective" class="mode-select-btn" style="background-color: #9C27B0;">대전 - 객관식</button>
-                        <button id="btn-vs-subjective" class="mode-select-btn" style="background-color: #673AB7;">대전 - 발음</button>
+                        <button id="btn-single-objective" class="mode-select-btn mode-button-list">싱글 - 객관식</button>
+                        <button id="btn-single-subjective" class="mode-select-btn mode-button-learning">싱글 - 발음</button>
+                        <button id="btn-vs-objective" class="mode-select-btn mode-button-game">대전 - 객관식</button>
+                        <button id="btn-vs-subjective" class="mode-select-btn mode-button-exam">대전 - 발음</button>
                     </div>
                 </div>
-                
-                <!-- 싱글 플레이 대기 화면 (신규) -->
-                <div id="single-mode-pre-screen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+
+                <div id="single-mode-pre-screen" class="hidden single-mode-pre-screen">
                     <div id="single-mode-records" class="records-container">
-                        <h3>🏆 명예의 전당 (Top 10)</h3>
+                        <h3>명예의 전당 (Top 10)</h3>
                         <ul id="record-list"></ul>
                     </div>
-                    <button id="btn-start-single-game" style="margin-top: 20px; background-color: #4CAF50; width: 80%; max-width: 300px; font-size: 1.2em; padding: 15px;">게임 시작</button>
+                    <button id="btn-start-single-game" class="primary-large-button">게임 시작</button>
                 </div>
             </div>
 
-            <!-- 게임 영역 (기존 요소를 감쌈) -->
             <div id="speed-quiz-game-area" class="hidden">
-                <!-- 레이스 바 (신규) -->
                 <div id="speed-quiz-race-track">
                     <div class="race-bar-row">
                         <span class="race-label">나</span>
@@ -230,53 +287,63 @@
                     <span id="speed-quiz-bot-score" class="hidden">봇: 0</span>
                 </div>
                 <div id="speed-quiz-timer-bar"><div id="speed-quiz-timer-fill"></div></div>
-                
+
                 <div id="speed-quiz-content">
                     <div id="speed-quiz-question"></div>
                     <div id="speed-quiz-options"></div>
-                    <!-- 주관식 입력 영역 -->
                     <div id="speed-quiz-input-area" class="hidden">
-                        <input type="text" id="speed-quiz-input" placeholder="발음을 입력하세요 (예: あした, ashita)" autocomplete="off">
+                        <input type="text" id="speed-quiz-input" placeholder="발음을 입력하세요. 예: ashita" autocomplete="off">
                         <button id="btn-submit-answer">제출</button>
                     </div>
                 </div>
 
-                <!-- 디버그 정보 (신규) -->
                 <div id="speed-quiz-debug-info" class="hidden"></div>
             </div>
-            
+
             <div id="speed-quiz-result" class="hidden">
                 <h2>퀴즈 종료!</h2>
-                <p style="font-size: 1.5em; margin: 20px;">최종 점수: <span id="final-score" style="font-weight:bold; color:#4CAF50;"></span></p>
-                <p style="font-size: 1.1em; margin: 10px;">평균 소요 시간: <span id="average-time" style="font-weight:bold;"></span>초</p>
+                <p class="result-highlight">최종 점수: <span id="final-score" class="result-highlight-value"></span></p>
+                <p class="result-subtext">평균 소요 시간: <span id="average-time" class="result-subtext-value"></span>초</p>
                 <div id="speed-quiz-wrong-list"></div>
                 <button id="restart-speed-quiz-btn">메뉴로 돌아가기</button>
             </div>
         </div>
 
-        <!-- 시험 모드: 단어장 선택 -->
         <div id="exam-selection-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-exam-select" class="back-btn">‹ 돌아가기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-exam-select" class="icon-toolbar-btn back-btn" type="button" aria-label="뒤로 가기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">뒤로 가기</span>
+                </button>
+                <h2 class="app-title">시험 볼 단어장 선택</h2>
+                <div class="app-header-actions"></div>
             </div>
-            <h2>시험 볼 단어장 선택</h2>
-            <div id="exam-set-list" class="mode-selection">
-                <!-- 자바스크립트로 버튼 생성 -->
-            </div>
+            <div id="exam-set-list" class="mode-selection"></div>
         </div>
 
-        <!-- 시험 모드: 진행 화면 -->
         <div id="exam-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-exam" class="back-btn">‹ 그만두기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-exam" class="icon-toolbar-btn back-btn" type="button" aria-label="그만두기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">그만두기</span>
+                </button>
+                <h2 id="exam-progress" class="app-title">문제 1 / 10</h2>
+                <div class="app-header-actions"></div>
             </div>
-            <h2 id="exam-progress">문제 1 / 10</h2>
             <div class="exam-container">
                 <div id="exam-question" class="meaning-text"></div>
                 <input type="text" id="exam-input" placeholder="일본어 정답 입력" autocomplete="off">
-                
+
                 <button id="toggle-input-method" class="secondary-btn">손글씨 입력 열기</button>
-                
+
                 <div id="handwriting-area" class="hidden">
                     <canvas id="handwriting-canvas" width="300" height="200"></canvas>
                     <div class="hw-controls">
@@ -290,22 +357,41 @@
             </div>
         </div>
 
-        <!-- 시험 모드: 결과 화면 -->
         <div id="exam-result-mode" class="screen">
-            <h2>시험 결과</h2>
-            <p class="score-display">점수: <span id="exam-score"></span></p>
-            <div id="exam-wrong-list"></div>
-            <button id="restart-exam-btn">다른 시험 보기</button>
-            <button id="back-to-start-from-exam-result">메인으로</button>
+            <div class="app-header">
+                <button id="back-to-start-from-exam-result" class="icon-toolbar-btn back-btn" type="button" aria-label="메인으로">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">메인으로</span>
+                </button>
+                <h2 class="app-title">시험 결과</h2>
+                <div class="app-header-actions"></div>
+            </div>
+            <div class="result-screen-body">
+                <p class="score-display">점수: <span id="exam-score"></span></p>
+                <div id="exam-wrong-list"></div>
+                <button id="restart-exam-btn">다른 시험 보기</button>
+            </div>
         </div>
 
-        <!-- 데이터 관리 모드 -->
         <div id="data-management-mode" class="screen">
-            <div class="screen-header">
-                <button id="back-to-start-from-data-mgmt" class="back-btn">‹ 돌아가기</button>
+            <div class="app-header">
+                <button id="back-to-start-from-data-mgmt" class="icon-toolbar-btn back-btn" type="button" aria-label="뒤로 가기">
+                    <span class="toolbar-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </span>
+                    <span class="sr-only">뒤로 가기</span>
+                </button>
+                <h2 class="app-title">데이터 관리</h2>
+                <div class="app-header-actions"></div>
             </div>
-            <h2>데이터 관리</h2>
             <div class="data-mgmt-container">
+                <div id="data-management-message" class="inline-message hidden" role="status"></div>
                 <div class="data-section">
                     <h3>데이터 내보내기 (백업)</h3>
                     <p>현재 기기의 모든 학습 데이터를 저장합니다.</p>
@@ -314,91 +400,116 @@
                 </div>
                 <div class="data-section">
                     <h3>데이터 가져오기 (복원)</h3>
-                    <p>이전 데이터를 불러옵니다.<br>(주의: 현재 데이터는 덮어씌워집니다)</p>
+                    <p>이전 데이터를 불러옵니다.<br>(주의: 현재 데이터는 덮어써집니다.)</p>
+                    <div class="data-warning-card">
+                        <strong>확인 필요</strong>
+                        <span>복원 전에 먼저 백업 파일을 저장해 두는 것을 권장합니다.</span>
+                    </div>
                     <button id="import-clipboard-btn">클립보드에서 가져오기</button>
                     <button id="import-file-btn">파일에서 불러오기</button>
-                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                    <input type="file" id="import-file-input" class="hidden-file-input" accept=".json">
                 </div>
             </div>
         </div>
 
-        <!-- 결과 화면 (선택 사항) -->
         <div id="results-screen" class="screen">
-            <h2>학습 결과</h2>
-            <p>모든 단어를 학습했습니다!</p>
-            <button id="restart-learning-btn">다시 학습하기</button>
+            <div class="result-screen-body result-screen-body-centered">
+                <h2>학습 결과</h2>
+                <p>모든 단어를 학습했습니다!</p>
+                <button id="restart-learning-btn">다시 학습하기</button>
+            </div>
         </div>
 
-        <!-- 티어 결과 화면 (신규) -->
         <div id="tier-result-screen" class="screen">
             <h2>대전 결과</h2>
-            <div class="tier-container" style="text-align: center;">
-                <div id="tier-badge" style="width: 100px; height: 100px; border-radius: 50%; background: #ccc; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 3em; color: white; font-weight: bold;">?</div>
-                <h3 id="tier-name" style="margin: 10px 0; font-size: 2em;">Unranked</h3>
-                <p id="tier-division" style="color: #666;">0 LP</p>
-                
-                <div class="mmr-progress-container" style="width: 80%; max-width: 300px; height: 10px; background: #eee; border-radius: 5px; margin: 20px auto; overflow: hidden;">
-                    <div id="mmr-progress-bar" style="width: 0%; height: 100%; background: #4CAF50; transition: width 1s ease-out;"></div>
+            <div class="tier-container">
+                <div id="tier-badge" class="tier-badge">?</div>
+                <h3 id="tier-name" class="tier-name">Unranked</h3>
+                <p id="tier-division" class="tier-division">0 LP</p>
+
+                <div class="mmr-progress-container">
+                    <div id="mmr-progress-bar"></div>
                 </div>
-                <p id="mmr-change-text" style="font-weight: bold; font-size: 1.2em; margin-top: 10px;">+0 LP</p>
+                <p id="mmr-change-text" class="mmr-change-text">+0 LP</p>
             </div>
-            <button id="close-tier-screen-btn" style="margin-top: 30px;">확인</button>
+            <button id="close-tier-screen-btn" class="primary-large-button">확인</button>
         </div>
 
-        <!-- 매치 인트로 화면 (신규) -->
         <div id="match-intro-screen" class="screen hidden">
             <div class="vs-container">
                 <div class="player-intro">
-                    <div class="avatar">👤</div>
+                    <div class="avatar">🗾</div>
                     <div id="intro-player-name" class="name">Player</div>
                 </div>
                 <div class="vs-logo">VS</div>
                 <div class="bot-intro">
-                    <div class="avatar">👤</div>
+                    <div class="avatar">🤖</div>
                     <div id="intro-bot-name" class="name">Bot</div>
                 </div>
             </div>
         </div>
 
-        <!-- 매칭 중 오버레이 (신규) -->
-        <div id="matchmaking-overlay" class="overlay hidden" style="background: rgba(0,0,0,0.85); z-index: 2200; flex-direction: column; color: white;">
+        <div id="matchmaking-overlay" class="overlay overlay-dark hidden">
             <div class="spinner"></div>
-            <h2 style="margin-top: 20px; font-weight: normal;">대전 상대 찾는 중...</h2>
+            <h2 class="overlay-title">대전 상대 찾는 중...</h2>
         </div>
 
-        <!-- 닉네임 수정 모달 -->
         <div id="nickname-modal" class="overlay hidden">
             <div class="overlay-content">
                 <h3>닉네임 수정</h3>
-                <input type="text" id="nickname-edit-input" placeholder="새 닉네임 입력" style="width: 80%; padding: 10px; margin: 15px 0; font-size: 1.1em; text-align: center;">
+                <input type="text" id="nickname-edit-input" class="modal-text-input" placeholder="새 닉네임 입력">
                 <div class="overlay-buttons">
                     <button id="btn-save-nickname">저장</button>
-                    <button id="btn-cancel-nickname" style="background-color: #999;">취소</button>
+                    <button id="btn-cancel-nickname" class="secondary-button">취소</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 이어하기 확인 오버레이 -->
     <div id="resume-overlay" class="overlay hidden">
         <div class="overlay-content">
             <h3>학습 기록 발견</h3>
             <p>이전에 완료하지 못한 학습이 있습니다.<br>이어서 진행하시겠습니까?</p>
             <div class="overlay-buttons">
-                <button id="btn-resume-yes">예, 이어서 합니다</button>
-                <button id="btn-resume-no">아니오, 새로 시작합니다</button>
+                <button id="btn-resume-yes" class="primary-emphasis-button">네, 이어서 합니다</button>
+                <button id="btn-resume-no" class="secondary-button">아니요, 새로 시작합니다</button>
             </div>
         </div>
     </div>
 
-    <!-- 카운트다운 오버레이 -->
-    <div id="countdown-overlay" class="overlay hidden" style="background: rgba(0,0,0,0.3); z-index: 2100;">
-        <div id="countdown-number" style="font-size: 8em; font-weight: bold; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5);">3</div>
+    <div id="confirm-modal" class="overlay hidden">
+        <div class="overlay-content overlay-content-wide">
+            <p id="confirm-modal-eyebrow" class="eyebrow hidden"></p>
+            <h3 id="confirm-modal-title">확인</h3>
+            <p id="confirm-modal-message" class="modal-message"></p>
+            <div class="overlay-buttons overlay-buttons-stack">
+                <button id="confirm-modal-confirm">확인</button>
+                <button id="confirm-modal-extra" class="secondary-button hidden">추가 작업</button>
+                <button id="confirm-modal-cancel" class="ghost-button">취소</button>
+            </div>
+        </div>
     </div>
+
+    <div id="data-text-modal" class="overlay hidden">
+        <div class="overlay-content overlay-content-wide">
+            <h3 id="data-text-modal-title">데이터 붙여넣기</h3>
+            <p id="data-text-modal-description" class="modal-message"></p>
+            <textarea id="data-text-modal-input" class="data-textarea"></textarea>
+            <div class="overlay-buttons">
+                <button id="data-text-modal-confirm">확인</button>
+                <button id="data-text-modal-cancel" class="secondary-button">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="countdown-overlay" class="overlay countdown-overlay hidden">
+        <div id="countdown-number" class="countdown-number">3</div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
 
     <script src="vocabulary.js"></script>
     <script src="vocab/vocab_pagodaN3.js"></script>
-    <script src="vocab/vocab_example.js"></script>
     <script src="vocab/vocab_handmade.js"></script>
     <script src="vocab/vocab_darakwon_verb.js"></script>
     <script src="learning_mode.js"></script>

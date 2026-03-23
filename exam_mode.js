@@ -79,15 +79,16 @@ const ExamMode = (() => {
             }
 
             const resumeBtn = document.createElement('button');
+            resumeBtn.className = 'exam-set-button resume-exam-button';
             if (sessionData.isCompleted) {
                 resumeBtn.textContent = `이전 시험 결과 보기\n${setName}`;
-                resumeBtn.style.backgroundColor = '#4CAF50';
+                resumeBtn.classList.add('resume-exam-button-completed');
             } else {
                 const progress = `${sessionData.currentIndex + 1} / ${sessionData.questions.length}`;
                 resumeBtn.textContent = `완료하지 않은 시험 이어하기\n${setName} (${progress})`;
-                resumeBtn.style.backgroundColor = '#FF5722';
+                resumeBtn.classList.add('resume-exam-button-pending');
             }
-            resumeBtn.style.whiteSpace = 'pre-line';
+            resumeBtn.classList.add('multiline-button');
             resumeBtn.onclick = () => resumeSession();
             examSetList.appendChild(resumeBtn);
         }
@@ -96,34 +97,43 @@ const ExamMode = (() => {
         const wrongAnswers = JSON.parse(localStorage.getItem(WRONG_ANSWERS_KEY) || '[]');
         if (wrongAnswers.length > 0) {
             const btn = document.createElement('button');
+            btn.className = 'exam-set-button exam-set-button-accent';
             btn.textContent = `! 시험 오답 노트 (${wrongAnswers.length}문제)`;
-            btn.style.backgroundColor = '#FF5722';
-            btn.onclick = () => {
+            btn.onclick = async () => {
                 if (hasSavedSession()) {
-                    if (confirm('이전 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
-                        clearSession();
-                        startExam('wrong_answers');
-                    }
-                } else {
-                    startExam('wrong_answers');
+                    const confirmed = await window.AppUI.showConfirmModal({
+                        eyebrow: '시험 시작',
+                        title: '이전 시험 기록을 덮어쓸까요?',
+                        message: '새 시험을 시작하면 저장된 진행 상황이 사라집니다.',
+                        confirmText: '새 시험 시작',
+                        cancelText: '취소'
+                    });
+                    if (!confirmed) return;
+                    clearSession();
                 }
+                startExam('wrong_answers');
             };
             examSetList.appendChild(btn);
         }
 
         vocabularySets.forEach((set, index) => {
             const btn = document.createElement('button');
+            btn.className = 'exam-set-button';
             btn.textContent = `${set.name} (${set.words.length}문제)`;
-            btn.onclick = () => {
+            btn.onclick = async () => {
                 if (hasSavedSession()) {
-                    if (confirm('이전 시험 기록이 사라집니다.\n새로운 시험을 시작하시겠습니까?')) {
-                        clearSession();
-                        document.getElementById('app-container').classList.remove('tablet-mode');
-                        startExam(index);
-                    }
-                } else {
-                    startExam(index);
+                    const confirmed = await window.AppUI.showConfirmModal({
+                        eyebrow: '시험 시작',
+                        title: '이전 시험 기록을 덮어쓸까요?',
+                        message: '새 시험을 시작하면 저장된 진행 상황이 사라집니다.',
+                        confirmText: '새 시험 시작',
+                        cancelText: '취소'
+                    });
+                    if (!confirmed) return;
+                    clearSession();
                 }
+                document.getElementById('app-container').classList.remove('tablet-mode');
+                startExam(index);
             };
             examSetList.appendChild(btn);
         });
@@ -169,10 +179,17 @@ const ExamMode = (() => {
     }
 
     // 다음 문제로 이동 또는 제출
-    function handleNext() {
+    async function handleNext() {
         const answer = examInput.value.trim();
         if (!answer) {
-            if (!confirm('답을 입력하지 않았습니다. 넘어가시겠습니까?')) return;
+            const confirmed = await window.AppUI.showConfirmModal({
+                eyebrow: '빈 답안',
+                title: '답을 입력하지 않고 넘어갈까요?',
+                message: '빈 칸으로 제출하면 오답으로 기록됩니다.',
+                confirmText: '그대로 진행',
+                cancelText: '계속 입력'
+            });
+            if (!confirmed) return;
         }
         
         userAnswers[currentIndex] = answer;
