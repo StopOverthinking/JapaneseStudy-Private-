@@ -2052,6 +2052,10 @@ body {
     box-sizing: border-box;
 }
 
+.data-mgmt-container > .inline-message {
+    grid-column: 1 / -1;
+}
+
 .inline-message[data-tone="error"] {
     background: #fff5f5;
     border-color: #f5c2c7;
