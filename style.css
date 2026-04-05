@@ -777,15 +777,20 @@ button:hover {
     flex-direction: column;
     align-items: center;
     flex: 1;
+    min-height: 0;
+    padding: 0 0 clamp(10px, 2vh, 18px);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* 레이스 바 스타일 */
 #speed-quiz-race-track {
-    width: 90%;
-    margin-top: 20px;
+    width: min(92%, 560px);
+    margin-top: clamp(10px, 2vh, 20px);
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .race-bar-row {
@@ -825,22 +830,41 @@ button:hover {
 }
 
 #speed-quiz-status-bar {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin-top: 40px;
-    font-size: 1.2em;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    width: min(92%, 560px);
+    margin-top: clamp(12px, 3vh, 32px);
+    font-size: clamp(0.95rem, 2.2vh, 1.2rem);
     font-weight: bold;
     color: #555;
+    flex-shrink: 0;
+}
+
+#speed-quiz-progress {
+    text-align: left;
+    justify-self: start;
+}
+
+#speed-quiz-score {
+    text-align: center;
+    justify-self: center;
+}
+
+#speed-quiz-bot-score {
+    text-align: right;
+    justify-self: end;
 }
 
 #speed-quiz-timer-bar {
-    width: 90%;
+    width: min(92%, 560px);
     height: 10px;
     background-color: #e0e0e0;
     border-radius: 5px;
-    margin: 15px 0 30px 0;
+    margin: clamp(8px, 1.8vh, 15px) 0 clamp(14px, 3vh, 26px) 0;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 #speed-quiz-timer-fill {
@@ -851,41 +875,53 @@ button:hover {
 }
 
 #speed-quiz-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: min(92%, 560px);
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    justify-items: center;
+    align-items: stretch;
     flex: 1;
-    justify-content: center;
+    min-height: 0;
+    gap: clamp(8px, 2vh, 18px);
+    padding: 0 16px clamp(8px, 1.8vh, 16px);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 #speed-quiz-question {
-    font-size: 2.2em;
+    width: 100%;
+    font-size: clamp(1.35rem, 3.8vh, 2.2rem);
     font-weight: bold;
     text-align: center;
-    margin-bottom: 30px;
-    min-height: 80px;
+    margin-bottom: 0;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 12px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
 }
 
 #speed-quiz-options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    width: 90%;
+    gap: clamp(8px, 1.6vh, 12px);
+    width: min(100%, 420px);
     max-width: 400px;
     margin: 0 auto;
     align-items: center;
+    min-height: 0;
+    align-self: end;
 }
 
 .speed-quiz-option-btn {
     background-color: white;
     color: var(--text-color);
     border: 2px solid #e0e0e0;
-    padding: 15px;
-    font-size: 1.1em;
+    padding: clamp(10px, 1.8vh, 15px) 12px;
+    font-size: clamp(0.92rem, 2.2vh, 1.1rem);
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s;
@@ -897,6 +933,29 @@ button:hover {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    min-height: clamp(42px, 7vh, 58px);
+    line-height: 1.25;
+    gap: 12px;
+}
+
+.speed-quiz-option-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background-color: #eef2ff;
+    color: #3146a6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 800;
+    font-size: 0.88em;
+}
+
+.speed-quiz-option-text {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
 }
 
 .speed-quiz-option-btn:hover:not(:disabled) { background-color: #f5f5f5; border-color: #ccc; }
@@ -1452,17 +1511,18 @@ button:hover {
 
 /* --- 주관식 퀴즈 입력 스타일 --- */
 #speed-quiz-input-area {
-    width: 90%;
+    width: min(100%, 420px);
     max-width: 400px;
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 0;
+    align-self: end;
 }
 
 #speed-quiz-input {
     flex: 1;
-    padding: 12px;
-    font-size: 1.2em;
+    padding: clamp(10px, 1.8vh, 12px);
+    font-size: clamp(1rem, 2.3vh, 1.2rem);
     border: 2px solid var(--primary-color);
     border-radius: 8px;
     text-align: center;
@@ -1473,6 +1533,100 @@ button:hover {
     margin: 0;
     padding: 0 20px;
     background-color: var(--primary-color);
+}
+
+@media (max-height: 820px) {
+    #speed-quiz-race-track {
+        gap: 6px;
+    }
+
+    #speed-quiz-question {
+        font-size: clamp(1.2rem, 3.4vh, 1.8rem);
+    }
+
+    .speed-quiz-option-btn {
+        min-height: 40px;
+    }
+}
+
+@media (max-height: 700px) {
+    #speed-quiz-status-bar {
+        gap: 8px;
+        margin-top: 10px;
+        font-size: 0.92rem;
+    }
+
+    #speed-quiz-timer-bar {
+        height: 8px;
+        margin: 8px 0 12px 0;
+    }
+
+    #speed-quiz-content {
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+
+    #speed-quiz-question {
+        font-size: clamp(1.02rem, 3vh, 1.45rem);
+        padding: 0 6px;
+    }
+
+    #speed-quiz-options {
+        gap: 8px;
+    }
+
+    .speed-quiz-option-btn {
+        min-height: 36px;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+        gap: 10px;
+    }
+
+    .speed-quiz-option-number {
+        width: 24px;
+        height: 24px;
+    }
+
+    #speed-quiz-input-area {
+        gap: 8px;
+    }
+
+    #speed-quiz-input {
+        font-size: 0.96rem;
+        padding: 9px 10px;
+    }
+
+    #btn-submit-answer {
+        padding: 0 14px;
+    }
+}
+
+@media (max-height: 620px) {
+    #speed-quiz-race-track {
+        margin-top: 8px;
+    }
+
+    #speed-quiz-status-bar {
+        font-size: 0.86rem;
+    }
+
+    #speed-quiz-question {
+        font-size: 0.98rem;
+        line-height: 1.15;
+    }
+
+    .speed-quiz-option-btn {
+        min-height: 34px;
+        padding: 6px 10px;
+        font-size: 0.86rem;
+        gap: 8px;
+    }
+
+    .speed-quiz-option-number {
+        width: 22px;
+        height: 22px;
+    }
 }
 
 /* 시험 결과 화면 스크롤 처리 */

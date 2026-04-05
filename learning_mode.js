@@ -50,6 +50,43 @@ const LearningMode = (() => {
     let currentRound = 1;
 
     const SESSION_KEY = 'japaneseAppSessionData';
+    const DEFAULT_SESSION_LABEL = '전체 단어';
+
+    function getSavedSessionData() {
+        const savedSession = localStorage.getItem(SESSION_KEY);
+        if (!savedSession) return null;
+
+        try {
+            const data = JSON.parse(savedSession);
+            if (!data || !Array.isArray(data.currentVocabulary) || data.currentVocabulary.length === 0) {
+                clearSessionState();
+                return null;
+            }
+
+            data.knownWords = Array.isArray(data.knownWords) ? data.knownWords : [];
+            data.unknownWords = Array.isArray(data.unknownWords) ? data.unknownWords : [];
+
+            const parsedIndex = Number.parseInt(data.currentCardIndex, 10);
+            const maxIndex = data.currentVocabulary.length - 1;
+            data.currentCardIndex = Number.isNaN(parsedIndex)
+                ? 0
+                : Math.min(Math.max(parsedIndex, 0), maxIndex);
+
+            data.displayFrontFirst = data.displayFrontFirst === 'meaning' ? 'meaning' : 'japanese';
+            data.isInputMode = Boolean(data.isInputMode);
+            data.currentSessionLabel = typeof data.currentSessionLabel === 'string' && data.currentSessionLabel
+                ? data.currentSessionLabel
+                : DEFAULT_SESSION_LABEL;
+
+            const parsedRound = Number.parseInt(data.currentRound, 10);
+            data.currentRound = Number.isNaN(parsedRound) || parsedRound < 1 ? 1 : parsedRound;
+
+            return data;
+        } catch (error) {
+            clearSessionState();
+            return null;
+        }
+    }
 
     function setLearningMessage(message, tone = 'error') {
         if (window.AppUI && typeof window.AppUI.setInlineMessage === 'function') {
@@ -170,6 +207,23 @@ const LearningMode = (() => {
 
     function clearSessionState() {
         localStorage.removeItem(SESSION_KEY);
+    }
+
+    function closeTransientSessionUI() {
+        if (isHandwritingOpen) {
+            toggleHandwritingArea();
+        }
+
+        flashcard.classList.remove('flipped', 'fade-out', 'card-correct', 'card-wrong');
+        isCardFlipped = false;
+
+        if (learningInput) {
+            learningInput.value = '';
+        }
+
+        if (hwCandidates) {
+            hwCandidates.innerHTML = '';
+        }
     }
 
     function updateCardContent(card) {
@@ -481,47 +535,65 @@ const LearningMode = (() => {
             if (typeof showScreen === 'function') showScreen(learningModeScreen);
             learningSetup.classList.remove('hidden');
             flashcardSession.classList.add('hidden');
-            currentSessionLabel = '전체 단어';
             currentRound = 1;
+            currentSessionLabel = DEFAULT_SESSION_LABEL;
             populateVocabSetSelect();
             clearLearningMessage();
             updateLearningHeader(true);
         },
         resume: () => {
-            const savedSession = localStorage.getItem(SESSION_KEY);
-            if (savedSession) {
-                const data = JSON.parse(savedSession);
-                currentVocabulary = data.currentVocabulary;
-                knownWords = data.knownWords;
-                unknownWords = data.unknownWords;
-                currentCardIndex = data.currentCardIndex;
-                displayFrontFirst = data.displayFrontFirst;
-                isInputMode = data.isInputMode || false;
-                currentSessionLabel = data.currentSessionLabel || currentSessionLabel;
-                currentRound = data.currentRound || 1;
-
-                learningSetup.classList.add('hidden');
-                flashcardSession.classList.remove('hidden');
+            const data = getSavedSessionData();
+            if (!data) {
                 if (typeof showScreen === 'function') showScreen(learningModeScreen);
-
-                if (currentCardIndex === 0) btnPrevCard.classList.add('hidden');
-                else btnPrevCard.classList.remove('hidden');
-                
-                initDynamicUI();
-                updateModeUI();
-                updateLearningHeader(false);
-
-                updateCardContent(currentVocabulary[currentCardIndex]);
-                updateProgress();
+                learningSetup.classList.remove('hidden');
+                flashcardSession.classList.add('hidden');
+                populateVocabSetSelect();
+                clearLearningMessage();
+                updateLearningHeader(true);
+                return;
             }
+
+            currentVocabulary = data.currentVocabulary;
+            knownWords = data.knownWords;
+            unknownWords = data.unknownWords;
+            currentCardIndex = data.currentCardIndex;
+            displayFrontFirst = data.displayFrontFirst;
+            isInputMode = data.isInputMode;
+            currentSessionLabel = data.currentSessionLabel;
+            currentRound = data.currentRound;
+
+            learningSetup.classList.add('hidden');
+            flashcardSession.classList.remove('hidden');
+            if (typeof showScreen === 'function') showScreen(learningModeScreen);
+
+            if (currentCardIndex === 0) btnPrevCard.classList.add('hidden');
+            else btnPrevCard.classList.remove('hidden');
+            
+            initDynamicUI();
+            updateModeUI();
+            updateLearningHeader(false);
+
+            updateCardContent(currentVocabulary[currentCardIndex]);
+            updateProgress();
         },
-        hasSavedSession: () => !!localStorage.getItem(SESSION_KEY),
+        hasSavedSession: () => !!getSavedSessionData(),
+        hasActiveSession: () => !flashcardSession.classList.contains('hidden') && currentVocabulary.length > 0,
+        leave: () => {
+            saveSessionState();
+            closeTransientSessionUI();
+            flashcardSession.classList.add('hidden');
+            learningSetup.classList.remove('hidden');
+            document.getElementById('app-container').classList.remove('tablet-mode');
+            clearLearningMessage();
+            updateLearningHeader(true);
+        },
         clearSession: clearSessionState,
         reset: () => {
             currentVocabulary = [];
             currentCardIndex = 0;
-            currentSessionLabel = '전체 단어';
             currentRound = 1;
+            currentSessionLabel = DEFAULT_SESSION_LABEL;
+            closeTransientSessionUI();
             flashcardSession.classList.add('hidden');
             learningSetup.classList.remove('hidden');
             document.getElementById('app-container').classList.remove('tablet-mode');

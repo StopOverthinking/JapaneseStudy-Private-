@@ -1324,8 +1324,54 @@ async function confirmRestoreFlow(rawText, sourceLabel) {
     await confirmRestoreData(parsed, sourceLabel);
 }
 
+async function openLearningMode() {
+    clearInlineMessage(learningInlineMessage);
+
+    if (!LearningMode.hasSavedSession()) {
+        LearningMode.show();
+        return;
+    }
+
+    const shouldResume = await showConfirmModal({
+        eyebrow: '학습 모드',
+        title: '이전 학습을 이어서 하시겠습니까?',
+        message: '저장된 진행 상황이 있습니다. 이어서 하거나 새로 시작할 수 있습니다.',
+        confirmText: '이어하기',
+        cancelText: '새로 시작'
+    });
+
+    if (shouldResume) {
+        LearningMode.resume();
+        return;
+    }
+
+    LearningMode.clearSession();
+    LearningMode.show();
+}
+
+async function leaveLearningMode() {
+    clearInlineMessage(learningInlineMessage);
+
+    if (LearningMode.hasActiveSession()) {
+        const confirmed = await showConfirmModal({
+            eyebrow: '학습 모드',
+            title: '학습 모드 중단',
+            message: '학습모드를 중단하시겠습니까? 진행 상황은 저장되며, 이어서 진행할 수 있습니다.',
+            confirmText: '중단하기',
+            cancelText: '계속 학습'
+        });
+
+        if (!confirmed) return;
+    }
+
+    LearningMode.leave();
+    goBack();
+}
+
 startListBtn.addEventListener('click', showVocabSetList);
-startLearningBtn.addEventListener('click', () => LearningMode.show());
+startLearningBtn.addEventListener('click', () => {
+    openLearningMode();
+});
 startGameModeBtn.addEventListener('click', () => showScreen(gameSelectionMode));
 startExamModeBtn.addEventListener('click', () => ExamMode.showSelection());
 startDataManagementBtn.addEventListener('click', () => showScreen(dataManagementScreen));
@@ -1340,9 +1386,7 @@ backToStartBtn.addEventListener('click', () => {
 });
 
 backToStartFromLearningBtn.addEventListener('click', () => {
-    clearInlineMessage(learningInlineMessage);
-    LearningMode.reset();
-    goBack();
+    leaveLearningMode();
 });
 
 backToStartFromGameSelectionBtn.addEventListener('click', () => goBack());

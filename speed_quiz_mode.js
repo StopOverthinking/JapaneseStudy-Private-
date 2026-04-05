@@ -107,6 +107,7 @@ const SpeedQuizMode = (() => {
             if (e.key === 'Enter') handleSubjectiveSubmit();
         });
     }
+    document.addEventListener('keydown', handleObjectiveNumberInput);
 
     // 닉네임 수정 이벤트
     if (btnEditNickname) btnEditNickname.addEventListener('click', openNicknameModal);
@@ -513,13 +514,44 @@ const SpeedQuizMode = (() => {
     // 보기 렌더링
     function renderOptions(options, currentQ) {
         optionsContainer.innerHTML = '';
-        options.forEach(opt => {
+        options.forEach((opt, index) => {
             const btn = document.createElement('button');
             btn.className = 'speed-quiz-option-btn';
-            btn.textContent = opt;
+            btn.dataset.optionValue = opt;
+            btn.dataset.optionIndex = String(index + 1);
+            btn.setAttribute('aria-label', `${index + 1}번 보기 ${opt}`);
+
+            const optionNumber = document.createElement('span');
+            optionNumber.className = 'speed-quiz-option-number';
+            optionNumber.textContent = String(index + 1);
+
+            const optionText = document.createElement('span');
+            optionText.className = 'speed-quiz-option-text';
+            optionText.textContent = opt;
+
+            btn.appendChild(optionNumber);
+            btn.appendChild(optionText);
             btn.onclick = () => handleAnswer(btn, opt === currentQ.correctAnswer);
             optionsContainer.appendChild(btn);
         });
+    }
+
+    function handleObjectiveNumberInput(event) {
+        if (!isGameActive || currentQuizType !== 'objective') return;
+        if (nicknameModal && !nicknameModal.classList.contains('hidden')) return;
+
+        const currentQ = questions[currentQuestionIndex];
+        if (!currentQ || currentQ.type === 'reading_quiz') return;
+        if (!gameScreen.classList.contains('active') || gameAreaEl.classList.contains('hidden')) return;
+
+        const key = event.key;
+        if (!/^[1-5]$/.test(key)) return;
+
+        const optionButton = optionsContainer.querySelector(`[data-option-index="${key}"]`);
+        if (!optionButton || optionButton.disabled) return;
+
+        event.preventDefault();
+        optionButton.click();
     }
 
     // 타이머 로직
@@ -694,7 +726,7 @@ const SpeedQuizMode = (() => {
             if (!isSubjective) {
                 const buttons = optionsContainer.querySelectorAll('button');
                 buttons.forEach(b => {
-                    if (b.textContent === currentQ.correctAnswer) {
+                    if (b.dataset.optionValue === currentQ.correctAnswer) {
                         b.classList.add('correct');
                     }
                 });
@@ -736,7 +768,7 @@ const SpeedQuizMode = (() => {
             const buttons = optionsContainer.querySelectorAll('button');
             buttons.forEach(b => {
                 b.disabled = true;
-                if (b.textContent === currentQ.correctAnswer) {
+                if (b.dataset.optionValue === currentQ.correctAnswer) {
                     b.classList.add('correct');
                 }
             });
