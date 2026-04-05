@@ -397,6 +397,7 @@
                     <p>현재 기기의 모든 학습 데이터를 저장합니다.</p>
                     <button id="export-clipboard-btn">클립보드로 복사</button>
                     <button id="export-file-btn">파일로 저장 (.json)</button>
+                    <button id="export-qr-btn">QR 코드로 공유</button>
                 </div>
                 <div class="data-section">
                     <h3>데이터 가져오기 (복원)</h3>
@@ -407,6 +408,7 @@
                     </div>
                     <button id="import-clipboard-btn">클립보드에서 가져오기</button>
                     <button id="import-file-btn">파일에서 불러오기</button>
+                    <button id="import-qr-btn">QR 코드로 가져오기</button>
                     <input type="file" id="import-file-input" class="hidden-file-input" accept=".json">
                 </div>
             </div>
@@ -502,6 +504,40 @@
         </div>
     </div>
 
+    <div id="qr-share-modal" class="overlay hidden">
+        <div class="overlay-content overlay-content-wide qr-modal-content">
+            <h3>QR 코드로 데이터 공유</h3>
+            <p id="qr-share-description" class="modal-message">다른 기기에서 QR 가져오기를 열고 화면의 QR 코드를 스캔하세요.</p>
+            <div id="qr-share-preview" class="qr-preview-card" aria-live="polite">
+                <div id="qr-share-code" class="qr-code-frame" aria-label="공유용 QR 코드"></div>
+            </div>
+            <div class="qr-share-meta">
+                <span id="qr-share-frame-counter" class="qr-frame-counter">준비 중</span>
+                <span id="qr-share-detail" class="qr-share-detail"></span>
+            </div>
+            <div class="overlay-buttons">
+                <button id="qr-share-prev-btn" class="secondary-button">이전</button>
+                <button id="qr-share-next-btn">다음</button>
+                <button id="qr-share-close-btn" class="ghost-button">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="qr-import-modal" class="overlay hidden">
+        <div class="overlay-content overlay-content-wide qr-modal-content">
+            <h3>QR 코드로 데이터 가져오기</h3>
+            <p id="qr-import-status" class="modal-message">카메라를 준비하고 있습니다.</p>
+            <div class="qr-scanner-card">
+                <video id="qr-import-video" class="qr-import-video" autoplay muted playsinline></video>
+            </div>
+            <div id="qr-import-progress" class="qr-import-progress" aria-live="polite"></div>
+            <div class="overlay-buttons">
+                <button id="qr-import-reset-btn" class="secondary-button">다시 시작</button>
+                <button id="qr-import-close-btn" class="ghost-button">닫기</button>
+            </div>
+        </div>
+    </div>
+
     <div id="countdown-overlay" class="overlay countdown-overlay hidden">
         <div id="countdown-number" class="countdown-number">3</div>
     </div>
@@ -517,6 +553,7 @@
     <script src="speed_quiz_mode.js"></script>
     <script src="handwriting_recognition.js"></script>
     <script src="exam_mode.js"></script>
+    <script src="qrcode.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
