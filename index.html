@@ -322,6 +322,13 @@
                 <h2 class="app-title">시험 볼 단어장 선택</h2>
                 <div class="app-header-actions"></div>
             </div>
+            <div class="exam-selection-controls">
+                <div class="exam-grading-mode-selector" role="group" aria-label="시험 채점 방식">
+                    <button id="exam-auto-grading-btn" class="exam-grading-mode-btn is-active" type="button">자동 채점</button>
+                    <button id="exam-manual-grading-btn" class="exam-grading-mode-btn" type="button">직접 채점</button>
+                </div>
+                <p id="exam-grading-mode-description" class="exam-grading-mode-description">입력한 답안을 마지막에 자동으로 채점합니다.</p>
+            </div>
             <div id="exam-set-list" class="mode-selection"></div>
         </div>
 
@@ -351,6 +358,15 @@
                         <button id="hw-recognize">인식하기</button>
                     </div>
                     <div id="hw-candidates"></div>
+                </div>
+
+                <div id="exam-answer-panel" class="exam-answer-panel hidden">
+                    <p class="exam-answer-label">정답</p>
+                    <div id="exam-correct-answer" class="exam-correct-answer"></div>
+                    <div class="exam-self-grade-controls">
+                        <button id="exam-mark-correct-btn" class="exam-grade-btn exam-grade-btn-correct" type="button">맞았음</button>
+                        <button id="exam-mark-wrong-btn" class="exam-grade-btn exam-grade-btn-wrong" type="button">틀렸음</button>
+                    </div>
                 </div>
 
                 <button id="exam-next-btn">다음</button>
