@@ -86,11 +86,13 @@ const ExamMode = (() => {
 
         examAutoGradingBtn.classList.toggle('is-active', gradingMode === 'auto');
         examManualGradingBtn.classList.toggle('is-active', gradingMode === 'manual');
+        examAutoGradingBtn.setAttribute('aria-pressed', gradingMode === 'auto' ? 'true' : 'false');
+        examManualGradingBtn.setAttribute('aria-pressed', gradingMode === 'manual' ? 'true' : 'false');
         examGradingModeDescription.textContent = getGradingModeDescription();
     }
 
     function updateExamInputState() {
-        const isInputDisabled = gradingMode === 'manual' || isHandwritingMode || (gradingMode === 'manual' && isAnswerRevealed);
+        const isInputDisabled = isHandwritingMode || (gradingMode === 'manual' && isAnswerRevealed);
         examInput.disabled = isInputDisabled;
         examInput.placeholder = isHandwritingMode ? '손글씨로 입력하세요' : '일본어 정답 입력';
     }
@@ -100,9 +102,10 @@ const ExamMode = (() => {
         const isManualMode = gradingMode === 'manual';
 
         examContainer.classList.toggle('exam-container-manual', isManualMode);
+        examContainer.classList.toggle('exam-container-manual-answer', isManualMode && isAnswerRevealed);
         examAnswerPanel.classList.toggle('hidden', !(isManualMode && isAnswerRevealed && currentWord));
         examNextBtn.classList.toggle('hidden', isManualMode && isAnswerRevealed);
-        toggleInputMethodBtn.disabled = isManualMode || (isManualMode && isAnswerRevealed);
+        toggleInputMethodBtn.disabled = isAnswerRevealed;
 
         if (isManualMode && currentWord) {
             examNextBtn.textContent = '정답 확인';
@@ -330,16 +333,7 @@ const ExamMode = (() => {
 
     // 다음 문제로 이동 또는 제출
     async function handleNext() {
-        const answer = gradingMode === 'manual' ? '' : examInput.value.trim();
-
-        if (gradingMode === 'manual') {
-            userAnswers[currentIndex] = answer;
-            isAnswerRevealed = true;
-            setHandwritingMode(false);
-            updateExamActionUI();
-            saveSession();
-            return;
-        }
+        const answer = examInput.value.trim();
 
         if (!answer) {
             const confirmed = await window.AppUI.showConfirmModal({
@@ -353,6 +347,15 @@ const ExamMode = (() => {
         }
 
         userAnswers[currentIndex] = answer;
+
+        if (gradingMode === 'manual') {
+            isAnswerRevealed = true;
+            setHandwritingMode(false);
+            updateExamActionUI();
+            saveSession();
+            return;
+        }
+
         saveSession();
 
         if (currentIndex < questions.length - 1) {
