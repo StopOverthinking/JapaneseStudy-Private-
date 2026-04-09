@@ -1,5 +1,5 @@
 import { useMemo, useState, type ChangeEvent } from 'react'
-import { Heart, Play, RotateCcw, Sparkles, Undo2 } from 'lucide-react'
+import { Heart, Play, RotateCcw, Sparkles, Undo2, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -28,6 +28,7 @@ export function LearnSetupPage() {
   const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
   const startSession = useLearnSessionStore((state) => state.startSession)
   const sessionRecord = useLearnSessionStore((state) => state.record)
+  const discardSession = useLearnSessionStore((state) => state.discardSession)
   const [error, setError] = useState<string | null>(null)
 
   const availableWords = useMemo(
@@ -63,9 +64,17 @@ export function LearnSetupPage() {
     updateLearnDefaults({ wordCount: normalizeWordCount(Number(event.target.value)) })
   }
 
+  const handleDiscardSession = () => {
+    if (!window.confirm('진행 중이던 학습을 파기할까요? 지금까지의 학습 진행 내용은 삭제됩니다.')) {
+      return
+    }
+
+    discardSession()
+  }
+
   const handleStart = () => {
     if (learnDefaults.rangeEnabled && learnDefaults.rangeStart > learnDefaults.rangeEnd) {
-      setError('범위 시작값이 끝값보다 클 수는 없습니다.')
+      setError('범위 시작값이 끝값보다 클 수 없습니다.')
       return
     }
 
@@ -108,16 +117,23 @@ export function LearnSetupPage() {
       </div>
 
       {sessionRecord ? (
-        <GlassPanel className="toggle-row" variant="floating">
+        <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
             <p className="section-kicker">이어하기</p>
             <h2 className="page-header__title">{sessionRecord.setName} 세션을 이어서 진행할 수 있습니다.</h2>
           </div>
-          <Tooltip label="저장된 세션 열기">
-            <span>
-              <IconButton icon={RotateCcw} label="저장된 세션 열기" size="lg" onClick={() => navigate('/learn/session')} />
-            </span>
-          </Tooltip>
+          <div className={styles.resumeActions}>
+            <Tooltip label="학습 이어하기">
+              <span>
+                <IconButton icon={RotateCcw} label="학습 이어하기" size="lg" onClick={() => navigate('/learn/session')} />
+              </span>
+            </Tooltip>
+            <Tooltip label="학습 파기">
+              <span>
+                <IconButton icon={X} label="학습 파기" tone="danger" size="lg" onClick={handleDiscardSession} />
+              </span>
+            </Tooltip>
+          </div>
         </GlassPanel>
       ) : null}
 
@@ -125,7 +141,7 @@ export function LearnSetupPage() {
         <GlassPanel className={styles.layout} padding="lg" variant="strong">
           <div>
             <p className="section-kicker">Setup</p>
-            <p className="section-copy">세트와 조건을 정하고 바로 학습을 시작하세요.</p>
+            <p className="section-copy">세트와 조건을 정하고 바로 학습을 시작해 보세요.</p>
           </div>
 
           <div className="form-field">
@@ -177,10 +193,18 @@ export function LearnSetupPage() {
               <p className="page-header__caption">카드의 앞면에 보여줄 정보를 선택합니다.</p>
             </div>
             <div className="action-row">
-              <button className="pill" data-active={learnDefaults.frontMode === 'japanese'} onClick={() => updateLearnDefaults({ frontMode: 'japanese' satisfies FrontMode })}>
+              <button
+                className="pill"
+                data-active={learnDefaults.frontMode === 'japanese'}
+                onClick={() => updateLearnDefaults({ frontMode: 'japanese' satisfies FrontMode })}
+              >
                 일본어
               </button>
-              <button className="pill" data-active={learnDefaults.frontMode === 'meaning'} onClick={() => updateLearnDefaults({ frontMode: 'meaning' satisfies FrontMode })}>
+              <button
+                className="pill"
+                data-active={learnDefaults.frontMode === 'meaning'}
+                onClick={() => updateLearnDefaults({ frontMode: 'meaning' satisfies FrontMode })}
+              >
                 뜻
               </button>
             </div>
@@ -189,11 +213,16 @@ export function LearnSetupPage() {
           <div className="toggle-row">
             <div>
               <div className="form-label">즐겨찾기만 학습</div>
-              <p className="page-header__caption">표시해 둔 즐겨찾기 단어만 세션에 포함합니다.</p>
+              <p className="page-header__caption">표시 중인 즐겨찾기 단어만 세션에 포함합니다.</p>
             </div>
             <Tooltip label="즐겨찾기만 학습">
               <span>
-                <IconButton icon={Heart} label="즐겨찾기만 학습" active={learnDefaults.favoritesOnly} onClick={() => updateLearnDefaults({ favoritesOnly: !learnDefaults.favoritesOnly })} />
+                <IconButton
+                  icon={Heart}
+                  label="즐겨찾기만 학습"
+                  active={learnDefaults.favoritesOnly}
+                  onClick={() => updateLearnDefaults({ favoritesOnly: !learnDefaults.favoritesOnly })}
+                />
               </span>
             </Tooltip>
           </div>
@@ -201,11 +230,16 @@ export function LearnSetupPage() {
           <div className="toggle-row">
             <div>
               <div className="form-label">범위 지정</div>
-              <p className="page-header__caption">현재 세트에서 일부 구간만 골라 학습합니다.</p>
+              <p className="page-header__caption">현재 세트에서 원하는 구간만 골라 학습합니다.</p>
             </div>
             <Tooltip label="범위 지정">
               <span>
-                <IconButton icon={Sparkles} label="범위 지정" active={learnDefaults.rangeEnabled} onClick={() => updateLearnDefaults({ rangeEnabled: !learnDefaults.rangeEnabled })} />
+                <IconButton
+                  icon={Sparkles}
+                  label="범위 지정"
+                  active={learnDefaults.rangeEnabled}
+                  onClick={() => updateLearnDefaults({ rangeEnabled: !learnDefaults.rangeEnabled })}
+                />
               </span>
             </Tooltip>
           </div>

@@ -15,6 +15,20 @@
   gap: var(--space-5);
 }
 
+.resumeBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.resumeActions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
 .countControl {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, auto));
@@ -285,6 +299,15 @@
     min-width: 72px;
     min-height: 96px;
     padding: 12px 10px;
+  }
+
+  .resumeBanner {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .resumeActions {
+    justify-content: flex-start;
   }
 }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { BookOpen, ClipboardCheck, FolderTree, MoonStar, RotateCcw, Sparkles, SunMedium, Swords } from 'lucide-react'
+import { BookOpen, ClipboardCheck, FolderTree, MoonStar, RotateCcw, Sparkles, SunMedium, Swords, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -15,7 +15,9 @@ import styles from '@/features/home/home.module.css'
 export function HomePage() {
   const navigate = useNavigate()
   const sessionRecord = useLearnSessionStore((state) => state.record)
+  const discardLearnSession = useLearnSessionStore((state) => state.discardSession)
   const examSession = useExamStore((state) => state.session)
+  const clearExamSession = useExamStore((state) => state.clearSession)
   const lastExamResult = useExamStore((state) => state.lastResult)
   const themeMode = usePreferencesStore((state) => state.themeMode)
   const toggleThemeMode = usePreferencesStore((state) => state.toggleThemeMode)
@@ -23,6 +25,22 @@ export function HomePage() {
   const nextThemeLabel = themeMode === 'dark' ? '라이트 모드' : '다크 모드'
   const themeToggleLabel = `${nextThemeLabel}로 전환`
   const ThemeIcon = themeMode === 'dark' ? SunMedium : MoonStar
+
+  const handleDiscardLearnSession = () => {
+    if (!window.confirm('진행 중이던 학습을 파기할까요? 지금까지의 학습 진행 내용은 삭제됩니다.')) {
+      return
+    }
+
+    discardLearnSession()
+  }
+
+  const handleDiscardExamSession = () => {
+    if (!window.confirm('진행 중이던 시험을 파기할까요? 지금까지의 시험 진행 내용은 삭제됩니다.')) {
+      return
+    }
+
+    clearExamSession()
+  }
 
   return (
     <div className={styles.root}>
@@ -32,14 +50,21 @@ export function HomePage() {
             <p className="section-kicker">Resume</p>
             <h2 className="page-header__title">이전에 진행하던 학습 세션이 남아 있습니다.</h2>
             <p className="page-header__caption">
-              {sessionRecord.round}라운드째 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
+              {sessionRecord.round}라운드 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
             </p>
           </div>
-          <Tooltip label="학습 이어서 하기">
-            <span>
-              <IconButton icon={RotateCcw} label="학습 이어서 하기" size="lg" onClick={() => navigate('/learn/session')} />
-            </span>
-          </Tooltip>
+          <div className={styles.resumeActions}>
+            <Tooltip label="학습 이어하기">
+              <span>
+                <IconButton icon={RotateCcw} label="학습 이어하기" size="lg" onClick={() => navigate('/learn/session')} />
+              </span>
+            </Tooltip>
+            <Tooltip label="학습 파기">
+              <span>
+                <IconButton icon={X} label="학습 파기" tone="danger" size="lg" onClick={handleDiscardLearnSession} />
+              </span>
+            </Tooltip>
+          </div>
         </GlassPanel>
       ) : null}
 
@@ -47,17 +72,24 @@ export function HomePage() {
         <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
             <p className="section-kicker">Exam Resume</p>
-            <h2 className="page-header__title">{examSession.setName} 시험이 이어서 진행 가능합니다.</h2>
+            <h2 className="page-header__title">{examSession.setName} 시험을 이어서 진행할 수 있습니다.</h2>
             <p className="page-header__caption">
               문제 {examSession.currentIndex + 1}/{examSession.questionIds.length}째{' '}
               {examSession.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
             </p>
           </div>
-          <Tooltip label="시험 이어서 하기">
-            <span>
-              <IconButton icon={RotateCcw} label="시험 이어서 하기" size="lg" onClick={() => navigate('/exam/session')} />
-            </span>
-          </Tooltip>
+          <div className={styles.resumeActions}>
+            <Tooltip label="시험 이어하기">
+              <span>
+                <IconButton icon={RotateCcw} label="시험 이어하기" size="lg" onClick={() => navigate('/exam/session')} />
+              </span>
+            </Tooltip>
+            <Tooltip label="시험 파기">
+              <span>
+                <IconButton icon={X} label="시험 파기" tone="danger" size="lg" onClick={handleDiscardExamSession} />
+              </span>
+            </Tooltip>
+          </div>
         </GlassPanel>
       ) : null}
 

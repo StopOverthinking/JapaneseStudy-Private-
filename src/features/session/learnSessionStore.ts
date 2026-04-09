@@ -15,6 +15,7 @@ type LearnSessionState = {
   markUnknown: () => void
   undo: () => void
   abandonSession: () => void
+  discardSession: () => void
   clearResult: () => void
 }
 
@@ -151,6 +152,14 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
     const { record } = get()
     if (record) saveLearnSessionRecord(record)
     set({ status: record ? 'active' : 'idle' })
+  },
+  discardSession: () => {
+    clearLearnSessionRecord()
+    set((state) => ({
+      status: state.lastResult ? 'complete' : 'idle',
+      record: null,
+      previousSnapshot: null,
+    }))
   },
   clearResult: () => set({ lastResult: null, status: 'idle', previousSnapshot: null }),
 }))

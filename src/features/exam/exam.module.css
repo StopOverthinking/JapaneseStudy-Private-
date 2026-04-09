@@ -24,6 +24,13 @@
   gap: var(--space-4);
 }
 
+.resumeActions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
 .gradingSelector {
   display: flex;
   flex-wrap: wrap;
@@ -263,5 +270,9 @@
 
   .selectionGrid {
     grid-template-columns: 1fr;
+  }
+
+  .resumeActions {
+    justify-content: flex-start;
   }
 }

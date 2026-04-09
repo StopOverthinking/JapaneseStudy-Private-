@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ClipboardCheck, RotateCcw, Undo2 } from 'lucide-react'
+import { ClipboardCheck, RotateCcw, Undo2, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -13,7 +13,7 @@ const wrongAnswerSetId = 'wrong_answers'
 
 export function ExamSetupPage() {
   const navigate = useNavigate()
-  const { session, status, lastResult, wrongAnswerIds, startExam } = useExamStore()
+  const { session, status, lastResult, wrongAnswerIds, startExam, clearSession } = useExamStore()
   const [gradingMode, setGradingMode] = useState<ExamGradingMode>('auto')
 
   const wrongAnswerWords = useMemo(
@@ -33,6 +33,14 @@ export function ExamSetupPage() {
       gradingMode,
     })
     navigate('/exam/session')
+  }
+
+  function handleDiscardExam() {
+    if (!window.confirm('진행 중이던 시험을 파기할까요? 지금까지의 시험 진행 내용은 삭제됩니다.')) {
+      return
+    }
+
+    clearSession()
   }
 
   return (
@@ -55,16 +63,24 @@ export function ExamSetupPage() {
         <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
             <p className="section-kicker">Resume</p>
-            <h2 className="page-header__title">{session.setName} 시험이 진행 중입니다.</h2>
+            <h2 className="page-header__title">{session.setName} 시험을 이어서 진행할 수 있습니다.</h2>
             <p className="page-header__caption">
-              문제 {session.currentIndex + 1}/{session.questionIds.length} · {session.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
+              문제 {session.currentIndex + 1}/{session.questionIds.length}째{' '}
+              {session.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
             </p>
           </div>
-          <Tooltip label="시험 이어하기">
-            <span>
-              <IconButton icon={RotateCcw} label="시험 이어하기" size="lg" onClick={() => navigate('/exam/session')} />
-            </span>
-          </Tooltip>
+          <div className={styles.resumeActions}>
+            <Tooltip label="시험 이어하기">
+              <span>
+                <IconButton icon={RotateCcw} label="시험 이어하기" size="lg" onClick={() => navigate('/exam/session')} />
+              </span>
+            </Tooltip>
+            <Tooltip label="시험 파기">
+              <span>
+                <IconButton icon={X} label="시험 파기" tone="danger" size="lg" onClick={handleDiscardExam} />
+              </span>
+            </Tooltip>
+          </div>
         </GlassPanel>
       ) : null}
 
@@ -74,7 +90,7 @@ export function ExamSetupPage() {
             <p className="section-kicker">Recent Result</p>
             <h2 className="page-header__title">{lastResult.setName} 시험 결과가 남아 있습니다.</h2>
             <p className="page-header__caption">
-              {lastResult.correctCount}/{lastResult.totalQuestions}점 · {lastResult.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
+              {lastResult.correctCount}/{lastResult.totalQuestions}점 {lastResult.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
             </p>
           </div>
           <Tooltip label="결과 보기">
@@ -89,7 +105,7 @@ export function ExamSetupPage() {
         <GlassPanel className={styles.selectionPanel} padding="lg" variant="strong">
           <div>
             <p className="section-kicker">Grading</p>
-            <h2 className="section-title">채점 방식을 고른 뒤 세트를 선택하세요</h2>
+            <h2 className="section-title">채점 방식을 고른 뒤 원하는 세트를 선택해 주세요.</h2>
           </div>
 
           <div className={styles.gradingSelector} role="group" aria-label="시험 채점 방식">
@@ -110,13 +126,13 @@ export function ExamSetupPage() {
                 onClick={() =>
                   handleStartExam({
                     setId: wrongAnswerSetId,
-                    setName: '시험 오답 노트',
+                    setName: '시험 오답 세트',
                     words: wrongAnswerWords,
                   })
                 }
               >
                 <div>
-                  <h3 className={styles.selectionCardTitle}>시험 오답 노트</h3>
+                  <h3 className={styles.selectionCardTitle}>시험 오답 세트</h3>
                   <p className={styles.selectionCardCount}>{wrongAnswerWords.length}문제</p>
                 </div>
               </button>
