@@ -1,0 +1,17 @@
+export const BOT_NAMES = [
+  'Aoi',
+  'Sora',
+  'Mika',
+  'Haru',
+  'Rin',
+  'Yuna',
+  'Kaito',
+  'Nagi',
+  'Ren',
+  'Luna',
+  'Echo',
+  'Nova',
+  'Atlas',
+  'Pixel',
+  'Comet',
+] as const

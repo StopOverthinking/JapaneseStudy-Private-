@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.playwright-cli/
+react-rewrite/
+.DS_Store
+*.tsbuildinfo
+*.pid
+*.log
+*.err
+*.out

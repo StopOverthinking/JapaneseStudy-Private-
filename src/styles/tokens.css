@@ -1,0 +1,27 @@
+:root {
+  color-scheme: dark;
+  --bg-0: #07111f;
+  --bg-1: #0d1a2b;
+  --glass: rgba(156, 194, 255, 0.12);
+  --glass-strong: rgba(156, 194, 255, 0.18);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.28);
+  --text-strong: #f4f7fb;
+  --text-soft: rgba(244, 247, 251, 0.72);
+  --accent-ice: #8fd3ff;
+  --accent-mint: #8fffd1;
+  --accent-coral: #ff9c9c;
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.28);
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --app-width: 1180px;
+  --font-ui: "Pretendard Variable", "Noto Sans KR", sans-serif;
+  --font-jp: "Zen Kaku Gothic New", "Noto Sans JP", "Noto Sans KR", sans-serif;
+}

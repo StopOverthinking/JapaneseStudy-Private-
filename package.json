@@ -1,0 +1,39 @@
+{
+  "name": "japanese-study-react-rewrite",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "predev": "node scripts/extract-legacy-vocab.mjs",
+    "build": "tsc -b && vite build",
+    "prebuild": "node scripts/extract-legacy-vocab.mjs",
+    "preview": "vite preview",
+    "extract:vocab": "node scripts/extract-legacy-vocab.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "motion": "^12.15.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
+    "zustand": "^5.0.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.0.1",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.2"
+  }
+}

@@ -1,0 +1,245 @@
+import { useMemo, useState, type ChangeEvent } from 'react'
+import { Heart, Play, RotateCcw, Sparkles, Undo2 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { GlassPanel } from '@/components/GlassPanel'
+import { IconButton } from '@/components/IconButton'
+import { Tooltip } from '@/components/Tooltip'
+import { useFavoritesStore } from '@/features/favorites/favoritesStore'
+import styles from '@/features/learn/learn.module.css'
+import { usePreferencesStore } from '@/features/preferences/preferencesStore'
+import { useLearnSessionStore } from '@/features/session/learnSessionStore'
+import { buildCandidateWords, getFilteredWords } from '@/features/study/wordSelection'
+import { allSets, getSetName } from '@/features/vocab/model/selectors'
+import type { FrontMode } from '@/features/vocab/model/types'
+
+const MIN_WORD_COUNT = 1
+const COUNT_STEPS = [-10, -5, 5, 10] as const
+
+function normalizeWordCount(wordCount: number) {
+  return Math.max(MIN_WORD_COUNT, Math.floor(wordCount) || MIN_WORD_COUNT)
+}
+
+export function LearnSetupPage() {
+  const navigate = useNavigate()
+  const learnDefaults = usePreferencesStore((state) => state.learnDefaults)
+  const updateLearnDefaults = usePreferencesStore((state) => state.updateLearnDefaults)
+  const lastSelectedSetId = usePreferencesStore((state) => state.lastSelectedSetId)
+  const setLastSelectedSetId = usePreferencesStore((state) => state.setLastSelectedSetId)
+  const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
+  const startSession = useLearnSessionStore((state) => state.startSession)
+  const sessionRecord = useLearnSessionStore((state) => state.record)
+  const [error, setError] = useState<string | null>(null)
+
+  const availableWords = useMemo(
+    () =>
+      getFilteredWords({
+        setId: lastSelectedSetId,
+        favoritesOnly: learnDefaults.favoritesOnly,
+        favoriteIds,
+        rangeEnabled: learnDefaults.rangeEnabled,
+        rangeStart: learnDefaults.rangeStart,
+        rangeEnd: learnDefaults.rangeEnd,
+      }),
+    [
+      favoriteIds,
+      lastSelectedSetId,
+      learnDefaults.favoritesOnly,
+      learnDefaults.rangeEnabled,
+      learnDefaults.rangeEnd,
+      learnDefaults.rangeStart,
+    ],
+  )
+
+  const previewWords = useMemo(
+    () => buildCandidateWords(availableWords, learnDefaults.wordCount),
+    [availableWords, learnDefaults.wordCount],
+  )
+
+  const handleCountAdjust = (delta: number) => {
+    updateLearnDefaults({ wordCount: normalizeWordCount(learnDefaults.wordCount + delta) })
+  }
+
+  const handleCountChange = (event: ChangeEvent<HTMLInputElement>) => {
+    updateLearnDefaults({ wordCount: normalizeWordCount(Number(event.target.value)) })
+  }
+
+  const handleStart = () => {
+    if (learnDefaults.rangeEnabled && learnDefaults.rangeStart > learnDefaults.rangeEnd) {
+      setError('범위 시작값이 끝값보다 클 수는 없습니다.')
+      return
+    }
+
+    if (previewWords.length === 0) {
+      setError('시작할 단어가 없습니다. 세트와 필터를 다시 확인해 주세요.')
+      return
+    }
+
+    setError(null)
+    startSession({
+      setId: lastSelectedSetId,
+      setName: getSetName(lastSelectedSetId),
+      frontMode: learnDefaults.frontMode,
+      words: previewWords,
+    })
+    navigate('/learn/session')
+  }
+
+  return (
+    <div className={styles.root}>
+      <div className="page-header">
+        <div className="page-header__left">
+          <Tooltip label="뒤로 이동">
+            <span>
+              <IconButton icon={Undo2} label="뒤로 이동" onClick={() => navigate('/')} />
+            </span>
+          </Tooltip>
+          <div className="page-header__meta">
+            <p className="page-header__caption">{getSetName(lastSelectedSetId)}</p>
+            <h1 className="page-header__title">학습 설정</h1>
+          </div>
+        </div>
+        <div className="page-header__right">
+          <Tooltip label="세션 시작">
+            <span>
+              <IconButton icon={Play} label="세션 시작" size="lg" onClick={handleStart} />
+            </span>
+          </Tooltip>
+        </div>
+      </div>
+
+      {sessionRecord ? (
+        <GlassPanel className="toggle-row" variant="floating">
+          <div>
+            <p className="section-kicker">이어하기</p>
+            <h2 className="page-header__title">{sessionRecord.setName} 세션을 이어서 진행할 수 있습니다.</h2>
+          </div>
+          <Tooltip label="저장된 세션 열기">
+            <span>
+              <IconButton icon={RotateCcw} label="저장된 세션 열기" size="lg" onClick={() => navigate('/learn/session')} />
+            </span>
+          </Tooltip>
+        </GlassPanel>
+      ) : null}
+
+      <div className={styles.setupGrid}>
+        <GlassPanel className={styles.layout} padding="lg" variant="strong">
+          <div>
+            <p className="section-kicker">Setup</p>
+            <p className="section-copy">세트와 조건을 정하고 바로 학습을 시작하세요.</p>
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="set-select">학습 세트</label>
+            <select
+              id="set-select"
+              className="glass-select"
+              value={lastSelectedSetId}
+              onChange={(event) => setLastSelectedSetId(event.target.value)}
+            >
+              <option value="all">전체 세트</option>
+              <option value="favorites">즐겨찾기 단어</option>
+              {allSets.map((set) => (
+                <option key={set.id} value={set.id}>
+                  {set.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="count-input">학습 단어 수</label>
+            <div className={styles.countControl}>
+              {COUNT_STEPS.filter((step) => step < 0).map((step) => (
+                <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
+                  {step}
+                </button>
+              ))}
+              <input
+                id="count-input"
+                type="number"
+                min={MIN_WORD_COUNT}
+                className={`glass-input ${styles.countInput}`}
+                value={learnDefaults.wordCount}
+                onChange={handleCountChange}
+              />
+              {COUNT_STEPS.filter((step) => step > 0).map((step) => (
+                <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
+                  +{step}
+                </button>
+              ))}
+            </div>
+            <p className="page-header__caption">현재 조건에서 최대 {availableWords.length}개까지 선택됩니다.</p>
+          </div>
+
+          <div className="toggle-row">
+            <div>
+              <div className="form-label">앞면 기준</div>
+              <p className="page-header__caption">카드의 앞면에 보여줄 정보를 선택합니다.</p>
+            </div>
+            <div className="action-row">
+              <button className="pill" data-active={learnDefaults.frontMode === 'japanese'} onClick={() => updateLearnDefaults({ frontMode: 'japanese' satisfies FrontMode })}>
+                일본어
+              </button>
+              <button className="pill" data-active={learnDefaults.frontMode === 'meaning'} onClick={() => updateLearnDefaults({ frontMode: 'meaning' satisfies FrontMode })}>
+                뜻
+              </button>
+            </div>
+          </div>
+
+          <div className="toggle-row">
+            <div>
+              <div className="form-label">즐겨찾기만 학습</div>
+              <p className="page-header__caption">표시해 둔 즐겨찾기 단어만 세션에 포함합니다.</p>
+            </div>
+            <Tooltip label="즐겨찾기만 학습">
+              <span>
+                <IconButton icon={Heart} label="즐겨찾기만 학습" active={learnDefaults.favoritesOnly} onClick={() => updateLearnDefaults({ favoritesOnly: !learnDefaults.favoritesOnly })} />
+              </span>
+            </Tooltip>
+          </div>
+
+          <div className="toggle-row">
+            <div>
+              <div className="form-label">범위 지정</div>
+              <p className="page-header__caption">현재 세트에서 일부 구간만 골라 학습합니다.</p>
+            </div>
+            <Tooltip label="범위 지정">
+              <span>
+                <IconButton icon={Sparkles} label="범위 지정" active={learnDefaults.rangeEnabled} onClick={() => updateLearnDefaults({ rangeEnabled: !learnDefaults.rangeEnabled })} />
+              </span>
+            </Tooltip>
+          </div>
+
+          {learnDefaults.rangeEnabled ? (
+            <div className="range-grid">
+              <div className="form-field">
+                <label className="form-label" htmlFor="range-start">시작</label>
+                <input
+                  id="range-start"
+                  type="number"
+                  min={1}
+                  className="glass-input"
+                  value={learnDefaults.rangeStart}
+                  onChange={(event) => updateLearnDefaults({ rangeStart: Number(event.target.value) || 1 })}
+                />
+              </div>
+              <div className="form-field">
+                <label className="form-label" htmlFor="range-end">끝</label>
+                <input
+                  id="range-end"
+                  type="number"
+                  min={1}
+                  className="glass-input"
+                  value={learnDefaults.rangeEnd}
+                  onChange={(event) => updateLearnDefaults({ rangeEnd: Number(event.target.value) || 1 })}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {error ? <p className="page-header__caption" style={{ color: 'var(--accent-coral)' }}>{error}</p> : null}
+        </GlassPanel>
+      </div>
+    </div>
+  )
+}
