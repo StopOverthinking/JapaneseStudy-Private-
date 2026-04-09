@@ -8,10 +8,10 @@
   min-height: 220px;
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-input);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    rgba(10, 21, 37, 0.54);
+    linear-gradient(180deg, var(--panel-highlight-strong), var(--panel-highlight-soft)),
+    var(--handwriting-surface);
 }
 
 .canvas {
@@ -43,8 +43,8 @@
   min-height: 42px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-icon);
+  border: 1px solid var(--border-soft);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -53,7 +53,7 @@
 
 .actionButton:hover {
   transform: translateY(-1px);
-  border-color: rgba(143, 211, 255, 0.28);
+  border-color: var(--border-accent-soft);
 }
 
 .actionButton:disabled {
@@ -81,8 +81,8 @@
   min-height: 42px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(143, 211, 255, 0.12);
-  border: 1px solid rgba(143, 211, 255, 0.2);
+  background: var(--surface-accent-soft);
+  border: 1px solid var(--border-accent-soft);
   color: var(--text-strong);
   transition:
     transform 0.18s ease,
@@ -92,8 +92,8 @@
 
 .candidateButton:hover {
   transform: translateY(-1px);
-  border-color: rgba(143, 211, 255, 0.42);
-  background: rgba(143, 211, 255, 0.18);
+  border-color: var(--border-accent);
+  background: var(--surface-accent);
 }
 
 @media (max-width: 640px) {

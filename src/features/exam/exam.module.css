@@ -52,18 +52,18 @@
 
 .selectionCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(143, 211, 255, 0.28);
-  box-shadow: 0 18px 40px rgba(8, 17, 31, 0.22);
+  border-color: var(--border-accent-soft);
+  box-shadow: var(--shadow-elevated);
 }
 
 .selectionCard[data-tone='accent'] {
-  border-color: rgba(143, 255, 209, 0.2);
-  background: rgba(143, 255, 209, 0.06);
+  border-color: var(--border-success);
+  background: var(--surface-success-soft);
 }
 
 .selectionCard[data-tone='resume'] {
-  border-color: rgba(143, 211, 255, 0.22);
-  background: rgba(143, 211, 255, 0.07);
+  border-color: var(--border-accent-soft);
+  background: var(--surface-accent-soft);
 }
 
 .selectionCardTitle {
@@ -103,11 +103,11 @@
   gap: var(--space-3);
   padding: var(--space-6);
   border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-input);
   background:
     radial-gradient(circle at top left, rgba(143, 211, 255, 0.14), transparent 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.04);
+    linear-gradient(180deg, var(--panel-highlight-strong), var(--panel-highlight-soft)),
+    var(--surface-muted);
 }
 
 .questionLabel {
@@ -162,8 +162,8 @@
   min-height: 44px;
   padding: 0 18px;
   border-radius: 999px;
-  border: 1px solid rgba(143, 211, 255, 0.24);
-  background: rgba(143, 211, 255, 0.14);
+  border: 1px solid var(--border-accent-soft);
+  background: var(--surface-accent);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -180,8 +180,8 @@
   gap: var(--space-4);
   padding: var(--space-5);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
 }
 
 .manualAnswer {
@@ -201,13 +201,13 @@
 }
 
 .manualButton[data-tone='correct'] {
-  border-color: rgba(40, 255, 154, 0.28);
-  background: rgba(40, 255, 154, 0.14);
+  border-color: var(--border-success);
+  background: var(--surface-success-soft);
 }
 
 .manualButton[data-tone='wrong'] {
-  border-color: rgba(255, 95, 95, 0.28);
-  background: rgba(255, 95, 95, 0.12);
+  border-color: var(--border-danger);
+  background: var(--surface-danger-soft);
 }
 
 .wrongList {

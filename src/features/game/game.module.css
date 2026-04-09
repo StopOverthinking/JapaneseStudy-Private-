@@ -42,10 +42,10 @@
   min-height: 132px;
   padding: var(--space-5);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-input);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.04);
+    linear-gradient(180deg, var(--panel-highlight-strong), var(--panel-highlight-soft)),
+    var(--surface-muted);
   color: var(--text-strong);
   text-align: left;
   transition:
@@ -56,13 +56,13 @@
 
 .modeCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(143, 211, 255, 0.3);
+  border-color: var(--border-accent-soft);
   box-shadow: var(--shadow-elevated);
 }
 
 .modeCard[data-active='true'] {
-  border-color: rgba(143, 211, 255, 0.46);
-  box-shadow: 0 0 0 6px rgba(143, 211, 255, 0.06);
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 6px var(--focus-ring);
 }
 
 .modeTitle {
@@ -92,8 +92,8 @@
 .optionButton,
 .inputShell {
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
 }
 
 .summaryCard {
@@ -105,8 +105,8 @@
   display: inline-flex;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(143, 255, 209, 0.12);
-  border: 1px solid rgba(143, 255, 209, 0.18);
+  background: var(--surface-success-soft);
+  border: 1px solid var(--border-success);
   color: var(--accent-mint);
   font-size: 0.82rem;
 }
@@ -145,8 +145,8 @@
   overflow: hidden;
   height: 18px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
 }
 
 .trackFill {
@@ -169,8 +169,8 @@
   overflow: hidden;
   height: 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
 }
 
 .timerFill {
@@ -201,11 +201,11 @@
   min-height: 144px;
   padding: var(--space-5);
   border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-input);
   background:
     radial-gradient(circle at top left, rgba(143, 211, 255, 0.14), transparent 40%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.04);
+    linear-gradient(180deg, var(--panel-highlight-strong), var(--panel-highlight-soft)),
+    var(--surface-muted);
   text-align: center;
 }
 
@@ -247,7 +247,7 @@
 
 .optionButton:hover {
   transform: translateY(-1px);
-  border-color: rgba(143, 211, 255, 0.24);
+  border-color: var(--border-accent-soft);
 }
 
 .optionButton:disabled {
@@ -256,17 +256,17 @@
 }
 
 .optionButton[data-state='selected'] {
-  border-color: rgba(143, 211, 255, 0.44);
+  border-color: var(--border-accent);
 }
 
 .optionButton[data-state='correct'] {
-  border-color: rgba(40, 255, 154, 0.52);
-  background: rgba(40, 255, 154, 0.12);
+  border-color: var(--border-success);
+  background: var(--surface-success-soft);
 }
 
 .optionButton[data-state='wrong'] {
-  border-color: rgba(255, 95, 95, 0.52);
-  background: rgba(255, 95, 95, 0.12);
+  border-color: var(--border-danger);
+  background: var(--surface-danger-soft);
 }
 
 .optionIndex {
@@ -275,7 +275,7 @@
   width: 30px;
   height: 30px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-icon);
   color: var(--text-soft);
   font-size: 0.8rem;
 }
@@ -301,19 +301,19 @@
   min-height: 40px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(143, 211, 255, 0.14);
-  border: 1px solid rgba(143, 211, 255, 0.24);
+  background: var(--surface-accent);
+  border: 1px solid var(--border-accent-soft);
   color: var(--text-strong);
 }
 
 .answerInput[data-state='correct'] {
-  border-color: rgba(40, 255, 154, 0.52);
-  background: rgba(40, 255, 154, 0.12);
+  border-color: var(--border-success);
+  background: var(--surface-success-soft);
 }
 
 .answerInput[data-state='wrong'] {
-  border-color: rgba(255, 95, 95, 0.52);
-  background: rgba(255, 95, 95, 0.12);
+  border-color: var(--border-danger);
+  background: var(--surface-danger-soft);
 }
 
 .waitingBox,

@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { BookOpen, ClipboardCheck, FolderTree, RotateCcw, Sparkles, Swords } from 'lucide-react'
+import { BookOpen, ClipboardCheck, FolderTree, MoonStar, RotateCcw, Sparkles, SunMedium, Swords } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
 import { Tooltip } from '@/components/Tooltip'
 import { useExamStore } from '@/features/exam/examStore'
 import { VocabularySetMenu } from '@/features/list/VocabularySetMenu'
+import { usePreferencesStore } from '@/features/preferences/preferencesStore'
 import { SharePanel } from '@/features/share/SharePanel'
 import { useLearnSessionStore } from '@/features/session/learnSessionStore'
 import styles from '@/features/home/home.module.css'
@@ -16,7 +17,12 @@ export function HomePage() {
   const sessionRecord = useLearnSessionStore((state) => state.record)
   const examSession = useExamStore((state) => state.session)
   const lastExamResult = useExamStore((state) => state.lastResult)
+  const themeMode = usePreferencesStore((state) => state.themeMode)
+  const toggleThemeMode = usePreferencesStore((state) => state.toggleThemeMode)
   const [openMenu, setOpenMenu] = useState<'vocabulary' | 'learn' | 'share' | null>(null)
+  const nextThemeLabel = themeMode === 'dark' ? '라이트 모드' : '다크 모드'
+  const themeToggleLabel = `${nextThemeLabel}로 전환`
+  const ThemeIcon = themeMode === 'dark' ? SunMedium : MoonStar
 
   return (
     <div className={styles.root}>
@@ -26,7 +32,7 @@ export function HomePage() {
             <p className="section-kicker">Resume</p>
             <h2 className="page-header__title">이전에 진행하던 학습 세션이 남아 있습니다.</h2>
             <p className="page-header__caption">
-              {sessionRecord.round}라운드 · 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
+              {sessionRecord.round}라운드째 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
             </p>
           </div>
           <Tooltip label="학습 이어서 하기">
@@ -43,13 +49,13 @@ export function HomePage() {
             <p className="section-kicker">Exam Resume</p>
             <h2 className="page-header__title">{examSession.setName} 시험이 이어서 진행 가능합니다.</h2>
             <p className="page-header__caption">
-              문제 {examSession.currentIndex + 1}/{examSession.questionIds.length} ·{' '}
+              문제 {examSession.currentIndex + 1}/{examSession.questionIds.length}째{' '}
               {examSession.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
             </p>
           </div>
-          <Tooltip label="시험 이어하기">
+          <Tooltip label="시험 이어서 하기">
             <span>
-              <IconButton icon={RotateCcw} label="시험 이어하기" size="lg" onClick={() => navigate('/exam/session')} />
+              <IconButton icon={RotateCcw} label="시험 이어서 하기" size="lg" onClick={() => navigate('/exam/session')} />
             </span>
           </Tooltip>
         </GlassPanel>
@@ -61,7 +67,7 @@ export function HomePage() {
             <p className="section-kicker">Exam Result</p>
             <h2 className="page-header__title">{lastExamResult.setName} 시험 결과를 다시 볼 수 있습니다.</h2>
             <p className="page-header__caption">
-              {lastExamResult.correctCount}/{lastExamResult.totalQuestions} 정답 · 오답 {lastExamResult.wrongItems.length}개
+              {lastExamResult.correctCount}/{lastExamResult.totalQuestions} 정답, 오답 {lastExamResult.wrongItems.length}개
             </p>
           </div>
           <Tooltip label="시험 결과 보기">
@@ -77,6 +83,17 @@ export function HomePage() {
           <div className={styles.heroTitle}>
             <h1 className="section-title">일본어 카드 학습기</h1>
           </div>
+          <Tooltip label={themeToggleLabel}>
+            <button
+              type="button"
+              className={styles.themeToggle}
+              aria-label={themeToggleLabel}
+              onClick={toggleThemeMode}
+            >
+              <ThemeIcon size={18} />
+              <span>{nextThemeLabel}</span>
+            </button>
+          </Tooltip>
         </div>
 
         <div className={styles.heroActions}>
@@ -129,7 +146,7 @@ export function HomePage() {
                 <FolderTree size={28} />
               </span>
               <h2 className="page-header__title">공유</h2>
-              <p className={styles.actionCaption}>클립보드 · JSON · QR</p>
+              <p className={styles.actionCaption}>클립보드, JSON, QR</p>
             </div>
           </motion.button>
         </div>

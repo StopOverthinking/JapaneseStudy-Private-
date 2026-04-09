@@ -12,13 +12,45 @@
 
 .heroTop {
   display: grid;
-  gap: var(--space-2);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-3);
 }
 
 .heroTitle {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  min-width: 0;
+}
+
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-raised);
+  color: var(--text-strong);
+  white-space: nowrap;
+  box-shadow: var(--shadow-elevated);
+  transition:
+    transform 0.18s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.themeToggle:hover {
+  transform: translateY(-1px);
+  background: var(--surface-raised-hover);
+  border-color: var(--border-accent-soft);
+  box-shadow:
+    var(--shadow-elevated),
+    0 0 0 6px var(--focus-ring);
 }
 
 .heroActions {
@@ -40,8 +72,8 @@
 }
 
 .actionCard[data-active='true'] {
-  border-color: rgba(143, 211, 255, 0.34);
-  box-shadow: 0 0 0 6px rgba(143, 211, 255, 0.05);
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 6px var(--focus-ring);
 }
 
 .actionCard[data-active='true']::after {
@@ -52,18 +84,18 @@
   width: 24px;
   height: 24px;
   border-radius: 8px 0 0;
-  border-top: 1px solid rgba(143, 211, 255, 0.34);
-  border-left: 1px solid rgba(143, 211, 255, 0.34);
+  border-top: 1px solid var(--border-accent);
+  border-left: 1px solid var(--border-accent);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-    rgba(9, 22, 40, 0.9);
-  box-shadow: -10px -10px 22px rgba(9, 22, 40, 0.24);
+    linear-gradient(180deg, var(--panel-highlight-strong), var(--panel-highlight-soft)),
+    var(--caret-panel-bg);
+  box-shadow: -10px -10px 22px var(--caret-panel-shadow);
   transform: translateX(-50%) rotate(45deg);
   z-index: 1;
 }
 
 .actionCard:hover {
-  border-color: rgba(143, 211, 255, 0.3);
+  border-color: var(--border-accent-soft);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -85,7 +117,7 @@
   width: 64px;
   height: 64px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-icon);
   color: var(--accent-ice);
 }
 
@@ -133,7 +165,7 @@
   width: 52px;
   height: 52px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-icon);
   color: var(--accent-ice);
 }
 
@@ -153,6 +185,10 @@
   }
 
   .submenuGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTop {
     grid-template-columns: 1fr;
   }
 }

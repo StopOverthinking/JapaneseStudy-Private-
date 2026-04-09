@@ -12,7 +12,7 @@ export function ProgressRing({ value, total }: ProgressRingProps) {
   return (
     <div className="progress-ring" aria-label={`진행률 ${value}/${total}`}>
       <svg viewBox="0 0 72 72" fill="none">
-        <circle cx="36" cy="36" r={radius} stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+        <circle cx="36" cy="36" r={radius} stroke="var(--progress-track)" strokeWidth="6" />
         <circle
           cx="36"
           cy="36"
@@ -25,8 +25,8 @@ export function ProgressRing({ value, total }: ProgressRingProps) {
         />
         <defs>
           <linearGradient id="progressGradient" x1="0" y1="0" x2="72" y2="72">
-            <stop offset="0%" stopColor="#8fd3ff" />
-            <stop offset="100%" stopColor="#8fffd1" />
+            <stop offset="0%" stopColor="var(--accent-ice)" />
+            <stop offset="100%" stopColor="var(--accent-mint)" />
           </linearGradient>
         </defs>
       </svg>

@@ -16,8 +16,8 @@
   width: 100%;
   padding: 18px 20px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
   transition:
     transform 0.18s ease,
     border-color 0.2s ease,
@@ -27,14 +27,14 @@
 
 .menuItem:hover {
   transform: translateY(-2px);
-  border-color: rgba(143, 211, 255, 0.28);
-  background: rgba(143, 211, 255, 0.08);
-  box-shadow: 0 0 0 6px rgba(143, 211, 255, 0.04);
+  border-color: var(--border-accent-soft);
+  background: var(--surface-accent-soft);
+  box-shadow: 0 0 0 6px var(--focus-ring);
 }
 
 .menuItem[data-active="true"] {
-  border-color: rgba(143, 211, 255, 0.38);
-  background: rgba(143, 211, 255, 0.1);
+  border-color: var(--border-accent);
+  background: var(--surface-accent-soft);
 }
 
 .menuItemIcon {
@@ -43,7 +43,7 @@
   width: 56px;
   height: 56px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-icon);
   color: var(--accent-ice);
 }
 
@@ -91,7 +91,7 @@
   align-items: center;
   gap: 10px;
   padding-left: 6px;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid var(--border-soft);
 }
 
 .searchWrap {
@@ -101,9 +101,9 @@
   padding: var(--space-4);
   overflow: visible;
   isolation: isolate;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-card);
-  background: linear-gradient(180deg, rgba(50, 72, 103, 0.8), rgba(26, 42, 64, 0.8));
+  background: var(--search-panel-bg);
   box-shadow: none;
   backdrop-filter: none;
 }
@@ -113,7 +113,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 34%, transparent 100%);
+  background: var(--search-panel-highlight);
   pointer-events: none;
 }
 
@@ -122,7 +122,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(5, 10, 18, 0.16));
+  background: var(--search-panel-depth);
   pointer-events: none;
 }
 
@@ -236,8 +236,8 @@
   height: 22px;
   padding: 0 8px;
   border-radius: 999px;
-  background: rgba(143, 211, 255, 0.08);
-  border: 1px solid rgba(143, 211, 255, 0.16);
+  background: var(--surface-accent-soft);
+  border: 1px solid var(--border-accent-soft);
   line-height: 1;
   font-size: 0.68rem;
   font-weight: 700;
@@ -252,11 +252,11 @@
   height: 22px;
   padding: 0 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
   font-size: 0.68rem;
   letter-spacing: 0.04em;
-  color: rgba(244, 247, 251, 0.62);
+  color: var(--text-soft);
   white-space: nowrap;
 }
 

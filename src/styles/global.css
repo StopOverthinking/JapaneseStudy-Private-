@@ -8,14 +8,21 @@ body,
   min-height: 100%;
 }
 
+html {
+  background: var(--bg-0);
+}
+
 body {
   margin: 0;
   font-family: var(--font-ui);
   background:
-    radial-gradient(circle at top left, rgba(143, 211, 255, 0.16), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(143, 255, 209, 0.12), transparent 28%),
+    radial-gradient(circle at top left, var(--bg-radial-a), transparent 34%),
+    radial-gradient(circle at bottom right, var(--bg-radial-b), transparent 28%),
     linear-gradient(180deg, var(--bg-1), var(--bg-0));
   color: var(--text-strong);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 button,
@@ -47,9 +54,9 @@ a {
   pointer-events: none;
   opacity: 0.05;
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.7) 0 0.6px, transparent 0.6px),
-    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.8) 0 0.6px, transparent 0.6px),
-    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.6) 0 0.6px, transparent 0.6px);
+    radial-gradient(circle at 20% 20%, var(--noise-dot) 0 0.6px, transparent 0.6px),
+    radial-gradient(circle at 80% 30%, var(--noise-dot) 0 0.6px, transparent 0.6px),
+    radial-gradient(circle at 40% 80%, var(--noise-dot) 0 0.6px, transparent 0.6px);
   background-size: 18px 18px;
 }
 
@@ -66,13 +73,13 @@ a {
 .orb-a {
   top: -10rem;
   left: -8rem;
-  background: radial-gradient(circle, rgba(143, 211, 255, 0.45), rgba(143, 211, 255, 0));
+  background: radial-gradient(circle, var(--orb-a-color), rgba(143, 211, 255, 0));
 }
 
 .orb-b {
   right: -8rem;
   bottom: 8rem;
-  background: radial-gradient(circle, rgba(143, 255, 209, 0.28), rgba(143, 255, 209, 0));
+  background: radial-gradient(circle, var(--orb-b-color), rgba(143, 255, 209, 0));
 }
 
 .screen-frame {
@@ -99,7 +106,7 @@ a {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 28%);
+  background: linear-gradient(180deg, var(--panel-highlight), transparent 28%);
   pointer-events: none;
 }
 
@@ -113,7 +120,7 @@ a {
 }
 
 .glass-panel--floating {
-  background: rgba(19, 34, 56, 0.58);
+  background: var(--glass-floating);
 }
 
 .glass-padding-sm {
@@ -136,8 +143,8 @@ a {
   width: 48px;
   height: 48px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
   color: var(--text-strong);
   transition:
     transform 0.12s ease,
@@ -147,9 +154,9 @@ a {
 }
 
 .icon-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 0 6px rgba(143, 211, 255, 0.06);
+  background: var(--surface-raised-hover);
+  border-color: var(--border-input);
+  box-shadow: 0 0 0 6px var(--focus-ring);
 }
 
 .icon-button:active {
@@ -162,8 +169,8 @@ a {
 }
 
 .icon-button[data-active="true"] {
-  background: rgba(143, 211, 255, 0.14);
-  border-color: rgba(143, 211, 255, 0.38);
+  background: var(--surface-accent);
+  border-color: var(--border-accent);
   color: var(--accent-ice);
 }
 
@@ -206,8 +213,8 @@ a {
   white-space: nowrap;
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(8, 17, 31, 0.94);
+  border: 1px solid var(--tooltip-border);
+  background: var(--tooltip-bg);
   font-size: 12px;
   color: var(--text-soft);
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -308,17 +315,17 @@ a {
   min-height: 42px;
   padding: 0 16px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
   color: var(--text-soft);
   transition: all 0.2s ease;
 }
 
 .pill[data-active="true"] {
   color: var(--text-strong);
-  border-color: rgba(143, 211, 255, 0.36);
-  background: rgba(143, 211, 255, 0.12);
-  box-shadow: 0 0 0 6px rgba(143, 211, 255, 0.04);
+  border-color: var(--border-accent);
+  background: var(--surface-accent-soft);
+  box-shadow: 0 0 0 6px var(--focus-ring);
 }
 
 .form-field {
@@ -337,18 +344,18 @@ a {
   min-height: 48px;
   padding: 0 16px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-input);
+  background: var(--surface-input);
   color: var(--text-strong);
 }
 
 .glass-select option {
-  color: #08111f;
-  background: #f4f7fb;
+  color: var(--option-text);
+  background: var(--option-surface);
 }
 
 .glass-input::placeholder {
-  color: rgba(244, 247, 251, 0.44);
+  color: var(--text-muted);
 }
 
 .toggle-row {
@@ -388,8 +395,8 @@ a {
 .miniChip {
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-icon);
+  border: 1px solid var(--border-soft);
   color: var(--text-soft);
   font-size: 0.82rem;
 }

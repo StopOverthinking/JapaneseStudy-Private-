@@ -50,6 +50,7 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect()
       const deviceScale = window.devicePixelRatio || 1
+      const strokeColor = getComputedStyle(document.documentElement).getPropertyValue('--handwriting-stroke').trim() || '#101418'
       canvas.width = Math.max(1, Math.round(rect.width * deviceScale))
       canvas.height = Math.max(1, Math.round(rect.height * deviceScale))
       context.setTransform(1, 0, 0, 1, 0, 0)
@@ -57,7 +58,7 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
       context.lineWidth = 3
       context.lineCap = 'round'
       context.lineJoin = 'round'
-      context.strokeStyle = '#101418'
+      context.strokeStyle = strokeColor
       redrawStrokes()
     }
 
