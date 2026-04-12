@@ -9,12 +9,33 @@ import { Tooltip } from '@/components/Tooltip'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { allWords, getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
+import { allSets, allWords, getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
 import type { VocabularyWord } from '@/features/vocab/model/types'
 import { matchesWordSearch } from '@/lib/search'
 import styles from '@/features/list/list.module.css'
 
 const TOOLBAR_INTERACTION_LOCK_MS = 640
+
+function resolveListSetId(setId: string | 'all') {
+  if (setId === 'all') {
+    return allSets[0]?.id ?? 'favorites'
+  }
+
+  return setId
+}
+
+function ConcealedText({
+  className,
+  sample,
+}: {
+  className: string
+  sample: string
+}) {
+  const normalizedLength = Math.max(2, sample.trim().length || 0)
+  const concealedWidth = `${Math.min(normalizedLength, 18) * 0.62}em`
+
+  return <span aria-hidden="true" className={`${className} ${styles.concealed}`} style={{ ['--concealed-width' as string]: concealedWidth }} />
+}
 
 function SlashGlyphIcon({
   glyph,
@@ -167,16 +188,29 @@ const VocabCard = memo(function VocabCard({
 
         <div className={styles.cardBody}>
           <div className={styles.wordColumn}>
-            <span className={`${styles.jp} ${japaneseHidden ? styles.concealed : ''}`} lang="ja-JP" translate="no">
-              {word.japanese}
-            </span>
-            <span className={`${styles.reading} ${japaneseHidden ? styles.concealed : ''}`} lang="ja-JP" translate="no">
-              {word.reading}
-            </span>
+            {japaneseHidden ? (
+              <>
+                <ConcealedText className={styles.jp} sample={word.japanese} />
+                <ConcealedText className={styles.reading} sample={word.reading} />
+              </>
+            ) : (
+              <>
+                <span className={styles.jp} lang="ja-JP" translate="no">
+                  {word.japanese}
+                </span>
+                <span className={styles.reading} lang="ja-JP" translate="no">
+                  {word.reading}
+                </span>
+              </>
+            )}
           </div>
 
           <div className={styles.meaningColumn}>
-            <span className={`${styles.meaning} ${meaningHidden ? styles.concealed : ''}`}>{word.meaning}</span>
+            {meaningHidden ? (
+              <ConcealedText className={styles.meaning} sample={word.meaning} />
+            ) : (
+              <span className={styles.meaning}>{word.meaning}</span>
+            )}
           </div>
         </div>
       </div>
@@ -192,6 +226,7 @@ export function ListPage() {
     hideMeaningInList,
     listFontScale,
     lastSelectedSetId,
+    setLastSelectedSetId,
     setHideJapaneseInList,
     setHideMeaningInList,
     setListFontScale,
@@ -215,18 +250,26 @@ export function ListPage() {
     [wrongAnswerIds],
   )
   const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds])
-  const currentSetName = lastSelectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(lastSelectedSetId)
+  const resolvedSetId = resolveListSetId(lastSelectedSetId)
+  const currentSetName = resolvedSetId === 'wrong_answers' ? '오답 노트' : getSetName(resolvedSetId)
+
+  useEffect(() => {
+    if (resolvedSetId !== lastSelectedSetId) {
+      setLastSelectedSetId(resolvedSetId)
+    }
+  }, [lastSelectedSetId, resolvedSetId, setLastSelectedSetId])
+
   const baseWords = useMemo(() => {
-    if (lastSelectedSetId === 'wrong_answers') {
+    if (resolvedSetId === 'wrong_answers') {
       return wrongAnswerWords
     }
 
-    if (lastSelectedSetId === 'favorites') {
+    if (resolvedSetId === 'favorites') {
       return allWords.filter((word) => favoriteIdSet.has(word.id))
     }
 
-    return getWordsForSet(lastSelectedSetId)
-  }, [favoriteIdSet, lastSelectedSetId, wrongAnswerWords])
+    return getWordsForSet(resolvedSetId)
+  }, [favoriteIdSet, resolvedSetId, wrongAnswerWords])
 
   const words = useMemo(() => {
     return baseWords

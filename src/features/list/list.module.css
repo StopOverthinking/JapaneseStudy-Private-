@@ -234,8 +234,12 @@
 }
 
 .concealed {
-  opacity: 0.18;
+  width: var(--concealed-width, 5.6em);
+  min-height: 1em;
+  border-radius: 0.42em;
+  background: var(--surface-muted);
   user-select: none;
+  pointer-events: none;
 }
 
 .chipRow {

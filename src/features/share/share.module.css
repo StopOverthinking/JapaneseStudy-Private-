@@ -67,24 +67,25 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: var(--space-3);
 }
 
 .submenuGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: var(--space-2);
 }
 
 .shareCard {
   display: grid;
-  gap: var(--space-3);
-  align-content: start;
-  min-height: 180px;
-  padding: var(--space-5);
-  text-align: left;
-  border-radius: var(--radius-card);
+  gap: var(--space-2);
+  justify-items: center;
+  align-content: center;
+  min-height: 116px;
+  padding: var(--space-4);
+  text-align: center;
+  border-radius: 24px;
   border: 1px solid var(--border-input);
   background:
     linear-gradient(180deg, var(--panel-highlight), var(--panel-highlight-soft)),
@@ -113,13 +114,13 @@
 
 .submenuButton {
   display: grid;
-  gap: var(--space-3);
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  min-height: 96px;
-  padding: var(--space-4);
-  text-align: left;
-  border-radius: 22px;
+  gap: var(--space-2);
+  justify-items: center;
+  align-content: center;
+  min-height: 84px;
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  border-radius: 18px;
   border: 1px solid var(--border-input);
   background:
     linear-gradient(180deg, var(--panel-highlight), var(--panel-highlight-soft)),
@@ -140,9 +141,9 @@
 .shareIcon {
   display: inline-grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
   background: var(--surface-accent-soft);
   color: var(--accent-ice);
 }
@@ -150,42 +151,25 @@
 .submenuIcon {
   display: inline-grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   background: var(--surface-accent-soft);
   color: var(--accent-ice);
 }
 
-.shareMeta {
-  display: grid;
-  gap: 10px;
-}
-
-.submenuMeta {
-  display: grid;
-  gap: 6px;
-}
-
-.shareMeta strong {
+.shareLabel {
   font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  text-wrap: balance;
 }
 
-.submenuMeta strong {
-  font-size: 0.95rem;
-}
-
-.shareMeta p {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.55;
-}
-
-.submenuMeta p {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.45;
+.submenuLabel {
   font-size: 0.88rem;
+  line-height: 1.15;
+  font-weight: 700;
+  text-wrap: balance;
 }
 
 .helper,
@@ -194,6 +178,22 @@
   margin: 0;
   color: var(--text-soft);
   line-height: 1.55;
+}
+
+.confirmBody {
+  display: grid;
+  gap: 10px;
+}
+
+.confirmBody p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.confirmButton {
+  color: var(--text-strong);
+  border-color: var(--border-accent);
+  background: var(--surface-accent-soft);
 }
 
 .status[data-tone='success'] {
@@ -334,7 +334,7 @@
 
 @media (max-width: 720px) {
   .cardGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .submenuHeader {
@@ -343,7 +343,7 @@
   }
 
   .submenuGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .overlay {

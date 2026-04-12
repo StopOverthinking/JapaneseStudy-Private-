@@ -78,21 +78,35 @@ type QrImportProgress = {
   total: number
 }
 
+type ConfirmDialogState = {
+  title: string
+  lines: string[]
+  confirmLabel: string
+  resolve: (confirmed: boolean) => void
+}
+
+type ShareAction = {
+  id: string
+  icon: typeof ClipboardCopy
+  label: string
+  ariaLabel: string
+}
+
 const appActions = [
-  { id: 'app-copy', icon: ClipboardCopy, title: '복사', description: '앱' },
-  { id: 'app-download', icon: Download, title: '파일', description: '앱' },
-  { id: 'app-qr-export', icon: QrCode, title: 'QR', description: '앱' },
-  { id: 'app-paste', icon: ClipboardPaste, title: '붙여넣기', description: '앱' },
-  { id: 'app-import-file', icon: FileUp, title: '복원', description: '앱' },
-  { id: 'app-qr-import', icon: ScanSearch, title: '스캔', description: '앱' },
+  { id: 'app-copy', icon: ClipboardCopy, label: '클립보드로 복사', ariaLabel: '앱 클립보드로 복사' },
+  { id: 'app-download', icon: Download, label: '파일로 저장', ariaLabel: '앱 파일로 저장' },
+  { id: 'app-qr-export', icon: QrCode, label: 'QR로 내보내기', ariaLabel: '앱 QR로 내보내기' },
+  { id: 'app-paste', icon: ClipboardPaste, label: '클립보드에서 불러오기', ariaLabel: '앱 클립보드에서 불러오기' },
+  { id: 'app-import-file', icon: FileUp, label: '저장된 파일에서 불러오기', ariaLabel: '앱 저장된 파일에서 불러오기' },
+  { id: 'app-qr-import', icon: ScanSearch, label: 'QR에서 불러오기', ariaLabel: '앱 QR에서 불러오기' },
 ] as const
 
 const scheduleActions = [
-  { id: 'schedule-download', icon: Download, title: '파일', description: '복습' },
-  { id: 'schedule-qr-export', icon: QrCode, title: 'QR', description: '복습' },
-  { id: 'schedule-merge', icon: GitMerge, title: '병합', description: '복습' },
-  { id: 'schedule-overwrite', icon: RefreshCcw, title: '덮어쓰기', description: '복습' },
-  { id: 'schedule-qr-import', icon: ScanSearch, title: 'QR 병합', description: '복습' },
+  { id: 'schedule-download', icon: Download, label: '파일로 저장', ariaLabel: '스마트 복습 파일로 저장' },
+  { id: 'schedule-qr-export', icon: QrCode, label: 'QR로 내보내기', ariaLabel: '스마트 복습 QR로 내보내기' },
+  { id: 'schedule-merge', icon: GitMerge, label: '파일과 병합하기', ariaLabel: '스마트 복습 파일과 병합하기' },
+  { id: 'schedule-overwrite', icon: RefreshCcw, label: '파일로 덮어쓰기', ariaLabel: '스마트 복습 파일로 덮어쓰기' },
+  { id: 'schedule-qr-import', icon: ScanSearch, label: 'QR과 병합하기', ariaLabel: '스마트 복습 QR과 병합하기' },
 ] as const
 
 export function SharePanel({ mode = 'panel' }: SharePanelProps) {
@@ -112,6 +126,8 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   const [pendingFileAction, setPendingFileAction] = useState<FileAction | null>(null)
   const [scheduleRecordCount, setScheduleRecordCount] = useState(0)
   const [isScheduleQrEnabled, setIsScheduleQrEnabled] = useState(true)
+  const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogState | null>(null)
+  const confirmDialogRef = useRef<ConfirmDialogState | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const qrImportVideoRef = useRef<HTMLVideoElement | null>(null)
   const qrImportDetectorRef = useRef<BarcodeDetectorLike | null>(null)
@@ -145,12 +161,17 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   }, [isQrOpen, qrShare?.frames.length, qrShare?.sessionId])
 
   useEffect(() => {
-    if (!isQrOpen && !manualCopyText && !isManualImportOpen && !isQrImportOpen) {
+    if (!isQrOpen && !manualCopyText && !isManualImportOpen && !isQrImportOpen && !confirmDialog) {
       return
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
+
+      if (confirmDialog) {
+        closeConfirmDialog(false)
+        return
+      }
 
       if (manualCopyText) {
         setManualCopyText(null)
@@ -172,10 +193,17 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isManualImportOpen, isQrImportOpen, isQrOpen, manualCopyText])
+  }, [confirmDialog, isManualImportOpen, isQrImportOpen, isQrOpen, manualCopyText])
+
+  useEffect(() => {
+    confirmDialogRef.current = confirmDialog
+  }, [confirmDialog])
 
   useEffect(() => {
     return () => {
+      if (confirmDialogRef.current) {
+        confirmDialogRef.current.resolve(false)
+      }
       stopQrImportScanner()
     }
   }, [])
@@ -284,6 +312,20 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     setQrImportError(null)
     setQrImportProgress(null)
     setQrImportStatus(message)
+  }
+
+  function closeConfirmDialog(confirmed: boolean) {
+    setConfirmDialog((current) => {
+      if (!current) return current
+      current.resolve(confirmed)
+      return null
+    })
+  }
+
+  function requestConfirm(title: string, lines: string[], confirmLabel: string) {
+    return new Promise<boolean>((resolve) => {
+      setConfirmDialog({ title, lines, confirmLabel, resolve })
+    })
   }
 
   function scheduleQrImportScan() {
@@ -426,7 +468,8 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       details.push(`시간: ${new Date(parsed.metadata.exportedAt).toLocaleString()}`)
     }
 
-    if (!window.confirm(details.join('\n'))) {
+    const confirmed = await requestConfirm('앱 복원', details, '복원')
+    if (!confirmed) {
       setStatus({ tone: 'info', message: '앱 백업 복원을 취소했어요.' })
       return false
     }
@@ -444,12 +487,22 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     }
 
     const modeLabel = mode === 'merge' ? '병합' : '덮어쓰기'
-    const confirmLines = [
-      `${sourceLabel}에서 스마트 복습 ${parsed.backup.recordCount}개를 ${modeLabel}할까요?`,
-      mode === 'merge' ? '같은 단어는 최신 updatedAt 기준으로 합쳐집니다.' : '현재 스마트 복습 일정이 모두 교체됩니다.',
-    ]
+    const confirmLines =
+      mode === 'merge'
+        ? [
+            `${sourceLabel}의 스마트 복습 ${parsed.backup.recordCount}개를 병합할까요?`,
+            `현재 일정 ${scheduleRecordCount}개는 유지됩니다.`,
+            '같은 단어만 updatedAt이 더 최신인 쪽으로 바뀝니다.',
+            '파일에만 있는 단어는 추가되고, 현재에만 있는 단어는 그대로 남습니다.',
+          ]
+        : [
+            `${sourceLabel}의 스마트 복습 ${parsed.backup.recordCount}개로 덮어쓸까요?`,
+            `현재 일정 ${scheduleRecordCount}개를 모두 지우고 파일 내용으로 교체합니다.`,
+            '파일에 없는 단어 일정도 함께 사라집니다.',
+          ]
 
-    if (!window.confirm(confirmLines.join('\n'))) {
+    const confirmed = await requestConfirm(`스마트 복습 ${modeLabel}`, confirmLines, modeLabel)
+    if (!confirmed) {
       setStatus({ tone: 'info', message: `스마트 복습 ${modeLabel}을 취소했어요.` })
       return false
     }
@@ -607,7 +660,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   }
 
   function renderActionGrid(
-    actions: ReadonlyArray<{ id: string; icon: typeof ClipboardCopy; title: string; description: string }>,
+    actions: ReadonlyArray<ShareAction>,
     compact: boolean,
     kind: 'app' | 'schedule',
   ) {
@@ -635,6 +688,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
             <button
               key={action.id}
               type="button"
+              aria-label={action.ariaLabel}
               className={compact ? styles.submenuButton : styles.shareCard}
               onClick={() => void onClick()}
               disabled={isDisabled}
@@ -642,10 +696,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
               <span className={compact ? styles.submenuIcon : styles.shareIcon}>
                 <Icon size={compact ? 20 : 24} strokeWidth={1.9} />
               </span>
-              <div className={compact ? styles.submenuMeta : styles.shareMeta}>
-                <strong>{action.title}</strong>
-                <p>{action.description}</p>
-              </div>
+              <strong className={compact ? styles.submenuLabel : styles.shareLabel}>{action.label}</strong>
             </button>
           )
         })}
@@ -882,6 +933,35 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
               </button>
               <button type="button" className="pill" onClick={() => setIsManualImportOpen(false)}>
                 취소
+              </button>
+            </div>
+          </GlassPanel>
+        </div>
+      ) : null}
+
+      {confirmDialog ? (
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="share-confirm-title" onClick={() => closeConfirmDialog(false)}>
+          <GlassPanel className={styles.modal} padding="lg" variant="strong" onClick={(event) => event.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <div>
+                <p className="section-kicker">Confirm</p>
+                <h2 id="share-confirm-title" className="page-header__title">{confirmDialog.title}</h2>
+              </div>
+              <IconButton icon={X} label="확인 팝업 닫기" onClick={() => closeConfirmDialog(false)} />
+            </div>
+
+            <div className={styles.confirmBody}>
+              {confirmDialog.lines.map((line, index) => (
+                <p key={`confirm-line-${index}`} className="page-header__caption">{line}</p>
+              ))}
+            </div>
+
+            <div className={styles.modalButtonRow}>
+              <button type="button" className="pill" onClick={() => closeConfirmDialog(false)}>
+                취소
+              </button>
+              <button type="button" className={`pill ${styles.confirmButton}`} onClick={() => closeConfirmDialog(true)}>
+                {confirmDialog.confirmLabel}
               </button>
             </div>
           </GlassPanel>

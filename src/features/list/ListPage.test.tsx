@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { ListPage } from '@/features/list/ListPage'
 import styles from '@/features/list/list.module.css'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { allWords } from '@/features/vocab/model/selectors'
+import { allSets, allWords } from '@/features/vocab/model/selectors'
 
 const sampleWords = allWords.slice(0, 2)
 const defaultLearnDefaults = {
@@ -91,21 +91,42 @@ describe('ListPage', () => {
 
   it('reveals hidden japanese text and meaning when the card surface is tapped', async () => {
     const user = userEvent.setup()
-    renderPage()
+    const { container } = renderPage()
 
     const firstWord = sampleWords[0]
-    const japanese = screen.getAllByText(firstWord.japanese)[0]
-    const meaning = screen.getAllByText(firstWord.meaning)[0]
-    const cardSurface = japanese.closest('[data-revealable="true"]')
+    const cardSurface = container.querySelector('[data-revealable="true"]')
+    const concealedLines = container.querySelectorAll(`.${styles.concealed}`)
 
     expect(cardSurface).not.toBeNull()
-    expect(japanese).toHaveClass(styles.concealed)
-    expect(meaning).toHaveClass(styles.concealed)
+    expect(concealedLines.length).toBeGreaterThan(0)
+    expect(screen.queryByText(firstWord.japanese)).toBeNull()
+    expect(screen.queryByText(firstWord.meaning)).toBeNull()
 
     await user.click(cardSurface as HTMLElement)
 
-    expect(japanese).not.toHaveClass(styles.concealed)
-    expect(meaning).not.toHaveClass(styles.concealed)
+    expect(screen.getByText(firstWord.japanese)).toBeInTheDocument()
+    expect(screen.getByText(firstWord.meaning)).toBeInTheDocument()
+  })
+
+  it('replaces the legacy all-set selection with the first vocabulary set', async () => {
+    const firstSet = allSets[0]
+
+    usePreferencesStore.setState({
+      themeMode: 'dark',
+      hideJapaneseInList: false,
+      hideMeaningInList: false,
+      listFontScale: 3,
+      learnCardFontScale: 2,
+      lastSelectedSetId: 'all',
+      learnDefaults: defaultLearnDefaults,
+    })
+
+    renderPage()
+
+    expect(screen.getByText(firstSet.name)).toBeInTheDocument()
+    await waitFor(() => {
+      expect(usePreferencesStore.getState().lastSelectedSetId).toBe(firstSet.id)
+    })
   })
 
   it('keeps the toolbar visible immediately after changing font size', async () => {

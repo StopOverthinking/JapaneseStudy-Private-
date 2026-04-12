@@ -25,8 +25,9 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
         .filter((word): word is VocabularyWord => word !== undefined),
     [wrongAnswerIds],
   )
+  const activeSetId = lastSelectedSetId === 'all' ? (allSets[0]?.id ?? 'favorites') : lastSelectedSetId
 
-  const handleSelectSet = (setId: string | 'all') => {
+  const handleSelectSet = (setId: string | 'favorites') => {
     setLastSelectedSetId(setId)
     onSelect?.()
     navigate('/list')
@@ -34,22 +35,9 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
 
   return (
     <div className={styles.menuList}>
-      <button className={styles.menuItem} data-active={lastSelectedSetId === 'all'} onClick={() => handleSelectSet('all')}>
-        <span className={styles.menuItemIcon}>
-          <BookOpen size={22} />
-        </span>
-        <span className={styles.menuItemBody}>
-          <strong>전체 단어장</strong>
-        </span>
-        <span className={styles.menuItemMeta}>
-          <span className="miniChip">{getWordsForSet('all').length}개</span>
-          <ChevronRight size={18} />
-        </span>
-      </button>
-
       <button
         className={styles.menuItem}
-        data-active={lastSelectedSetId === 'favorites'}
+        data-active={activeSetId === 'favorites'}
         onClick={() => handleSelectSet('favorites')}
       >
         <span className={styles.menuItemIcon}>
@@ -67,7 +55,7 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
       {wrongAnswerWords.length > 0 ? (
         <button
           className={styles.menuItem}
-          data-active={lastSelectedSetId === 'wrong_answers'}
+          data-active={activeSetId === 'wrong_answers'}
           onClick={() => handleSelectSet('wrong_answers')}
         >
           <span className={styles.menuItemIcon}>
@@ -87,7 +75,7 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
         <button
           key={set.id}
           className={styles.menuItem}
-          data-active={lastSelectedSetId === set.id}
+          data-active={activeSetId === set.id}
           onClick={() => handleSelectSet(set.id)}
         >
           <span className={styles.menuItemIcon}>

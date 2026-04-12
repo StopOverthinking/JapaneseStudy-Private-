@@ -260,6 +260,8 @@ QR 규칙:
 - 터치 환경에서 툴팁이 포커스에 남아 사라지지 않던 문제를 수정.
 - 모바일 한정이 아니라 전체 앱 기준으로 GPU 대비 효용이 낮은 효과를 줄여 라우트 전환/홈 메뉴/테마 전환 체감 비용을 낮춤.
 - 목록 모드에서 검색, 가리기, 글자 크기 조절 시 전체 카드 재마운트와 blur 비용을 줄여 반응성 개선.
+- 목록 모드 일본어/한국어 가리기를 opacity 기반이 아니라 실제 마스킹 바 렌더링으로 바꿔 확실히 가려지게 수정.
+- 일반 학습 완료 화면 액션을 홈 이동 버튼 1개만 남기도록 단순화.
 
 ### 변경 파일
 
@@ -273,7 +275,9 @@ QR 규칙:
 - `src/features/home/HomePage.tsx`
 - `src/features/home/ResumeBannerActions.test.tsx`
 - `src/lib/useShouldReduceEffects.ts`
+- `src/features/learn/LearnResultPage.tsx`
 - `src/features/list/ListPage.tsx`
+- `src/features/list/ListPage.test.tsx`
 - `src/features/list/list.module.css`
 - `src/styles/global.css`
 
@@ -288,8 +292,9 @@ QR 규칙:
 - 홈 메뉴 서브패널은 `height` 애니메이션을 제거하고 opacity/y 중심으로 축소.
 - 목록 카드는 `key={word.id}`로 유지해 hide toggle 시 재마운트를 피한다.
 - 목록 검색은 `useDeferredValue`와 `startTransition` 사용.
-- 목록 카드 숨김 표현은 `blur` 제거, `opacity`만 유지.
+- 목록 카드 숨김 표현은 실제 텍스트를 렌더링하지 않고 길이 기반 마스킹 바로 대체한다.
 - 목록 카드에 `content-visibility: auto`와 `contain-intrinsic-size`를 넣어 긴 목록 렌더링 비용을 낮춤.
+- 일반 학습 완료 화면은 추가 분기 없이 홈 이동 아이콘 버튼 1개만 제공한다.
 
 ### 다음 작업 우선순위
 
