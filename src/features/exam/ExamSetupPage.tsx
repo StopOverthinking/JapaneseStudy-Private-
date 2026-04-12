@@ -102,7 +102,7 @@ export function ExamSetupPage() {
       ) : null}
 
       <div className={styles.setupGrid}>
-        <GlassPanel className={styles.selectionPanel} padding="lg" variant="strong">
+        <GlassPanel className={`setup-panel-shell ${styles.selectionPanel}`} padding="lg" variant="strong">
           <div>
             <p className="section-kicker">Grading</p>
             <h2 className="section-title">채점 방식을 고른 뒤 원하는 세트를 선택해 주세요.</h2>

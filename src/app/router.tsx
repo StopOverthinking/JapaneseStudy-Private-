@@ -1,5 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { App } from '@/app/App'
+import { ConjugationResultPage } from '@/features/conjugation/ConjugationResultPage'
+import { ConjugationSessionPage } from '@/features/conjugation/ConjugationSessionPage'
+import { ConjugationSetupPage } from '@/features/conjugation/ConjugationSetupPage'
 import { ExamResultPage } from '@/features/exam/ExamResultPage'
 import { ExamSessionPage } from '@/features/exam/ExamSessionPage'
 import { ExamSetupPage } from '@/features/exam/ExamSetupPage'
@@ -11,6 +14,9 @@ import { LearnResultPage } from '@/features/learn/LearnResultPage'
 import { LearnSessionPage } from '@/features/learn/LearnSessionPage'
 import { LearnSetupPage } from '@/features/learn/LearnSetupPage'
 import { ListPage } from '@/features/list/ListPage'
+import { SmartReviewResultPage } from '@/features/smart-review/SmartReviewResultPage'
+import { SmartReviewSessionPage } from '@/features/smart-review/SmartReviewSessionPage'
+import { SmartReviewSetupPage } from '@/features/smart-review/SmartReviewSetupPage'
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +28,12 @@ export const router = createBrowserRouter([
       { path: 'learn', element: <LearnSetupPage /> },
       { path: 'learn/session', element: <LearnSessionPage /> },
       { path: 'learn/result', element: <LearnResultPage /> },
+      { path: 'smart-review', element: <SmartReviewSetupPage /> },
+      { path: 'smart-review/session', element: <SmartReviewSessionPage /> },
+      { path: 'smart-review/result', element: <SmartReviewResultPage /> },
+      { path: 'conjugation', element: <ConjugationSetupPage /> },
+      { path: 'conjugation/session', element: <ConjugationSessionPage /> },
+      { path: 'conjugation/result', element: <ConjugationResultPage /> },
       { path: 'exam', element: <ExamSetupPage /> },
       { path: 'exam/session', element: <ExamSessionPage /> },
       { path: 'exam/result', element: <ExamResultPage /> },

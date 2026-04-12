@@ -333,6 +333,29 @@ a {
   gap: 8px;
 }
 
+.setup-panel-shell > :not(:first-child) {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-soft);
+}
+
+.setup-panel-shell :where(.form-label) {
+  color: var(--text-strong);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.setup-panel-shell :where(.page-header__caption) {
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.setup-panel-shell :where(.toggle-row) > div:first-child,
+.setup-panel-shell :where(.form-field) > div:first-child {
+  display: grid;
+  gap: 6px;
+}
+
 .form-label {
   font-size: 0.9rem;
   color: var(--text-soft);

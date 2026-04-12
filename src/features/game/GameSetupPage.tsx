@@ -128,7 +128,7 @@ export function GameSetupPage() {
       </div>
 
       <div className={styles.setupGrid}>
-        <GlassPanel className={styles.setupMain} padding="lg" variant="strong">
+        <GlassPanel className={`setup-panel-shell ${styles.setupMain}`} padding="lg" variant="strong">
           <div>
             <p className="section-kicker">Mode</p>
             <h2 className="section-title">{selectedLabel}</h2>

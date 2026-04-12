@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import type { PointerEvent as ReactPointerEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
 import { Eraser, ScanSearch } from 'lucide-react'
 import styles from '@/features/handwriting/handwriting.module.css'
 
@@ -11,9 +10,16 @@ type Point = { x: number; y: number }
 type HandwritingPadProps = {
   onSelectCandidate: (text: string) => void
   disabled?: boolean
+  hideStatus?: boolean
+  extraActions?: ReactNode
 }
 
-export function HandwritingPad({ onSelectCandidate, disabled = false }: HandwritingPadProps) {
+export function HandwritingPad({
+  onSelectCandidate,
+  disabled = false,
+  hideStatus = false,
+  extraActions = null,
+}: HandwritingPadProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const strokesRef = useRef<Stroke[]>([])
   const currentStrokeRef = useRef<Point[]>([])
@@ -27,8 +33,8 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
 
     const context2d = canvasElement.getContext('2d')
     if (!context2d) return
-    const canvas: HTMLCanvasElement = canvasElement
-    const context: CanvasRenderingContext2D = context2d
+    const canvas = canvasElement
+    const context = context2d
 
     function redrawStrokes() {
       context.clearRect(0, 0, canvas.width, canvas.height)
@@ -50,7 +56,9 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect()
       const deviceScale = window.devicePixelRatio || 1
-      const strokeColor = getComputedStyle(document.documentElement).getPropertyValue('--handwriting-stroke').trim() || '#101418'
+      const strokeColor =
+        getComputedStyle(document.documentElement).getPropertyValue('--handwriting-stroke').trim() || '#101418'
+
       canvas.width = Math.max(1, Math.round(rect.width * deviceScale))
       canvas.height = Math.max(1, Math.round(rect.height * deviceScale))
       context.setTransform(1, 0, 0, 1, 0, 0)
@@ -79,7 +87,7 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
     strokesRef.current = []
     currentStrokeRef.current = []
     setCandidates([])
-    setStatusText('손글씨를 지웠습니다.')
+    setStatusText('지웠습니다.')
   }
 
   function getPoint(event: ReactPointerEvent<HTMLCanvasElement>) {
@@ -130,7 +138,7 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
         : []
 
       setCandidates(nextCandidates)
-      setStatusText(nextCandidates.length > 0 ? '후보를 눌러 답안에 넣을 수 있어요.' : '인식 결과가 없습니다. 다시 써 보세요.')
+      setStatusText(nextCandidates.length > 0 ? '후보를 눌러 답으로 넣으세요.' : '인식 결과가 없습니다.')
     } catch (error) {
       console.error('Handwriting recognition failed:', error)
       setCandidates([])
@@ -153,7 +161,7 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
             const point = getPoint(event)
             drawingRef.current = true
             currentStrokeRef.current = [point]
-            setStatusText('손글씨를 인식하려면 인식하기를 눌러 주세요.')
+            setStatusText('글자를 다 쓴 뒤 인식을 눌러 주세요.')
             event.currentTarget.setPointerCapture(event.pointerId)
 
             context.beginPath()
@@ -194,14 +202,15 @@ export function HandwritingPad({ onSelectCandidate, disabled = false }: Handwrit
         <div className={styles.buttonRow}>
           <button type="button" className={styles.actionButton} onClick={() => void recognize()} disabled={disabled}>
             <ScanSearch size={18} />
-            <span>인식하기</span>
+            <span>인식</span>
           </button>
           <button type="button" className={styles.actionButton} onClick={clearCanvas} disabled={disabled}>
             <Eraser size={18} />
             <span>지우기</span>
           </button>
         </div>
-        <p className={styles.status}>{statusText}</p>
+        {extraActions}
+        {!hideStatus ? <p className={styles.status}>{statusText}</p> : null}
       </div>
 
       {candidates.length > 0 ? (

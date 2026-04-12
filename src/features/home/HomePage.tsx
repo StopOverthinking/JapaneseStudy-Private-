@@ -1,6 +1,18 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { BookOpen, ClipboardCheck, FolderTree, MoonStar, RotateCcw, Sparkles, SunMedium, Swords, X } from 'lucide-react'
+import {
+  BookOpen,
+  ClipboardCheck,
+  FolderTree,
+  MoonStar,
+  PenTool,
+  RefreshCcw,
+  RotateCcw,
+  Sparkles,
+  SunMedium,
+  Swords,
+  X,
+} from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -10,6 +22,7 @@ import { VocabularySetMenu } from '@/features/list/VocabularySetMenu'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
 import { SharePanel } from '@/features/share/SharePanel'
 import { useLearnSessionStore } from '@/features/session/learnSessionStore'
+import { useSmartReviewStore } from '@/features/smart-review/smartReviewStore'
 import styles from '@/features/home/home.module.css'
 
 export function HomePage() {
@@ -19,6 +32,8 @@ export function HomePage() {
   const examSession = useExamStore((state) => state.session)
   const clearExamSession = useExamStore((state) => state.clearSession)
   const lastExamResult = useExamStore((state) => state.lastResult)
+  const smartReviewSession = useSmartReviewStore((state) => state.session)
+  const clearSmartReviewSession = useSmartReviewStore((state) => state.clearSession)
   const themeMode = usePreferencesStore((state) => state.themeMode)
   const toggleThemeMode = usePreferencesStore((state) => state.toggleThemeMode)
   const [openMenu, setOpenMenu] = useState<'vocabulary' | 'learn' | 'share' | null>(null)
@@ -27,7 +42,7 @@ export function HomePage() {
   const ThemeIcon = themeMode === 'dark' ? SunMedium : MoonStar
 
   const handleDiscardLearnSession = () => {
-    if (!window.confirm('진행 중이던 학습을 파기할까요? 지금까지의 학습 진행 내용은 삭제됩니다.')) {
+    if (!window.confirm('진행 중인 학습을 그만둘까요? 지금까지의 학습 진행 내용은 사라집니다.')) {
       return
     }
 
@@ -35,11 +50,19 @@ export function HomePage() {
   }
 
   const handleDiscardExamSession = () => {
-    if (!window.confirm('진행 중이던 시험을 파기할까요? 지금까지의 시험 진행 내용은 삭제됩니다.')) {
+    if (!window.confirm('진행 중인 시험을 그만둘까요? 지금까지의 시험 진행 내용은 사라집니다.')) {
       return
     }
 
     clearExamSession()
+  }
+
+  const handleDiscardSmartReviewSession = () => {
+    if (!window.confirm('진행 중인 스마트 복습을 종료할까요?')) {
+      return
+    }
+
+    clearSmartReviewSession()
   }
 
   return (
@@ -47,10 +70,10 @@ export function HomePage() {
       {sessionRecord ? (
         <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
-            <p className="section-kicker">Resume</p>
-            <h2 className="page-header__title">이전에 진행하던 학습 세션이 남아 있습니다.</h2>
+            <p className="section-kicker">이어하기</p>
+            <h2 className="page-header__title">이전에 진행하던 학습 세션이 남아 있어요.</h2>
             <p className="page-header__caption">
-              {sessionRecord.round}라운드 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
+              {sessionRecord.round}회차 카드 {sessionRecord.currentIndex + 1}/{sessionRecord.activeQueue.length}
             </p>
           </div>
           <div className={styles.resumeActions}>
@@ -71,10 +94,10 @@ export function HomePage() {
       {examSession ? (
         <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
-            <p className="section-kicker">Exam Resume</p>
-            <h2 className="page-header__title">{examSession.setName} 시험을 이어서 진행할 수 있습니다.</h2>
+            <p className="section-kicker">시험</p>
+            <h2 className="page-header__title">{examSession.setName} 시험이 진행 중이에요.</h2>
             <p className="page-header__caption">
-              문제 {examSession.currentIndex + 1}/{examSession.questionIds.length}째{' '}
+              문제 {examSession.currentIndex + 1}/{examSession.questionIds.length} ·{' '}
               {examSession.gradingMode === 'manual' ? '직접 채점' : '자동 채점'}
             </p>
           </div>
@@ -93,11 +116,46 @@ export function HomePage() {
         </GlassPanel>
       ) : null}
 
+      {smartReviewSession ? (
+        <GlassPanel className={styles.resumeBanner} variant="floating">
+          <div>
+            <p className="section-kicker">스마트 복습</p>
+            <h2 className="page-header__title">{smartReviewSession.setName} 스마트 복습이 진행 중이에요.</h2>
+            <p className="page-header__caption">
+              {smartReviewSession.round}회차 카드 {smartReviewSession.currentIndex + 1}/{smartReviewSession.activeQueue.length}
+            </p>
+          </div>
+          <div className={styles.resumeActions}>
+            <Tooltip label="스마트 복습 이어하기">
+              <span>
+                <IconButton
+                  icon={RotateCcw}
+                  label="스마트 복습 이어하기"
+                  size="lg"
+                  onClick={() => navigate('/smart-review/session')}
+                />
+              </span>
+            </Tooltip>
+            <Tooltip label="스마트 복습 종료">
+              <span>
+                <IconButton
+                  icon={X}
+                  label="스마트 복습 종료"
+                  tone="danger"
+                  size="lg"
+                  onClick={handleDiscardSmartReviewSession}
+                />
+              </span>
+            </Tooltip>
+          </div>
+        </GlassPanel>
+      ) : null}
+
       {!examSession && lastExamResult ? (
         <GlassPanel className={styles.resumeBanner} variant="floating">
           <div>
-            <p className="section-kicker">Exam Result</p>
-            <h2 className="page-header__title">{lastExamResult.setName} 시험 결과를 다시 볼 수 있습니다.</h2>
+            <p className="section-kicker">시험 결과</p>
+            <h2 className="page-header__title">{lastExamResult.setName} 시험 결과를 다시 볼 수 있어요.</h2>
             <p className="page-header__caption">
               {lastExamResult.correctCount}/{lastExamResult.totalQuestions} 정답, 오답 {lastExamResult.wrongItems.length}개
             </p>
@@ -160,7 +218,7 @@ export function HomePage() {
                 <Sparkles size={28} />
               </span>
               <h2 className="page-header__title">학습</h2>
-              <p className={styles.actionCaption}>일반 학습, 시험 모드, 게임 모드</p>
+              <p className={styles.actionCaption}>스마트 복습, 일반 학습, 동사 활용, 시험 모드, 게임 모드</p>
             </div>
           </motion.button>
 
@@ -195,10 +253,10 @@ export function HomePage() {
               <GlassPanel className={styles.submenuPanel} padding="md" variant="floating">
                 <div className={styles.submenuHeader}>
                   <div>
-                    <p className="section-kicker">Vocabulary</p>
+                    <p className="section-kicker">단어장</p>
                     <h2 className="page-header__title">단어장 선택</h2>
                   </div>
-                  <p className="page-header__caption">보고 싶은 단어장을 고르면 바로 목록 화면으로 이어집니다.</p>
+                  <p className="page-header__caption">보고 싶은 단어장을 고르면 바로 목록 화면으로 이동해요.</p>
                 </div>
 
                 <VocabularySetMenu />
@@ -217,10 +275,10 @@ export function HomePage() {
               <GlassPanel className={styles.submenuPanel} padding="md" variant="floating">
                 <div className={styles.submenuHeader}>
                   <div>
-                    <p className="section-kicker">Learn</p>
+                    <p className="section-kicker">학습</p>
                     <h2 className="page-header__title">학습 모드 메뉴</h2>
                   </div>
-                  <p className="page-header__caption">학습 흐름을 고르면 해당 모드 설정으로 바로 이어집니다.</p>
+                  <p className="page-header__caption">원하는 학습 흐름을 고르면 바로 해당 설정 화면으로 이동해요.</p>
                 </div>
 
                 <div className={styles.submenuGrid}>
@@ -229,13 +287,13 @@ export function HomePage() {
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
                     whileHover={{ y: -4 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate('/exam')}
+                    onClick={() => navigate('/smart-review')}
                   >
                     <span className={styles.submenuIcon}>
-                      <ClipboardCheck size={22} />
+                      <PenTool size={22} />
                     </span>
                     <div>
-                      <h3 className={styles.submenuTitle}>시험 모드</h3>
+                      <h3 className={styles.submenuTitle}>스마트 복습</h3>
                     </div>
                   </motion.button>
 
@@ -251,6 +309,36 @@ export function HomePage() {
                     </span>
                     <div>
                       <h3 className={styles.submenuTitle}>일반 학습</h3>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    type="button"
+                    className={`glass-panel glass-padding-md ${styles.submenuCard}`}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => navigate('/conjugation')}
+                  >
+                    <span className={styles.submenuIcon}>
+                      <RefreshCcw size={22} />
+                    </span>
+                    <div>
+                      <h3 className={styles.submenuTitle}>동사 활용</h3>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    type="button"
+                    className={`glass-panel glass-padding-md ${styles.submenuCard}`}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => navigate('/exam')}
+                  >
+                    <span className={styles.submenuIcon}>
+                      <ClipboardCheck size={22} />
+                    </span>
+                    <div>
+                      <h3 className={styles.submenuTitle}>시험 모드</h3>
                     </div>
                   </motion.button>
 

@@ -138,7 +138,7 @@ export function LearnSetupPage() {
       ) : null}
 
       <div className={styles.setupGrid}>
-        <GlassPanel className={styles.layout} padding="lg" variant="strong">
+        <GlassPanel className={`setup-panel-shell ${styles.layout}`} padding="lg" variant="strong">
           <div>
             <p className="section-kicker">Setup</p>
             <p className="section-copy">세트와 조건을 정하고 바로 학습을 시작해 보세요.</p>
