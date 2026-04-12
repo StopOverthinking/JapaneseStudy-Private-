@@ -18,28 +18,33 @@ import { SmartReviewResultPage } from '@/features/smart-review/SmartReviewResult
 import { SmartReviewSessionPage } from '@/features/smart-review/SmartReviewSessionPage'
 import { SmartReviewSetupPage } from '@/features/smart-review/SmartReviewSetupPage'
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      children: [
+        { index: true, element: <HomePage /> },
+        { path: 'list', element: <ListPage /> },
+        { path: 'learn', element: <LearnSetupPage /> },
+        { path: 'learn/session', element: <LearnSessionPage /> },
+        { path: 'learn/result', element: <LearnResultPage /> },
+        { path: 'smart-review', element: <SmartReviewSetupPage /> },
+        { path: 'smart-review/session', element: <SmartReviewSessionPage /> },
+        { path: 'smart-review/result', element: <SmartReviewResultPage /> },
+        { path: 'conjugation', element: <ConjugationSetupPage /> },
+        { path: 'conjugation/session', element: <ConjugationSessionPage /> },
+        { path: 'conjugation/result', element: <ConjugationResultPage /> },
+        { path: 'exam', element: <ExamSetupPage /> },
+        { path: 'exam/session', element: <ExamSessionPage /> },
+        { path: 'exam/result', element: <ExamResultPage /> },
+        { path: 'game', element: <GameSetupPage /> },
+        { path: 'game/session', element: <GameSessionPage /> },
+        { path: 'game/result', element: <GameResultPage /> },
+      ],
+    },
+  ],
   {
-    path: '/',
-    element: <App />,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: 'list', element: <ListPage /> },
-      { path: 'learn', element: <LearnSetupPage /> },
-      { path: 'learn/session', element: <LearnSessionPage /> },
-      { path: 'learn/result', element: <LearnResultPage /> },
-      { path: 'smart-review', element: <SmartReviewSetupPage /> },
-      { path: 'smart-review/session', element: <SmartReviewSessionPage /> },
-      { path: 'smart-review/result', element: <SmartReviewResultPage /> },
-      { path: 'conjugation', element: <ConjugationSetupPage /> },
-      { path: 'conjugation/session', element: <ConjugationSessionPage /> },
-      { path: 'conjugation/result', element: <ConjugationResultPage /> },
-      { path: 'exam', element: <ExamSetupPage /> },
-      { path: 'exam/session', element: <ExamSessionPage /> },
-      { path: 'exam/result', element: <ExamResultPage /> },
-      { path: 'game', element: <GameSetupPage /> },
-      { path: 'game/session', element: <GameSessionPage /> },
-      { path: 'game/result', element: <GameResultPage /> },
-    ],
+    basename: import.meta.env.BASE_URL,
   },
-])
+)
