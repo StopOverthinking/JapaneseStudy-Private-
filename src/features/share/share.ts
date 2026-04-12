@@ -4,6 +4,12 @@ export const QR_SHARE_PREFIX = 'JSPQR1'
 export const QR_SHARE_CHUNK_SIZE = 900
 export const QR_SHARE_AUTOPLAY_MS = 1400
 const QR_GZIP_FORMAT = 'gzip'
+const EXCLUDED_SHARE_KEYS = new Set([
+  'jsp-react:smart-review-profiles',
+  'jsp-react:smart-review-session',
+  'jsp-react:smart-review-result',
+  'jsp-react:smart-review-storage',
+])
 
 type StorageLike = Pick<Storage, 'getItem' | 'key' | 'length'>
 type WritableStorageLike = Pick<Storage, 'setItem' | 'removeItem' | 'key' | 'length'>
@@ -231,6 +237,9 @@ function normalizeLegacyEntries(rawData: Record<string, unknown>) {
 
   for (const [key, value] of Object.entries(rawData)) {
     if (key.startsWith(SHARE_STORAGE_PREFIX)) {
+      if (EXCLUDED_SHARE_KEYS.has(key)) {
+        continue
+      }
       mapped[key] = toStorageString(value)
       continue
     }
@@ -278,7 +287,7 @@ export function getShareStorageKeys(storage?: StorageLike) {
 
   for (let index = 0; index < target.length; index += 1) {
     const key = target.key(index)
-    if (key?.startsWith(SHARE_STORAGE_PREFIX)) {
+    if (key?.startsWith(SHARE_STORAGE_PREFIX) && !EXCLUDED_SHARE_KEYS.has(key)) {
       keys.push(key)
     }
   }

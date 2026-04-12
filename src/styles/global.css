@@ -10,6 +10,7 @@ body,
 
 html {
   background: var(--bg-0);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -58,6 +59,8 @@ a {
     radial-gradient(circle at 80% 30%, var(--noise-dot) 0 0.6px, transparent 0.6px),
     radial-gradient(circle at 40% 80%, var(--noise-dot) 0 0.6px, transparent 0.6px);
   background-size: 18px 18px;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .orb {
@@ -68,6 +71,8 @@ a {
   pointer-events: none;
   filter: blur(24px);
   opacity: 0.36;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .orb-a {
@@ -98,6 +103,11 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
 
@@ -434,6 +444,17 @@ a {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .noise-layer {
+    display: none;
+  }
+
+  .orb {
+    filter: blur(18px);
+    opacity: 0.22;
+  }
 }
 
 @media (max-width: 720px) {

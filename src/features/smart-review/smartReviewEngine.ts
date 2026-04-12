@@ -13,7 +13,7 @@ import type {
 } from '@/features/smart-review/smartReviewTypes'
 
 const REVIEW_INTERVALS_DAYS = [1, 3, 7, 14, 30, 90] as const
-const INITIAL_SUCCESS_STAGE = 2
+const INITIAL_SUCCESS_INTERVAL_DAYS = 7
 
 function addDays(base: Date, days: number) {
   const next = new Date(base)
@@ -38,26 +38,65 @@ function normalizeFiniteNumber(value: unknown, fallback = 0) {
   return Number.isFinite(parsed) ? Math.max(0, parsed) : fallback
 }
 
-export function normalizeSmartReviewProfile(raw: unknown, wordId: string): SmartReviewProfile {
-  if (!isObject(raw)) {
-    return createEmptyProfile(wordId)
+function parseInteger(value: unknown) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return Math.trunc(value)
   }
 
-  const status = raw.status
-  const normalizedStatus =
-    status === 'learning' || status === 'reviewing' || status === 'mastered' ? status : 'new'
+  const parsed = Number.parseInt(String(value ?? ''), 10)
+  return Number.isFinite(parsed) ? parsed : null
+}
+
+function normalizeUpdatedAt(value: unknown, fallback: string) {
+  return typeof value === 'string' && value.length > 0 ? value : fallback
+}
+
+function stageToIntervalDays(stage: number) {
+  return REVIEW_INTERVALS_DAYS[stage] ?? null
+}
+
+function normalizeIntervalDays(value: unknown, fallback: number | null) {
+  if (value === null) return null
+
+  const parsed = parseInteger(value)
+  if (parsed === null) return fallback
+  if (parsed < 0) return fallback
+
+  return REVIEW_INTERVALS_DAYS.includes(parsed as (typeof REVIEW_INTERVALS_DAYS)[number]) ? parsed : fallback
+}
+
+function getNextIntervalDays(intervalDays: number | null) {
+  if (intervalDays === null) {
+    return INITIAL_SUCCESS_INTERVAL_DAYS
+  }
+
+  const currentIndex = REVIEW_INTERVALS_DAYS.indexOf(intervalDays as (typeof REVIEW_INTERVALS_DAYS)[number])
+  if (currentIndex >= 0) {
+    return REVIEW_INTERVALS_DAYS[currentIndex + 1] ?? null
+  }
+
+  return REVIEW_INTERVALS_DAYS.find((candidate) => candidate > intervalDays) ?? null
+}
+
+export function normalizeSmartReviewProfile(raw: unknown, wordId: string): SmartReviewProfile {
+  const fallbackUpdatedAt = new Date().toISOString()
+  if (!isObject(raw)) {
+    return {
+      ...createEmptyProfile(wordId),
+      updatedAt: fallbackUpdatedAt,
+    }
+  }
+
+  const dueAt = normalizeDate(raw.dueAt)
+  const stage = parseInteger(raw.stage)
+  const intervalDays = normalizeIntervalDays(raw.intervalDays, stage !== null && stage >= 0 ? stageToIntervalDays(stage) : null)
+  const updatedAt = normalizeUpdatedAt(raw.updatedAt, normalizeDate(raw.lastReviewedAt) ?? dueAt ?? fallbackUpdatedAt)
 
   return {
     wordId,
-    status: normalizedStatus,
-    stage: normalizeFiniteNumber(raw.stage),
-    dueAt: normalizeDate(raw.dueAt),
-    lastReviewedAt: normalizeDate(raw.lastReviewedAt),
-    totalCorrectSessions: normalizeFiniteNumber(raw.totalCorrectSessions),
-    totalWrongSessions: normalizeFiniteNumber(raw.totalWrongSessions),
-    consecutiveCorrectSessions: normalizeFiniteNumber(raw.consecutiveCorrectSessions),
-    lapseCount: normalizeFiniteNumber(raw.lapseCount),
-    masteredAt: normalizeDate(raw.masteredAt),
+    dueAt,
+    intervalDays,
+    updatedAt,
   }
 }
 
@@ -71,15 +110,9 @@ export function normalizeSmartReviewProfileMap(raw: unknown): SmartReviewProfile
 export function createEmptyProfile(wordId: string): SmartReviewProfile {
   return {
     wordId,
-    status: 'new',
-    stage: 0,
     dueAt: null,
-    lastReviewedAt: null,
-    totalCorrectSessions: 0,
-    totalWrongSessions: 0,
-    consecutiveCorrectSessions: 0,
-    lapseCount: 0,
-    masteredAt: null,
+    intervalDays: null,
+    updatedAt: '1970-01-01T00:00:00.000Z',
   }
 }
 
@@ -156,19 +189,19 @@ export function buildSmartReviewSummary(words: VocabularyWord[], profileMap: Sma
 
   for (const word of words) {
     const profile = profileMap[word.id]
-    if (!profile || profile.status === 'new') {
+    if (!profile) {
       newCount += 1
       continue
     }
 
-    if (profile.status === 'mastered') {
+    if (!profile.dueAt) {
       masteredCount += 1
       continue
     }
 
     learningCount += 1
 
-    if (!profile.dueAt || new Date(profile.dueAt).getTime() <= now.getTime()) {
+    if (new Date(profile.dueAt).getTime() <= now.getTime()) {
       dueCount += 1
     }
   }
@@ -182,16 +215,16 @@ export function selectSmartReviewWords(payload: StartSmartReviewPayload, profile
 
   for (const word of payload.words) {
     const profile = profileMap[word.id]
-    if (!profile || profile.status === 'new') {
+    if (!profile) {
       newWords.push(word)
       continue
     }
 
-    if (profile.status === 'mastered') {
+    if (!profile.dueAt) {
       continue
     }
 
-    if (!profile.dueAt || new Date(profile.dueAt).getTime() <= now.getTime()) {
+    if (new Date(profile.dueAt).getTime() <= now.getTime()) {
       dueWords.push(word)
     }
   }
@@ -508,6 +541,7 @@ export function applySmartReviewOutcome(profileMap: SmartReviewProfileMap, sessi
   let promotedCount = 0
   let resetCount = 0
   let masteredCount = 0
+  const updatedAt = now.toISOString()
 
   for (const wordId of session.selectedWordIds) {
     const currentProfile = nextProfiles[wordId] ?? createEmptyProfile(wordId)
@@ -517,49 +551,35 @@ export function applySmartReviewOutcome(profileMap: SmartReviewProfileMap, sessi
     const hadMistake = itemState.wrongCount > 0
 
     if (hadMistake) {
-      const dueAt = addDays(now, REVIEW_INTERVALS_DAYS[0]).toISOString()
+      const intervalDays = REVIEW_INTERVALS_DAYS[0]
       nextProfiles[wordId] = {
-        ...currentProfile,
-        status: 'learning',
-        stage: 0,
-        dueAt,
-        lastReviewedAt: now.toISOString(),
-        totalWrongSessions: currentProfile.totalWrongSessions + 1,
-        consecutiveCorrectSessions: 0,
-        lapseCount: currentProfile.lapseCount + 1,
-        masteredAt: null,
+        wordId,
+        dueAt: addDays(now, intervalDays).toISOString(),
+        intervalDays,
+        updatedAt,
       }
       resetCount += 1
       continue
     }
 
-    const baseStage = currentProfile.status === 'new' ? INITIAL_SUCCESS_STAGE : currentProfile.stage + 1
-    const isMastered = baseStage >= REVIEW_INTERVALS_DAYS.length
+    const nextIntervalDays = getNextIntervalDays(currentProfile.intervalDays)
 
-    if (isMastered) {
+    if (nextIntervalDays === null) {
       nextProfiles[wordId] = {
-        ...currentProfile,
-        status: 'mastered',
-        stage: REVIEW_INTERVALS_DAYS.length,
+        wordId,
         dueAt: null,
-        lastReviewedAt: now.toISOString(),
-        totalCorrectSessions: currentProfile.totalCorrectSessions + 1,
-        consecutiveCorrectSessions: currentProfile.consecutiveCorrectSessions + 1,
-        masteredAt: now.toISOString(),
+        intervalDays: null,
+        updatedAt,
       }
       masteredCount += 1
       continue
     }
 
     nextProfiles[wordId] = {
-      ...currentProfile,
-      status: baseStage >= 2 ? 'reviewing' : 'learning',
-      stage: baseStage,
-      dueAt: addDays(now, REVIEW_INTERVALS_DAYS[baseStage]).toISOString(),
-      lastReviewedAt: now.toISOString(),
-      totalCorrectSessions: currentProfile.totalCorrectSessions + 1,
-      consecutiveCorrectSessions: currentProfile.consecutiveCorrectSessions + 1,
-      masteredAt: null,
+      wordId,
+      dueAt: addDays(now, nextIntervalDays).toISOString(),
+      intervalDays: nextIntervalDays,
+      updatedAt,
     }
     promotedCount += 1
   }

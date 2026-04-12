@@ -137,23 +137,21 @@
   width: 100%;
   transform: translateY(0);
   z-index: 8;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
   transition:
     transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.32s ease,
-    filter 0.32s ease;
+    opacity 0.32s ease;
 }
 
 .toolbarVisible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 .toolbarHidden {
   opacity: 0;
   transform: translateY(calc(-100% - 18px));
-  filter: blur(8px);
   pointer-events: none;
 }
 
@@ -167,6 +165,20 @@
   display: grid;
   gap: 8px;
   min-height: 74px;
+}
+
+.cardSurface {
+  display: grid;
+  gap: 8px;
+}
+
+.cardSurface[data-revealable="true"] {
+  cursor: pointer;
+}
+
+.cardSurface[data-revealable="true"]:focus-visible {
+  outline: 2px solid var(--accent-ice);
+  outline-offset: 6px;
 }
 
 .cardTop {
@@ -197,12 +209,14 @@
 }
 
 .reading {
+  display: block;
   color: var(--accent-ice);
   font-size: var(--list-reading-size, 0.94rem);
   text-align: left;
 }
 
 .meaning {
+  display: block;
   color: var(--text-soft);
   line-height: 1.32;
   text-align: right;
@@ -210,6 +224,7 @@
 }
 
 .jp {
+  display: block;
   font-family: var(--font-jp);
   font-size: var(--list-jp-size, 1.32rem);
   text-align: left;
@@ -264,6 +279,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
   color: var(--text-soft);
   cursor: pointer;
   outline: none;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { BookOpen, Heart, Search, Undo2, ZoomIn, ZoomOut } from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +13,8 @@ import { getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/
 import type { VocabularyWord } from '@/features/vocab/model/types'
 import { matchesWordSearch } from '@/lib/search'
 import styles from '@/features/list/list.module.css'
+
+const TOOLBAR_INTERACTION_LOCK_MS = 640
 
 function SlashGlyphIcon({
   glyph,
@@ -66,9 +68,9 @@ function MeaningHiddenIcon(props: LucideProps) {
 function getPartOfSpeechLabel(word: VocabularyWord) {
   switch (word.type) {
     case 'verb':
-      if (word.verbInfo?.includes('1')) return '동1'
-      if (word.verbInfo?.includes('2')) return '동2'
-      if (word.verbInfo?.includes('3')) return '동3'
+      if (word.verbInfo?.includes('1')) return '1동사'
+      if (word.verbInfo?.includes('2')) return '2동사'
+      if (word.verbInfo?.includes('3')) return '3동사'
       return '동사'
     case 'noun':
       return '명사'
@@ -109,59 +111,72 @@ function VocabCard({
   const isFavorite = favoriteIds.includes(word.id)
   const japaneseHidden = hideJapanese && !revealJapanese
   const meaningHidden = hideMeaning && !revealMeaning
+  const hasHiddenContent = japaneseHidden || meaningHidden
+
+  const revealHiddenContent = () => {
+    if (japaneseHidden) {
+      setRevealJapanese(true)
+    }
+
+    if (meaningHidden) {
+      setRevealMeaning(true)
+    }
+  }
+
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!hasHiddenContent) {
+      return
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      revealHiddenContent()
+    }
+  }
 
   return (
     <GlassPanel className={styles.card} padding="sm">
-      <div className={styles.cardTop}>
-        <div className={styles.chipRow}>
-          <span className={styles.orderBadge}>{displayNumber}번</span>
-          <span className={styles.partBadge}>{getPartOfSpeechLabel(word)}</span>
-        </div>
-        <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
-          <span
-            role="button"
-            tabIndex={0}
-            aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-            className={styles.cardFavoriteButton}
-            onClick={() => toggleFavorite(word.id)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault()
+      <div
+        className={styles.cardSurface}
+        data-revealable={hasHiddenContent}
+        role={hasHiddenContent ? 'button' : undefined}
+        tabIndex={hasHiddenContent ? 0 : undefined}
+        onClick={hasHiddenContent ? revealHiddenContent : undefined}
+        onKeyDown={hasHiddenContent ? handleCardKeyDown : undefined}
+      >
+        <div className={styles.cardTop}>
+          <div className={styles.chipRow}>
+            <span className={styles.orderBadge}>{displayNumber}번</span>
+            <span className={styles.partBadge}>{getPartOfSpeechLabel(word)}</span>
+          </div>
+          <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
+            <button
+              type="button"
+              aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+              className={styles.cardFavoriteButton}
+              onClick={(event) => {
+                event.stopPropagation()
                 toggleFavorite(word.id)
-              }
-            }}
-          >
-            <Heart size={18} strokeWidth={1.9} fill={isFavorite ? 'currentColor' : 'none'} />
-          </span>
-        </Tooltip>
-      </div>
-
-      <div className={styles.cardBody}>
-        <div className={styles.wordColumn}>
-          <button
-            type="button"
-            className={`${styles.jp} ${japaneseHidden ? styles.concealed : ''}`}
-            onClick={() => setRevealJapanese((value) => !value)}
-          >
-            {word.japanese}
-          </button>
-          <button
-            type="button"
-            className={`${styles.reading} ${japaneseHidden ? styles.concealed : ''}`}
-            onClick={() => setRevealJapanese((value) => !value)}
-          >
-            {word.reading}
-          </button>
+              }}
+            >
+              <Heart size={18} strokeWidth={1.9} fill={isFavorite ? 'currentColor' : 'none'} />
+            </button>
+          </Tooltip>
         </div>
 
-        <div className={styles.meaningColumn}>
-          <button
-            type="button"
-            className={`${styles.meaning} ${meaningHidden ? styles.concealed : ''}`}
-            onClick={() => setRevealMeaning((value) => !value)}
-          >
-            {word.meaning}
-          </button>
+        <div className={styles.cardBody}>
+          <div className={styles.wordColumn}>
+            <span className={`${styles.jp} ${japaneseHidden ? styles.concealed : ''}`} lang="ja-JP" translate="no">
+              {word.japanese}
+            </span>
+            <span className={`${styles.reading} ${japaneseHidden ? styles.concealed : ''}`} lang="ja-JP" translate="no">
+              {word.reading}
+            </span>
+          </div>
+
+          <div className={styles.meaningColumn}>
+            <span className={`${styles.meaning} ${meaningHidden ? styles.concealed : ''}`}>{word.meaning}</span>
+          </div>
         </div>
       </div>
     </GlassPanel>
@@ -188,6 +203,7 @@ export function ListPage() {
   const lastScrollYRef = useRef(0)
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null)
   const scrollDistanceRef = useRef(0)
+  const toolbarInteractionLockUntilRef = useRef(0)
   const wrongAnswerWords = useMemo(
     () =>
       wrongAnswerIds
@@ -198,9 +214,10 @@ export function ListPage() {
   const currentSetName = lastSelectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(lastSelectedSetId)
 
   const words = useMemo(() => {
-    const base = lastSelectedSetId === 'wrong_answers'
-      ? wrongAnswerWords
-      : getWordsForSet(lastSelectedSetId, favoriteIds)
+    const base =
+      lastSelectedSetId === 'wrong_answers'
+        ? wrongAnswerWords
+        : getWordsForSet(lastSelectedSetId, favoriteIds)
 
     return base
       .filter((word) => (favoritesOnly ? favoriteIds.includes(word.id) : true))
@@ -218,12 +235,21 @@ export function ListPage() {
       { jp: '1.7rem', reading: '1.16rem', meaning: '1.24rem' },
     ]
     const preset = presets[listFontScale] ?? presets[3]
+
     return {
       ['--list-jp-size' as string]: preset.jp,
       ['--list-reading-size' as string]: preset.reading,
       ['--list-meaning-size' as string]: preset.meaning,
     }
   }, [listFontScale])
+
+  const keepToolbarVisible = () => {
+    const now = typeof performance === 'undefined' ? Date.now() : performance.now()
+    toolbarInteractionLockUntilRef.current = now + TOOLBAR_INTERACTION_LOCK_MS
+    setToolbarVisible(true)
+    scrollDirectionRef.current = null
+    scrollDistanceRef.current = 0
+  }
 
   useEffect(() => {
     lastScrollYRef.current = window.scrollY
@@ -235,6 +261,14 @@ export function ListPage() {
       const delta = currentY - lastScrollYRef.current
       lastScrollYRef.current = currentY
       const magnitude = Math.abs(delta)
+      const now = typeof performance === 'undefined' ? Date.now() : performance.now()
+
+      if (now < toolbarInteractionLockUntilRef.current) {
+        setToolbarVisible(true)
+        scrollDirectionRef.current = null
+        scrollDistanceRef.current = 0
+        return
+      }
 
       if (magnitude < 2) {
         return
@@ -295,9 +329,17 @@ export function ListPage() {
         <div className={styles.searchWrap}>
           <div className={styles.toolbar}>
             <div className={styles.toolbarActions}>
-              <Tooltip label="검색 열기">
+              <Tooltip label="검색">
                 <span>
-                  <IconButton icon={Search} label="검색 열기" active={searchOpen} onClick={() => setSearchOpen((value) => !value)} />
+                  <IconButton
+                    icon={Search}
+                    label="검색"
+                    active={searchOpen}
+                    onClick={() => {
+                      keepToolbarVisible()
+                      setSearchOpen((value) => !value)
+                    }}
+                  />
                 </span>
               </Tooltip>
               <Tooltip label="일본어 가리기">
@@ -306,7 +348,10 @@ export function ListPage() {
                     icon={JapaneseHiddenIcon}
                     label="일본어 가리기"
                     active={hideJapaneseInList}
-                    onClick={() => setHideJapaneseInList(!hideJapaneseInList)}
+                    onClick={() => {
+                      keepToolbarVisible()
+                      setHideJapaneseInList(!hideJapaneseInList)
+                    }}
                   />
                 </span>
               </Tooltip>
@@ -316,13 +361,24 @@ export function ListPage() {
                     icon={MeaningHiddenIcon}
                     label="뜻 가리기"
                     active={hideMeaningInList}
-                    onClick={() => setHideMeaningInList(!hideMeaningInList)}
+                    onClick={() => {
+                      keepToolbarVisible()
+                      setHideMeaningInList(!hideMeaningInList)
+                    }}
                   />
                 </span>
               </Tooltip>
               <Tooltip label="즐겨찾기만 보기">
                 <span>
-                  <IconButton icon={Heart} label="즐겨찾기만 보기" active={favoritesOnly} onClick={() => setFavoritesOnly((value) => !value)} />
+                  <IconButton
+                    icon={Heart}
+                    label="즐겨찾기만 보기"
+                    active={favoritesOnly}
+                    onClick={() => {
+                      keepToolbarVisible()
+                      setFavoritesOnly((value) => !value)
+                    }}
+                  />
                 </span>
               </Tooltip>
               <span className={styles.fontControlGroup}>
@@ -331,7 +387,10 @@ export function ListPage() {
                     <IconButton
                       icon={ZoomOut}
                       label="글자 작게"
-                      onClick={() => setListFontScale(listFontScale - 1)}
+                      onClick={() => {
+                        keepToolbarVisible()
+                        setListFontScale(listFontScale - 1)
+                      }}
                       disabled={listFontScale <= 0}
                     />
                   </span>
@@ -341,7 +400,10 @@ export function ListPage() {
                     <IconButton
                       icon={ZoomIn}
                       label="글자 크게"
-                      onClick={() => setListFontScale(listFontScale + 1)}
+                      onClick={() => {
+                        keepToolbarVisible()
+                        setListFontScale(listFontScale + 1)
+                      }}
                       disabled={listFontScale >= 6}
                     />
                   </span>
@@ -365,7 +427,11 @@ export function ListPage() {
         <EmptyState
           icon={BookOpen}
           title="표시할 단어가 없습니다."
-          description={favoritesOnly ? '즐겨찾기 필터나 검색어를 다시 조정해 주세요.' : '세트나 검색 조건을 다시 확인해 주세요.'}
+          description={
+            favoritesOnly
+              ? '즐겨찾기 필터나 검색어를 다시 조정해 주세요.'
+              : '세트와 검색 조건을 다시 확인해 주세요.'
+          }
         />
       ) : (
         <div className={styles.grid}>

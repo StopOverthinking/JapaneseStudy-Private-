@@ -31,6 +31,7 @@ describe('share utils', () => {
       'jsp-react:z-last': '1',
       unrelated: 'skip',
       'jsp-react:a-first': '2',
+      'jsp-react:smart-review-storage': 'indexeddb-v1',
     })
 
     expect(getShareStorageKeys(storage)).toEqual(['jsp-react:a-first', 'jsp-react:z-last'])
@@ -40,6 +41,7 @@ describe('share utils', () => {
     const storage = createStorage({
       'jsp-react:preferences': '{"theme":"ice"}',
       'jsp-react:favorites': '["word-1"]',
+      'jsp-react:smart-review-profiles': '{"word-1":{"dueAt":"2026-04-12T00:00:00.000Z"}}',
       ignore: 'value',
     })
 

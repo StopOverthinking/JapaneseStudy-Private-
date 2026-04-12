@@ -1,21 +1,22 @@
 import type { VocabularyWord } from '@/features/vocab/model/types'
 
-export type SmartReviewStatus = 'new' | 'learning' | 'reviewing' | 'mastered'
-
-export type SmartReviewProfile = {
+export type SmartReviewScheduleRecord = {
   wordId: string
-  status: SmartReviewStatus
-  stage: number
   dueAt: string | null
-  lastReviewedAt: string | null
-  totalCorrectSessions: number
-  totalWrongSessions: number
-  consecutiveCorrectSessions: number
-  lapseCount: number
-  masteredAt: string | null
+  intervalDays: number | null
+  updatedAt: string
 }
 
-export type SmartReviewProfileMap = Record<string, SmartReviewProfile>
+export type SmartReviewProfile = SmartReviewScheduleRecord
+
+export type SmartReviewProfileMap = Record<string, SmartReviewScheduleRecord>
+
+export type SmartReviewScheduleBackup = {
+  schemaVersion: 'jsp-smart-review-schedule-v1'
+  exportedAt: string
+  recordCount: number
+  data: SmartReviewScheduleRecord[]
+}
 
 export type SmartReviewSessionItemState = {
   wordId: string

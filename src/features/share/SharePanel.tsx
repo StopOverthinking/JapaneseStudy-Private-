@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import {
+  Brain,
   ChevronLeft,
   ChevronRight,
   ClipboardCopy,
   ClipboardPaste,
+  Database,
   Download,
   FileUp,
+  GitMerge,
   QrCode,
+  RefreshCcw,
   ScanSearch,
   X,
 } from 'lucide-react'
@@ -29,6 +33,15 @@ import {
   type QrImportSession,
   type QrShareFrames,
 } from '@/features/share/share'
+import { useSmartReviewStore } from '@/features/smart-review/smartReviewStore'
+import {
+  buildSmartReviewScheduleBackup,
+  canShareSmartReviewByQr,
+  downloadSmartReviewScheduleBackup,
+  getSmartReviewScheduleBackupText,
+  importSmartReviewScheduleBackup,
+  parseSmartReviewScheduleBackup,
+} from '@/features/smart-review/smartReviewScheduleShare'
 import styles from '@/features/share/share.module.css'
 
 type ShareStatus = {
@@ -37,6 +50,8 @@ type ShareStatus = {
 }
 
 type QrShareViewState = QrShareFrames & {
+  title: string
+  caption: string
   currentIndex: number
   svgFrames: string[]
 }
@@ -55,48 +70,29 @@ type BarcodeDetectorLike = {
 
 type BarcodeDetectorCtor = new (options?: { formats?: string[] }) => BarcodeDetectorLike
 
+type FileAction = 'app-import' | 'schedule-import-merge' | 'schedule-import-overwrite'
+type QrImportKind = 'app' | 'schedule-merge'
+
 type QrImportProgress = {
   received: number
   total: number
 }
 
-const shareActions = [
-  {
-    id: 'clipboard-export',
-    title: '클립보드로 복사',
-    description: '현재 React 데이터 백업 JSON을 클립보드에 복사합니다.',
-    icon: ClipboardCopy,
-  },
-  {
-    id: 'file-export',
-    title: 'JSON 다운로드',
-    description: 'React 백업 파일을 저장해 다른 기기에서도 복원할 수 있습니다.',
-    icon: Download,
-  },
-  {
-    id: 'qr-export',
-    title: 'QR 코드 공유',
-    description: '여러 장의 QR 프레임으로 백업 JSON을 전송합니다.',
-    icon: QrCode,
-  },
-  {
-    id: 'clipboard-import',
-    title: '클립보드 가져오기',
-    description: '복사해 둔 React 또는 기존 웹 버전 백업 JSON을 복원합니다.',
-    icon: ClipboardPaste,
-  },
-  {
-    id: 'file-import',
-    title: '파일 가져오기',
-    description: '저장된 백업 JSON 파일을 읽어 현재 React 데이터를 교체합니다.',
-    icon: FileUp,
-  },
-  {
-    id: 'qr-import',
-    title: 'QR 코드 가져오기',
-    description: '카메라로 공유 QR을 읽어 백업 데이터를 복원합니다.',
-    icon: ScanSearch,
-  },
+const appActions = [
+  { id: 'app-copy', icon: ClipboardCopy, title: '복사', description: '앱' },
+  { id: 'app-download', icon: Download, title: '파일', description: '앱' },
+  { id: 'app-qr-export', icon: QrCode, title: 'QR', description: '앱' },
+  { id: 'app-paste', icon: ClipboardPaste, title: '붙여넣기', description: '앱' },
+  { id: 'app-import-file', icon: FileUp, title: '복원', description: '앱' },
+  { id: 'app-qr-import', icon: ScanSearch, title: '스캔', description: '앱' },
+] as const
+
+const scheduleActions = [
+  { id: 'schedule-download', icon: Download, title: '파일', description: '복습' },
+  { id: 'schedule-qr-export', icon: QrCode, title: 'QR', description: '복습' },
+  { id: 'schedule-merge', icon: GitMerge, title: '병합', description: '복습' },
+  { id: 'schedule-overwrite', icon: RefreshCcw, title: '덮어쓰기', description: '복습' },
+  { id: 'schedule-qr-import', icon: ScanSearch, title: 'QR 병합', description: '복습' },
 ] as const
 
 export function SharePanel({ mode = 'panel' }: SharePanelProps) {
@@ -109,9 +105,13 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   const [isQrLoading, setIsQrLoading] = useState(false)
   const [qrError, setQrError] = useState<string | null>(null)
   const [isQrImportOpen, setIsQrImportOpen] = useState(false)
-  const [qrImportStatus, setQrImportStatus] = useState('공유 중인 QR 코드를 카메라 안에 맞춰 주세요.')
+  const [qrImportKind, setQrImportKind] = useState<QrImportKind>('app')
+  const [qrImportStatus, setQrImportStatus] = useState('QR을 카메라 안에 맞춰 주세요.')
   const [qrImportError, setQrImportError] = useState<string | null>(null)
   const [qrImportProgress, setQrImportProgress] = useState<QrImportProgress | null>(null)
+  const [pendingFileAction, setPendingFileAction] = useState<FileAction | null>(null)
+  const [scheduleRecordCount, setScheduleRecordCount] = useState(0)
+  const [isScheduleQrEnabled, setIsScheduleQrEnabled] = useState(true)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const qrImportVideoRef = useRef<HTMLVideoElement | null>(null)
   const qrImportDetectorRef = useRef<BarcodeDetectorLike | null>(null)
@@ -120,6 +120,10 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   const qrImportLastScanAtRef = useRef(0)
   const qrImportSessionRef = useRef<QrImportSession | null>(null)
   const qrImportDecodingRef = useRef(false)
+
+  useEffect(() => {
+    void refreshSmartReviewMeta()
+  }, [])
 
   useEffect(() => {
     if (!isQrOpen || !qrShare || qrShare.frames.length <= 1) {
@@ -163,9 +167,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
         return
       }
 
-      setIsQrOpen(false)
-      setQrShare(null)
-      setQrError(null)
+      handleCloseQr()
     }
 
     window.addEventListener('keydown', handleKeyDown)
@@ -187,26 +189,24 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     let cancelled = false
 
     async function startQrImport() {
-      resetQrImportSession('카메라를 준비하고 있습니다.')
+      resetQrImportSession('카메라를 준비하고 있어요.')
 
       if (!navigator.mediaDevices?.getUserMedia) {
-        setQrImportError('이 브라우저는 카메라 QR 가져오기를 지원하지 않습니다.')
-        setQrImportStatus('다른 가져오기 방식을 사용해 주세요.')
+        setQrImportError('이 브라우저는 카메라 스캔을 지원하지 않아요.')
+        setQrImportStatus('파일 가져오기를 사용해 주세요.')
         return
       }
 
       const DetectorCtor = (window as Window & { BarcodeDetector?: BarcodeDetectorCtor }).BarcodeDetector
       if (!DetectorCtor) {
-        setQrImportError('이 브라우저는 QR 카메라 스캔을 지원하지 않습니다.')
-        setQrImportStatus('클립보드나 파일 가져오기를 사용해 주세요.')
+        setQrImportError('이 브라우저는 QR 감지를 지원하지 않아요.')
+        setQrImportStatus('파일 가져오기를 사용해 주세요.')
         return
       }
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: 'environment' },
-          },
+          video: { facingMode: { ideal: 'environment' } },
           audio: false,
         })
 
@@ -220,16 +220,16 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
         const video = qrImportVideoRef.current
         if (!video) {
-          throw new Error('QR import preview is not available.')
+          throw new Error('카메라 미리보기를 열지 못했어요.')
         }
 
         video.srcObject = stream
         await video.play()
-        setQrImportStatus('공유 중인 QR 코드를 카메라 안에 맞춰 주세요.')
+        setQrImportStatus('QR을 카메라 안에 맞춰 주세요.')
         scheduleQrImportScan()
       } catch (error) {
-        setQrImportError(error instanceof Error ? error.message : '카메라를 열 수 없습니다.')
-        setQrImportStatus('카메라 준비에 실패했습니다.')
+        setQrImportError(error instanceof Error ? error.message : '카메라를 열지 못했어요.')
+        setQrImportStatus('카메라 준비에 실패했어요.')
       }
     }
 
@@ -240,6 +240,21 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       stopQrImportScanner()
     }
   }, [isQrImportOpen])
+
+  async function ensureSmartReviewReady() {
+    await useSmartReviewStore.getState().hydrate()
+  }
+
+  async function refreshSmartReviewMeta() {
+    try {
+      await ensureSmartReviewReady()
+      const backup = await buildSmartReviewScheduleBackup()
+      setScheduleRecordCount(backup.recordCount)
+      setIsScheduleQrEnabled(canShareSmartReviewByQr(backup.recordCount))
+    } catch (error) {
+      console.error('Failed to read smart review share metadata.', error)
+    }
+  }
 
   function stopQrImportScanner() {
     if (qrImportFrameRequestRef.current !== null) {
@@ -262,7 +277,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     qrImportDecodingRef.current = false
   }
 
-  function resetQrImportSession(message = '공유 중인 QR 코드를 카메라 안에 맞춰 주세요.') {
+  function resetQrImportSession(message = 'QR을 카메라 안에 맞춰 주세요.') {
     qrImportSessionRef.current = null
     qrImportLastScanAtRef.current = 0
     qrImportDecodingRef.current = false
@@ -283,15 +298,11 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   }
 
   async function scanQrFrame() {
-    if (!isQrImportOpen || qrImportDecodingRef.current) {
-      return
-    }
+    if (!isQrImportOpen || qrImportDecodingRef.current) return
 
     const detector = qrImportDetectorRef.current
     const video = qrImportVideoRef.current
-    if (!detector || !video) {
-      return
-    }
+    if (!detector || !video) return
 
     if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
       scheduleQrImportScan()
@@ -332,7 +343,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       : createQrImportSession(frame)
 
     if (!nextSession) {
-      setQrImportError('다른 공유 세션이 감지되었습니다. QR 공유를 다시 시작해 주세요.')
+      setQrImportError('다른 QR 세션이 섞였어요. 다시 스캔해 주세요.')
       return
     }
 
@@ -342,57 +353,81 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       received: getQrImportReceivedCount(nextSession),
       total: nextSession.total,
     })
-    setQrImportStatus(`${getQrImportReceivedCount(nextSession)} / ${nextSession.total}장 수집됨`)
+    setQrImportStatus(`${getQrImportReceivedCount(nextSession)} / ${nextSession.total}`)
 
     if (!isQrImportComplete(nextSession) || qrImportDecodingRef.current) {
       return
     }
 
     qrImportDecodingRef.current = true
-    setQrImportStatus('QR 데이터를 복원 중입니다.')
+    setQrImportStatus('QR을 복원하고 있어요.')
 
     try {
       const text = await decodeQrImportSession(nextSession)
-      const restored = await handleRestoreText(text, 'QR 코드')
+      const restored =
+        qrImportKind === 'app'
+          ? await handleAppRestoreText(text, 'QR')
+          : await handleScheduleRestoreText(text, 'merge', 'QR')
+
       if (!restored) {
         qrImportDecodingRef.current = false
-        setQrImportStatus('복원이 취소되었습니다. 다시 스캔하려면 재설정을 눌러 주세요.')
+        setQrImportStatus('복원이 취소됐어요.')
       }
     } catch (error) {
       qrImportDecodingRef.current = false
-      setQrImportError(error instanceof Error ? error.message : 'QR 데이터를 복원하지 못했습니다.')
-      setQrImportStatus('QR 데이터를 복원하지 못했습니다.')
+      setQrImportError(error instanceof Error ? error.message : 'QR을 복원하지 못했어요.')
+      setQrImportStatus('QR을 복원하지 못했어요.')
     }
   }
 
-  async function handleRestoreText(rawText: string, sourceLabel: string) {
-    const parsed = parseRestorePayload(rawText)
-    if (!parsed.ok) {
+  async function openQrShare(title: string, caption: string, text: string) {
+    setIsQrOpen(true)
+    setIsQrLoading(true)
+    setQrError(null)
+    setQrShare(null)
+
+    try {
+      const frames = await buildQrShareFrames(text)
+      const svgFrames = await Promise.all(frames.frames.map((frame) => createQrMarkup(frame)))
+
+      setQrShare({
+        ...frames,
+        title,
+        caption,
+        currentIndex: 0,
+        svgFrames,
+      })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'QR을 준비하지 못했어요.'
+      setQrError(message)
       setStatus({
         tone: 'error',
-        message: parsed.error,
+        message,
       })
+    } finally {
+      setIsQrLoading(false)
+    }
+  }
+
+  async function handleAppRestoreText(rawText: string, sourceLabel: string) {
+    const parsed = parseRestorePayload(rawText)
+    if (!parsed.ok) {
+      setStatus({ tone: 'error', message: parsed.error })
       return false
     }
 
-    const details = [`${sourceLabel}에서 ${parsed.keyCount}개 항목을 복원합니다.`]
+    const details = [`${sourceLabel}에서 ${parsed.keyCount}개 항목을 복원할까요?`, '현재 앱 백업이 교체됩니다.']
 
     if (parsed.metadata.app) {
-      details.push(`백업 출처: ${parsed.metadata.app}`)
+      details.push(`출처: ${parsed.metadata.app}`)
     }
 
     if (parsed.metadata.exportedAt) {
-      details.push(`백업 시각: ${new Date(parsed.metadata.exportedAt).toLocaleString()}`)
+      details.push(`시간: ${new Date(parsed.metadata.exportedAt).toLocaleString()}`)
     }
 
-    details.push('현재 React 버전 데이터는 교체됩니다.')
-
-    const confirmed = window.confirm(details.join('\n'))
-    if (!confirmed) {
-      setStatus({
-        tone: 'info',
-        message: '데이터 복원을 취소했습니다.',
-      })
+    if (!window.confirm(details.join('\n'))) {
+      setStatus({ tone: 'info', message: '앱 백업 복원을 취소했어요.' })
       return false
     }
 
@@ -401,7 +436,35 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     return true
   }
 
-  const handleCopy = async () => {
+  async function handleScheduleRestoreText(rawText: string, mode: 'merge' | 'overwrite', sourceLabel: string) {
+    const parsed = parseSmartReviewScheduleBackup(rawText)
+    if (!parsed.ok) {
+      setStatus({ tone: 'error', message: parsed.error })
+      return false
+    }
+
+    const modeLabel = mode === 'merge' ? '병합' : '덮어쓰기'
+    const confirmLines = [
+      `${sourceLabel}에서 스마트 복습 ${parsed.backup.recordCount}개를 ${modeLabel}할까요?`,
+      mode === 'merge' ? '같은 단어는 최신 updatedAt 기준으로 합쳐집니다.' : '현재 스마트 복습 일정이 모두 교체됩니다.',
+    ]
+
+    if (!window.confirm(confirmLines.join('\n'))) {
+      setStatus({ tone: 'info', message: `스마트 복습 ${modeLabel}을 취소했어요.` })
+      return false
+    }
+
+    await importSmartReviewScheduleBackup(parsed.backup.data, mode)
+    await useSmartReviewStore.getState().hydrate()
+    await refreshSmartReviewMeta()
+    setStatus({
+      tone: 'success',
+      message: `스마트 복습 ${parsed.backup.recordCount}개를 ${modeLabel}했어요.`,
+    })
+    return true
+  }
+
+  const handleAppCopy = async () => {
     const dataText = getShareDataText()
 
     try {
@@ -410,61 +473,24 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       }
 
       await navigator.clipboard.writeText(dataText)
-      setStatus({
-        tone: 'success',
-        message: 'React 백업 JSON을 클립보드에 복사했습니다.',
-      })
+      setStatus({ tone: 'success', message: '앱 백업을 복사했어요.' })
     } catch {
       setManualCopyText(dataText)
-      setStatus({
-        tone: 'info',
-        message: '자동 복사가 막혀 수동 복사 창을 열었습니다.',
-      })
+      setStatus({ tone: 'info', message: '수동 복사 창을 열었어요.' })
     }
   }
 
-  const handleDownload = () => {
+  const handleAppDownload = () => {
     downloadShareData(getShareDataText())
-    setStatus({
-      tone: 'success',
-      message: '백업 JSON 다운로드를 시작했습니다.',
-    })
+    setStatus({ tone: 'success', message: '앱 백업 파일을 저장했어요.' })
   }
 
-  const handleOpenQr = async () => {
-    const dataText = getShareDataText()
-
-    setIsQrOpen(true)
-    setIsQrLoading(true)
-    setQrError(null)
-    setQrShare(null)
-
-    try {
-      const frames = await buildQrShareFrames(dataText)
-      const svgFrames = await Promise.all(frames.frames.map((frame) => createQrMarkup(frame)))
-
-      setQrShare({
-        ...frames,
-        currentIndex: 0,
-        svgFrames,
-      })
-      setStatus({
-        tone: 'success',
-        message: 'QR 공유 화면을 준비했습니다.',
-      })
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'QR 코드를 준비하지 못했습니다.'
-      setQrError(message)
-      setStatus({
-        tone: 'error',
-        message: `QR 공유 준비에 실패했습니다: ${message}`,
-      })
-    } finally {
-      setIsQrLoading(false)
-    }
+  const handleAppQrExport = async () => {
+    await openQrShare('앱 백업 QR', '앱 백업을 다른 기기로 옮길 수 있어요.', getShareDataText())
+    setStatus({ tone: 'success', message: '앱 QR을 준비했어요.' })
   }
 
-  const handleImportClipboard = async () => {
+  const handleAppClipboardImport = async () => {
     try {
       if (!navigator.clipboard?.readText) {
         throw new Error('Clipboard read is unavailable.')
@@ -472,45 +498,77 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
       const text = await navigator.clipboard.readText()
       if (!text.trim()) {
-        setStatus({
-          tone: 'error',
-          message: '클립보드에 복원할 텍스트가 없습니다.',
-        })
+        setStatus({ tone: 'error', message: '클립보드가 비어 있어요.' })
         return
       }
 
-      await handleRestoreText(text, '클립보드')
+      await handleAppRestoreText(text, '클립보드')
     } catch {
       setManualImportText('')
       setIsManualImportOpen(true)
-      setStatus({
-        tone: 'info',
-        message: '클립보드 읽기가 막혀 수동 붙여넣기 창을 열었습니다.',
-      })
+      setStatus({ tone: 'info', message: '수동 붙여넣기 창을 열었어요.' })
     }
   }
 
-  const handleImportFileClick = () => {
+  const handleScheduleDownload = async () => {
+    await ensureSmartReviewReady()
+    const text = await getSmartReviewScheduleBackupText()
+    downloadSmartReviewScheduleBackup(text)
+    await refreshSmartReviewMeta()
+    setStatus({ tone: 'success', message: '스마트 복습 백업 파일을 저장했어요.' })
+  }
+
+  const handleScheduleQrExport = async () => {
+    await ensureSmartReviewReady()
+    const backup = await buildSmartReviewScheduleBackup()
+
+    if (!canShareSmartReviewByQr(backup.recordCount)) {
+      setStatus({
+        tone: 'info',
+        message: `QR은 ${backup.recordCount}개라서 숨겨져 있어요. 파일로 내보내 주세요.`,
+      })
+      return
+    }
+
+    await openQrShare(
+      '스마트 복습 QR',
+      '작은 복습 일정만 QR로 보낼 수 있어요.',
+      JSON.stringify(backup, null, 2),
+    )
+    setStatus({ tone: 'success', message: '스마트 복습 QR을 준비했어요.' })
+  }
+
+  const handleImportFileClick = (action: FileAction) => {
+    setPendingFileAction(action)
     fileInputRef.current?.click()
   }
 
   const handleImportFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+    const action = pendingFileAction
     event.target.value = ''
-    if (!file) return
+    setPendingFileAction(null)
+    if (!file || !action) return
 
     try {
       const text = await file.text()
-      await handleRestoreText(text, file.name)
+
+      if (action === 'app-import') {
+        await handleAppRestoreText(text, file.name)
+        return
+      }
+
+      await handleScheduleRestoreText(text, action === 'schedule-import-merge' ? 'merge' : 'overwrite', file.name)
     } catch (error) {
       setStatus({
         tone: 'error',
-        message: error instanceof Error ? error.message : '백업 파일을 읽지 못했습니다.',
+        message: error instanceof Error ? error.message : '파일을 읽지 못했어요.',
       })
     }
   }
 
-  const handleOpenQrImport = () => {
+  const handleOpenQrImport = (kind: QrImportKind) => {
+    setQrImportKind(kind)
     setIsQrImportOpen(true)
   }
 
@@ -525,64 +583,77 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
     setIsQrImportOpen(false)
     setQrImportError(null)
     setQrImportProgress(null)
-    setQrImportStatus('공유 중인 QR 코드를 카메라 안에 맞춰 주세요.')
+    setQrImportStatus('QR을 카메라 안에 맞춰 주세요.')
   }
 
   const handleShiftFrame = (delta: number) => {
     setQrShare((current) => {
       if (!current) return current
 
-      const nextIndex = (current.currentIndex + delta + current.frames.length) % current.frames.length
       return {
         ...current,
-        currentIndex: nextIndex,
+        currentIndex: (current.currentIndex + delta + current.frames.length) % current.frames.length,
       }
     })
   }
 
   const handleManualImportSubmit = async () => {
     if (!manualImportText.trim()) {
-      setStatus({
-        tone: 'error',
-        message: '붙여넣은 백업 JSON이 비어 있습니다.',
-      })
+      setStatus({ tone: 'error', message: '붙여넣을 내용이 없어요.' })
       return
     }
 
-    await handleRestoreText(manualImportText, '붙여넣은 텍스트')
+    await handleAppRestoreText(manualImportText, '붙여넣기')
   }
 
-  const renderActionButtons = (compact: boolean) => (
-    <div className={compact ? styles.submenuGrid : styles.cardGrid}>
-      {shareActions.map((action) => {
-        const Icon = action.icon
+  function renderActionGrid(
+    actions: ReadonlyArray<{ id: string; icon: typeof ClipboardCopy; title: string; description: string }>,
+    compact: boolean,
+    kind: 'app' | 'schedule',
+  ) {
+    return (
+      <div className={compact ? styles.submenuGrid : styles.cardGrid}>
+        {actions.map((action) => {
+          const Icon = action.icon
+          const isDisabled = kind === 'schedule' && action.id === 'schedule-qr-export' && !isScheduleQrEnabled
 
-        let onClick: (() => void | Promise<void>) = handleCopy
-        if (action.id === 'file-export') onClick = handleDownload
-        if (action.id === 'qr-export') onClick = handleOpenQr
-        if (action.id === 'clipboard-import') onClick = handleImportClipboard
-        if (action.id === 'file-import') onClick = handleImportFileClick
-        if (action.id === 'qr-import') onClick = handleOpenQrImport
+          const onClick = async () => {
+            if (action.id === 'app-copy') return handleAppCopy()
+            if (action.id === 'app-download') return handleAppDownload()
+            if (action.id === 'app-qr-export') return handleAppQrExport()
+            if (action.id === 'app-paste') return handleAppClipboardImport()
+            if (action.id === 'app-import-file') return handleImportFileClick('app-import')
+            if (action.id === 'app-qr-import') return handleOpenQrImport('app')
+            if (action.id === 'schedule-download') return handleScheduleDownload()
+            if (action.id === 'schedule-qr-export') return handleScheduleQrExport()
+            if (action.id === 'schedule-merge') return handleImportFileClick('schedule-import-merge')
+            if (action.id === 'schedule-overwrite') return handleImportFileClick('schedule-import-overwrite')
+            if (action.id === 'schedule-qr-import') return handleOpenQrImport('schedule-merge')
+          }
 
-        return (
-          <button
-            key={action.id}
-            type="button"
-            className={compact ? styles.submenuButton : styles.shareCard}
-            onClick={() => void onClick()}
-          >
-            <span className={compact ? styles.submenuIcon : styles.shareIcon}>
-              <Icon size={compact ? 20 : 24} strokeWidth={1.9} />
-            </span>
-            <div className={compact ? styles.submenuMeta : styles.shareMeta}>
-              <strong>{action.title}</strong>
-              <p>{action.description}</p>
-            </div>
-          </button>
-        )
-      })}
-    </div>
-  )
+          return (
+            <button
+              key={action.id}
+              type="button"
+              className={compact ? styles.submenuButton : styles.shareCard}
+              onClick={() => void onClick()}
+              disabled={isDisabled}
+            >
+              <span className={compact ? styles.submenuIcon : styles.shareIcon}>
+                <Icon size={compact ? 20 : 24} strokeWidth={1.9} />
+              </span>
+              <div className={compact ? styles.submenuMeta : styles.shareMeta}>
+                <strong>{action.title}</strong>
+                <p>{action.description}</p>
+              </div>
+            </button>
+          )
+        })}
+      </div>
+    )
+  }
+
+  const compact = mode === 'submenu'
 
   return (
     <>
@@ -594,63 +665,76 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
         onChange={(event) => void handleImportFileChange(event)}
       />
 
-      {mode === 'submenu' ? (
-        <GlassPanel className={styles.submenu} padding="md" variant="floating">
-          <div className={styles.submenuHeader}>
-            <div>
-              <p className="section-kicker">Share</p>
-              <h2 className="page-header__title">공유 메뉴</h2>
-            </div>
-            <p className="page-header__caption">백업 내보내기와 복원을 한 자리에서 처리할 수 있습니다.</p>
+      <GlassPanel className={compact ? styles.submenu : styles.panel} padding={compact ? 'md' : 'lg'} variant={compact ? 'floating' : 'strong'}>
+        <div className={compact ? styles.submenuHeader : styles.header}>
+          <div>
+            <p className="section-kicker">Share</p>
+            <h2 className="page-header__title">백업</h2>
           </div>
-          {renderActionButtons(true)}
-          {status ? (
-            <p className={styles.status} data-tone={status.tone}>
-              {status.message}
-            </p>
-          ) : null}
-        </GlassPanel>
-      ) : (
-        <GlassPanel className={styles.panel} padding="lg" variant="strong">
-          <div className={styles.header}>
-            <div>
-              <p className="section-kicker">Share</p>
-              <h2 className="page-header__title">데이터 백업과 복원</h2>
-              <p className="page-header__caption">React 백업과 기존 웹 버전 백업을 모두 불러올 수 있습니다.</p>
+          {!compact ? <p className="page-header__caption">앱 데이터와 스마트 복습 일정을 따로 다룹니다.</p> : null}
+        </div>
+
+        <div className={styles.sectionGroup}>
+          <section className={styles.sectionBlock}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionTitle}>
+                <span className={styles.sectionBadge}>
+                  <Database size={18} />
+                </span>
+                <div>
+                  <strong>앱</strong>
+                  <p>설정, 즐겨찾기</p>
+                </div>
+              </div>
             </div>
-          </div>
+            {renderActionGrid(appActions, compact, 'app')}
+          </section>
 
-          {renderActionButtons(false)}
+          <section className={styles.sectionBlock}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionTitle}>
+                <span className={styles.sectionBadge}>
+                  <Brain size={18} />
+                </span>
+                <div>
+                  <strong>스마트 복습</strong>
+                  <p>{scheduleRecordCount}개 일정</p>
+                </div>
+              </div>
+              {!isScheduleQrEnabled ? <span className="miniChip">QR 숨김</span> : null}
+            </div>
+            {renderActionGrid(scheduleActions, compact, 'schedule')}
+          </section>
+        </div>
 
-          <p className={styles.helper}>복원은 현재 `jsp-react:` 데이터를 교체하며, 기존 웹 버전 백업의 즐겨찾기와 오답 노트도 변환해 가져옵니다.</p>
-          {status ? (
-            <p className={styles.status} data-tone={status.tone}>
-              {status.message}
-            </p>
-          ) : null}
-        </GlassPanel>
-      )}
+        {!compact ? (
+          <p className={styles.helper}>
+            스마트 복습 QR은 {scheduleRecordCount}개 중 200개 이하일 때만 열립니다.
+          </p>
+        ) : null}
+
+        {status ? (
+          <p className={styles.status} data-tone={status.tone}>
+            {status.message}
+          </p>
+        ) : null}
+      </GlassPanel>
 
       {isQrOpen ? (
         <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="qr-share-title" onClick={handleCloseQr}>
-          <GlassPanel
-            className={styles.modal}
-            padding="lg"
-            variant="strong"
-            onClick={(event) => event.stopPropagation()}
-          >
+          <GlassPanel className={styles.modal} padding="lg" variant="strong" onClick={(event) => event.stopPropagation()}>
             <div className={styles.modalHeader}>
               <div>
-                <p className="section-kicker">QR Share</p>
-                <h2 id="qr-share-title" className="page-header__title">QR 코드로 공유</h2>
-                <p className="page-header__caption">다른 기기에서 QR 가져오기를 열고 순서대로 스캔해 주세요.</p>
+                <p className="section-kicker">QR</p>
+                <h2 id="qr-share-title" className="page-header__title">{qrShare?.title ?? 'QR'}</h2>
+                <p className="page-header__caption">{qrShare?.caption}</p>
               </div>
-              <IconButton icon={X} label="QR 공유 닫기" onClick={handleCloseQr} />
+              <IconButton icon={X} label="QR 닫기" onClick={handleCloseQr} />
             </div>
 
             {isQrLoading ? (
               <div className={styles.qrLoading}>
-                <p>QR 코드를 만드는 중입니다.</p>
+                <p>QR을 준비하고 있어요.</p>
               </div>
             ) : qrError ? (
               <div className={styles.qrLoading}>
@@ -661,7 +745,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
                 <div className={styles.qrFrame}>
                   <div
                     className={styles.qrSvg}
-                    aria-label="공유용 QR 코드"
+                    aria-label="공유 QR"
                     dangerouslySetInnerHTML={{ __html: qrShare.svgFrames[qrShare.currentIndex] ?? '' }}
                   />
                 </div>
@@ -670,24 +754,22 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
                     {qrShare.currentIndex + 1} / {qrShare.frames.length}
                   </span>
                   <span className="miniChip">
-                    {qrShare.encoding === 'gzip' ? 'gzip 압축' : '원본 전송'} · {qrShare.rawBytes}B → {qrShare.encodedBytes}B
+                    {qrShare.encoding === 'gzip' ? 'gzip' : 'plain'} · {qrShare.rawBytes}B → {qrShare.encodedBytes}B
                   </span>
                 </div>
                 <p className={styles.qrCaption}>
-                  {qrShare.frames.length > 1
-                    ? '프레임이 여러 장이면 자동으로 넘어갑니다. 상대 기기에서 순서대로 스캔해 주세요.'
-                    : '한 장짜리 QR 코드입니다. 상대 기기에서 바로 스캔하면 됩니다.'}
+                  {qrShare.frames.length > 1 ? '여러 장이면 자동으로 넘어갑니다.' : '한 장짜리 QR이에요.'}
                 </p>
                 <div className={styles.modalActions}>
                   <IconButton
                     icon={ChevronLeft}
-                    label="이전 QR 프레임"
+                    label="이전 QR"
                     onClick={() => handleShiftFrame(-1)}
                     disabled={qrShare.frames.length <= 1}
                   />
                   <IconButton
                     icon={ChevronRight}
-                    label="다음 QR 프레임"
+                    label="다음 QR"
                     onClick={() => handleShiftFrame(1)}
                     disabled={qrShare.frames.length <= 1}
                   />
@@ -700,17 +782,14 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
       {isQrImportOpen ? (
         <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="qr-import-title" onClick={handleCloseQrImport}>
-          <GlassPanel
-            className={styles.modal}
-            padding="lg"
-            variant="strong"
-            onClick={(event) => event.stopPropagation()}
-          >
+          <GlassPanel className={styles.modal} padding="lg" variant="strong" onClick={(event) => event.stopPropagation()}>
             <div className={styles.modalHeader}>
               <div>
-                <p className="section-kicker">QR Import</p>
-                <h2 id="qr-import-title" className="page-header__title">QR 코드로 가져오기</h2>
-                <p className="page-header__caption">공유 중인 QR 프레임을 카메라로 읽어 React 데이터를 복원합니다.</p>
+                <p className="section-kicker">QR</p>
+                <h2 id="qr-import-title" className="page-header__title">
+                  {qrImportKind === 'app' ? '앱 복원' : '스마트 복습 병합'}
+                </h2>
+                <p className="page-header__caption">카메라로 QR을 읽습니다.</p>
               </div>
               <IconButton icon={X} label="QR 가져오기 닫기" onClick={handleCloseQrImport} />
             </div>
@@ -746,7 +825,7 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
                   scheduleQrImportScan()
                 }}
               >
-                다시 스캔
+                다시
               </button>
               <button type="button" className="pill" onClick={handleCloseQrImport}>
                 닫기
@@ -757,24 +836,13 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       ) : null}
 
       {manualCopyText ? (
-        <div
-          className={styles.overlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="manual-copy-title"
-          onClick={() => setManualCopyText(null)}
-        >
-          <GlassPanel
-            className={styles.modal}
-            padding="lg"
-            variant="strong"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="manual-copy-title" onClick={() => setManualCopyText(null)}>
+          <GlassPanel className={styles.modal} padding="lg" variant="strong" onClick={(event) => event.stopPropagation()}>
             <div className={styles.modalHeader}>
               <div>
-                <p className="section-kicker">Manual Copy</p>
+                <p className="section-kicker">Copy</p>
                 <h2 id="manual-copy-title" className="page-header__title">수동 복사</h2>
-                <p className="page-header__caption">브라우저 권한 문제로 자동 복사가 막혔습니다. 아래 내용을 복사해 주세요.</p>
+                <p className="page-header__caption">전체 텍스트를 그대로 복사해 주세요.</p>
               </div>
               <IconButton icon={X} label="수동 복사 닫기" onClick={() => setManualCopyText(null)} />
             </div>
@@ -790,24 +858,13 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
       ) : null}
 
       {isManualImportOpen ? (
-        <div
-          className={styles.overlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="manual-import-title"
-          onClick={() => setIsManualImportOpen(false)}
-        >
-          <GlassPanel
-            className={styles.modal}
-            padding="lg"
-            variant="strong"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="manual-import-title" onClick={() => setIsManualImportOpen(false)}>
+          <GlassPanel className={styles.modal} padding="lg" variant="strong" onClick={(event) => event.stopPropagation()}>
             <div className={styles.modalHeader}>
               <div>
-                <p className="section-kicker">Manual Import</p>
-                <h2 id="manual-import-title" className="page-header__title">백업 JSON 붙여넣기</h2>
-                <p className="page-header__caption">React 백업이나 기존 웹 버전 백업 JSON을 그대로 붙여넣어 복원할 수 있습니다.</p>
+                <p className="section-kicker">Paste</p>
+                <h2 id="manual-import-title" className="page-header__title">앱 복원</h2>
+                <p className="page-header__caption">백업 JSON을 붙여넣어 주세요.</p>
               </div>
               <IconButton icon={X} label="수동 가져오기 닫기" onClick={() => setIsManualImportOpen(false)} />
             </div>
@@ -816,12 +873,12 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
               className={styles.textarea}
               value={manualImportText}
               onChange={(event) => setManualImportText(event.target.value)}
-              placeholder="여기에 백업 JSON을 붙여넣어 주세요."
+              placeholder="백업 JSON"
             />
 
             <div className={styles.modalButtonRow}>
               <button type="button" className="pill" onClick={() => void handleManualImportSubmit()}>
-                복원하기
+                복원
               </button>
               <button type="button" className="pill" onClick={() => setIsManualImportOpen(false)}>
                 취소

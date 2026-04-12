@@ -12,14 +12,14 @@ import { getWordById } from '@/features/vocab/model/selectors'
 
 export function SmartReviewSessionPage() {
   const navigate = useNavigate()
-  const { status, session, submitAnswer, advanceToNext, abandonSession } = useSmartReviewStore()
+  const { isHydrated, status, session, submitAnswer, advanceToNext, abandonSession } = useSmartReviewStore()
   const [answer, setAnswer] = useState('')
 
   useEffect(() => {
-    if (!session && status === 'idle') {
+    if (isHydrated && !session && status === 'idle') {
       navigate('/smart-review', { replace: true })
     }
-  }, [navigate, session, status])
+  }, [isHydrated, navigate, session, status])
 
   useEffect(() => {
     if (status === 'complete') {
@@ -154,7 +154,7 @@ export function SmartReviewSessionPage() {
                     data-active="true"
                     onClick={() => {
                       setAnswer('')
-                      advanceToNext()
+                      void advanceToNext()
                     }}
                   >
                     <span>다음</span>

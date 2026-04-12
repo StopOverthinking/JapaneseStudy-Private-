@@ -11,6 +11,7 @@ import { allWords, getSetName } from '@/features/vocab/model/selectors'
 
 export function SmartReviewSetupPage() {
   const navigate = useNavigate()
+  const isHydrated = useSmartReviewStore((state) => state.isHydrated)
   const profiles = useSmartReviewStore((state) => state.profiles)
   const session = useSmartReviewStore((state) => state.session)
   const startSession = useSmartReviewStore((state) => state.startSession)
@@ -20,8 +21,8 @@ export function SmartReviewSetupPage() {
   const words = useMemo(() => allWords, [])
   const summary = useMemo(() => buildSmartReviewSummary(words, profiles), [profiles, words])
 
-  const handleStart = () => {
-    const didStart = startSession({
+  const handleStart = async () => {
+    const didStart = await startSession({
       setId: 'all',
       setName: getSetName('all'),
       words,
@@ -62,7 +63,7 @@ export function SmartReviewSetupPage() {
         <div className={styles.headerActions}>
           <Tooltip label="스마트 복습 시작">
             <span>
-              <IconButton icon={Play} label="스마트 복습 시작" size="lg" onClick={handleStart} />
+              <IconButton icon={Play} label="스마트 복습 시작" size="lg" onClick={() => void handleStart()} disabled={!isHydrated} />
             </span>
           </Tooltip>
         </div>
@@ -96,7 +97,9 @@ export function SmartReviewSetupPage() {
         <div>
           <p className="section-kicker">방식</p>
           <h2 className="page-header__title">전체 단어장 셔플</h2>
-          <p className="page-header__caption">{`${getSetName('all')} ${words.length}개를 한 번에 섞어 시작해요.`}</p>
+          <p className="page-header__caption">
+            {isHydrated ? `${getSetName('all')} ${words.length}개를 한 번에 섞어 시작해요.` : '복습 일정을 불러오는 중이에요.'}
+          </p>
         </div>
 
         <div className={styles.statsGrid}>
@@ -121,7 +124,7 @@ export function SmartReviewSetupPage() {
         <div className={styles.setupActions}>
           <Tooltip label="스마트 복습 시작">
             <span>
-              <IconButton icon={PenTool} label="스마트 복습 시작" size="lg" onClick={handleStart} />
+              <IconButton icon={PenTool} label="스마트 복습 시작" size="lg" onClick={() => void handleStart()} disabled={!isHydrated} />
             </span>
           </Tooltip>
         </div>

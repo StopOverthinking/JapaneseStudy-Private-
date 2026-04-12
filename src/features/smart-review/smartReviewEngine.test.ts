@@ -51,14 +51,13 @@ describe('smart review engine', () => {
     const summary = buildSmartReviewSummary(words, {
       'word-1': {
         ...createEmptyProfile('word-1'),
-        status: 'reviewing',
-        stage: 2,
         dueAt: '2026-04-10T00:00:00.000Z',
+        intervalDays: 7,
+        updatedAt: '2026-04-09T00:00:00.000Z',
       },
       'word-2': {
         ...createEmptyProfile('word-2'),
-        status: 'mastered',
-        stage: 6,
+        updatedAt: '2026-04-10T00:00:00.000Z',
       },
     }, now)
 
@@ -114,10 +113,10 @@ describe('smart review engine', () => {
     expect(applied.promotedCount).toBe(1)
     expect(applied.resetCount).toBe(1)
     expect(applied.masteredCount).toBe(0)
-    expect(applied.nextProfiles['word-1']?.status).toBe('reviewing')
     expect(applied.nextProfiles['word-1']?.dueAt).toBe('2026-04-18T00:00:00.000Z')
-    expect(applied.nextProfiles['word-2']?.status).toBe('learning')
+    expect(applied.nextProfiles['word-1']?.intervalDays).toBe(7)
     expect(applied.nextProfiles['word-2']?.dueAt).toBe('2026-04-12T00:00:00.000Z')
+    expect(applied.nextProfiles['word-2']?.intervalDays).toBe(1)
   })
 
   it('prefers curated prompts when a word override exists', () => {

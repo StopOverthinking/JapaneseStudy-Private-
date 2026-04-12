@@ -6,16 +6,7 @@ import {
   createSmartReviewSession,
   gradeSmartReviewAnswer,
 } from '@/features/smart-review/smartReviewEngine'
-import {
-  clearSmartReviewResult,
-  clearSmartReviewSessionRecord,
-  loadSmartReviewProfiles,
-  loadSmartReviewResult,
-  loadSmartReviewSessionRecord,
-  saveSmartReviewProfiles,
-  saveSmartReviewResult,
-  saveSmartReviewSessionRecord,
-} from '@/features/smart-review/smartReviewStorage'
+import { bulkPutSmartReviewScheduleRecords, initializeSmartReviewDb } from '@/features/smart-review/smartReviewDb'
 import type {
   SmartReviewProfileMap,
   SmartReviewSessionRecord,
@@ -27,19 +18,22 @@ import { getWordById } from '@/features/vocab/model/selectors'
 
 type SmartReviewState = {
   status: 'idle' | 'active' | 'complete'
+  isHydrated: boolean
   profiles: SmartReviewProfileMap
   session: SmartReviewSessionRecord | null
   lastResult: SmartReviewSessionResult | null
-  hydrate: () => void
-  startSession: (payload: StartSmartReviewPayload) => boolean
+  hydrate: () => Promise<void>
+  startSession: (payload: StartSmartReviewPayload) => Promise<boolean>
   submitAnswer: (answer: string) => SmartReviewSubmitOutcome
-  advanceToNext: () => void
+  advanceToNext: () => Promise<void>
   abandonSession: () => void
   clearSession: () => void
   clearResult: () => void
 }
 
-function completeSession(session: SmartReviewSessionRecord, profiles: SmartReviewProfileMap) {
+let hydratePromise: Promise<void> | null = null
+
+async function completeSession(session: SmartReviewSessionRecord, profiles: SmartReviewProfileMap) {
   const applied = applySmartReviewOutcome(profiles, session)
   const result = buildSmartReviewResult(
     session,
@@ -48,9 +42,7 @@ function completeSession(session: SmartReviewSessionRecord, profiles: SmartRevie
     applied.masteredCount,
   )
 
-  saveSmartReviewProfiles(applied.nextProfiles)
-  saveSmartReviewResult(result)
-  clearSmartReviewSessionRecord()
+  await bulkPutSmartReviewScheduleRecords(Object.values(applied.nextProfiles))
 
   return {
     profiles: applied.nextProfiles,
@@ -60,28 +52,46 @@ function completeSession(session: SmartReviewSessionRecord, profiles: SmartRevie
 
 export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
   status: 'idle',
+  isHydrated: false,
   profiles: {},
   session: null,
   lastResult: null,
-  hydrate: () => {
-    const profiles = loadSmartReviewProfiles()
-    const session = loadSmartReviewSessionRecord()
-    const lastResult = loadSmartReviewResult()
+  hydrate: async () => {
+    if (!hydratePromise) {
+      hydratePromise = (async () => {
+        try {
+          const profiles = await initializeSmartReviewDb()
 
-    set({
-      status: session ? 'active' : lastResult ? 'complete' : 'idle',
-      profiles,
-      session,
-      lastResult,
-    })
+          set((state) => ({
+            ...state,
+            isHydrated: true,
+            profiles,
+            status: state.session ? 'active' : state.lastResult ? 'complete' : 'idle',
+          }))
+        } catch (error) {
+          console.error('Failed to hydrate smart review schedules.', error)
+          set((state) => ({
+            ...state,
+            isHydrated: true,
+            profiles: state.profiles,
+          }))
+        }
+      })()
+    }
+
+    try {
+      await hydratePromise
+    } finally {
+      hydratePromise = null
+    }
   },
-  startSession: (payload) => {
-    const { profiles } = get()
-    const session = createSmartReviewSession(payload, profiles)
-    if (!session) return false
+  startSession: async (payload) => {
+    if (!get().isHydrated) {
+      await get().hydrate()
+    }
 
-    saveSmartReviewSessionRecord(session)
-    clearSmartReviewResult()
+    const session = createSmartReviewSession(payload, get().profiles)
+    if (!session) return false
 
     set({
       status: 'active',
@@ -113,6 +123,7 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
         isCorrect: false,
       }
     }
+
     if (session.isAnswerRevealed) {
       return {
         kind: 'idle',
@@ -146,7 +157,7 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
       revealedAnswer: answer,
       updatedAt: new Date().toISOString(),
     }
-    saveSmartReviewSessionRecord(nextSession)
+
     set({
       status: 'active',
       session: nextSession,
@@ -160,14 +171,13 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
       isCorrect,
     }
   },
-  advanceToNext: () => {
+  advanceToNext: async () => {
     const { session, profiles } = get()
     if (!session || !session.isAnswerRevealed) return
 
     const advanced = advanceSmartReviewSession(session)
 
     if (!advanced.done) {
-      saveSmartReviewSessionRecord(advanced.record)
       set({
         status: 'active',
         session: advanced.record,
@@ -175,7 +185,7 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
       return
     }
 
-    const completed = completeSession(session, profiles)
+    const completed = await completeSession(session, profiles)
     set({
       status: 'complete',
       profiles: completed.profiles,
@@ -184,24 +194,17 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
     })
   },
   abandonSession: () => {
-    const { session } = get()
-    if (session) {
-      saveSmartReviewSessionRecord(session)
-    }
-
     set((state) => ({
       status: state.session ? 'active' : state.lastResult ? 'complete' : 'idle',
     }))
   },
   clearSession: () => {
-    clearSmartReviewSessionRecord()
     set((state) => ({
       status: state.lastResult ? 'complete' : 'idle',
       session: null,
     }))
   },
   clearResult: () => {
-    clearSmartReviewResult()
     set((state) => ({
       status: state.session ? 'active' : 'idle',
       lastResult: null,
