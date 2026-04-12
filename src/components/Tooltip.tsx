@@ -5,6 +5,7 @@ type TooltipPlacement = 'top' | 'bottom'
 export function Tooltip({ children, label }: React.PropsWithChildren<{ label: string }>) {
   const wrapRef = useRef<HTMLSpanElement | null>(null)
   const tooltipRef = useRef<HTMLSpanElement | null>(null)
+  const ignoreFocusRef = useRef(false)
   const [active, setActive] = useState(false)
   const [placement, setPlacement] = useState<TooltipPlacement>('top')
 
@@ -41,18 +42,50 @@ export function Tooltip({ children, label }: React.PropsWithChildren<{ label: st
     }
   }, [active, label])
 
+  function clearWrappedFocus() {
+    const focusedElement = document.activeElement
+
+    if (focusedElement instanceof HTMLElement && wrapRef.current?.contains(focusedElement)) {
+      focusedElement.blur()
+    }
+  }
+
   return (
     <span
       ref={wrapRef}
       className="tooltip-wrap"
+      data-active={active}
       data-placement={placement}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      onFocusCapture={() => setActive(true)}
+      onPointerDownCapture={(event) => {
+        ignoreFocusRef.current = event.pointerType !== 'mouse'
+
+        if (ignoreFocusRef.current) {
+          setActive(false)
+        }
+      }}
+      onPointerUpCapture={() => {
+        if (!ignoreFocusRef.current) {
+          return
+        }
+
+        window.requestAnimationFrame(() => {
+          clearWrappedFocus()
+          setActive(false)
+        })
+      }}
+      onFocusCapture={() => {
+        if (!ignoreFocusRef.current) {
+          setActive(true)
+        }
+      }}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setActive(false)
         }
+
+        ignoreFocusRef.current = false
       }}
     >
       {children}

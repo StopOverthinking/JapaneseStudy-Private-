@@ -247,3 +247,59 @@ QR 규칙:
 - 즐겨찾기/설정은 그대로 `localStorage`
 - 공유는 `기존 백업`과 `스마트 복습 스케줄 백업`을 분리
 - 스마트 복습 대용량 공유는 JSON 파일 우선
+
+## LLM Handoff Notes
+
+작성일: 2026-04-12
+
+### 이번 세션에서 끝낸 것
+
+- `1순위` 목록은 모두 1차 반영 완료.
+- 학습 세션의 `이전 카드`는 이제 1회용이 아니라 연속 undo 가능.
+- 학습 카드 전환 시 다음 카드가 너무 일찍 나타나며 생기던 옆으로 움찔하는 느낌을 완화.
+- 터치 환경에서 툴팁이 포커스에 남아 사라지지 않던 문제를 수정.
+- 모바일 한정이 아니라 전체 앱 기준으로 GPU 대비 효용이 낮은 효과를 줄여 라우트 전환/홈 메뉴/테마 전환 체감 비용을 낮춤.
+- 목록 모드에서 검색, 가리기, 글자 크기 조절 시 전체 카드 재마운트와 blur 비용을 줄여 반응성 개선.
+
+### 변경 파일
+
+- `src/features/session/learnSessionStore.ts`
+- `src/features/session/learnSessionStore.test.ts`
+- `src/features/learn/LearnSessionPage.tsx`
+- `src/features/learn/LearnSessionPage.test.tsx`
+- `src/components/Tooltip.tsx`
+- `src/components/Tooltip.test.tsx`
+- `src/app/App.tsx`
+- `src/features/home/HomePage.tsx`
+- `src/features/home/ResumeBannerActions.test.tsx`
+- `src/lib/useShouldReduceEffects.ts`
+- `src/features/list/ListPage.tsx`
+- `src/features/list/list.module.css`
+- `src/styles/global.css`
+
+### 구현 메모
+
+- 학습 undo는 `previousSnapshot` 단일 값이 아니라 `snapshotHistory` 스택으로 바뀌었다.
+- 학습 카드 전환은 판정을 즉시 state에 반영하지 않고, leaving card 애니메이션이 끝난 뒤 commit 하도록 바뀌었다.
+- 툴팁은 CSS `:focus-within` 의존이 아니라 React state 기반으로 표시된다.
+- 터치 입력은 툴팁 포커스를 즉시 정리하고, 키보드 포커스는 유지한다.
+- 앱 전역의 route transition 에서 `blur + scale` 제거. 현재는 가벼운 `opacity + y`만 사용.
+- 배경 장식용 `noise-layer`, `orb`, `glass-panel backdrop-filter`, `body background/color transition` 제거.
+- 홈 메뉴 서브패널은 `height` 애니메이션을 제거하고 opacity/y 중심으로 축소.
+- 목록 카드는 `key={word.id}`로 유지해 hide toggle 시 재마운트를 피한다.
+- 목록 검색은 `useDeferredValue`와 `startTransition` 사용.
+- 목록 카드 숨김 표현은 `blur` 제거, `opacity`만 유지.
+- 목록 카드에 `content-visibility: auto`와 `contain-intrinsic-size`를 넣어 긴 목록 렌더링 비용을 낮춤.
+
+### 다음 작업 우선순위
+
+- 이제 `2순위`로 넘어가면 된다.
+- 다음 후보 1: 목록 모드에서 `전체 단어장` 제거.
+- 다음 후보 2: 시험 결과 기준 `마지막 시험 오답 단어장`이 실제로 덮어쓰기 방식으로 동작하는지 확인하고, 없으면 구현.
+- 다음 후보 3: 스마트 복습에서 학습 개수 지정 UI와 store 연동.
+
+### 주의할 점
+
+- 사용자는 미니멀리즘, 아이콘 중심 UI를 선호하고 설명 문구를 줄이길 원한다.
+- 이번 세션에서 전역 시각 효과를 이미 많이 줄였으므로, 이후 UI 수정 시 고비용 blur/filter/height animation/backdrop-filter를 다시 늘리지 않는 편이 좋다.
+- `To-do.md` 기준으로 1순위는 완료 처리했으니, 이후 작업 기록은 2순위 기준으로 갱신하면 된다.

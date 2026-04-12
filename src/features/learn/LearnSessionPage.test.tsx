@@ -33,6 +33,7 @@ describe('LearnSessionPage', () => {
         words: sessionWords,
       }),
       previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: null,
     })
   })
@@ -44,6 +45,7 @@ describe('LearnSessionPage', () => {
       status: 'idle',
       record: null,
       previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: null,
     })
     useFavoritesStore.setState({ favoriteIds: [] })

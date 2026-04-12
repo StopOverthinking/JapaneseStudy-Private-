@@ -8,6 +8,7 @@ type LearnSessionState = {
   status: 'idle' | 'active' | 'complete'
   record: LearnSessionRecord | null
   previousSnapshot: LearnSessionSnapshot | null
+  snapshotHistory: LearnSessionSnapshot[]
   lastResult: LearnResult | null
   hydrate: () => void
   startSession: (payload: StartSessionPayload) => void
@@ -21,6 +22,10 @@ type LearnSessionState = {
 
 function uniquePush(items: string[], value: string) {
   return items.includes(value) ? items : [...items, value]
+}
+
+function pushSnapshot(history: LearnSessionSnapshot[], snapshot: LearnSessionSnapshot) {
+  return [...history, snapshot]
 }
 
 function advanceRecord(record: LearnSessionRecord): LearnSessionRecord | null {
@@ -53,11 +58,12 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
   status: 'idle',
   record: null,
   previousSnapshot: null,
+  snapshotHistory: [],
   lastResult: null,
   hydrate: () => {
     const record = loadLearnSessionRecord()
     if (record) {
-      set({ status: 'active', record })
+      set({ status: 'active', record, previousSnapshot: null, snapshotHistory: [] })
     }
   },
   startSession: (payload) => {
@@ -67,12 +73,15 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
       status: 'active',
       record,
       previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: null,
     })
   },
   markKnown: () => {
-    const { record } = get()
+    const { record, snapshotHistory } = get()
     if (!record || !record.currentCardId) return
+    const snapshot = snapshotSession(record)
+    const nextHistory = pushSnapshot(snapshotHistory, snapshot)
 
     const nextRecord: LearnSessionRecord = {
       ...record,
@@ -87,7 +96,8 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
       set({
         status: 'active',
         record: advanced,
-        previousSnapshot: snapshotSession(record),
+        previousSnapshot: snapshot,
+        snapshotHistory: nextHistory,
       })
       return
     }
@@ -96,13 +106,16 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
     set({
       status: 'complete',
       record: null,
-      previousSnapshot: snapshotSession(record),
+      previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: sessionToResult(nextRecord, useFavoritesStore.getState().favoriteIds.length),
     })
   },
   markUnknown: () => {
-    const { record } = get()
+    const { record, snapshotHistory } = get()
     if (!record || !record.currentCardId) return
+    const snapshot = snapshotSession(record)
+    const nextHistory = pushSnapshot(snapshotHistory, snapshot)
 
     const nextRecord: LearnSessionRecord = {
       ...record,
@@ -118,7 +131,8 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
       set({
         status: 'active',
         record: advanced,
-        previousSnapshot: snapshotSession(record),
+        previousSnapshot: snapshot,
+        snapshotHistory: nextHistory,
       })
       return
     }
@@ -127,17 +141,20 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
     set({
       status: 'complete',
       record: null,
-      previousSnapshot: snapshotSession(record),
+      previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: sessionToResult(nextRecord, useFavoritesStore.getState().favoriteIds.length),
     })
   },
   undo: () => {
-    const { record, previousSnapshot } = get()
-    if (!record || !previousSnapshot) return
+    const { record, snapshotHistory } = get()
+    if (!record || snapshotHistory.length === 0) return
+    const restoredSnapshot = snapshotHistory[snapshotHistory.length - 1]
+    const nextHistory = snapshotHistory.slice(0, -1)
 
     const restored: LearnSessionRecord = {
       ...record,
-      ...previousSnapshot,
+      ...restoredSnapshot,
       updatedAt: new Date().toISOString(),
     }
 
@@ -145,7 +162,8 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
     set({
       status: 'active',
       record: restored,
-      previousSnapshot: null,
+      previousSnapshot: nextHistory[nextHistory.length - 1] ?? null,
+      snapshotHistory: nextHistory,
     })
   },
   abandonSession: () => {
@@ -159,7 +177,8 @@ export const useLearnSessionStore = create<LearnSessionState>((set, get) => ({
       status: state.lastResult ? 'complete' : 'idle',
       record: null,
       previousSnapshot: null,
+      snapshotHistory: [],
     }))
   },
-  clearResult: () => set({ lastResult: null, status: 'idle', previousSnapshot: null }),
+  clearResult: () => set({ lastResult: null, status: 'idle', previousSnapshot: null, snapshotHistory: [] }),
 }))

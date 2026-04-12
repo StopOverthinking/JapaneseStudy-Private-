@@ -21,9 +21,6 @@ body {
     radial-gradient(circle at bottom right, var(--bg-radial-b), transparent 28%),
     linear-gradient(180deg, var(--bg-1), var(--bg-0));
   color: var(--text-strong);
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
 }
 
 button,
@@ -49,44 +46,6 @@ a {
   overflow-x: clip;
 }
 
-.noise-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image:
-    radial-gradient(circle at 20% 20%, var(--noise-dot) 0 0.6px, transparent 0.6px),
-    radial-gradient(circle at 80% 30%, var(--noise-dot) 0 0.6px, transparent 0.6px),
-    radial-gradient(circle at 40% 80%, var(--noise-dot) 0 0.6px, transparent 0.6px);
-  background-size: 18px 18px;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-.orb {
-  position: fixed;
-  width: 32rem;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  pointer-events: none;
-  filter: blur(24px);
-  opacity: 0.36;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-.orb-a {
-  top: -10rem;
-  left: -8rem;
-  background: radial-gradient(circle, var(--orb-a-color), rgba(143, 211, 255, 0));
-}
-
-.orb-b {
-  right: -8rem;
-  bottom: 8rem;
-  background: radial-gradient(circle, var(--orb-b-color), rgba(143, 255, 209, 0));
-}
-
 .screen-frame {
   width: min(var(--app-width), calc(100vw - 32px));
   margin: 0 auto;
@@ -105,10 +64,6 @@ a {
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   isolation: isolate;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
 }
 
 .glass-panel::before {
@@ -203,13 +158,11 @@ a {
   z-index: 0;
 }
 
-.tooltip-wrap:hover,
-.tooltip-wrap:focus-within {
+.tooltip-wrap[data-active="true"] {
   z-index: 30;
 }
 
-.tooltip-wrap:hover .tooltip,
-.tooltip-wrap:focus-within .tooltip {
+.tooltip-wrap[data-active="true"] .tooltip {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -444,17 +397,6 @@ a {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .noise-layer {
-    display: none;
-  }
-
-  .orb {
-    filter: blur(18px);
-    opacity: 0.22;
-  }
 }
 
 @media (max-width: 720px) {

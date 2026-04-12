@@ -37,6 +37,7 @@ export function LearnSessionPage() {
   const [leavingCard, setLeavingCard] = useState<LeavingCard | null>(null)
   const [transitionAction, setTransitionAction] = useState<CardDecision | null>(null)
   const exitTimerRef = useRef<number | null>(null)
+  const pendingAdvanceRef = useRef<CardDecision | null>(null)
   const dragX = useMotionValue(0)
   const dragRotate = useTransform(dragX, [-SWIPE_VISUAL_LIMIT_PX, SWIPE_VISUAL_LIMIT_PX], [-9, 9])
 
@@ -93,14 +94,33 @@ export function LearnSessionPage() {
     return () => {
       if (exitTimerRef.current) {
         window.clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
+      }
+
+      if (pendingAdvanceRef.current) {
+        if (pendingAdvanceRef.current === 'known') {
+          markKnown()
+        } else {
+          markUnknown()
+        }
+        pendingAdvanceRef.current = null
       }
     }
-  }, [])
+  }, [markKnown, markUnknown])
+
+  function commitAdvance(action: CardDecision) {
+    if (action === 'known') {
+      markKnown()
+    } else {
+      markUnknown()
+    }
+  }
 
   function requestAdvance(action: CardDecision) {
     if (!record?.currentCardId || !word || transitionAction) return
 
     dragX.set(0)
+    pendingAdvanceRef.current = action
     setTransitionAction(action)
     setLeavingCard({
       id: record.currentCardId,
@@ -110,17 +130,13 @@ export function LearnSessionPage() {
       action,
     })
 
-    if (action === 'known') {
-      markKnown()
-    } else {
-      markUnknown()
-    }
-
     if (exitTimerRef.current) {
       window.clearTimeout(exitTimerRef.current)
     }
 
     exitTimerRef.current = window.setTimeout(() => {
+      pendingAdvanceRef.current = null
+      commitAdvance(action)
       setLeavingCard(null)
       setTransitionAction(null)
       exitTimerRef.current = null
@@ -220,51 +236,49 @@ export function LearnSessionPage() {
             </button>
 
             <div className={styles.cardViewport} style={cardFontScaleStyle}>
-              <motion.button
-                key={record.currentCardId}
-                className={styles.flashCard}
-                data-flipped={flipped}
-                data-result="idle"
-                type="button"
-                aria-label="학습 카드"
-                dragListener={!isTransitioning}
-                drag={isTransitioning ? false : 'x'}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.16}
-                style={isTransitioning ? undefined : { x: dragX, rotate: dragRotate }}
-                initial={{ opacity: 0, y: 22, scale: 0.96, filter: 'blur(8px)' }}
-                animate={{ x: 0, rotate: 0, y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                transition={{
-                  duration: 0.24,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileDrag={isTransitioning ? undefined : { scale: 1.01 }}
-                onClick={() => {
-                  if (!isTransitioning) {
-                    revealAnswer()
-                  }
-                }}
-                onDragEnd={(_, info) => {
-                  dragX.set(0)
+              {!isTransitioning ? (
+                <motion.button
+                  key={record.currentCardId}
+                  className={styles.flashCard}
+                  data-flipped={flipped}
+                  data-result="idle"
+                  type="button"
+                  aria-label="학습 카드"
+                  dragListener
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.16}
+                  style={{ x: dragX, rotate: dragRotate }}
+                  initial={{ opacity: 0, y: 22, scale: 0.96, filter: 'blur(8px)' }}
+                  animate={{ x: 0, rotate: 0, y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  transition={{
+                    duration: 0.24,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  whileDrag={{ scale: 1.01 }}
+                  onClick={revealAnswer}
+                  onDragEnd={(_, info) => {
+                    dragX.set(0)
 
-                  if (info.offset.x <= -SWIPE_TRIGGER_PX) {
-                    requestAdvance('known')
-                    return
-                  }
+                    if (info.offset.x <= -SWIPE_TRIGGER_PX) {
+                      requestAdvance('known')
+                      return
+                    }
 
-                  if (info.offset.x >= SWIPE_TRIGGER_PX) {
-                    requestAdvance('unknown')
-                  }
-                }}
-              >
-                <motion.div
-                  className={styles.flashInner}
-                  animate={{ rotateY: flipped ? 180 : 0 }}
-                  transition={{ duration: 0.42, ease: 'easeInOut' }}
+                    if (info.offset.x >= SWIPE_TRIGGER_PX) {
+                      requestAdvance('unknown')
+                    }
+                  }}
                 >
-                  {renderCardFaces(word, record.frontMode)}
-                </motion.div>
-              </motion.button>
+                  <motion.div
+                    className={styles.flashInner}
+                    animate={{ rotateY: flipped ? 180 : 0 }}
+                    transition={{ duration: 0.42, ease: 'easeInOut' }}
+                  >
+                    {renderCardFaces(word, record.frontMode)}
+                  </motion.div>
+                </motion.button>
+              ) : null}
 
               {leavingCard ? (
                 <motion.div

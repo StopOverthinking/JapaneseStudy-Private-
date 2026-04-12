@@ -46,6 +46,7 @@ describe('Resume banner discard actions', () => {
         words: sampleWords,
       }),
       previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: null,
     })
 
@@ -71,6 +72,7 @@ describe('Resume banner discard actions', () => {
       status: 'idle',
       record: null,
       previousSnapshot: null,
+      snapshotHistory: [],
       lastResult: null,
     })
 

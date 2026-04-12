@@ -23,6 +23,7 @@ import { usePreferencesStore } from '@/features/preferences/preferencesStore'
 import { SharePanel } from '@/features/share/SharePanel'
 import { useLearnSessionStore } from '@/features/session/learnSessionStore'
 import { useSmartReviewStore } from '@/features/smart-review/smartReviewStore'
+import { useShouldReduceEffects } from '@/lib/useShouldReduceEffects'
 import styles from '@/features/home/home.module.css'
 
 export function HomePage() {
@@ -36,10 +37,46 @@ export function HomePage() {
   const clearSmartReviewSession = useSmartReviewStore((state) => state.clearSession)
   const themeMode = usePreferencesStore((state) => state.themeMode)
   const toggleThemeMode = usePreferencesStore((state) => state.toggleThemeMode)
+  const shouldReduceEffects = useShouldReduceEffects()
   const [openMenu, setOpenMenu] = useState<'vocabulary' | 'learn' | 'share' | null>(null)
   const nextThemeLabel = themeMode === 'dark' ? '라이트 모드' : '다크 모드'
   const themeToggleLabel = `${nextThemeLabel}로 전환`
   const ThemeIcon = themeMode === 'dark' ? SunMedium : MoonStar
+  const menuCardMotionProps = shouldReduceEffects
+    ? {
+        whileHover: undefined,
+        whileTap: { scale: 0.99 },
+        transition: { duration: 0.12 },
+      }
+    : {
+        whileHover: { y: -2 },
+        whileTap: { scale: 0.98 },
+        transition: { duration: 0.16 },
+      }
+  const submenuCardMotionProps = shouldReduceEffects
+    ? {
+        whileHover: undefined,
+        whileTap: { scale: 0.99 },
+        transition: { duration: 0.12 },
+      }
+    : {
+        whileHover: { y: -2 },
+        whileTap: { scale: 0.98 },
+        transition: { duration: 0.16 },
+      }
+  const submenuMotionProps = shouldReduceEffects
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.12, ease: 'linear' as const },
+      }
+    : {
+        initial: { opacity: 0, y: 8 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -6 },
+        transition: { duration: 0.16, ease: 'easeOut' as const },
+      }
 
   const handleDiscardLearnSession = () => {
     if (!window.confirm('진행 중인 학습을 그만둘까요? 지금까지의 학습 진행 내용은 사라집니다.')) {
@@ -191,9 +228,7 @@ export function HomePage() {
             type="button"
             className={`glass-panel glass-padding-lg ${styles.actionCard}`}
             data-active={openMenu === 'vocabulary'}
-            whileHover={{ y: -6, rotateX: 2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
+            {...menuCardMotionProps}
             onClick={() => setOpenMenu((value) => (value === 'vocabulary' ? null : 'vocabulary'))}
           >
             <div className={styles.actionMeta}>
@@ -208,9 +243,7 @@ export function HomePage() {
             type="button"
             className={`glass-panel glass-padding-lg ${styles.actionCard}`}
             data-active={openMenu === 'learn'}
-            whileHover={{ y: -6, rotateX: 2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
+            {...menuCardMotionProps}
             onClick={() => setOpenMenu((value) => (value === 'learn' ? null : 'learn'))}
           >
             <div className={styles.actionMeta}>
@@ -226,9 +259,7 @@ export function HomePage() {
             type="button"
             className={`glass-panel glass-padding-lg ${styles.actionCard}`}
             data-active={openMenu === 'share'}
-            whileHover={{ y: -6, rotateX: 2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
+            {...menuCardMotionProps}
             onClick={() => setOpenMenu((value) => (value === 'share' ? null : 'share'))}
           >
             <div className={styles.actionMeta}>
@@ -245,10 +276,7 @@ export function HomePage() {
           {openMenu === 'vocabulary' ? (
             <motion.div
               className={styles.submenuWrap}
-              initial={{ opacity: 0, y: -10, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: 'auto' }}
-              exit={{ opacity: 0, y: -10, height: 0 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
+              {...submenuMotionProps}
             >
               <GlassPanel className={styles.submenuPanel} padding="md" variant="floating">
                 <div className={styles.submenuHeader}>
@@ -267,10 +295,7 @@ export function HomePage() {
           {openMenu === 'learn' ? (
             <motion.div
               className={styles.submenuWrap}
-              initial={{ opacity: 0, y: -10, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: 'auto' }}
-              exit={{ opacity: 0, y: -10, height: 0 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
+              {...submenuMotionProps}
             >
               <GlassPanel className={styles.submenuPanel} padding="md" variant="floating">
                 <div className={styles.submenuHeader}>
@@ -285,8 +310,7 @@ export function HomePage() {
                   <motion.button
                     type="button"
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    {...submenuCardMotionProps}
                     onClick={() => navigate('/smart-review')}
                   >
                     <span className={styles.submenuIcon}>
@@ -300,8 +324,7 @@ export function HomePage() {
                   <motion.button
                     type="button"
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    {...submenuCardMotionProps}
                     onClick={() => navigate('/learn')}
                   >
                     <span className={styles.submenuIcon}>
@@ -315,8 +338,7 @@ export function HomePage() {
                   <motion.button
                     type="button"
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    {...submenuCardMotionProps}
                     onClick={() => navigate('/conjugation')}
                   >
                     <span className={styles.submenuIcon}>
@@ -330,8 +352,7 @@ export function HomePage() {
                   <motion.button
                     type="button"
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    {...submenuCardMotionProps}
                     onClick={() => navigate('/exam')}
                   >
                     <span className={styles.submenuIcon}>
@@ -345,8 +366,7 @@ export function HomePage() {
                   <motion.button
                     type="button"
                     className={`glass-panel glass-padding-md ${styles.submenuCard}`}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
+                    {...submenuCardMotionProps}
                     onClick={() => navigate('/game')}
                   >
                     <span className={styles.submenuIcon}>
@@ -364,10 +384,7 @@ export function HomePage() {
           {openMenu === 'share' ? (
             <motion.div
               className={styles.submenuWrap}
-              initial={{ opacity: 0, y: -10, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: 'auto' }}
-              exit={{ opacity: 0, y: -10, height: 0 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
+              {...submenuMotionProps}
             >
               <SharePanel mode="submenu" />
             </motion.div>

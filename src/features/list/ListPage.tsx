@@ -1,4 +1,4 @@
-import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, startTransition, type KeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { BookOpen, Heart, Search, Undo2, ZoomIn, ZoomOut } from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { Tooltip } from '@/components/Tooltip'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
+import { allWords, getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
 import type { VocabularyWord } from '@/features/vocab/model/types'
 import { matchesWordSearch } from '@/lib/search'
 import styles from '@/features/list/list.module.css'
@@ -87,19 +87,21 @@ function getPartOfSpeechLabel(word: VocabularyWord) {
   }
 }
 
-function VocabCard({
+const VocabCard = memo(function VocabCard({
   word,
   hideJapanese,
   hideMeaning,
   displayNumber,
+  isFavorite,
+  onToggleFavorite,
 }: {
   word: VocabularyWord
   hideJapanese: boolean
   hideMeaning: boolean
   displayNumber: number
+  isFavorite: boolean
+  onToggleFavorite: (wordId: string) => void
 }) {
-  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
-  const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
   const [revealJapanese, setRevealJapanese] = useState(false)
   const [revealMeaning, setRevealMeaning] = useState(false)
 
@@ -108,7 +110,6 @@ function VocabCard({
     setRevealMeaning(false)
   }, [hideJapanese, hideMeaning, word.id])
 
-  const isFavorite = favoriteIds.includes(word.id)
   const japaneseHidden = hideJapanese && !revealJapanese
   const meaningHidden = hideMeaning && !revealMeaning
   const hasHiddenContent = japaneseHidden || meaningHidden
@@ -156,7 +157,7 @@ function VocabCard({
               className={styles.cardFavoriteButton}
               onClick={(event) => {
                 event.stopPropagation()
-                toggleFavorite(word.id)
+                onToggleFavorite(word.id)
               }}
             >
               <Heart size={18} strokeWidth={1.9} fill={isFavorite ? 'currentColor' : 'none'} />
@@ -181,7 +182,7 @@ function VocabCard({
       </div>
     </GlassPanel>
   )
-}
+})
 
 export function ListPage() {
   const navigate = useNavigate()
@@ -196,9 +197,11 @@ export function ListPage() {
     setListFontScale,
   } = usePreferencesStore()
   const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
   const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const deferredQuery = useDeferredValue(query)
   const [toolbarVisible, setToolbarVisible] = useState(true)
   const lastScrollYRef = useRef(0)
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null)
@@ -211,18 +214,25 @@ export function ListPage() {
         .filter((word): word is VocabularyWord => word !== undefined),
     [wrongAnswerIds],
   )
+  const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds])
   const currentSetName = lastSelectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(lastSelectedSetId)
+  const baseWords = useMemo(() => {
+    if (lastSelectedSetId === 'wrong_answers') {
+      return wrongAnswerWords
+    }
+
+    if (lastSelectedSetId === 'favorites') {
+      return allWords.filter((word) => favoriteIdSet.has(word.id))
+    }
+
+    return getWordsForSet(lastSelectedSetId)
+  }, [favoriteIdSet, lastSelectedSetId, wrongAnswerWords])
 
   const words = useMemo(() => {
-    const base =
-      lastSelectedSetId === 'wrong_answers'
-        ? wrongAnswerWords
-        : getWordsForSet(lastSelectedSetId, favoriteIds)
-
-    return base
-      .filter((word) => (favoritesOnly ? favoriteIds.includes(word.id) : true))
-      .filter((word) => matchesWordSearch(word, query))
-  }, [favoriteIds, favoritesOnly, lastSelectedSetId, query, wrongAnswerWords])
+    return baseWords
+      .filter((word) => (favoritesOnly ? favoriteIdSet.has(word.id) : true))
+      .filter((word) => matchesWordSearch(word, deferredQuery))
+  }, [baseWords, deferredQuery, favoriteIdSet, favoritesOnly])
 
   const fontScaleStyle = useMemo(() => {
     const presets = [
@@ -416,7 +426,12 @@ export function ListPage() {
             <input
               className="glass-input"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                const nextQuery = event.target.value
+                startTransition(() => {
+                  setQuery(nextQuery)
+                })
+              }}
               placeholder="일본어, 읽기, 뜻으로 검색"
             />
           ) : null}
@@ -437,11 +452,13 @@ export function ListPage() {
         <div className={styles.grid}>
           {words.map((word, index) => (
             <VocabCard
-              key={`${word.id}-${hideJapaneseInList}-${hideMeaningInList}`}
+              key={word.id}
               word={word}
               hideJapanese={hideJapaneseInList}
               hideMeaning={hideMeaningInList}
               displayNumber={index + 1}
+              isFavorite={favoriteIdSet.has(word.id)}
+              onToggleFavorite={toggleFavorite}
             />
           ))}
         </div>
