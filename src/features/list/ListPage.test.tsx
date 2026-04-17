@@ -95,17 +95,51 @@ describe('ListPage', () => {
 
     const firstWord = sampleWords[0]
     const cardSurface = container.querySelector('[data-revealable="true"]')
-    const concealedLines = container.querySelectorAll(`.${styles.concealed}`)
+    const firstCard = cardSurface as HTMLElement
 
     expect(cardSurface).not.toBeNull()
-    expect(concealedLines.length).toBeGreaterThan(0)
-    expect(screen.queryByText(firstWord.japanese)).toBeNull()
-    expect(screen.queryByText(firstWord.meaning)).toBeNull()
+    expect(firstCard.querySelectorAll(`.${styles.concealed}`).length).toBeGreaterThan(0)
+    expect(firstCard).toHaveTextContent(firstWord.japanese)
+    expect(firstCard).toHaveTextContent(firstWord.meaning)
+
+    await user.click(firstCard)
+
+    expect(firstCard.querySelectorAll(`.${styles.concealed}`).length).toBe(0)
+    expect(screen.getByText(firstWord.japanese)).toBeInTheDocument()
+    expect(screen.getByText(firstWord.meaning)).toBeInTheDocument()
+  })
+
+  it('re-hides revealed content when the toolbar hide buttons are turned on again', async () => {
+    const user = userEvent.setup()
+    const { container } = renderPage()
+
+    const firstWord = sampleWords[0]
+    const cardSurface = container.querySelector('[data-revealable="true"]')
+    const toolbarButtons = container.querySelectorAll(`.${styles.toolbarActions} .icon-button`)
+    const hideJapaneseButton = toolbarButtons[1]
+    const hideMeaningButton = toolbarButtons[2]
+
+    expect(cardSurface).not.toBeNull()
+    expect(hideJapaneseButton).toBeDefined()
+    expect(hideMeaningButton).toBeDefined()
 
     await user.click(cardSurface as HTMLElement)
 
     expect(screen.getByText(firstWord.japanese)).toBeInTheDocument()
     expect(screen.getByText(firstWord.meaning)).toBeInTheDocument()
+
+    await user.click(hideJapaneseButton as HTMLElement)
+    await user.click(hideMeaningButton as HTMLElement)
+
+    expect(screen.getByText(firstWord.japanese)).toBeInTheDocument()
+    expect(screen.getByText(firstWord.meaning)).toBeInTheDocument()
+
+    await user.click(hideJapaneseButton as HTMLElement)
+    await user.click(hideMeaningButton as HTMLElement)
+
+    expect((cardSurface as HTMLElement).querySelectorAll(`.${styles.concealed}`).length).toBeGreaterThan(0)
+    expect(cardSurface).toHaveTextContent(firstWord.japanese)
+    expect(cardSurface).toHaveTextContent(firstWord.meaning)
   })
 
   it('replaces the legacy all-set selection with the first vocabulary set', async () => {

@@ -16,6 +16,29 @@ import styles from '@/features/list/list.module.css'
 
 const TOOLBAR_INTERACTION_LOCK_MS = 640
 
+function cancelAnimationFrameSafely(frameId: number | null) {
+  if (frameId === null || typeof window === 'undefined') {
+    return
+  }
+
+  window.cancelAnimationFrame(frameId)
+}
+
+function scheduleAfterNextPaint(frameRef: { current: number | null }, task: () => void) {
+  if (typeof window === 'undefined') {
+    task()
+    return
+  }
+
+  cancelAnimationFrameSafely(frameRef.current)
+  frameRef.current = window.requestAnimationFrame(() => {
+    frameRef.current = window.requestAnimationFrame(() => {
+      frameRef.current = null
+      task()
+    })
+  })
+}
+
 function resolveListSetId(setId: string | 'all') {
   if (setId === 'all') {
     return allSets[0]?.id ?? 'favorites'
@@ -27,14 +50,19 @@ function resolveListSetId(setId: string | 'all') {
 function ConcealedText({
   className,
   sample,
+  lang,
+  translate,
 }: {
   className: string
   sample: string
+  lang?: string
+  translate?: 'yes' | 'no'
 }) {
-  const normalizedLength = Math.max(2, sample.trim().length || 0)
-  const concealedWidth = `${Math.min(normalizedLength, 18) * 0.62}em`
-
-  return <span aria-hidden="true" className={`${className} ${styles.concealed}`} style={{ ['--concealed-width' as string]: concealedWidth }} />
+  return (
+    <span aria-hidden="true" className={`${className} ${styles.concealed}`} lang={lang} translate={translate}>
+      <span className={styles.concealedGhost}>{sample}</span>
+    </span>
+  )
 }
 
 function SlashGlyphIcon({
@@ -112,6 +140,8 @@ const VocabCard = memo(function VocabCard({
   word,
   hideJapanese,
   hideMeaning,
+  hideJapaneseVersion,
+  hideMeaningVersion,
   displayNumber,
   isFavorite,
   onToggleFavorite,
@@ -119,30 +149,31 @@ const VocabCard = memo(function VocabCard({
   word: VocabularyWord
   hideJapanese: boolean
   hideMeaning: boolean
+  hideJapaneseVersion: number
+  hideMeaningVersion: number
   displayNumber: number
   isFavorite: boolean
   onToggleFavorite: (wordId: string) => void
 }) {
-  const [revealJapanese, setRevealJapanese] = useState(false)
-  const [revealMeaning, setRevealMeaning] = useState(false)
-
-  useEffect(() => {
-    setRevealJapanese(false)
-    setRevealMeaning(false)
-  }, [hideJapanese, hideMeaning, word.id])
-
+  const [revealedState, setRevealedState] = useState(() => ({
+    japanese: false,
+    meaning: false,
+    hideJapaneseVersion,
+    hideMeaningVersion,
+  }))
+  const revealJapanese = revealedState.hideJapaneseVersion === hideJapaneseVersion && revealedState.japanese
+  const revealMeaning = revealedState.hideMeaningVersion === hideMeaningVersion && revealedState.meaning
   const japaneseHidden = hideJapanese && !revealJapanese
   const meaningHidden = hideMeaning && !revealMeaning
   const hasHiddenContent = japaneseHidden || meaningHidden
 
   const revealHiddenContent = () => {
-    if (japaneseHidden) {
-      setRevealJapanese(true)
-    }
-
-    if (meaningHidden) {
-      setRevealMeaning(true)
-    }
+    setRevealedState((current) => ({
+      japanese: japaneseHidden ? true : current.hideJapaneseVersion === hideJapaneseVersion && current.japanese,
+      meaning: meaningHidden ? true : current.hideMeaningVersion === hideMeaningVersion && current.meaning,
+      hideJapaneseVersion,
+      hideMeaningVersion,
+    }))
   }
 
   const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -190,8 +221,8 @@ const VocabCard = memo(function VocabCard({
           <div className={styles.wordColumn}>
             {japaneseHidden ? (
               <>
-                <ConcealedText className={styles.jp} sample={word.japanese} />
-                <ConcealedText className={styles.reading} sample={word.reading} />
+                <ConcealedText className={styles.jp} sample={word.japanese} lang="ja-JP" translate="no" />
+                <ConcealedText className={styles.reading} sample={word.reading} lang="ja-JP" translate="no" />
               </>
             ) : (
               <>
@@ -221,27 +252,33 @@ const VocabCard = memo(function VocabCard({
 export function ListPage() {
   const navigate = useNavigate()
   const wrongAnswerIds = useExamStore((state) => state.wrongAnswerIds)
-  const {
-    hideJapaneseInList,
-    hideMeaningInList,
-    listFontScale,
-    lastSelectedSetId,
-    setLastSelectedSetId,
-    setHideJapaneseInList,
-    setHideMeaningInList,
-    setListFontScale,
-  } = usePreferencesStore()
+  const persistedHideJapaneseInList = usePreferencesStore((state) => state.hideJapaneseInList)
+  const persistedHideMeaningInList = usePreferencesStore((state) => state.hideMeaningInList)
+  const persistedListFontScale = usePreferencesStore((state) => state.listFontScale)
+  const lastSelectedSetId = usePreferencesStore((state) => state.lastSelectedSetId)
+  const setLastSelectedSetId = usePreferencesStore((state) => state.setLastSelectedSetId)
+  const setHideJapaneseInList = usePreferencesStore((state) => state.setHideJapaneseInList)
+  const setHideMeaningInList = usePreferencesStore((state) => state.setHideMeaningInList)
+  const setListFontScale = usePreferencesStore((state) => state.setListFontScale)
   const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
   const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [hideJapaneseInList, setHideJapaneseInListImmediate] = useState(persistedHideJapaneseInList)
+  const [hideMeaningInList, setHideMeaningInListImmediate] = useState(persistedHideMeaningInList)
+  const [listFontScale, setListFontScaleImmediate] = useState(persistedListFontScale)
+  const [hideJapaneseVersion, setHideJapaneseVersion] = useState(0)
+  const [hideMeaningVersion, setHideMeaningVersion] = useState(0)
   const deferredQuery = useDeferredValue(query)
   const [toolbarVisible, setToolbarVisible] = useState(true)
   const lastScrollYRef = useRef(0)
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null)
   const scrollDistanceRef = useRef(0)
   const toolbarInteractionLockUntilRef = useRef(0)
+  const hideJapanesePersistFrameRef = useRef<number | null>(null)
+  const hideMeaningPersistFrameRef = useRef<number | null>(null)
+  const listFontScalePersistFrameRef = useRef<number | null>(null)
   const wrongAnswerWords = useMemo(
     () =>
       wrongAnswerIds
@@ -302,6 +339,38 @@ export function ListPage() {
     setToolbarVisible(true)
     scrollDirectionRef.current = null
     scrollDistanceRef.current = 0
+  }
+
+  useEffect(() => {
+    return () => {
+      cancelAnimationFrameSafely(hideJapanesePersistFrameRef.current)
+      cancelAnimationFrameSafely(hideMeaningPersistFrameRef.current)
+      cancelAnimationFrameSafely(listFontScalePersistFrameRef.current)
+    }
+  }, [])
+
+  const updateHideJapaneseInList = (next: boolean) => {
+    setHideJapaneseInListImmediate(next)
+    setHideJapaneseVersion((version) => version + 1)
+    scheduleAfterNextPaint(hideJapanesePersistFrameRef, () => {
+      setHideJapaneseInList(next)
+    })
+  }
+
+  const updateHideMeaningInList = (next: boolean) => {
+    setHideMeaningInListImmediate(next)
+    setHideMeaningVersion((version) => version + 1)
+    scheduleAfterNextPaint(hideMeaningPersistFrameRef, () => {
+      setHideMeaningInList(next)
+    })
+  }
+
+  const updateListFontScale = (next: number) => {
+    const clampedNext = Math.max(0, Math.min(6, next))
+    setListFontScaleImmediate(clampedNext)
+    scheduleAfterNextPaint(listFontScalePersistFrameRef, () => {
+      setListFontScale(clampedNext)
+    })
   }
 
   useEffect(() => {
@@ -403,7 +472,7 @@ export function ListPage() {
                     active={hideJapaneseInList}
                     onClick={() => {
                       keepToolbarVisible()
-                      setHideJapaneseInList(!hideJapaneseInList)
+                      updateHideJapaneseInList(!hideJapaneseInList)
                     }}
                   />
                 </span>
@@ -416,7 +485,7 @@ export function ListPage() {
                     active={hideMeaningInList}
                     onClick={() => {
                       keepToolbarVisible()
-                      setHideMeaningInList(!hideMeaningInList)
+                      updateHideMeaningInList(!hideMeaningInList)
                     }}
                   />
                 </span>
@@ -442,7 +511,7 @@ export function ListPage() {
                       label="글자 작게"
                       onClick={() => {
                         keepToolbarVisible()
-                        setListFontScale(listFontScale - 1)
+                        updateListFontScale(listFontScale - 1)
                       }}
                       disabled={listFontScale <= 0}
                     />
@@ -455,7 +524,7 @@ export function ListPage() {
                       label="글자 크게"
                       onClick={() => {
                         keepToolbarVisible()
-                        setListFontScale(listFontScale + 1)
+                        updateListFontScale(listFontScale + 1)
                       }}
                       disabled={listFontScale >= 6}
                     />
@@ -499,6 +568,8 @@ export function ListPage() {
               word={word}
               hideJapanese={hideJapaneseInList}
               hideMeaning={hideMeaningInList}
+              hideJapaneseVersion={hideJapaneseVersion}
+              hideMeaningVersion={hideMeaningVersion}
               displayNumber={index + 1}
               isFavorite={favoriteIdSet.has(word.id)}
               onToggleFavorite={toggleFavorite}
