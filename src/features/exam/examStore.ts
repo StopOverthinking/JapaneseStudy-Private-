@@ -23,6 +23,7 @@ type ExamState = {
   hydrate: () => void
   startExam: (payload: StartExamPayload) => void
   submitAnswer: (answer: string) => SubmitAnswerOutcome
+  revealManualAnswer: () => SubmitAnswerOutcome
   markManualGrade: (isCorrect: boolean) => SubmitAnswerOutcome
   clearSession: () => void
   clearResult: () => void
@@ -70,25 +71,12 @@ export const useExamStore = create<ExamState>((set, get) => ({
   submitAnswer: (answer) => {
     const session = get().session
     if (!session) return 'idle'
+    if (session.gradingMode === 'manual') return 'idle'
 
     const nextRecord: ExamSessionRecord = {
       ...session,
       userAnswers: session.userAnswers.map((value, index) => index === session.currentIndex ? answer : value),
       updatedAt: new Date().toISOString(),
-    }
-
-    if (session.gradingMode === 'manual') {
-      const revealedRecord: ExamSessionRecord = {
-        ...nextRecord,
-        isAnswerRevealed: true,
-      }
-
-      saveExamSessionRecord(revealedRecord)
-      set({
-        status: 'active',
-        session: revealedRecord,
-      })
-      return 'revealed'
     }
 
     if (session.currentIndex < session.questionIds.length - 1) {
@@ -114,9 +102,26 @@ export const useExamStore = create<ExamState>((set, get) => ({
     })
     return 'completed'
   },
+  revealManualAnswer: () => {
+    const session = get().session
+    if (!session || session.gradingMode !== 'manual' || session.isAnswerRevealed) return 'idle'
+
+    const revealedRecord: ExamSessionRecord = {
+      ...session,
+      isAnswerRevealed: true,
+      updatedAt: new Date().toISOString(),
+    }
+
+    saveExamSessionRecord(revealedRecord)
+    set({
+      status: 'active',
+      session: revealedRecord,
+    })
+    return 'revealed'
+  },
   markManualGrade: (isCorrect) => {
     const session = get().session
-    if (!session) return 'idle'
+    if (!session || session.gradingMode !== 'manual' || !session.isAnswerRevealed) return 'idle'
 
     const nextRecord: ExamSessionRecord = {
       ...session,

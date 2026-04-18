@@ -26,7 +26,7 @@ describe('examStore wrong answer persistence', () => {
       words: [firstWord],
       gradingMode: 'manual',
     })
-    expect(useExamStore.getState().submitAnswer('오답')).toBe('revealed')
+    expect(useExamStore.getState().revealManualAnswer()).toBe('revealed')
     expect(useExamStore.getState().markManualGrade(false)).toBe('completed')
     expect(useExamStore.getState().wrongAnswerIds).toEqual([firstWord.id])
 
@@ -36,7 +36,7 @@ describe('examStore wrong answer persistence', () => {
       words: [secondWord],
       gradingMode: 'manual',
     })
-    expect(useExamStore.getState().submitAnswer('또 오답')).toBe('revealed')
+    expect(useExamStore.getState().revealManualAnswer()).toBe('revealed')
     expect(useExamStore.getState().markManualGrade(false)).toBe('completed')
 
     expect(useExamStore.getState().wrongAnswerIds).toEqual([secondWord.id])

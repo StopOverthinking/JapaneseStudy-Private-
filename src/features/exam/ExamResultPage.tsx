@@ -63,7 +63,7 @@ export function ExamResultPage() {
                 const isFavorite = favoriteIds.includes(item.word.id)
 
                 return (
-                  <GlassPanel key={`${item.word.id}-${item.userAnswer}`} className={styles.wrongItem} padding="sm">
+                  <GlassPanel key={item.word.id} className={styles.wrongItem} padding="sm">
                     <div className={styles.wrongHeader}>
                       <div>
                         <p className={styles.wrongMeaning}>문제: {item.word.meaning}</p>
@@ -82,7 +82,9 @@ export function ExamResultPage() {
                         </span>
                       </Tooltip>
                     </div>
-                    <p className={styles.wrongAnswer}>내 답안: {item.userAnswer || '(미입력)'}</p>
+                    {lastResult.gradingMode === 'auto' ? (
+                      <p className={styles.wrongAnswer}>내 답안: {item.userAnswer || '(미입력)'}</p>
+                    ) : null}
                   </GlassPanel>
                 )
               })}

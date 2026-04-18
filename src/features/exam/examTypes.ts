@@ -27,7 +27,7 @@ export type ExamSessionRecord = {
 
 export type ExamWrongItem = {
   wordId: string
-  userAnswer: string
+  userAnswer?: string
 }
 
 export type ExamResult = {

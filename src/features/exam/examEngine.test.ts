@@ -64,7 +64,7 @@ describe('examEngine', () => {
       setName: '수동',
       gradingMode: 'manual',
       questionIds: ['w1', 'w2'],
-      userAnswers: ['猫', '犬'],
+      userAnswers: ['', ''],
       manualGrades: [true, false],
       currentIndex: 1,
       isAnswerRevealed: false,
@@ -75,6 +75,6 @@ describe('examEngine', () => {
     expect(autoResult.correctCount).toBe(1)
     expect(autoResult.wrongItems).toEqual([{ wordId: 'w2', userAnswer: '' }])
     expect(manualResult.correctCount).toBe(1)
-    expect(manualResult.wrongItems).toEqual([{ wordId: 'w2', userAnswer: '犬' }])
+    expect(manualResult.wrongItems).toEqual([{ wordId: 'w2' }])
   })
 })

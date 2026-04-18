@@ -11,7 +11,7 @@ import { getWordById } from '@/features/vocab/model/selectors'
 
 export function ExamSessionPage() {
   const navigate = useNavigate()
-  const { status, session, submitAnswer, markManualGrade } = useExamStore()
+  const { status, session, submitAnswer, revealManualAnswer, markManualGrade } = useExamStore()
   const [answer, setAnswer] = useState('')
   const [isHandwritingMode, setIsHandwritingMode] = useState(false)
 
@@ -38,6 +38,12 @@ export function ExamSessionPage() {
 
   useEffect(() => {
     if (!session) return
+    if (session.gradingMode === 'manual') {
+      setAnswer('')
+      setIsHandwritingMode(false)
+      return
+    }
+
     setAnswer(session.userAnswers[session.currentIndex] ?? '')
   }, [session])
 
@@ -45,9 +51,8 @@ export function ExamSessionPage() {
   if (!currentWord) return null
 
   const isManualMode = session.gradingMode === 'manual'
-  const isInputDisabled = isHandwritingMode || (isManualMode && session.isAnswerRevealed)
   const isLastQuestion = session.currentIndex === session.questionIds.length - 1
-  const submitLabel = isManualMode ? '정답 확인' : isLastQuestion ? '제출 및 채점' : '다음'
+  const submitLabel = isLastQuestion ? '제출 및 채점' : '다음'
 
   function handleSubmit() {
     const trimmedAnswer = answer.trim()
@@ -87,85 +92,94 @@ export function ExamSessionPage() {
           </div>
           <div className={styles.selectionMeta}>
             <span className="miniChip">{isManualMode ? '직접 채점' : '자동 채점'}</span>
-            <span className="miniChip">{isHandwritingMode ? '손글씨 입력' : '키보드 입력'}</span>
+            {!isManualMode ? <span className="miniChip">{isHandwritingMode ? '손글씨 입력' : '키보드 입력'}</span> : null}
           </div>
         </div>
 
         <div className={styles.questionCard}>
-          <p className={styles.questionLabel}>뜻을 보고 일본어 정답을 입력하세요.</p>
+          <p className={styles.questionLabel}>{isManualMode ? '뜻을 보고 정답을 떠올린 뒤 직접 체크하세요.' : '뜻을 보고 일본어 정답을 입력하세요.'}</p>
           <p className={styles.questionText}>{currentWord.meaning}</p>
         </div>
 
-        <form
-          className={styles.inputStack}
-          onSubmit={(event) => {
-            event.preventDefault()
-            handleSubmit()
-          }}
-        >
-          <div className={styles.inputMethodRow}>
-            <button
-              type="button"
-              className="pill"
-              data-active={!isHandwritingMode}
-              onClick={() => setIsHandwritingMode(false)}
-              disabled={isManualMode && session.isAnswerRevealed}
-            >
-              <Keyboard size={16} />
-              <span>키보드 입력</span>
-            </button>
-            <button
-              type="button"
-              className="pill"
-              data-active={isHandwritingMode}
-              onClick={() => setIsHandwritingMode((value) => !value)}
-              disabled={isManualMode && session.isAnswerRevealed}
-            >
-              <PenTool size={16} />
-              <span>{isHandwritingMode ? '손글씨 입력 닫기' : '손글씨 입력 열기'}</span>
-            </button>
+        {isManualMode ? (
+          <div className={styles.inputStack}>
+            {session.isAnswerRevealed ? (
+              <div className={styles.manualPanel}>
+                <div className={styles.manualAnswer}>
+                  <span className="form-label">정답</span>
+                  <strong>{currentWord.japanese}</strong>
+                  <span className="page-header__caption">{currentWord.reading}</span>
+                </div>
+
+                <div className={styles.manualButtonRow}>
+                  <button type="button" className={styles.manualButton} data-tone="correct" onClick={() => markManualGrade(true)}>
+                    맞음
+                  </button>
+                  <button type="button" className={styles.manualButton} data-tone="wrong" onClick={() => markManualGrade(false)}>
+                    틀림
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className={styles.submitRow}>
+                <button type="button" className={styles.submitButton} onClick={() => revealManualAnswer()}>
+                  <SendHorizontal size={18} />
+                  <span>정답 확인</span>
+                </button>
+              </div>
+            )}
           </div>
-
-          <input
-            className={`glass-input ${styles.answerInput}`}
-            type="text"
-            value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
-            placeholder={isHandwritingMode ? '손글씨 후보를 선택해 입력하세요.' : '일본어 정답 입력'}
-            disabled={isInputDisabled}
-            autoComplete="off"
-          />
-
-          {isHandwritingMode ? (
-            <HandwritingPad onSelectCandidate={(candidate) => setAnswer(candidate)} disabled={isManualMode && session.isAnswerRevealed} />
-          ) : null}
-
-          {isManualMode && session.isAnswerRevealed ? (
-            <div className={styles.manualPanel}>
-              <div className={styles.manualAnswer}>
-                <span className="form-label">정답</span>
-                <strong>{currentWord.japanese}</strong>
-                <span className="page-header__caption">{currentWord.reading}</span>
-              </div>
-
-              <div className={styles.manualButtonRow}>
-                <button type="button" className={styles.manualButton} data-tone="correct" onClick={() => markManualGrade(true)}>
-                  맞았어요
-                </button>
-                <button type="button" className={styles.manualButton} data-tone="wrong" onClick={() => markManualGrade(false)}>
-                  틀렸어요
-                </button>
-              </div>
+        ) : (
+          <form
+            className={styles.inputStack}
+            onSubmit={(event) => {
+              event.preventDefault()
+              handleSubmit()
+            }}
+          >
+            <div className={styles.inputMethodRow}>
+              <button
+                type="button"
+                className="pill"
+                data-active={!isHandwritingMode}
+                onClick={() => setIsHandwritingMode(false)}
+              >
+                <Keyboard size={16} />
+                <span>키보드 입력</span>
+              </button>
+              <button
+                type="button"
+                className="pill"
+                data-active={isHandwritingMode}
+                onClick={() => setIsHandwritingMode((value) => !value)}
+              >
+                <PenTool size={16} />
+                <span>{isHandwritingMode ? '손글씨 입력 닫기' : '손글씨 입력 열기'}</span>
+              </button>
             </div>
-          ) : (
+
+            <input
+              className={`glass-input ${styles.answerInput}`}
+              type="text"
+              value={answer}
+              onChange={(event) => setAnswer(event.target.value)}
+              placeholder={isHandwritingMode ? '손글씨 후보를 선택해 입력하세요.' : '일본어 정답 입력'}
+              disabled={isHandwritingMode}
+              autoComplete="off"
+            />
+
+            {isHandwritingMode ? (
+              <HandwritingPad onSelectCandidate={(candidate) => setAnswer(candidate)} />
+            ) : null}
+
             <div className={styles.submitRow}>
               <button type="submit" className={styles.submitButton}>
                 <SendHorizontal size={18} />
                 <span>{submitLabel}</span>
               </button>
             </div>
-          )}
-        </form>
+          </form>
+        )}
       </GlassPanel>
     </div>
   )

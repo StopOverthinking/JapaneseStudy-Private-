@@ -92,7 +92,13 @@ export function buildExamResult(
       ? record.manualGrades[index] === true
       : word !== undefined && userAnswer === word.japanese
 
-    return isCorrect ? [] : [{ wordId, userAnswer }]
+    if (isCorrect) {
+      return []
+    }
+
+    return record.gradingMode === 'manual'
+      ? [{ wordId }]
+      : [{ wordId, userAnswer }]
   })
 
   return {
