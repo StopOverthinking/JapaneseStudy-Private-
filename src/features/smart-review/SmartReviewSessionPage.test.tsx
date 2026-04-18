@@ -18,11 +18,14 @@ const initialDebugState = useDebugDateStore.getState()
 describe('SmartReviewSessionPage', () => {
   beforeEach(() => {
     localStorage.clear()
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-04-18T00:00:00.000Z'))
   })
 
   afterEach(() => {
     cleanup()
     localStorage.clear()
+    vi.useRealTimers()
     vi.restoreAllMocks()
     useSmartReviewStore.setState(initialSmartReviewState)
     useDebugDateStore.setState(initialDebugState)
@@ -123,6 +126,6 @@ describe('SmartReviewSessionPage', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByText('2일 전 학습')).toBeInTheDocument()
+    expect(screen.getByText('3일 전 학습')).toBeInTheDocument()
   })
 })
