@@ -1,9 +1,8 @@
-import { memo, startTransition, type KeyboardEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, startTransition, type KeyboardEvent, type MouseEvent, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { BookOpen, Heart, Search, Undo2, ZoomIn, ZoomOut } from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { EmptyState } from '@/components/EmptyState'
-import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
 import { Tooltip } from '@/components/Tooltip'
 import { useExamStore } from '@/features/exam/examStore'
@@ -15,29 +14,7 @@ import { matchesWordSearch } from '@/lib/search'
 import styles from '@/features/list/list.module.css'
 
 const TOOLBAR_INTERACTION_LOCK_MS = 640
-
-function cancelAnimationFrameSafely(frameId: number | null) {
-  if (frameId === null || typeof window === 'undefined') {
-    return
-  }
-
-  window.cancelAnimationFrame(frameId)
-}
-
-function scheduleAfterNextPaint(frameRef: { current: number | null }, task: () => void) {
-  if (typeof window === 'undefined') {
-    task()
-    return
-  }
-
-  cancelAnimationFrameSafely(frameRef.current)
-  frameRef.current = window.requestAnimationFrame(() => {
-    frameRef.current = window.requestAnimationFrame(() => {
-      frameRef.current = null
-      task()
-    })
-  })
-}
+const CARD_SURFACE_SELECTOR = '[data-card-surface="true"]'
 
 function resolveListSetId(setId: string | 'all') {
   if (setId === 'all') {
@@ -45,24 +22,6 @@ function resolveListSetId(setId: string | 'all') {
   }
 
   return setId
-}
-
-function ConcealedText({
-  className,
-  sample,
-  lang,
-  translate,
-}: {
-  className: string
-  sample: string
-  lang?: string
-  translate?: 'yes' | 'no'
-}) {
-  return (
-    <span aria-hidden="true" className={`${className} ${styles.concealed}`} lang={lang} translate={translate}>
-      <span className={styles.concealedGhost}>{sample}</span>
-    </span>
-  )
 }
 
 function SlashGlyphIcon({
@@ -136,66 +95,70 @@ function getPartOfSpeechLabel(word: VocabularyWord) {
   }
 }
 
+function getCardRootState(cardSurface: HTMLElement) {
+  const root = cardSurface.closest<HTMLElement>('[data-hide-japanese][data-hide-meaning]')
+
+  return {
+    hideJapanese: root?.dataset.hideJapanese === 'true',
+    hideMeaning: root?.dataset.hideMeaning === 'true',
+  }
+}
+
+function hasHiddenCardContent(cardSurface: HTMLElement) {
+  const { hideJapanese, hideMeaning } = getCardRootState(cardSurface)
+
+  return (hideJapanese && cardSurface.dataset.revealJapanese !== 'true') || (hideMeaning && cardSurface.dataset.revealMeaning !== 'true')
+}
+
+function revealCardContent(cardSurface: HTMLElement) {
+  const { hideJapanese, hideMeaning } = getCardRootState(cardSurface)
+
+  if (hideJapanese) {
+    cardSurface.dataset.revealJapanese = 'true'
+  }
+
+  if (hideMeaning) {
+    cardSurface.dataset.revealMeaning = 'true'
+  }
+}
+
 const VocabCard = memo(function VocabCard({
   word,
-  hideJapanese,
-  hideMeaning,
-  hideJapaneseVersion,
-  hideMeaningVersion,
   displayNumber,
   isFavorite,
   onToggleFavorite,
 }: {
   word: VocabularyWord
-  hideJapanese: boolean
-  hideMeaning: boolean
-  hideJapaneseVersion: number
-  hideMeaningVersion: number
   displayNumber: number
   isFavorite: boolean
   onToggleFavorite: (wordId: string) => void
 }) {
-  const [revealedState, setRevealedState] = useState(() => ({
-    japanese: false,
-    meaning: false,
-    hideJapaneseVersion,
-    hideMeaningVersion,
-  }))
-  const revealJapanese = revealedState.hideJapaneseVersion === hideJapaneseVersion && revealedState.japanese
-  const revealMeaning = revealedState.hideMeaningVersion === hideMeaningVersion && revealedState.meaning
-  const japaneseHidden = hideJapanese && !revealJapanese
-  const meaningHidden = hideMeaning && !revealMeaning
-  const hasHiddenContent = japaneseHidden || meaningHidden
+  const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (!hasHiddenCardContent(event.currentTarget)) {
+      return
+    }
 
-  const revealHiddenContent = () => {
-    setRevealedState((current) => ({
-      japanese: japaneseHidden ? true : current.hideJapaneseVersion === hideJapaneseVersion && current.japanese,
-      meaning: meaningHidden ? true : current.hideMeaningVersion === hideMeaningVersion && current.meaning,
-      hideJapaneseVersion,
-      hideMeaningVersion,
-    }))
+    revealCardContent(event.currentTarget)
   }
 
   const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (!hasHiddenContent) {
+    if (!hasHiddenCardContent(event.currentTarget)) {
       return
     }
 
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      revealHiddenContent()
+      revealCardContent(event.currentTarget)
     }
   }
 
   return (
-    <GlassPanel className={styles.card} padding="sm">
+    <article className={styles.card}>
       <div
         className={styles.cardSurface}
-        data-revealable={hasHiddenContent}
-        role={hasHiddenContent ? 'button' : undefined}
-        tabIndex={hasHiddenContent ? 0 : undefined}
-        onClick={hasHiddenContent ? revealHiddenContent : undefined}
-        onKeyDown={hasHiddenContent ? handleCardKeyDown : undefined}
+        data-card-surface="true"
+        onClick={handleCardClick}
+        onKeyDown={handleCardKeyDown}
       >
         <div className={styles.cardTop}>
           <div className={styles.chipRow}>
@@ -219,42 +182,29 @@ const VocabCard = memo(function VocabCard({
 
         <div className={styles.cardBody}>
           <div className={styles.wordColumn}>
-            {japaneseHidden ? (
-              <>
-                <ConcealedText className={styles.jp} sample={word.japanese} lang="ja-JP" translate="no" />
-                <ConcealedText className={styles.reading} sample={word.reading} lang="ja-JP" translate="no" />
-              </>
-            ) : (
-              <>
-                <span className={styles.jp} lang="ja-JP" translate="no">
-                  {word.japanese}
-                </span>
-                <span className={styles.reading} lang="ja-JP" translate="no">
-                  {word.reading}
-                </span>
-              </>
-            )}
+            <span className={`${styles.jp} ${styles.concealable} ${styles.jpConcealable}`} lang="ja-JP" translate="no">
+              {word.japanese}
+            </span>
+            <span className={`${styles.reading} ${styles.concealable} ${styles.readingConcealable}`} lang="ja-JP" translate="no">
+              {word.reading}
+            </span>
           </div>
 
           <div className={styles.meaningColumn}>
-            {meaningHidden ? (
-              <ConcealedText className={styles.meaning} sample={word.meaning} />
-            ) : (
-              <span className={styles.meaning}>{word.meaning}</span>
-            )}
+            <span className={`${styles.meaning} ${styles.concealable} ${styles.meaningConcealable}`}>{word.meaning}</span>
           </div>
         </div>
       </div>
-    </GlassPanel>
+    </article>
   )
 })
 
 export function ListPage() {
   const navigate = useNavigate()
   const wrongAnswerIds = useExamStore((state) => state.wrongAnswerIds)
-  const persistedHideJapaneseInList = usePreferencesStore((state) => state.hideJapaneseInList)
-  const persistedHideMeaningInList = usePreferencesStore((state) => state.hideMeaningInList)
-  const persistedListFontScale = usePreferencesStore((state) => state.listFontScale)
+  const hideJapaneseInList = usePreferencesStore((state) => state.hideJapaneseInList)
+  const hideMeaningInList = usePreferencesStore((state) => state.hideMeaningInList)
+  const listFontScale = usePreferencesStore((state) => state.listFontScale)
   const lastSelectedSetId = usePreferencesStore((state) => state.lastSelectedSetId)
   const setLastSelectedSetId = usePreferencesStore((state) => state.setLastSelectedSetId)
   const setHideJapaneseInList = usePreferencesStore((state) => state.setHideJapaneseInList)
@@ -265,20 +215,13 @@ export function ListPage() {
   const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [hideJapaneseInList, setHideJapaneseInListImmediate] = useState(persistedHideJapaneseInList)
-  const [hideMeaningInList, setHideMeaningInListImmediate] = useState(persistedHideMeaningInList)
-  const [listFontScale, setListFontScaleImmediate] = useState(persistedListFontScale)
-  const [hideJapaneseVersion, setHideJapaneseVersion] = useState(0)
-  const [hideMeaningVersion, setHideMeaningVersion] = useState(0)
   const deferredQuery = useDeferredValue(query)
   const [toolbarVisible, setToolbarVisible] = useState(true)
+  const gridRef = useRef<HTMLDivElement | null>(null)
   const lastScrollYRef = useRef(0)
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null)
   const scrollDistanceRef = useRef(0)
   const toolbarInteractionLockUntilRef = useRef(0)
-  const hideJapanesePersistFrameRef = useRef<number | null>(null)
-  const hideMeaningPersistFrameRef = useRef<number | null>(null)
-  const listFontScalePersistFrameRef = useRef<number | null>(null)
   const wrongAnswerWords = useMemo(
     () =>
       wrongAnswerIds
@@ -314,6 +257,37 @@ export function ListPage() {
       .filter((word) => matchesWordSearch(word, deferredQuery))
   }, [baseWords, deferredQuery, favoriteIdSet, favoritesOnly])
 
+  useLayoutEffect(() => {
+    const cardSurfaces = gridRef.current?.querySelectorAll<HTMLElement>(CARD_SURFACE_SELECTOR)
+
+    if (!cardSurfaces?.length) {
+      return
+    }
+
+    const revealable = hideJapaneseInList || hideMeaningInList
+
+    cardSurfaces.forEach((cardSurface) => {
+      if (hideJapaneseInList) {
+        delete cardSurface.dataset.revealJapanese
+      }
+
+      if (hideMeaningInList) {
+        delete cardSurface.dataset.revealMeaning
+      }
+
+      if (revealable) {
+        cardSurface.dataset.revealable = 'true'
+        cardSurface.tabIndex = 0
+        cardSurface.setAttribute('role', 'button')
+        return
+      }
+
+      delete cardSurface.dataset.revealable
+      cardSurface.removeAttribute('tabindex')
+      cardSurface.removeAttribute('role')
+    })
+  }, [hideJapaneseInList, hideMeaningInList, words])
+
   const fontScaleStyle = useMemo(() => {
     const presets = [
       { jp: '1.02rem', reading: '0.76rem', meaning: '0.82rem' },
@@ -339,38 +313,6 @@ export function ListPage() {
     setToolbarVisible(true)
     scrollDirectionRef.current = null
     scrollDistanceRef.current = 0
-  }
-
-  useEffect(() => {
-    return () => {
-      cancelAnimationFrameSafely(hideJapanesePersistFrameRef.current)
-      cancelAnimationFrameSafely(hideMeaningPersistFrameRef.current)
-      cancelAnimationFrameSafely(listFontScalePersistFrameRef.current)
-    }
-  }, [])
-
-  const updateHideJapaneseInList = (next: boolean) => {
-    setHideJapaneseInListImmediate(next)
-    setHideJapaneseVersion((version) => version + 1)
-    scheduleAfterNextPaint(hideJapanesePersistFrameRef, () => {
-      setHideJapaneseInList(next)
-    })
-  }
-
-  const updateHideMeaningInList = (next: boolean) => {
-    setHideMeaningInListImmediate(next)
-    setHideMeaningVersion((version) => version + 1)
-    scheduleAfterNextPaint(hideMeaningPersistFrameRef, () => {
-      setHideMeaningInList(next)
-    })
-  }
-
-  const updateListFontScale = (next: number) => {
-    const clampedNext = Math.max(0, Math.min(6, next))
-    setListFontScaleImmediate(clampedNext)
-    scheduleAfterNextPaint(listFontScalePersistFrameRef, () => {
-      setListFontScale(clampedNext)
-    })
   }
 
   useEffect(() => {
@@ -429,7 +371,7 @@ export function ListPage() {
   }, [])
 
   return (
-    <div className={styles.root} style={fontScaleStyle}>
+    <div className={styles.root} style={fontScaleStyle} data-hide-japanese={hideJapaneseInList} data-hide-meaning={hideMeaningInList}>
       <div className="page-header">
         <div className="page-header__left">
           <Tooltip label="홈으로 이동">
@@ -472,7 +414,7 @@ export function ListPage() {
                     active={hideJapaneseInList}
                     onClick={() => {
                       keepToolbarVisible()
-                      updateHideJapaneseInList(!hideJapaneseInList)
+                      setHideJapaneseInList(!hideJapaneseInList)
                     }}
                   />
                 </span>
@@ -485,7 +427,7 @@ export function ListPage() {
                     active={hideMeaningInList}
                     onClick={() => {
                       keepToolbarVisible()
-                      updateHideMeaningInList(!hideMeaningInList)
+                      setHideMeaningInList(!hideMeaningInList)
                     }}
                   />
                 </span>
@@ -511,7 +453,7 @@ export function ListPage() {
                       label="글자 작게"
                       onClick={() => {
                         keepToolbarVisible()
-                        updateListFontScale(listFontScale - 1)
+                        setListFontScale(listFontScale - 1)
                       }}
                       disabled={listFontScale <= 0}
                     />
@@ -524,7 +466,7 @@ export function ListPage() {
                       label="글자 크게"
                       onClick={() => {
                         keepToolbarVisible()
-                        updateListFontScale(listFontScale + 1)
+                        setListFontScale(listFontScale + 1)
                       }}
                       disabled={listFontScale >= 6}
                     />
@@ -561,15 +503,11 @@ export function ListPage() {
           }
         />
       ) : (
-        <div className={styles.grid}>
+        <div ref={gridRef} className={styles.grid}>
           {words.map((word, index) => (
             <VocabCard
               key={word.id}
               word={word}
-              hideJapanese={hideJapaneseInList}
-              hideMeaning={hideMeaningInList}
-              hideJapaneseVersion={hideJapaneseVersion}
-              hideMeaningVersion={hideMeaningVersion}
               displayNumber={index + 1}
               isFavorite={favoriteIdSet.has(word.id)}
               onToggleFavorite={toggleFavorite}

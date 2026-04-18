@@ -29,6 +29,33 @@
   align-items: center;
 }
 
+.countPanel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 180px) auto;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: start;
+}
+
+.countField {
+  display: grid;
+  gap: 8px;
+}
+
+.countInput {
+  min-width: 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.countMeta {
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
 .statsGrid,
 .resultGrid {
   display: grid;
@@ -45,12 +72,35 @@
   display: flex;
   justify-content: space-between;
   gap: var(--space-3);
-  align-items: center;
+  align-items: flex-start;
 }
 
 .wrongWordCopy {
   display: grid;
   gap: 4px;
+}
+
+.wordSideMeta {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+}
+
+.wordSideMeta :global(.miniChip) {
+  white-space: nowrap;
+}
+
+.wordSideMeta :global(.icon-button) {
+  flex-shrink: 0;
+}
+
+.wordMetaRow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
 }
 
 .wrongWordJapanese {
@@ -142,6 +192,11 @@
   gap: var(--space-3);
 }
 
+.godModeAction {
+  justify-content: center;
+  font-weight: 700;
+}
+
 .answerBox {
   min-height: 60px;
   padding: 14px 18px;
@@ -201,6 +256,15 @@
   .feedbackActions,
   .headerActions {
     justify-content: flex-start;
+  }
+
+  .countPanel {
+    grid-template-columns: repeat(3, minmax(0, auto));
+    justify-content: stretch;
+  }
+
+  .countField {
+    min-width: 0;
   }
 
   .statsGrid,

@@ -95,7 +95,7 @@ export function LearnSetupPage() {
 
   return (
     <div className={styles.root}>
-      <div className="page-header">
+      <div className="page-header page-header--inline-action">
         <div className="page-header__left">
           <Tooltip label="뒤로 이동">
             <span>
@@ -165,11 +165,13 @@ export function LearnSetupPage() {
           <div className="form-field">
             <label className="form-label" htmlFor="count-input">학습 단어 수</label>
             <div className={styles.countControl}>
-              {COUNT_STEPS.filter((step) => step < 0).map((step) => (
-                <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
-                  {step}
-                </button>
-              ))}
+              <div className={styles.countStepColumn}>
+                {COUNT_STEPS.filter((step) => step < 0).map((step) => (
+                  <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
+                    {step}
+                  </button>
+                ))}
+              </div>
               <input
                 id="count-input"
                 type="number"
@@ -178,11 +180,13 @@ export function LearnSetupPage() {
                 value={learnDefaults.wordCount}
                 onChange={handleCountChange}
               />
-              {COUNT_STEPS.filter((step) => step > 0).map((step) => (
-                <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
-                  +{step}
-                </button>
-              ))}
+              <div className={styles.countStepColumn}>
+                {COUNT_STEPS.filter((step) => step > 0).map((step) => (
+                  <button key={step} type="button" className={`pill ${styles.countButton}`} onClick={() => handleCountAdjust(step)}>
+                    +{step}
+                  </button>
+                ))}
+              </div>
             </div>
             <p className="page-header__caption">현재 조건에서 최대 {availableWords.length}개까지 선택됩니다.</p>
           </div>

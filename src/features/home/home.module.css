@@ -140,6 +140,10 @@
   padding-top: var(--space-3);
 }
 
+.heroActions > .submenuWrap {
+  grid-column: 1 / -1;
+}
+
 .submenuPanel {
   display: grid;
   gap: var(--space-4);
@@ -184,6 +188,10 @@
 @media (max-width: 720px) {
   .heroActions {
     grid-template-columns: 1fr;
+  }
+
+  .heroActions > .submenuWrap {
+    padding-top: 0;
   }
 
   .submenuHeader {

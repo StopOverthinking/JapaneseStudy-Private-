@@ -104,7 +104,7 @@ export function ConjugationSetupPage() {
 
   return (
     <div className={styles.root}>
-      <div className="page-header">
+      <div className="page-header page-header--inline-action">
         <div className="page-header__left">
           <Tooltip label="메인으로 이동">
             <span>

@@ -3,6 +3,7 @@ import { App } from '@/app/App'
 import { ConjugationResultPage } from '@/features/conjugation/ConjugationResultPage'
 import { ConjugationSessionPage } from '@/features/conjugation/ConjugationSessionPage'
 import { ConjugationSetupPage } from '@/features/conjugation/ConjugationSetupPage'
+import { DebugPage } from '@/features/debug/DebugPage'
 import { ExamResultPage } from '@/features/exam/ExamResultPage'
 import { ExamSessionPage } from '@/features/exam/ExamSessionPage'
 import { ExamSetupPage } from '@/features/exam/ExamSetupPage'
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
         { path: 'smart-review', element: <SmartReviewSetupPage /> },
         { path: 'smart-review/session', element: <SmartReviewSessionPage /> },
         { path: 'smart-review/result', element: <SmartReviewResultPage /> },
+        { path: 'debug', element: <DebugPage /> },
         { path: 'conjugation', element: <ConjugationSetupPage /> },
         { path: 'conjugation/session', element: <ConjugationSessionPage /> },
         { path: 'conjugation/result', element: <ConjugationResultPage /> },

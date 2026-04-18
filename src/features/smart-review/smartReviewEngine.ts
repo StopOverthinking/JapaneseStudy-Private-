@@ -4,6 +4,7 @@ import { smartReviewPromptOverrides } from '@/features/smart-review/smartReviewP
 import type {
   SmartReviewProfile,
   SmartReviewProfileMap,
+  SmartReviewScheduleRecord,
   SmartReviewSessionItemState,
   SmartReviewSessionResult,
   SmartReviewSessionRecord,
@@ -12,8 +13,9 @@ import type {
   StartSmartReviewPayload,
 } from '@/features/smart-review/smartReviewTypes'
 
-const REVIEW_INTERVALS_DAYS = [1, 3, 7, 14, 30, 90] as const
-const INITIAL_SUCCESS_INTERVAL_DAYS = 7
+const REVIEW_INTERVALS_DAYS = [1, 2, 4, 7, 10, 14, 21, 30, 45, 90] as const
+const LEGACY_REVIEW_INTERVALS_DAYS = [1, 3, 7, 14, 30, 90] as const
+const INITIAL_SUCCESS_INTERVAL_DAYS = 2
 
 function addDays(base: Date, days: number) {
   const next = new Date(base)
@@ -52,7 +54,7 @@ function normalizeUpdatedAt(value: unknown, fallback: string) {
 }
 
 function stageToIntervalDays(stage: number) {
-  return REVIEW_INTERVALS_DAYS[stage] ?? null
+  return LEGACY_REVIEW_INTERVALS_DAYS[stage] ?? null
 }
 
 function normalizeIntervalDays(value: unknown, fallback: number | null) {
@@ -76,6 +78,10 @@ function getNextIntervalDays(intervalDays: number | null) {
   }
 
   return REVIEW_INTERVALS_DAYS.find((candidate) => candidate > intervalDays) ?? null
+}
+
+function normalizeRequestedWordCount(wordCount: number) {
+  return Math.max(1, Math.floor(wordCount) || 1)
 }
 
 export function normalizeSmartReviewProfile(raw: unknown, wordId: string): SmartReviewProfile {
@@ -210,8 +216,10 @@ export function buildSmartReviewSummary(words: VocabularyWord[], profileMap: Sma
 }
 
 export function selectSmartReviewWords(payload: StartSmartReviewPayload, profileMap: SmartReviewProfileMap, now = new Date()) {
+  const requestedWordCount = normalizeRequestedWordCount(payload.wordCount)
   const dueWords: VocabularyWord[] = []
   const newWords: VocabularyWord[] = []
+  const learningWords: VocabularyWord[] = []
 
   for (const word of payload.words) {
     const profile = profileMap[word.id]
@@ -226,10 +234,22 @@ export function selectSmartReviewWords(payload: StartSmartReviewPayload, profile
 
     if (new Date(profile.dueAt).getTime() <= now.getTime()) {
       dueWords.push(word)
+      continue
     }
+
+    learningWords.push(word)
   }
 
   dueWords.sort((left, right) => {
+    const leftProfile = profileMap[left.id]
+    const rightProfile = profileMap[right.id]
+    const leftDue = leftProfile?.dueAt ? new Date(leftProfile.dueAt).getTime() : 0
+    const rightDue = rightProfile?.dueAt ? new Date(rightProfile.dueAt).getTime() : 0
+    if (leftDue !== rightDue) return leftDue - rightDue
+    return (left.difficulty ?? 0) - (right.difficulty ?? 0)
+  })
+
+  learningWords.sort((left, right) => {
     const leftProfile = profileMap[left.id]
     const rightProfile = profileMap[right.id]
     const leftDue = leftProfile?.dueAt ? new Date(leftProfile.dueAt).getTime() : 0
@@ -242,12 +262,16 @@ export function selectSmartReviewWords(payload: StartSmartReviewPayload, profile
   const selected = [...dueWords]
 
   for (const word of shuffledNewWords) {
-    if (selected.length >= payload.wordCount) break
+    if (selected.length >= requestedWordCount) break
     selected.push(word)
   }
 
+  if (selected.length === 0) {
+    selected.push(...learningWords.slice(0, requestedWordCount))
+  }
+
   const queueSeed = (now.getTime() ^ 0x9e3779b9) >>> 0
-  return shuffleArray(selected.slice(0, payload.wordCount), queueSeed)
+  return shuffleArray(selected.slice(0, requestedWordCount), queueSeed)
 }
 
 export function createSmartReviewSession(payload: StartSmartReviewPayload, profileMap: SmartReviewProfileMap, now = new Date()): SmartReviewSessionRecord | null {
@@ -288,7 +312,7 @@ export function createSmartReviewSession(payload: StartSmartReviewPayload, profi
   }
 }
 
-export function advanceSmartReviewSession(record: SmartReviewSessionRecord) {
+export function advanceSmartReviewSession(record: SmartReviewSessionRecord, now = new Date()) {
   if (record.currentIndex < record.activeQueue.length - 1) {
     const currentIndex = record.currentIndex + 1
     return {
@@ -300,7 +324,7 @@ export function advanceSmartReviewSession(record: SmartReviewSessionRecord) {
         isAnswerRevealed: false,
         revealedIsCorrect: null,
         revealedAnswer: '',
-        updatedAt: new Date().toISOString(),
+        updatedAt: now.toISOString(),
       },
     }
   }
@@ -318,7 +342,7 @@ export function advanceSmartReviewSession(record: SmartReviewSessionRecord) {
         isAnswerRevealed: false,
         revealedIsCorrect: null,
         revealedAnswer: '',
-        updatedAt: new Date().toISOString(),
+        updatedAt: now.toISOString(),
       },
     }
   }
@@ -594,9 +618,8 @@ export function applySmartReviewOutcome(profileMap: SmartReviewProfileMap, sessi
 
 export function buildSmartReviewResult(
   session: SmartReviewSessionRecord,
-  _promotedCount: number,
-  _resetCount: number,
-  _masteredCount: number,
+  nextProfiles: Record<string, SmartReviewScheduleRecord>,
+  now = new Date(),
 ): SmartReviewSessionResult {
   const itemStates = Object.values(session.itemStates)
   const wrongWordIds = itemStates.filter((item) => item.wrongCount > 0).map((item) => item.wordId)
@@ -607,6 +630,12 @@ export function buildSmartReviewResult(
     totalWords: session.selectedWordIds.length,
     reviewCount: wrongWordIds.length,
     wrongWordIds,
-    completedAt: new Date().toISOString(),
+    reviewedItems: session.selectedWordIds.map((wordId) => ({
+      wordId,
+      dueAt: nextProfiles[wordId]?.dueAt ?? null,
+      nextReviewInDays: nextProfiles[wordId]?.intervalDays ?? null,
+      wasWrong: (session.itemStates[wordId]?.wrongCount ?? 0) > 0,
+    })),
+    completedAt: now.toISOString(),
   }
 }

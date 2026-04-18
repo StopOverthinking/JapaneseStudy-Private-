@@ -14,6 +14,7 @@ import { useLearnSessionStore } from '@/features/session/learnSessionStore'
 import { allWords } from '@/features/vocab/model/selectors'
 
 const sampleWords = allWords.slice(0, 3)
+const originalMatchMedia = window.matchMedia
 const defaultLearnDefaults = {
   frontMode: 'japanese' as const,
   favoritesOnly: false,
@@ -27,9 +28,28 @@ function renderWithRouter(element: ReactNode) {
   return render(<MemoryRouter>{element}</MemoryRouter>)
 }
 
+function mockMatchMedia({ compact = false, coarsePointer = false } = {}) {
+  window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    matches:
+      query === '(max-width: 720px)'
+        ? compact
+        : query === '(hover: none) and (pointer: coarse)'
+          ? coarsePointer
+          : false,
+    media: query,
+    onchange: null,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  }))
+}
+
 describe('Resume banner discard actions', () => {
   beforeEach(() => {
     localStorage.clear()
+    mockMatchMedia()
 
     usePreferencesStore.setState({
       themeMode: 'dark',
@@ -67,6 +87,7 @@ describe('Resume banner discard actions', () => {
     cleanup()
     localStorage.clear()
     vi.restoreAllMocks()
+    window.matchMedia = originalMatchMedia
 
     useLearnSessionStore.setState({
       status: 'idle',
@@ -135,5 +156,23 @@ describe('Resume banner discard actions', () => {
     expect(window.confirm).toHaveBeenCalledTimes(2)
     expect(useLearnSessionStore.getState().record).toBeNull()
     expect(useExamStore.getState().session).toBeNull()
+  })
+
+  it('renders the opened submenu immediately after the selected top menu card on compact layout', async () => {
+    const user = userEvent.setup()
+    mockMatchMedia({ compact: true })
+
+    const { container } = renderWithRouter(<HomePage />)
+
+    await user.click(screen.getByRole('button', { name: '목록' }))
+
+    const vocabularyCard = container.querySelector('[data-menu="vocabulary"]')
+    const learnCard = container.querySelector('[data-menu="learn"]')
+    const vocabularySubmenu = container.querySelector('[data-submenu-for="vocabulary"]')
+    const heroActions = vocabularyCard?.parentElement
+
+    expect(heroActions).not.toBeNull()
+    expect(vocabularyCard?.nextElementSibling).toBe(vocabularySubmenu)
+    expect(vocabularySubmenu?.nextElementSibling).toBe(learnCard)
   })
 })

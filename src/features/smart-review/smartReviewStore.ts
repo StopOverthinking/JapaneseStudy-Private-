@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { getDebugNow } from '@/features/debug/debugDateStore'
 import {
   advanceSmartReviewSession,
   applySmartReviewOutcome,
@@ -25,6 +26,7 @@ type SmartReviewState = {
   hydrate: () => Promise<void>
   startSession: (payload: StartSmartReviewPayload) => Promise<boolean>
   submitAnswer: (answer: string) => SmartReviewSubmitOutcome
+  submitDebugAnswer: (isCorrect: boolean) => SmartReviewSubmitOutcome
   advanceToNext: () => Promise<void>
   abandonSession: () => void
   clearSession: () => void
@@ -34,19 +36,46 @@ type SmartReviewState = {
 let hydratePromise: Promise<void> | null = null
 
 async function completeSession(session: SmartReviewSessionRecord, profiles: SmartReviewProfileMap) {
-  const applied = applySmartReviewOutcome(profiles, session)
-  const result = buildSmartReviewResult(
-    session,
-    applied.promotedCount,
-    applied.resetCount,
-    applied.masteredCount,
-  )
+  const now = getDebugNow()
+  const applied = applySmartReviewOutcome(profiles, session, now)
+  const result = buildSmartReviewResult(session, applied.nextProfiles, now)
 
   await bulkPutSmartReviewScheduleRecords(Object.values(applied.nextProfiles))
 
   return {
     profiles: applied.nextProfiles,
     result,
+  }
+}
+
+function createSubmittedSession(
+  session: SmartReviewSessionRecord,
+  wordId: string,
+  answer: string,
+  isCorrect: boolean,
+): SmartReviewSessionRecord {
+  const currentItemState = session.itemStates[wordId]
+  const updatedAt = getDebugNow().toISOString()
+
+  return {
+    ...session,
+    itemStates: {
+      ...session.itemStates,
+      [wordId]: {
+        wordId,
+        attempts: (currentItemState?.attempts ?? 0) + 1,
+        wrongCount: (currentItemState?.wrongCount ?? 0) + (isCorrect ? 0 : 1),
+        answeredCorrectly: isCorrect ? true : currentItemState?.answeredCorrectly ?? false,
+      },
+    },
+    retryQueue:
+      isCorrect || session.retryQueue.includes(wordId)
+        ? session.retryQueue
+        : [...session.retryQueue, wordId],
+    isAnswerRevealed: true,
+    revealedIsCorrect: isCorrect,
+    revealedAnswer: answer,
+    updatedAt,
   }
 }
 
@@ -90,7 +119,7 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
       await get().hydrate()
     }
 
-    const session = createSmartReviewSession(payload, get().profiles)
+    const session = createSmartReviewSession(payload, get().profiles, getDebugNow())
     if (!session) return false
 
     set({
@@ -135,28 +164,7 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
     }
 
     const isCorrect = gradeSmartReviewAnswer(word.japanese, answer)
-    const currentItemState = session.itemStates[word.id]
-
-    const nextSession: SmartReviewSessionRecord = {
-      ...session,
-      itemStates: {
-        ...session.itemStates,
-        [word.id]: {
-          wordId: word.id,
-          attempts: (currentItemState?.attempts ?? 0) + 1,
-          wrongCount: (currentItemState?.wrongCount ?? 0) + (isCorrect ? 0 : 1),
-          answeredCorrectly: isCorrect ? true : currentItemState?.answeredCorrectly ?? false,
-        },
-      },
-      retryQueue:
-        isCorrect || session.retryQueue.includes(word.id)
-          ? session.retryQueue
-          : [...session.retryQueue, word.id],
-      isAnswerRevealed: true,
-      revealedIsCorrect: isCorrect,
-      revealedAnswer: answer,
-      updatedAt: new Date().toISOString(),
-    }
+    const nextSession = createSubmittedSession(session, word.id, answer, isCorrect)
 
     set({
       status: 'active',
@@ -171,11 +179,60 @@ export const useSmartReviewStore = create<SmartReviewState>((set, get) => ({
       isCorrect,
     }
   },
+  submitDebugAnswer: (isCorrect) => {
+    const { session } = get()
+    if (!session || !session.currentWordId) {
+      return {
+        kind: 'idle',
+        wordId: null,
+        submittedAnswer: '',
+        expectedAnswer: '',
+        isCorrect: false,
+      }
+    }
+
+    const word = getWordById(session.currentWordId)
+    if (!word) {
+      return {
+        kind: 'idle',
+        wordId: null,
+        submittedAnswer: '',
+        expectedAnswer: '',
+        isCorrect: false,
+      }
+    }
+
+    if (session.isAnswerRevealed) {
+      return {
+        kind: 'idle',
+        wordId: word.id,
+        submittedAnswer: '',
+        expectedAnswer: word.japanese,
+        isCorrect: false,
+      }
+    }
+
+    const submittedAnswer = isCorrect ? word.japanese : '임의 오답'
+    const nextSession = createSubmittedSession(session, word.id, submittedAnswer, isCorrect)
+
+    set({
+      status: 'active',
+      session: nextSession,
+    })
+
+    return {
+      kind: 'graded',
+      wordId: word.id,
+      submittedAnswer,
+      expectedAnswer: word.japanese,
+      isCorrect,
+    }
+  },
   advanceToNext: async () => {
     const { session, profiles } = get()
     if (!session || !session.isAnswerRevealed) return
 
-    const advanced = advanceSmartReviewSession(session)
+    const advanced = advanceSmartReviewSession(session, getDebugNow())
 
     if (!advanced.done) {
       set({

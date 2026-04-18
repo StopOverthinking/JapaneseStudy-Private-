@@ -27,6 +27,7 @@ type PreferencesState = {
   learnCardFontScale: number
   lastSelectedSetId: string | 'all'
   learnDefaults: LearnDefaults
+  smartReviewWordCount: number
   setThemeMode: (next: ThemeMode) => void
   toggleThemeMode: () => void
   setHideJapaneseInList: (next: boolean) => void
@@ -35,6 +36,7 @@ type PreferencesState = {
   setLearnCardFontScale: (next: number) => void
   setLastSelectedSetId: (next: string | 'all') => void
   updateLearnDefaults: (partial: Partial<LearnDefaults>) => void
+  setSmartReviewWordCount: (next: number) => void
 }
 
 export const preferencesStorageKey = 'jsp-react:preferences'
@@ -49,6 +51,7 @@ const defaultLearnDefaults: LearnDefaults = {
 }
 
 const defaultThemeMode: ThemeMode = 'dark'
+const defaultSmartReviewWordCount = 20
 
 function isThemeMode(value: unknown): value is ThemeMode {
   return value === 'dark' || value === 'light'
@@ -88,6 +91,7 @@ export const usePreferencesStore = create<PreferencesState>()(
       learnCardFontScale: 2,
       lastSelectedSetId: 'all',
       learnDefaults: defaultLearnDefaults,
+      smartReviewWordCount: defaultSmartReviewWordCount,
       setThemeMode: (next) => set({ themeMode: next }),
       toggleThemeMode: () =>
         set((state) => ({
@@ -102,6 +106,10 @@ export const usePreferencesStore = create<PreferencesState>()(
         set((state) => ({
           learnDefaults: { ...state.learnDefaults, ...partial },
         })),
+      setSmartReviewWordCount: (next) =>
+        set({
+          smartReviewWordCount: Math.max(1, Math.floor(next) || defaultSmartReviewWordCount),
+        }),
     }),
     {
       name: preferencesStorageKey,

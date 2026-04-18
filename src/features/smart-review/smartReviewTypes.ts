@@ -58,6 +58,12 @@ export type SmartReviewSessionResult = {
   totalWords: number
   reviewCount: number
   wrongWordIds: string[]
+  reviewedItems: Array<{
+    wordId: string
+    dueAt: string | null
+    nextReviewInDays: number | null
+    wasWrong: boolean
+  }>
   completedAt: string
 }
 

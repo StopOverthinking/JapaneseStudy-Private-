@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
-import { ChevronLeft, Eraser, SendHorizontal } from 'lucide-react'
+import { Check, ChevronLeft, Eraser, SendHorizontal, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
 import { Tooltip } from '@/components/Tooltip'
+import { useDebugDateStore } from '@/features/debug/debugDateStore'
 import { HandwritingPad } from '@/features/handwriting/HandwritingPad'
 import { createStudyPrompt, normalizeReviewAnswer } from '@/features/smart-review/smartReviewEngine'
 import styles from '@/features/smart-review/smartReview.module.css'
@@ -12,7 +13,9 @@ import { getWordById } from '@/features/vocab/model/selectors'
 
 export function SmartReviewSessionPage() {
   const navigate = useNavigate()
-  const { isHydrated, status, session, submitAnswer, advanceToNext, abandonSession } = useSmartReviewStore()
+  const { isHydrated, status, session, profiles, submitAnswer, submitDebugAnswer, advanceToNext, abandonSession } = useSmartReviewStore()
+  const isGodMode = useDebugDateStore((state) => state.godMode)
+  const debugDayOffset = useDebugDateStore((state) => state.dayOffset)
   const [answer, setAnswer] = useState('')
 
   useEffect(() => {
@@ -31,6 +34,24 @@ export function SmartReviewSessionPage() {
   const prompt = useMemo(() => (word ? createStudyPrompt(word) : null), [word])
   const pendingAnswer = normalizeReviewAnswer(answer)
   const isRevealed = session?.isAnswerRevealed ?? false
+  const currentProfile = session?.currentWordId ? profiles[session.currentWordId] : null
+  const currentWordMeta = useMemo(() => {
+    if (!session?.currentWordId) {
+      return null
+    }
+
+    if (!currentProfile) {
+      return '새 단어'
+    }
+
+    const now = new Date()
+    now.setDate(now.getDate() + debugDayOffset)
+    const updatedAt = new Date(currentProfile.updatedAt)
+    const dayMs = 24 * 60 * 60 * 1000
+    const daysSince = Math.max(0, Math.floor((now.getTime() - updatedAt.getTime()) / dayMs))
+
+    return daysSince === 0 ? '오늘 학습' : `${daysSince}일 전 학습`
+  }, [currentProfile, debugDayOffset, session?.currentWordId])
 
   if (!session || !word || !prompt) return null
 
@@ -41,6 +62,12 @@ export function SmartReviewSessionPage() {
     if (!pendingAnswer) return
     const outcome = submitAnswer(answer)
     if (outcome.kind === 'idle') return
+  }
+
+  function handleGodModeJudge(isCorrect: boolean) {
+    const outcome = submitDebugAnswer(isCorrect)
+    if (outcome.kind === 'idle') return
+    setAnswer('')
   }
 
   function renderSentence() {
@@ -99,6 +126,7 @@ export function SmartReviewSessionPage() {
             </h2>
           </div>
           <div className="selectionMeta">
+            {currentWordMeta ? <span className="miniChip">{currentWordMeta}</span> : null}
             <span className="miniChip">선택 {session.selectedWordIds.length}</span>
             <span className="miniChip">복습 {session.retryQueue.length}</span>
           </div>
@@ -137,6 +165,27 @@ export function SmartReviewSessionPage() {
             hideStatus
             extraActions={
               <div className={styles.setupActions}>
+                {isGodMode && !isRevealed ? (
+                  <>
+                    <button
+                      type="button"
+                      className={`pill ${styles.godModeAction}`}
+                      data-active="true"
+                      onClick={() => handleGodModeJudge(true)}
+                    >
+                      <Check size={16} />
+                      <span>정답</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`pill ${styles.godModeAction}`}
+                      onClick={() => handleGodModeJudge(false)}
+                    >
+                      <X size={16} />
+                      <span>오답</span>
+                    </button>
+                  </>
+                ) : null}
                 <Tooltip label="답 지우기">
                   <span>
                     <IconButton

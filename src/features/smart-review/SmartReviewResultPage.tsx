@@ -19,9 +19,17 @@ export function SmartReviewResultPage() {
     return <Navigate to="/smart-review" replace />
   }
 
-  const wrongWords = lastResult.wrongWordIds
-    .map((wordId) => getWordById(wordId))
-    .filter((word) => word !== undefined)
+  const reviewedWords = lastResult.reviewedItems
+    .map((item) => {
+      const word = getWordById(item.wordId)
+      if (!word) return null
+
+      return {
+        ...item,
+        word,
+      }
+    })
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== null)
 
   return (
     <div className={styles.root}>
@@ -42,25 +50,28 @@ export function SmartReviewResultPage() {
           </GlassPanel>
         </div>
 
-        {wrongWords.length > 0 ? (
+        {reviewedWords.length > 0 ? (
           <div className={styles.wrongWords}>
-            {wrongWords.map((word) => (
+            {reviewedWords.map(({ word, nextReviewInDays }) => (
               <GlassPanel key={word.id} className={styles.wrongWordCard} padding="sm">
                 <div className={styles.wrongWordCopy}>
                   <strong className={styles.wrongWordJapanese}>{word.japanese}</strong>
                   <span className={styles.wrongWordReading}>{word.reading}</span>
                   <span className={styles.wrongWordMeaning}>{word.meaning}</span>
                 </div>
-                <Tooltip label={favoriteIds.includes(word.id) ? '즐겨찾기 해제' : '즐겨찾기'}>
-                  <span>
-                    <IconButton
-                      icon={Heart}
-                      label={favoriteIds.includes(word.id) ? '즐겨찾기 해제' : '즐겨찾기'}
-                      active={favoriteIds.includes(word.id)}
-                      onClick={() => toggleFavorite(word.id)}
-                    />
-                  </span>
-                </Tooltip>
+                <div className={styles.wordSideMeta}>
+                  <Tooltip label={favoriteIds.includes(word.id) ? '즐겨찾기 해제' : '즐겨찾기'}>
+                    <span>
+                      <IconButton
+                        icon={Heart}
+                        label={favoriteIds.includes(word.id) ? '즐겨찾기 해제' : '즐겨찾기'}
+                        active={favoriteIds.includes(word.id)}
+                        onClick={() => toggleFavorite(word.id)}
+                      />
+                    </span>
+                  </Tooltip>
+                  <span className="miniChip">{nextReviewInDays === null ? '예정 없음' : `${nextReviewInDays}일 뒤`}</span>
+                </div>
               </GlassPanel>
             ))}
           </div>

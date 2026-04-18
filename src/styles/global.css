@@ -224,12 +224,14 @@ a {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  min-width: 0;
 }
 
 .page-header__meta {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .page-header__title {
@@ -416,5 +418,20 @@ a {
   .page-header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .page-header--inline-action {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .page-header--inline-action .page-header__left {
+    flex: 1;
+    align-items: flex-start;
+  }
+
+  .page-header--inline-action .page-header__right {
+    flex-shrink: 0;
+    align-self: flex-start;
   }
 }

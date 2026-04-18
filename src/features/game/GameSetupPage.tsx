@@ -106,7 +106,7 @@ export function GameSetupPage() {
 
   return (
     <div className={styles.root}>
-      <div className="page-header">
+      <div className="page-header page-header--inline-action">
         <div className="page-header__left">
           <Tooltip label="홈으로 돌아가기">
             <span>
