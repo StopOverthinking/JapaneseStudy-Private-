@@ -10,7 +10,7 @@ import {
   saveExamSessionRecord,
   saveExamWrongAnswerIds,
 } from '@/features/exam/examStorage'
-import type { ExamResult, ExamSessionRecord, StartExamPayload } from '@/features/exam/examTypes'
+import { EXAM_MANUAL_UNDO_LIMIT, type ExamManualUndoSnapshot, type ExamResult, type ExamSessionRecord, type StartExamPayload } from '@/features/exam/examTypes'
 import { getWordById } from '@/features/vocab/model/selectors'
 
 type SubmitAnswerOutcome = 'idle' | 'advanced' | 'revealed' | 'completed'
@@ -25,8 +25,21 @@ type ExamState = {
   submitAnswer: (answer: string) => SubmitAnswerOutcome
   revealManualAnswer: () => SubmitAnswerOutcome
   markManualGrade: (isCorrect: boolean) => SubmitAnswerOutcome
+  goToPreviousManualQuestion: () => void
   clearSession: () => void
   clearResult: () => void
+}
+
+function createManualUndoSnapshot(session: ExamSessionRecord): ExamManualUndoSnapshot {
+  return {
+    currentIndex: session.currentIndex,
+    manualGrades: [...session.manualGrades],
+    isAnswerRevealed: session.isAnswerRevealed,
+  }
+}
+
+function pushManualUndoSnapshot(history: ExamManualUndoSnapshot[], snapshot: ExamManualUndoSnapshot) {
+  return [...history, snapshot].slice(-EXAM_MANUAL_UNDO_LIMIT)
 }
 
 function completeExam(record: ExamSessionRecord) {
@@ -122,10 +135,12 @@ export const useExamStore = create<ExamState>((set, get) => ({
   markManualGrade: (isCorrect) => {
     const session = get().session
     if (!session || session.gradingMode !== 'manual' || !session.isAnswerRevealed) return 'idle'
+    const manualUndoHistory = pushManualUndoSnapshot(session.manualUndoHistory, createManualUndoSnapshot(session))
 
     const nextRecord: ExamSessionRecord = {
       ...session,
       manualGrades: session.manualGrades.map((value, index) => index === session.currentIndex ? isCorrect : value),
+      manualUndoHistory,
       updatedAt: new Date().toISOString(),
     }
 
@@ -152,6 +167,26 @@ export const useExamStore = create<ExamState>((set, get) => ({
       wrongAnswerIds,
     })
     return 'completed'
+  },
+  goToPreviousManualQuestion: () => {
+    const session = get().session
+    if (!session || session.gradingMode !== 'manual') return
+    if (session.manualUndoHistory.length === 0 || session.manualUndoUsedCount >= EXAM_MANUAL_UNDO_LIMIT) return
+
+    const restoredSnapshot = session.manualUndoHistory[session.manualUndoHistory.length - 1]
+    const restoredRecord: ExamSessionRecord = {
+      ...session,
+      ...restoredSnapshot,
+      manualUndoHistory: session.manualUndoHistory.slice(0, -1),
+      manualUndoUsedCount: session.manualUndoUsedCount + 1,
+      updatedAt: new Date().toISOString(),
+    }
+
+    saveExamSessionRecord(restoredRecord)
+    set({
+      status: 'active',
+      session: restoredRecord,
+    })
   },
   clearSession: () => {
     clearExamSessionRecord()

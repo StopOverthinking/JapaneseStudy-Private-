@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeft, Keyboard, PenTool, SendHorizontal } from 'lucide-react'
+import { ChevronLeft, Keyboard, PenTool, SendHorizontal, Undo2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
 import { Tooltip } from '@/components/Tooltip'
 import styles from '@/features/exam/exam.module.css'
 import { useExamStore } from '@/features/exam/examStore'
+import { EXAM_MANUAL_UNDO_LIMIT } from '@/features/exam/examTypes'
 import { HandwritingPad } from '@/features/handwriting/HandwritingPad'
 import { getWordById } from '@/features/vocab/model/selectors'
 
 export function ExamSessionPage() {
   const navigate = useNavigate()
-  const { status, session, submitAnswer, revealManualAnswer, markManualGrade } = useExamStore()
+  const { status, session, submitAnswer, revealManualAnswer, markManualGrade, goToPreviousManualQuestion } = useExamStore()
   const [answer, setAnswer] = useState('')
   const [isHandwritingMode, setIsHandwritingMode] = useState(false)
 
@@ -53,6 +54,9 @@ export function ExamSessionPage() {
   const isManualMode = session.gradingMode === 'manual'
   const isLastQuestion = session.currentIndex === session.questionIds.length - 1
   const submitLabel = isLastQuestion ? '제출 및 채점' : '다음'
+  const canGoPreviousManualQuestion = isManualMode
+    && session.manualUndoHistory.length > 0
+    && session.manualUndoUsedCount < EXAM_MANUAL_UNDO_LIMIT
 
   function handleSubmit() {
     const trimmedAnswer = answer.trim()
@@ -93,6 +97,18 @@ export function ExamSessionPage() {
           <div className={styles.selectionMeta}>
             <span className="miniChip">{isManualMode ? '직접 채점' : '자동 채점'}</span>
             {!isManualMode ? <span className="miniChip">{isHandwritingMode ? '손글씨 입력' : '키보드 입력'}</span> : null}
+            {isManualMode ? (
+              <Tooltip label="이전 문제로">
+                <span>
+                  <IconButton
+                    icon={Undo2}
+                    label="이전 문제로"
+                    onClick={() => goToPreviousManualQuestion()}
+                    disabled={!canGoPreviousManualQuestion}
+                  />
+                </span>
+              </Tooltip>
+            ) : null}
           </div>
         </div>
 

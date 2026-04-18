@@ -3,6 +3,13 @@ import type { VocabularyWord } from '@/features/vocab/model/types'
 export type ExamGradingMode = 'auto' | 'manual'
 export type ExamSetId = string | 'wrong_answers'
 export type ExamManualGrade = boolean | null
+export const EXAM_MANUAL_UNDO_LIMIT = 20
+
+export type ExamManualUndoSnapshot = {
+  currentIndex: number
+  manualGrades: ExamManualGrade[]
+  isAnswerRevealed: boolean
+}
 
 export type StartExamPayload = {
   setId: ExamSetId
@@ -19,6 +26,8 @@ export type ExamSessionRecord = {
   questionIds: string[]
   userAnswers: string[]
   manualGrades: ExamManualGrade[]
+  manualUndoHistory: ExamManualUndoSnapshot[]
+  manualUndoUsedCount: number
   currentIndex: number
   isAnswerRevealed: boolean
   startedAt: string

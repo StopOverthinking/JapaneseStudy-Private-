@@ -17,6 +17,8 @@ describe('examEngine', () => {
     expect(session.questionIds).toHaveLength(3)
     expect(session.userAnswers).toEqual(['', '', ''])
     expect(session.manualGrades).toEqual([null, null, null])
+    expect(session.manualUndoHistory).toEqual([])
+    expect(session.manualUndoUsedCount).toBe(0)
     expect(session.currentIndex).toBe(0)
     expect(session.isAnswerRevealed).toBe(false)
   })
@@ -29,6 +31,14 @@ describe('examEngine', () => {
       questionIds: ['w1', 'w2'],
       userAnswers: ['答え'],
       manualGrades: [true, 'bad'],
+      manualUndoHistory: [
+        {
+          currentIndex: 0,
+          manualGrades: [null, false],
+          isAnswerRevealed: true,
+        },
+      ],
+      manualUndoUsedCount: 99,
       currentIndex: 99,
       isAnswerRevealed: true,
     })
@@ -36,6 +46,14 @@ describe('examEngine', () => {
     expect(session).not.toBeNull()
     expect(session?.userAnswers).toEqual(['答え', ''])
     expect(session?.manualGrades).toEqual([true, null])
+    expect(session?.manualUndoHistory).toEqual([
+      {
+        currentIndex: 0,
+        manualGrades: [null, false],
+        isAnswerRevealed: true,
+      },
+    ])
+    expect(session?.manualUndoUsedCount).toBe(20)
     expect(session?.currentIndex).toBe(1)
     expect(session?.isAnswerRevealed).toBe(true)
   })
@@ -49,6 +67,8 @@ describe('examEngine', () => {
       questionIds: ['w1', 'w2'],
       userAnswers: ['猫', ''],
       manualGrades: [null, null],
+      manualUndoHistory: [],
+      manualUndoUsedCount: 0,
       currentIndex: 1,
       isAnswerRevealed: false,
       startedAt: '',
@@ -66,6 +86,8 @@ describe('examEngine', () => {
       questionIds: ['w1', 'w2'],
       userAnswers: ['', ''],
       manualGrades: [true, false],
+      manualUndoHistory: [],
+      manualUndoUsedCount: 0,
       currentIndex: 1,
       isAnswerRevealed: false,
       startedAt: '',

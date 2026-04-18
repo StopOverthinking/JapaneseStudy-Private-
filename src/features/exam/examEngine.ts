@@ -1,6 +1,14 @@
 import { shuffleArray } from '@/lib/random'
 import type { VocabularyWord } from '@/features/vocab/model/types'
-import type { ExamGradingMode, ExamManualGrade, ExamResult, ExamSessionRecord, StartExamPayload } from '@/features/exam/examTypes'
+import {
+  EXAM_MANUAL_UNDO_LIMIT,
+  type ExamGradingMode,
+  type ExamManualGrade,
+  type ExamManualUndoSnapshot,
+  type ExamResult,
+  type ExamSessionRecord,
+  type StartExamPayload,
+} from '@/features/exam/examTypes'
 
 type ResolvedWord = Pick<VocabularyWord, 'japanese'>
 
@@ -26,6 +34,30 @@ export function normalizeManualGrades(savedGrades: unknown, expectedLength: numb
   })
 }
 
+function normalizeManualUndoSnapshots(savedSnapshots: unknown, expectedLength: number): ExamManualUndoSnapshot[] {
+  if (!Array.isArray(savedSnapshots)) return []
+
+  return savedSnapshots
+    .slice(-EXAM_MANUAL_UNDO_LIMIT)
+    .flatMap((value) => {
+      if (!isObject(value)) return []
+
+      const parsedIndex = typeof value.currentIndex === 'number'
+        ? value.currentIndex
+        : Number.parseInt(String(value.currentIndex ?? 0), 10)
+
+      const currentIndex = Number.isFinite(parsedIndex)
+        ? Math.min(Math.max(Math.trunc(parsedIndex), 0), Math.max(expectedLength - 1, 0))
+        : 0
+
+      return [{
+        currentIndex,
+        manualGrades: normalizeManualGrades(value.manualGrades, expectedLength),
+        isAnswerRevealed: Boolean(value.isAnswerRevealed),
+      }]
+    })
+}
+
 export function createExamSession(payload: StartExamPayload, seed = Date.now()): ExamSessionRecord {
   const questionIds = shuffleArray(payload.words.map((word) => word.id), seed)
   const now = new Date().toISOString()
@@ -38,6 +70,8 @@ export function createExamSession(payload: StartExamPayload, seed = Date.now()):
     questionIds,
     userAnswers: new Array(questionIds.length).fill(''),
     manualGrades: new Array(questionIds.length).fill(null),
+    manualUndoHistory: [],
+    manualUndoUsedCount: 0,
     currentIndex: 0,
     isAnswerRevealed: false,
     startedAt: now,
@@ -61,6 +95,13 @@ export function normalizeExamSessionRecord(raw: unknown): ExamSessionRecord | nu
   }
 
   const manualGrades = normalizeManualGrades(raw.manualGrades, questionIds.length)
+  const manualUndoHistory = normalizeManualUndoSnapshots(raw.manualUndoHistory, questionIds.length)
+  const parsedUndoCount = typeof raw.manualUndoUsedCount === 'number'
+    ? raw.manualUndoUsedCount
+    : Number.parseInt(String(raw.manualUndoUsedCount ?? 0), 10)
+  const manualUndoUsedCount = Number.isFinite(parsedUndoCount)
+    ? Math.min(Math.max(Math.trunc(parsedUndoCount), 0), EXAM_MANUAL_UNDO_LIMIT)
+    : 0
   const parsedIndex = typeof raw.currentIndex === 'number' ? raw.currentIndex : Number.parseInt(String(raw.currentIndex ?? 0), 10)
   const currentIndex = Number.isFinite(parsedIndex)
     ? Math.min(Math.max(Math.trunc(parsedIndex), 0), questionIds.length - 1)
@@ -74,6 +115,8 @@ export function normalizeExamSessionRecord(raw: unknown): ExamSessionRecord | nu
     questionIds,
     userAnswers,
     manualGrades,
+    manualUndoHistory,
+    manualUndoUsedCount,
     currentIndex,
     isAnswerRevealed: Boolean(raw.isAnswerRevealed) && normalizeExamGradingMode(raw.gradingMode) === 'manual',
     startedAt: typeof raw.startedAt === 'string' ? raw.startedAt : new Date().toISOString(),
