@@ -78,6 +78,10 @@ type QrImportProgress = {
   total: number
 }
 
+type QrFocusCapabilities = MediaTrackCapabilities & {
+  focusMode?: string[]
+}
+
 type ConfirmDialogState = {
   title: string
   lines: string[]
@@ -108,6 +112,52 @@ const scheduleActions = [
   { id: 'schedule-overwrite', icon: RefreshCcw, label: '파일로 덮어쓰기', ariaLabel: '스마트 복습 파일로 덮어쓰기' },
   { id: 'schedule-qr-import', icon: ScanSearch, label: 'QR과 병합하기', ariaLabel: '스마트 복습 QR과 병합하기' },
 ] as const
+
+async function configureQrImportTrack(track: MediaStreamTrack) {
+  if (typeof track.applyConstraints !== 'function') {
+    return
+  }
+
+  try {
+    await track.applyConstraints({
+      advanced: [
+        { focusMode: 'continuous' },
+        { focusMode: 'single-shot' },
+      ],
+    } as unknown as MediaTrackConstraints)
+    return
+  } catch {
+    // Some browsers reject unsupported focus hints even inside advanced constraints.
+  }
+
+  const trackWithCapabilities = track as MediaStreamTrack & {
+    getCapabilities?: () => QrFocusCapabilities
+  }
+
+  if (typeof trackWithCapabilities.getCapabilities !== 'function') {
+    return
+  }
+
+  const capabilities = trackWithCapabilities.getCapabilities() as QrFocusCapabilities
+  const preferredFocusMode =
+    capabilities.focusMode?.includes('continuous')
+      ? 'continuous'
+      : capabilities.focusMode?.includes('single-shot')
+        ? 'single-shot'
+        : null
+
+  if (!preferredFocusMode) {
+    return
+  }
+
+  try {
+    await track.applyConstraints({
+      advanced: [{ focusMode: preferredFocusMode }],
+    } as unknown as MediaTrackConstraints)
+  } catch {
+    // Focus remains device controlled when the browser refuses manual hints.
+  }
+}
 
 export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   const [status, setStatus] = useState<ShareStatus | null>(null)
@@ -234,7 +284,11 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { ideal: 'environment' } },
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
           audio: false,
         })
 
@@ -245,6 +299,10 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
 
         qrImportStreamRef.current = stream
         qrImportDetectorRef.current = new DetectorCtor({ formats: ['qr_code'] })
+        const [videoTrack] = stream.getVideoTracks()
+        if (videoTrack) {
+          void configureQrImportTrack(videoTrack)
+        }
 
         const video = qrImportVideoRef.current
         if (!video) {
@@ -705,6 +763,10 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
   }
 
   const compact = mode === 'submenu'
+  const qrImportCountLabel = qrImportProgress
+    ? `${qrImportProgress.received} / ${qrImportProgress.total}`
+    : '대기'
+  const qrImportModeLabel = qrImportKind === 'app' ? '앱' : '복습'
 
   return (
     <>
@@ -845,27 +907,36 @@ export function SharePanel({ mode = 'panel' }: SharePanelProps) {
               <IconButton icon={X} label="QR 가져오기 닫기" onClick={handleCloseQrImport} />
             </div>
 
-            <div className={styles.videoFrame}>
-              <video ref={qrImportVideoRef} className={styles.video} playsInline muted autoPlay />
-            </div>
+            <div className={styles.qrImportLayout}>
+              <div className={styles.qrImportStatusCard}>
+                <div className={styles.qrImportMeta}>
+                  <span className="miniChip">{qrImportModeLabel}</span>
+                  <span className="miniChip">{qrImportCountLabel}</span>
+                </div>
 
-            <p className={styles.status} data-tone={qrImportError ? 'error' : 'info'}>
-              {qrImportError ?? qrImportStatus}
-            </p>
+                <p className={styles.status} data-tone={qrImportError ? 'error' : 'info'}>
+                  {qrImportError ?? qrImportStatus}
+                </p>
 
-            {qrImportProgress ? (
-              <div className={styles.progressGrid}>
-                {Array.from({ length: qrImportProgress.total }, (_, index) => (
-                  <span
-                    key={`qr-progress-${index + 1}`}
-                    className={styles.progressChip}
-                    data-complete={index < qrImportProgress.received}
-                  >
-                    {index + 1}
-                  </span>
-                ))}
+                {qrImportProgress ? (
+                  <div className={styles.progressGrid}>
+                    {Array.from({ length: qrImportProgress.total }, (_, index) => (
+                      <span
+                        key={`qr-progress-${index + 1}`}
+                        className={styles.progressChip}
+                        data-complete={index < qrImportProgress.received}
+                      >
+                        {index + 1}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
               </div>
-            ) : null}
+
+              <div className={styles.videoFrame}>
+                <video ref={qrImportVideoRef} className={styles.video} playsInline muted autoPlay />
+              </div>
+            </div>
 
             <div className={styles.modalButtonRow}>
               <button

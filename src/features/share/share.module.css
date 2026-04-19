@@ -219,6 +219,8 @@
   width: min(100%, 720px);
   display: grid;
   gap: var(--space-4);
+  max-height: min(calc(100dvh - 48px), 920px);
+  overflow: auto;
 }
 
 .modalHeader {
@@ -266,9 +268,32 @@
   gap: var(--space-3);
 }
 
+.qrImportLayout {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.qrImportStatusCard {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
+}
+
+.qrImportMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .videoFrame {
   overflow: hidden;
+  position: relative;
   border-radius: var(--radius-card);
+  aspect-ratio: 4 / 3;
+  max-height: min(44vh, 360px);
   background:
     radial-gradient(circle at top, rgba(143, 211, 255, 0.16), transparent 58%),
     var(--surface-muted);
@@ -277,7 +302,9 @@
 
 .video {
   width: 100%;
-  min-height: 280px;
+  height: 100%;
+  min-height: 0;
+  max-height: min(44vh, 360px);
   display: block;
   object-fit: cover;
   background: var(--video-canvas-bg);
@@ -350,12 +377,25 @@
     padding: 16px;
   }
 
+  .modal {
+    max-height: calc(100dvh - 32px);
+  }
+
   .modalHeader {
     align-items: stretch;
   }
 
   .qrFrame {
     padding: var(--space-4);
+  }
+
+  .qrImportStatusCard {
+    padding: var(--space-3);
+  }
+
+  .videoFrame,
+  .video {
+    max-height: min(36vh, 280px);
   }
 
   .modalButtonRow {
