@@ -71,10 +71,16 @@
 
 .toolbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: var(--space-3);
   align-items: center;
   min-height: 44px;
+}
+
+.toolbarLead {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .toolbarActions {

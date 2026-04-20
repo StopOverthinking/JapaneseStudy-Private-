@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { ListPage } from '@/features/list/ListPage'
@@ -23,6 +23,17 @@ function renderPage() {
   return render(
     <MemoryRouter>
       <ListPage />
+    </MemoryRouter>,
+  )
+}
+
+function renderPageWithRoutes() {
+  return render(
+    <MemoryRouter initialEntries={['/list']}>
+      <Routes>
+        <Route path="/" element={<div>home</div>} />
+        <Route path="/list" element={<ListPage />} />
+      </Routes>
     </MemoryRouter>,
   )
 }
@@ -161,5 +172,17 @@ describe('ListPage', () => {
 
     expect(toolbarDock).toHaveClass(styles.toolbarVisible)
     expect(toolbarDock).not.toHaveClass(styles.toolbarHidden)
+  })
+
+  it('navigates home from the toolbar back button', async () => {
+    const user = userEvent.setup()
+    const { container } = renderPageWithRoutes()
+    const toolbarBackButton = container.querySelector<HTMLButtonElement>(`.${styles.toolbarLead} button`)
+
+    expect(toolbarBackButton).not.toBeNull()
+
+    await user.click(toolbarBackButton as HTMLButtonElement)
+
+    expect(screen.getByText('home')).toBeInTheDocument()
   })
 })

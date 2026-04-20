@@ -411,6 +411,20 @@ export function ListPage() {
       <div className={`${styles.toolbarDock} ${toolbarVisible ? styles.toolbarVisible : styles.toolbarHidden}`}>
         <div className={styles.searchWrap}>
           <div className={styles.toolbar}>
+            <div className={styles.toolbarLead}>
+              <Tooltip label="?덉쑝濡??대룞">
+                <span>
+                  <IconButton
+                    icon={Undo2}
+                    label="?덉쑝濡??대룞"
+                    onClick={() => {
+                      keepToolbarVisible()
+                      navigate('/')
+                    }}
+                  />
+                </span>
+              </Tooltip>
+            </div>
             <div className={styles.toolbarActions}>
               <Tooltip label="검색">
                 <span>
