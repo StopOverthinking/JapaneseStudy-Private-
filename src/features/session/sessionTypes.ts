@@ -1,7 +1,7 @@
 import type { FrontMode } from '@/features/vocab/model/types'
 
 export type LearnResult = {
-  setId: string | 'all'
+  setId: string | 'all' | 'wrong_answers'
   setName: string
   totalTargetCount: number
   rounds: number
@@ -23,7 +23,7 @@ export type LearnSessionSnapshot = {
 
 export type LearnSessionRecord = {
   status: 'active'
-  setId: string | 'all'
+  setId: string | 'all' | 'wrong_answers'
   setName: string
   frontMode: FrontMode
   totalTargetCount: number

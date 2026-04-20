@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
 import { Tooltip } from '@/components/Tooltip'
+import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import styles from '@/features/learn/learn.module.css'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
@@ -25,11 +26,13 @@ export function LearnSetupPage() {
   const updateLearnDefaults = usePreferencesStore((state) => state.updateLearnDefaults)
   const lastSelectedSetId = usePreferencesStore((state) => state.lastSelectedSetId)
   const setLastSelectedSetId = usePreferencesStore((state) => state.setLastSelectedSetId)
+  const wrongAnswerIds = useExamStore((state) => state.wrongAnswerIds)
   const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
   const startSession = useLearnSessionStore((state) => state.startSession)
   const sessionRecord = useLearnSessionStore((state) => state.record)
   const discardSession = useLearnSessionStore((state) => state.discardSession)
   const [error, setError] = useState<string | null>(null)
+  const currentSetName = lastSelectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(lastSelectedSetId)
 
   const availableWords = useMemo(
     () =>
@@ -37,6 +40,7 @@ export function LearnSetupPage() {
         setId: lastSelectedSetId,
         favoritesOnly: learnDefaults.favoritesOnly,
         favoriteIds,
+        wrongAnswerIds,
         rangeEnabled: learnDefaults.rangeEnabled,
         rangeStart: learnDefaults.rangeStart,
         rangeEnd: learnDefaults.rangeEnd,
@@ -48,6 +52,7 @@ export function LearnSetupPage() {
       learnDefaults.rangeEnabled,
       learnDefaults.rangeEnd,
       learnDefaults.rangeStart,
+      wrongAnswerIds,
     ],
   )
 
@@ -86,7 +91,7 @@ export function LearnSetupPage() {
     setError(null)
     startSession({
       setId: lastSelectedSetId,
-      setName: getSetName(lastSelectedSetId),
+      setName: currentSetName,
       frontMode: learnDefaults.frontMode,
       words: previewWords,
     })
@@ -103,7 +108,7 @@ export function LearnSetupPage() {
             </span>
           </Tooltip>
           <div className="page-header__meta">
-            <p className="page-header__caption">{getSetName(lastSelectedSetId)}</p>
+            <p className="page-header__caption">{currentSetName}</p>
             <h1 className="page-header__title">학습 설정</h1>
           </div>
         </div>
@@ -154,6 +159,7 @@ export function LearnSetupPage() {
             >
               <option value="all">전체 세트</option>
               <option value="favorites">즐겨찾기 단어</option>
+              {wrongAnswerIds.length > 0 ? <option value="wrong_answers">오답 노트</option> : null}
               {allSets.map((set) => (
                 <option key={set.id} value={set.id}>
                   {set.name}

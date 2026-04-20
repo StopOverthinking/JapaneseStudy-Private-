@@ -105,6 +105,25 @@ describe('ListPage', () => {
     expect(cardSurface).toHaveAttribute('data-reveal-meaning', 'true')
   })
 
+  it('keeps revealed cards open after toggling favorites', async () => {
+    const user = userEvent.setup()
+    const { container } = renderPage()
+
+    const cardSurfaces = container.querySelectorAll<HTMLElement>('[data-card-surface="true"]')
+    const firstCardSurface = cardSurfaces[0]
+    const firstFavoriteButton = container.querySelectorAll<HTMLButtonElement>(`.${styles.cardFavoriteButton}`)[0]
+
+    await user.click(firstCardSurface)
+
+    expect(firstCardSurface).toHaveAttribute('data-reveal-japanese', 'true')
+    expect(firstCardSurface).toHaveAttribute('data-reveal-meaning', 'true')
+
+    await user.click(firstFavoriteButton)
+
+    expect(firstCardSurface).toHaveAttribute('data-reveal-japanese', 'true')
+    expect(firstCardSurface).toHaveAttribute('data-reveal-meaning', 'true')
+  })
+
   it('replaces the legacy all-set selection with the first vocabulary set', async () => {
     const firstSet = allSets[0]
 

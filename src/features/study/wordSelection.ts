@@ -1,11 +1,12 @@
 import type { VocabularyWord } from '@/features/vocab/model/types'
-import { getWordsForSet } from '@/features/vocab/model/selectors'
+import { getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
 import { shuffleArray } from '@/lib/random'
 
 export type WordSelectionOptions = {
-  setId: string | 'all' | 'favorites'
+  setId: string | 'all' | 'favorites' | 'wrong_answers'
   favoritesOnly: boolean
   favoriteIds: string[]
+  wrongAnswerIds?: string[]
   rangeEnabled: boolean
   rangeStart: number
   rangeEnd: number
@@ -15,11 +16,17 @@ export function getFilteredWords({
   setId,
   favoritesOnly,
   favoriteIds,
+  wrongAnswerIds = [],
   rangeEnabled,
   rangeStart,
   rangeEnd,
 }: WordSelectionOptions) {
-  let words: VocabularyWord[] = getWordsForSet(setId, favoriteIds)
+  let words: VocabularyWord[] =
+    setId === 'wrong_answers'
+      ? wrongAnswerIds
+          .map((wordId) => getWordById(wordId))
+          .filter((word): word is VocabularyWord => word !== undefined)
+      : getWordsForSet(setId, favoriteIds)
 
   if (favoritesOnly) {
     words = words.filter((word) => favoriteIds.includes(word.id))

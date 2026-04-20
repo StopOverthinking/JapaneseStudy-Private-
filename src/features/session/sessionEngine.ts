@@ -2,7 +2,7 @@ import type { FrontMode, VocabularyWord } from '@/features/vocab/model/types'
 import type { LearnResult, LearnSessionRecord, LearnSessionSnapshot } from '@/features/session/sessionTypes'
 
 export type StartSessionPayload = {
-  setId: string | 'all'
+  setId: string | 'all' | 'wrong_answers'
   setName: string
   frontMode: FrontMode
   words: VocabularyWord[]

@@ -1,4 +1,4 @@
-import { memo, startTransition, type KeyboardEvent, type MouseEvent, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { memo, startTransition, type KeyboardEvent, type MouseEvent, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { BookOpen, Heart, Search, Undo2, ZoomIn, ZoomOut } from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -14,8 +14,6 @@ import { matchesWordSearch } from '@/lib/search'
 import styles from '@/features/list/list.module.css'
 
 const TOOLBAR_INTERACTION_LOCK_MS = 640
-const CARD_SURFACE_SELECTOR = '[data-card-surface="true"]'
-
 function resolveListSetId(setId: string | 'all') {
   if (setId === 'all') {
     return allSets[0]?.id ?? 'favorites'
@@ -110,27 +108,28 @@ function hasHiddenCardContent(cardSurface: HTMLElement) {
   return (hideJapanese && cardSurface.dataset.revealJapanese !== 'true') || (hideMeaning && cardSurface.dataset.revealMeaning !== 'true')
 }
 
-function revealCardContent(cardSurface: HTMLElement) {
-  const { hideJapanese, hideMeaning } = getCardRootState(cardSurface)
-
-  if (hideJapanese) {
-    cardSurface.dataset.revealJapanese = 'true'
-  }
-
-  if (hideMeaning) {
-    cardSurface.dataset.revealMeaning = 'true'
-  }
+type RevealedCardState = {
+  japanese: boolean
+  meaning: boolean
 }
 
 const VocabCard = memo(function VocabCard({
   word,
   displayNumber,
   isFavorite,
+  hideJapanese,
+  hideMeaning,
+  revealedState,
+  onReveal,
   onToggleFavorite,
 }: {
   word: VocabularyWord
   displayNumber: number
   isFavorite: boolean
+  hideJapanese: boolean
+  hideMeaning: boolean
+  revealedState?: RevealedCardState
+  onReveal: (wordId: string) => void
   onToggleFavorite: (wordId: string) => void
 }) {
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -138,7 +137,7 @@ const VocabCard = memo(function VocabCard({
       return
     }
 
-    revealCardContent(event.currentTarget)
+    onReveal(word.id)
   }
 
   const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -148,15 +147,22 @@ const VocabCard = memo(function VocabCard({
 
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      revealCardContent(event.currentTarget)
+      onReveal(word.id)
     }
   }
+
+  const isRevealable = (hideJapanese && !revealedState?.japanese) || (hideMeaning && !revealedState?.meaning)
 
   return (
     <article className={styles.card}>
       <div
         className={styles.cardSurface}
         data-card-surface="true"
+        data-revealable={isRevealable ? 'true' : undefined}
+        data-reveal-japanese={revealedState?.japanese ? 'true' : undefined}
+        data-reveal-meaning={revealedState?.meaning ? 'true' : undefined}
+        tabIndex={isRevealable ? 0 : undefined}
+        role={isRevealable ? 'button' : undefined}
         onClick={handleCardClick}
         onKeyDown={handleCardKeyDown}
       >
@@ -215,9 +221,9 @@ export function ListPage() {
   const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [revealedCards, setRevealedCards] = useState<Record<string, RevealedCardState>>({})
   const deferredQuery = useDeferredValue(query)
   const [toolbarVisible, setToolbarVisible] = useState(true)
-  const gridRef = useRef<HTMLDivElement | null>(null)
   const lastScrollYRef = useRef(0)
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null)
   const scrollDistanceRef = useRef(0)
@@ -257,36 +263,49 @@ export function ListPage() {
       .filter((word) => matchesWordSearch(word, deferredQuery))
   }, [baseWords, deferredQuery, favoriteIdSet, favoritesOnly])
 
-  useLayoutEffect(() => {
-    const cardSurfaces = gridRef.current?.querySelectorAll<HTMLElement>(CARD_SURFACE_SELECTOR)
+  useEffect(() => {
+    setRevealedCards((current) => {
+      let changed = false
+      const nextEntries = Object.entries(current).flatMap(([wordId, state]) => {
+        const nextState: RevealedCardState = {
+          japanese: hideJapaneseInList ? state.japanese : false,
+          meaning: hideMeaningInList ? state.meaning : false,
+        }
 
-    if (!cardSurfaces?.length) {
-      return
-    }
+        if (nextState.japanese === state.japanese && nextState.meaning === state.meaning) {
+          return [[wordId, state] as const]
+        }
 
-    const revealable = hideJapaneseInList || hideMeaningInList
+        changed = true
+        if (!nextState.japanese && !nextState.meaning) {
+          return []
+        }
 
-    cardSurfaces.forEach((cardSurface) => {
-      if (hideJapaneseInList) {
-        delete cardSurface.dataset.revealJapanese
-      }
+        return [[wordId, nextState] as const]
+      })
 
-      if (hideMeaningInList) {
-        delete cardSurface.dataset.revealMeaning
-      }
-
-      if (revealable) {
-        cardSurface.dataset.revealable = 'true'
-        cardSurface.tabIndex = 0
-        cardSurface.setAttribute('role', 'button')
-        return
-      }
-
-      delete cardSurface.dataset.revealable
-      cardSurface.removeAttribute('tabindex')
-      cardSurface.removeAttribute('role')
+      return changed ? Object.fromEntries(nextEntries) : current
     })
-  }, [hideJapaneseInList, hideMeaningInList, words])
+  }, [hideJapaneseInList, hideMeaningInList])
+
+  const handleRevealWord = (wordId: string) => {
+    setRevealedCards((current) => {
+      const previous = current[wordId] ?? { japanese: false, meaning: false }
+      const nextState: RevealedCardState = {
+        japanese: previous.japanese || hideJapaneseInList,
+        meaning: previous.meaning || hideMeaningInList,
+      }
+
+      if (previous.japanese === nextState.japanese && previous.meaning === nextState.meaning) {
+        return current
+      }
+
+      return {
+        ...current,
+        [wordId]: nextState,
+      }
+    })
+  }
 
   const fontScaleStyle = useMemo(() => {
     const presets = [
@@ -503,13 +522,17 @@ export function ListPage() {
           }
         />
       ) : (
-        <div ref={gridRef} className={styles.grid}>
+        <div className={styles.grid}>
           {words.map((word, index) => (
             <VocabCard
               key={word.id}
               word={word}
               displayNumber={index + 1}
               isFavorite={favoriteIdSet.has(word.id)}
+              hideJapanese={hideJapaneseInList}
+              hideMeaning={hideMeaningInList}
+              revealedState={revealedCards[word.id]}
+              onReveal={handleRevealWord}
               onToggleFavorite={toggleFavorite}
             />
           ))}
