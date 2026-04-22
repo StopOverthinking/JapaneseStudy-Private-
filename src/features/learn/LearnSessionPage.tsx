@@ -9,8 +9,8 @@ import { Tooltip } from '@/components/Tooltip'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
 import { useLearnSessionStore } from '@/features/session/learnSessionStore'
-import { getWordById } from '@/features/vocab/model/selectors'
-import type { FrontMode, VocabularyWord } from '@/features/vocab/model/types'
+import { getStudyItemById } from '@/features/vocab/model/selectors'
+import type { FrontMode, StudyItem } from '@/features/vocab/model/types'
 import styles from '@/features/learn/learn.module.css'
 
 const SWIPE_TRIGGER_PX = 96
@@ -20,7 +20,7 @@ const CARD_EXIT_MS = 220
 type CardDecision = 'known' | 'unknown'
 type LeavingCard = {
   id: string
-  word: VocabularyWord
+  item: StudyItem
   frontMode: FrontMode
   flipped: boolean
   action: CardDecision
@@ -28,7 +28,7 @@ type LeavingCard = {
 
 export function LearnSessionPage() {
   const navigate = useNavigate()
-  const { status, record, previousSnapshot, markKnown, markUnknown, undo, abandonSession } = useLearnSessionStore()
+  const { status, record, previousSnapshot, markKnown, markUnknown, undo, abandonSession, discardSession } = useLearnSessionStore()
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite)
   const favoriteIds = useFavoritesStore((state) => state.favoriteIds)
   const learnCardFontScale = usePreferencesStore((state) => state.learnCardFontScale)
@@ -41,7 +41,7 @@ export function LearnSessionPage() {
   const dragX = useMotionValue(0)
   const dragRotate = useTransform(dragX, [-SWIPE_VISUAL_LIMIT_PX, SWIPE_VISUAL_LIMIT_PX], [-9, 9])
 
-  const word = useMemo(() => (record?.currentCardId ? getWordById(record.currentCardId) ?? null : null), [record?.currentCardId])
+  const item = useMemo(() => (record?.currentCardId ? getStudyItemById(record.currentCardId) ?? null : null), [record?.currentCardId])
   const cardFontScaleStyle = useMemo(() => {
     const presets = {
       1: {
@@ -85,6 +85,13 @@ export function LearnSessionPage() {
   }, [navigate, record, status])
 
   useEffect(() => {
+    if (status === 'active' && record && !item) {
+      discardSession()
+      navigate('/learn', { replace: true })
+    }
+  }, [discardSession, item, navigate, record, status])
+
+  useEffect(() => {
     if (status === 'complete') {
       navigate('/learn/result', { replace: true })
     }
@@ -117,14 +124,14 @@ export function LearnSessionPage() {
   }
 
   function requestAdvance(action: CardDecision) {
-    if (!record?.currentCardId || !word || transitionAction) return
+    if (!record?.currentCardId || !item || transitionAction) return
 
     dragX.set(0)
     pendingAdvanceRef.current = action
     setTransitionAction(action)
     setLeavingCard({
       id: record.currentCardId,
-      word,
+      item,
       frontMode: record.frontMode,
       flipped,
       action,
@@ -172,34 +179,63 @@ export function LearnSessionPage() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [record?.currentCardId, status, transitionAction])
 
-  if (!record || !word) return null
+  if (!record || !item) return null
 
-  const isFavorite = favoriteIds.includes(word.id)
+  const isWordCard = item.kind === 'word'
+  const isFavorite = item.kind === 'word' && favoriteIds.includes(item.word.id)
   const revealAnswer = () => setFlipped((value) => !value)
   const isTransitioning = transitionAction !== null
 
-  function renderCardFaces(cardWord: VocabularyWord, frontMode: FrontMode) {
+  function renderComparisonSurface(cardItem: Extract<StudyItem, { kind: 'comparison' }>, mode: 'japanese' | 'meaning') {
+    const leftPrimary = mode === 'japanese' ? cardItem.leftWord.japanese : cardItem.leftWord.meaning
+    const leftSecondary = mode === 'japanese' ? cardItem.leftWord.reading : null
+    const rightPrimary = mode === 'japanese' ? cardItem.rightWord.japanese : cardItem.rightWord.meaning
+    const rightSecondary = mode === 'japanese' ? cardItem.rightWord.reading : null
+
+    return (
+      <div className={styles.compareFace}>
+        <div className={styles.comparePairGrid}>
+          <div className={styles.compareWordColumn}>
+            <strong className={mode === 'japanese' ? styles.flashJapanese : styles.flashMeaning}>{leftPrimary}</strong>
+            {leftSecondary ? <span className={styles.flashReading}>{leftSecondary}</span> : null}
+            {cardItem.pair.leftDescription ? <p className={styles.compareDescriptionText}>{cardItem.pair.leftDescription}</p> : null}
+          </div>
+          <div className={styles.compareWordColumn}>
+            <strong className={mode === 'japanese' ? styles.flashJapanese : styles.flashMeaning}>{rightPrimary}</strong>
+            {rightSecondary ? <span className={styles.flashReading}>{rightSecondary}</span> : null}
+            {cardItem.pair.rightDescription ? <p className={styles.compareDescriptionText}>{cardItem.pair.rightDescription}</p> : null}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  function renderCardFaces(cardItem: StudyItem, frontMode: FrontMode) {
     return (
       <>
         <div className={`${styles.flashFace} ${styles.flashFront}`}>
-          {frontMode === 'japanese' ? (
-            <>
-              <div className={styles.flashJapanese}>{cardWord.japanese}</div>
-              <div className={styles.flashReading}>{cardWord.reading}</div>
-            </>
-          ) : (
-            <div className={styles.flashMeaning}>{cardWord.meaning}</div>
-          )}
+          {cardItem.kind === 'word'
+            ? frontMode === 'japanese'
+              ? (
+                  <>
+                    <div className={styles.flashJapanese}>{cardItem.word.japanese}</div>
+                    <div className={styles.flashReading}>{cardItem.word.reading}</div>
+                  </>
+                )
+              : <div className={styles.flashMeaning}>{cardItem.word.meaning}</div>
+            : renderComparisonSurface(cardItem, frontMode)}
         </div>
         <div className={`${styles.flashFace} ${styles.flashBack}`}>
-          {frontMode === 'japanese' ? (
-            <div className={styles.flashMeaning}>{cardWord.meaning}</div>
-          ) : (
-            <>
-              <div className={styles.flashJapanese}>{cardWord.japanese}</div>
-              <div className={styles.flashReading}>{cardWord.reading}</div>
-            </>
-          )}
+          {cardItem.kind === 'word'
+            ? frontMode === 'japanese'
+              ? <div className={styles.flashMeaning}>{cardItem.word.meaning}</div>
+              : (
+                  <>
+                    <div className={styles.flashJapanese}>{cardItem.word.japanese}</div>
+                    <div className={styles.flashReading}>{cardItem.word.reading}</div>
+                  </>
+                )
+            : renderComparisonSurface(cardItem, frontMode === 'japanese' ? 'meaning' : 'japanese')}
         </div>
       </>
     )
@@ -275,7 +311,7 @@ export function LearnSessionPage() {
                     animate={{ rotateY: flipped ? 180 : 0 }}
                     transition={{ duration: 0.42, ease: 'easeInOut' }}
                   >
-                    {renderCardFaces(word, record.frontMode)}
+                    {renderCardFaces(item, record.frontMode)}
                   </motion.div>
                 </motion.button>
               ) : null}
@@ -315,7 +351,7 @@ export function LearnSessionPage() {
                     animate={{ rotateY: leavingCard.flipped ? 180 : 0 }}
                     transition={{ duration: 0 }}
                   >
-                    {renderCardFaces(leavingCard.word, leavingCard.frontMode)}
+                    {renderCardFaces(leavingCard.item, leavingCard.frontMode)}
                   </motion.div>
                 </motion.div>
               ) : null}
@@ -364,11 +400,13 @@ export function LearnSessionPage() {
                 <IconButton icon={ChevronLeft} label="이전 카드" onClick={() => undo()} disabled={!previousSnapshot || isTransitioning} />
               </span>
             </Tooltip>
-            <Tooltip label="즐겨찾기">
-              <span>
-                <IconButton icon={Heart} label="즐겨찾기" active={isFavorite} onClick={() => toggleFavorite(word.id)} disabled={isTransitioning} />
-              </span>
-            </Tooltip>
+            {isWordCard ? (
+              <Tooltip label="즐겨찾기">
+                <span>
+                  <IconButton icon={Heart} label="즐겨찾기" active={isFavorite} onClick={() => toggleFavorite(item.word.id)} disabled={isTransitioning} />
+                </span>
+              </Tooltip>
+            ) : null}
             <Tooltip label="정답 확인">
               <span>
                 <IconButton icon={FlipHorizontal} label="정답 확인" onClick={revealAnswer} disabled={isTransitioning} />

@@ -1,4 +1,4 @@
-import { useMemo, useState, type ChangeEvent } from 'react'
+import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
 import { Heart, Play, RotateCcw, Sparkles, Undo2, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
@@ -10,7 +10,7 @@ import styles from '@/features/learn/learn.module.css'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
 import { useLearnSessionStore } from '@/features/session/learnSessionStore'
 import { buildCandidateWords, getFilteredWords } from '@/features/study/wordSelection'
-import { allSets, getSetName } from '@/features/vocab/model/selectors'
+import { getSelectableWordbooks, getSetName, isComparisonWordbook, normalizeSelectableSetId } from '@/features/vocab/model/selectors'
 import type { FrontMode } from '@/features/vocab/model/types'
 
 const MIN_WORD_COUNT = 1
@@ -32,12 +32,19 @@ export function LearnSetupPage() {
   const sessionRecord = useLearnSessionStore((state) => state.record)
   const discardSession = useLearnSessionStore((state) => state.discardSession)
   const [error, setError] = useState<string | null>(null)
-  const currentSetName = lastSelectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(lastSelectedSetId)
+  const selectedSetId = lastSelectedSetId === 'wrong_answers' ? 'wrong_answers' : normalizeSelectableSetId(lastSelectedSetId)
+  const currentSetName = selectedSetId === 'wrong_answers' ? '오답 노트' : getSetName(selectedSetId)
+
+  useEffect(() => {
+    if (selectedSetId !== lastSelectedSetId) {
+      setLastSelectedSetId(selectedSetId)
+    }
+  }, [lastSelectedSetId, selectedSetId, setLastSelectedSetId])
 
   const availableWords = useMemo(
     () =>
       getFilteredWords({
-        setId: lastSelectedSetId,
+        setId: selectedSetId,
         favoritesOnly: learnDefaults.favoritesOnly,
         favoriteIds,
         wrongAnswerIds,
@@ -47,7 +54,7 @@ export function LearnSetupPage() {
       }),
     [
       favoriteIds,
-      lastSelectedSetId,
+      selectedSetId,
       learnDefaults.favoritesOnly,
       learnDefaults.rangeEnabled,
       learnDefaults.rangeEnd,
@@ -60,6 +67,8 @@ export function LearnSetupPage() {
     () => buildCandidateWords(availableWords, learnDefaults.wordCount),
     [availableWords, learnDefaults.wordCount],
   )
+  const selectableWordbooks = useMemo(() => getSelectableWordbooks(), [])
+  const comparisonSelected = isComparisonWordbook(selectedSetId)
 
   const handleCountAdjust = (delta: number) => {
     updateLearnDefaults({ wordCount: normalizeWordCount(learnDefaults.wordCount + delta) })
@@ -84,16 +93,16 @@ export function LearnSetupPage() {
     }
 
     if (previewWords.length === 0) {
-      setError('시작할 단어가 없습니다. 세트와 필터를 다시 확인해 주세요.')
+      setError('시작할 항목이 없습니다. 단어장과 필터를 다시 확인해 주세요.')
       return
     }
 
     setError(null)
     startSession({
-      setId: lastSelectedSetId,
+      setId: selectedSetId,
       setName: currentSetName,
       frontMode: learnDefaults.frontMode,
-      words: previewWords,
+      items: previewWords,
     })
     navigate('/learn/session')
   }
@@ -150,26 +159,26 @@ export function LearnSetupPage() {
           </div>
 
           <div className="form-field">
-            <label className="form-label" htmlFor="set-select">학습 세트</label>
+            <label className="form-label" htmlFor="set-select">학습 단어장</label>
             <select
               id="set-select"
               className="glass-select"
-              value={lastSelectedSetId}
+              value={selectedSetId}
               onChange={(event) => setLastSelectedSetId(event.target.value)}
             >
               <option value="all">전체 세트</option>
               <option value="favorites">즐겨찾기 단어</option>
               {wrongAnswerIds.length > 0 ? <option value="wrong_answers">오답 노트</option> : null}
-              {allSets.map((set) => (
-                <option key={set.id} value={set.id}>
-                  {set.name}
+              {selectableWordbooks.map((wordbook) => (
+                <option key={wordbook.id} value={wordbook.id}>
+                  {wordbook.name}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="form-field">
-            <label className="form-label" htmlFor="count-input">학습 단어 수</label>
+            <label className="form-label" htmlFor="count-input">학습 항목 수</label>
             <div className={styles.countControl}>
               <div className={styles.countStepColumn}>
                 {COUNT_STEPS.filter((step) => step < 0).map((step) => (
@@ -280,6 +289,8 @@ export function LearnSetupPage() {
               </div>
             </div>
           ) : null}
+
+          {comparisonSelected ? <p className="page-header__caption">비교형 단어장은 쌍 단위로 학습합니다.</p> : null}
 
           {error ? <p className="page-header__caption" style={{ color: 'var(--accent-coral)' }}>{error}</p> : null}
         </GlassPanel>

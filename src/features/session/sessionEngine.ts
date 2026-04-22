@@ -1,15 +1,16 @@
-import type { FrontMode, VocabularyWord } from '@/features/vocab/model/types'
+import type { FrontMode, StudyItem, VocabularyWord } from '@/features/vocab/model/types'
 import type { LearnResult, LearnSessionRecord, LearnSessionSnapshot } from '@/features/session/sessionTypes'
 
 export type StartSessionPayload = {
   setId: string | 'all' | 'wrong_answers'
   setName: string
   frontMode: FrontMode
-  words: VocabularyWord[]
+  items?: StudyItem[]
+  words?: VocabularyWord[]
 }
 
 export function createSessionRecord(payload: StartSessionPayload): LearnSessionRecord {
-  const ids = payload.words.map((word) => word.id)
+  const ids = (payload.items ?? payload.words?.map((word) => ({ id: word.id })) ?? []).map((item) => item.id)
   const now = new Date().toISOString()
 
   return {

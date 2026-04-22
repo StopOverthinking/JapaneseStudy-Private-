@@ -11,7 +11,7 @@ import {
   saveExamWrongAnswerIds,
 } from '@/features/exam/examStorage'
 import { EXAM_MANUAL_UNDO_LIMIT, type ExamManualUndoSnapshot, type ExamResult, type ExamSessionRecord, type StartExamPayload } from '@/features/exam/examTypes'
-import { getWordById } from '@/features/vocab/model/selectors'
+import { getStudyItemAnswerText, getStudyItemById, getStudyItemWrongAnswerWordIds } from '@/features/vocab/model/selectors'
 
 type SubmitAnswerOutcome = 'idle' | 'advanced' | 'revealed' | 'completed'
 
@@ -43,8 +43,20 @@ function pushManualUndoSnapshot(history: ExamManualUndoSnapshot[], snapshot: Exa
 }
 
 function completeExam(record: ExamSessionRecord) {
-  const result = buildExamResult(record, getWordById)
-  const wrongAnswerIds = result.wrongItems.map((item) => item.wordId)
+  const result = buildExamResult(record, (itemId) => {
+    const item = getStudyItemById(itemId)
+
+    if (!item) {
+      return undefined
+    }
+
+    return {
+      id: item.id,
+      kind: item.kind,
+      expectedAnswer: getStudyItemAnswerText(item),
+    }
+  })
+  const wrongAnswerIds = result.wrongItems.flatMap((item) => getStudyItemWrongAnswerWordIds(item.itemId))
 
   clearExamSessionRecord()
   saveExamResult(result)

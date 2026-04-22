@@ -167,6 +167,26 @@
   gap: var(--space-4);
 }
 
+.topicHeader {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+}
+
+.topicHeaderChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-accent-soft);
+  background: var(--surface-accent-soft);
+  color: var(--accent-ice);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+}
+
 .card {
   display: grid;
   gap: 8px;
@@ -351,6 +371,49 @@
   color: var(--accent-ice);
 }
 
+.compareCardBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.compareCardStack {
+  display: grid;
+  gap: 12px;
+}
+
+.compareWordColumn {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  text-align: left;
+}
+
+.compareWordColumn .reading,
+.compareWordColumn .meaning {
+  text-align: left;
+}
+
+.compareWordColumn:last-child {
+  text-align: right;
+  justify-items: end;
+}
+
+.compareWordColumn:last-child .reading,
+.compareWordColumn:last-child .meaning {
+  text-align: right;
+}
+
+.compareDescriptionLine {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  text-align: left;
+  white-space: pre-line;
+}
+
 @media (max-width: 1000px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -383,5 +446,15 @@
 
   .toolbarDock {
     width: 100%;
+  }
+
+  .compareCardBody {
+    grid-template-columns: 1fr;
+  }
+
+  .compareWordColumn:last-child,
+  .compareWordColumn:last-child .reading {
+    justify-items: start;
+    text-align: left;
   }
 }

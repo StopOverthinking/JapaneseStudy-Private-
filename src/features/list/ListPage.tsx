@@ -8,12 +8,16 @@ import { Tooltip } from '@/components/Tooltip'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { allSets, allWords, getSetName, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
-import type { VocabularyWord } from '@/features/vocab/model/types'
-import { matchesWordSearch } from '@/lib/search'
+import { allSets, getSetName, getStudyItemById, getStudyItemPartLabel, getStudyItemSearchText, getStudyItemsForSet, hasStudyItemTopic, isStudyItemFavorite } from '@/features/vocab/model/selectors'
+import type { StudyItem } from '@/features/vocab/model/types'
 import styles from '@/features/list/list.module.css'
 
 const TOOLBAR_INTERACTION_LOCK_MS = 640
+
+type RenderEntry =
+  | { type: 'topic'; id: string; label: string }
+  | { type: 'item'; item: StudyItem; displayNumber: number }
+
 function resolveListSetId(setId: string | 'all') {
   if (setId === 'all') {
     return allSets[0]?.id ?? 'favorites'
@@ -71,28 +75,6 @@ function MeaningHiddenIcon(props: LucideProps) {
   return <SlashGlyphIcon {...props} glyph="가" glyphFontFamily="var(--font-ui), 'Noto Sans KR', sans-serif" />
 }
 
-function getPartOfSpeechLabel(word: VocabularyWord) {
-  switch (word.type) {
-    case 'verb':
-      if (word.verbInfo?.includes('1')) return '1동사'
-      if (word.verbInfo?.includes('2')) return '2동사'
-      if (word.verbInfo?.includes('3')) return '3동사'
-      return '동사'
-    case 'noun':
-      return '명사'
-    case 'i_adj':
-      return 'い형'
-    case 'na_adj':
-      return 'な형'
-    case 'adv':
-      return '부사'
-    case 'expression':
-      return '표현'
-    default:
-      return '기타'
-  }
-}
-
 function getCardRootState(cardSurface: HTMLElement) {
   const root = cardSurface.closest<HTMLElement>('[data-hide-japanese][data-hide-meaning]')
 
@@ -114,7 +96,7 @@ type RevealedCardState = {
 }
 
 const VocabCard = memo(function VocabCard({
-  word,
+  item,
   displayNumber,
   isFavorite,
   hideJapanese,
@@ -123,7 +105,7 @@ const VocabCard = memo(function VocabCard({
   onReveal,
   onToggleFavorite,
 }: {
-  word: VocabularyWord
+  item: StudyItem
   displayNumber: number
   isFavorite: boolean
   hideJapanese: boolean
@@ -137,7 +119,7 @@ const VocabCard = memo(function VocabCard({
       return
     }
 
-    onReveal(word.id)
+    onReveal(item.id)
   }
 
   const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -147,7 +129,7 @@ const VocabCard = memo(function VocabCard({
 
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      onReveal(word.id)
+      onReveal(item.id)
     }
   }
 
@@ -169,37 +151,66 @@ const VocabCard = memo(function VocabCard({
         <div className={styles.cardTop}>
           <div className={styles.chipRow}>
             <span className={styles.orderBadge}>{displayNumber}번</span>
-            <span className={styles.partBadge}>{getPartOfSpeechLabel(word)}</span>
+            {item.kind === 'word' ? <span className={styles.partBadge}>{getStudyItemPartLabel(item)}</span> : null}
           </div>
-          <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
-            <button
-              type="button"
-              aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-              className={styles.cardFavoriteButton}
-              onClick={(event) => {
-                event.stopPropagation()
-                onToggleFavorite(word.id)
-              }}
-            >
-              <Heart size={18} strokeWidth={1.9} fill={isFavorite ? 'currentColor' : 'none'} />
-            </button>
-          </Tooltip>
+          {item.kind === 'word' ? (
+            <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
+              <button
+                type="button"
+                aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                className={styles.cardFavoriteButton}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onToggleFavorite(item.word.id)
+                }}
+              >
+                <Heart size={18} strokeWidth={1.9} fill={isFavorite ? 'currentColor' : 'none'} />
+              </button>
+            </Tooltip>
+          ) : null}
         </div>
 
-        <div className={styles.cardBody}>
-          <div className={styles.wordColumn}>
-            <span className={`${styles.jp} ${styles.concealable} ${styles.jpConcealable}`} lang="ja-JP" translate="no">
-              {word.japanese}
-            </span>
-            <span className={`${styles.reading} ${styles.concealable} ${styles.readingConcealable}`} lang="ja-JP" translate="no">
-              {word.reading}
-            </span>
-          </div>
+        {item.kind === 'word' ? (
+          <div className={styles.cardBody}>
+            <div className={styles.wordColumn}>
+              <span className={`${styles.jp} ${styles.concealable} ${styles.jpConcealable}`} lang="ja-JP" translate="no">
+                {item.word.japanese}
+              </span>
+              <span className={`${styles.reading} ${styles.concealable} ${styles.readingConcealable}`} lang="ja-JP" translate="no">
+                {item.word.reading}
+              </span>
+            </div>
 
-          <div className={styles.meaningColumn}>
-            <span className={`${styles.meaning} ${styles.concealable} ${styles.meaningConcealable}`}>{word.meaning}</span>
+            <div className={styles.meaningColumn}>
+              <span className={`${styles.meaning} ${styles.concealable} ${styles.meaningConcealable}`}>{item.word.meaning}</span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.compareCardStack}>
+            <div className={styles.compareCardBody}>
+              <div className={styles.compareWordColumn}>
+                <span className={`${styles.jp} ${styles.concealable} ${styles.jpConcealable}`} lang="ja-JP" translate="no">
+                  {item.leftWord.japanese}
+                </span>
+                <span className={`${styles.reading} ${styles.concealable} ${styles.readingConcealable}`} lang="ja-JP" translate="no">
+                  {item.leftWord.reading}
+                </span>
+                <span className={`${styles.meaning} ${styles.concealable} ${styles.meaningConcealable}`}>{item.leftWord.meaning}</span>
+                {item.pair.leftDescription ? <p className={styles.compareDescriptionLine}>{item.pair.leftDescription}</p> : null}
+              </div>
+              <div className={styles.compareWordColumn}>
+                <span className={`${styles.jp} ${styles.concealable} ${styles.jpConcealable}`} lang="ja-JP" translate="no">
+                  {item.rightWord.japanese}
+                </span>
+                <span className={`${styles.reading} ${styles.concealable} ${styles.readingConcealable}`} lang="ja-JP" translate="no">
+                  {item.rightWord.reading}
+                </span>
+                <span className={`${styles.meaning} ${styles.concealable} ${styles.meaningConcealable}`}>{item.rightWord.meaning}</span>
+                {item.pair.rightDescription ? <p className={styles.compareDescriptionLine}>{item.pair.rightDescription}</p> : null}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </article>
   )
@@ -231,11 +242,10 @@ export function ListPage() {
   const wrongAnswerWords = useMemo(
     () =>
       wrongAnswerIds
-        .map((wordId) => getWordById(wordId))
-        .filter((word): word is VocabularyWord => word !== undefined),
+        .map((itemId) => getStudyItemById(itemId))
+        .filter((item): item is StudyItem => item !== undefined),
     [wrongAnswerIds],
   )
-  const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds])
   const resolvedSetId = resolveListSetId(lastSelectedSetId)
   const currentSetName = resolvedSetId === 'wrong_answers' ? '오답 노트' : getSetName(resolvedSetId)
 
@@ -250,18 +260,43 @@ export function ListPage() {
       return wrongAnswerWords
     }
 
-    if (resolvedSetId === 'favorites') {
-      return allWords.filter((word) => favoriteIdSet.has(word.id))
-    }
-
-    return getWordsForSet(resolvedSetId)
-  }, [favoriteIdSet, resolvedSetId, wrongAnswerWords])
+    return getStudyItemsForSet(resolvedSetId, favoriteIds)
+  }, [favoriteIds, resolvedSetId, wrongAnswerWords])
 
   const words = useMemo(() => {
     return baseWords
-      .filter((word) => (favoritesOnly ? favoriteIdSet.has(word.id) : true))
-      .filter((word) => matchesWordSearch(word, deferredQuery))
-  }, [baseWords, deferredQuery, favoriteIdSet, favoritesOnly])
+      .filter((item) => (favoritesOnly ? isStudyItemFavorite(item, favoriteIds) : true))
+      .filter((item) => getStudyItemSearchText(item).includes(deferredQuery.trim().toLowerCase()))
+  }, [baseWords, deferredQuery, favoriteIds, favoritesOnly])
+
+  const renderEntries = useMemo<RenderEntry[]>(() => {
+    const entries: RenderEntry[] = []
+    let displayNumber = 1
+    let lastTopicKey: string | null = null
+
+    for (const item of words) {
+      const topicKey = item.kind === 'word' ? item.topicId ?? null : null
+      const topicLabel = item.kind === 'word' ? item.topicName ?? null : null
+
+      if (hasStudyItemTopic(item) && topicKey && topicLabel && lastTopicKey !== topicKey) {
+        entries.push({
+          type: 'topic',
+          id: topicKey,
+          label: topicLabel,
+        })
+        lastTopicKey = topicKey
+      }
+
+      entries.push({
+        type: 'item',
+        item,
+        displayNumber,
+      })
+      displayNumber += 1
+    }
+
+    return entries
+  }, [words])
 
   useEffect(() => {
     setRevealedCards((current) => {
@@ -412,11 +447,11 @@ export function ListPage() {
         <div className={styles.searchWrap}>
           <div className={styles.toolbar}>
             <div className={styles.toolbarLead}>
-              <Tooltip label="?덉쑝濡??대룞">
+              <Tooltip label="홈으로 이동">
                 <span>
                   <IconButton
                     icon={Undo2}
-                    label="?덉쑝濡??대룞"
+                    label="홈으로 이동"
                     onClick={() => {
                       keepToolbarVisible()
                       navigate('/')
@@ -537,15 +572,19 @@ export function ListPage() {
         />
       ) : (
         <div className={styles.grid}>
-          {words.map((word, index) => (
+          {renderEntries.map((entry) => entry.type === 'topic' ? (
+            <div key={entry.id} className={styles.topicHeader}>
+              <span className={styles.topicHeaderChip}>{entry.label}</span>
+            </div>
+          ) : (
             <VocabCard
-              key={word.id}
-              word={word}
-              displayNumber={index + 1}
-              isFavorite={favoriteIdSet.has(word.id)}
+              key={entry.item.id}
+              item={entry.item}
+              displayNumber={entry.displayNumber}
+              isFavorite={isStudyItemFavorite(entry.item, favoriteIds)}
               hideJapanese={hideJapaneseInList}
               hideMeaning={hideMeaningInList}
-              revealedState={revealedCards[word.id]}
+              revealedState={revealedCards[entry.item.id]}
               onReveal={handleRevealWord}
               onToggleFavorite={toggleFavorite}
             />

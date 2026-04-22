@@ -8,7 +8,7 @@ import styles from '@/features/exam/exam.module.css'
 import { useExamStore } from '@/features/exam/examStore'
 import { EXAM_MANUAL_UNDO_LIMIT } from '@/features/exam/examTypes'
 import { HandwritingPad } from '@/features/handwriting/HandwritingPad'
-import { getWordById } from '@/features/vocab/model/selectors'
+import { getStudyItemAnswerSubtext, getStudyItemAnswerText, getStudyItemById, getStudyItemQuestionText } from '@/features/vocab/model/selectors'
 
 export function ExamSessionPage() {
   const navigate = useNavigate()
@@ -23,13 +23,13 @@ export function ExamSessionPage() {
   }, [navigate, session, status])
 
   const currentWordId = session?.questionIds[session.currentIndex]
-  const currentWord = currentWordId ? getWordById(currentWordId) : null
+  const currentItem = currentWordId ? getStudyItemById(currentWordId) : null
 
   useEffect(() => {
-    if (session && !currentWord) {
+    if (session && !currentItem) {
       navigate('/exam', { replace: true })
     }
-  }, [currentWord, navigate, session])
+  }, [currentItem, navigate, session])
 
   useEffect(() => {
     if (status === 'complete') {
@@ -49,7 +49,7 @@ export function ExamSessionPage() {
   }, [session])
 
   if (!session) return null
-  if (!currentWord) return null
+  if (!currentItem) return null
 
   const isManualMode = session.gradingMode === 'manual'
   const isLastQuestion = session.currentIndex === session.questionIds.length - 1
@@ -57,6 +57,11 @@ export function ExamSessionPage() {
   const canGoPreviousManualQuestion = isManualMode
     && session.manualUndoHistory.length > 0
     && session.manualUndoUsedCount < EXAM_MANUAL_UNDO_LIMIT
+
+  const questionText = getStudyItemQuestionText(currentItem)
+  const answerText = getStudyItemAnswerText(currentItem)
+  const answerSubtext = getStudyItemAnswerSubtext(currentItem)
+  const isComparisonItem = currentItem.kind === 'comparison'
 
   function handleSubmit() {
     const trimmedAnswer = answer.trim()
@@ -113,8 +118,14 @@ export function ExamSessionPage() {
         </div>
 
         <div className={styles.questionCard}>
-          <p className={styles.questionLabel}>{isManualMode ? '뜻을 보고 정답을 떠올린 뒤 직접 체크하세요.' : '뜻을 보고 일본어 정답을 입력하세요.'}</p>
-          <p className={styles.questionText}>{currentWord.meaning}</p>
+          <p className={styles.questionLabel}>
+            {isComparisonItem
+              ? '두 표현을 같이 보고 구분해 보세요.'
+              : isManualMode
+                ? '뜻을 보고 정답을 떠올린 뒤 직접 체크하세요.'
+                : '뜻을 보고 일본어 정답을 입력하세요.'}
+          </p>
+          <p className={styles.questionText}>{questionText}</p>
         </div>
 
         {isManualMode ? (
@@ -123,8 +134,8 @@ export function ExamSessionPage() {
               <div className={styles.manualPanel}>
                 <div className={styles.manualAnswer}>
                   <span className="form-label">정답</span>
-                  <strong>{currentWord.japanese}</strong>
-                  <span className="page-header__caption">{currentWord.reading}</span>
+                  <strong>{answerText}</strong>
+                  <span className="page-header__caption">{answerSubtext}</span>
                 </div>
 
                 <div className={styles.manualButtonRow}>

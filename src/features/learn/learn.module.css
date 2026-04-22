@@ -153,6 +153,33 @@
   line-height: 1.45;
 }
 
+.compareFace {
+  width: 100%;
+}
+
+.comparePairGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  width: 100%;
+  align-items: start;
+}
+
+.compareWordColumn {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.compareDescriptionText {
+  margin: 4px 0 0;
+  color: var(--text-soft);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  text-align: center;
+  white-space: pre-line;
+}
+
 .edgeAction {
   display: inline-grid;
   gap: 6px;
@@ -316,6 +343,10 @@
 
   .resumeActions {
     justify-content: flex-start;
+  }
+
+  .comparePairGrid {
+    grid-template-columns: 1fr;
   }
 }
 

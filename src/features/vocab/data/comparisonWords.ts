@@ -1,0 +1,70 @@
+import type { VocabularyWord } from '../model/types'
+
+export const comparisonWords: VocabularyWord[] = [
+  {
+    "id": "compare-core-verbs-JLPTN3_1",
+    "setId": "compare-core-verbs",
+    "japanese": "急ぐ",
+    "reading": "いそぐ",
+    "meaning": "서두르다",
+    "type": "verb",
+    "difficulty": 20,
+    "verbInfo": "1타",
+    "sourceOrder": 0
+  },
+  {
+    "id": "compare-core-verbs-JLPTN3_2",
+    "setId": "compare-core-verbs",
+    "japanese": "慌てる",
+    "reading": "あわてる",
+    "meaning": "허둥대다",
+    "type": "verb",
+    "difficulty": 35,
+    "verbInfo": "2자",
+    "sourceOrder": 1
+  },
+  {
+    "id": "compare-core-verbs-JLPTN3_3",
+    "setId": "compare-core-verbs",
+    "japanese": "疑う",
+    "reading": "うたがう",
+    "meaning": "의심하다",
+    "type": "verb",
+    "difficulty": 36,
+    "verbInfo": "1타",
+    "sourceOrder": 2
+  },
+  {
+    "id": "compare-core-verbs-JLPTN3_4",
+    "setId": "compare-core-verbs",
+    "japanese": "信じる",
+    "reading": "しんじる",
+    "meaning": "믿다",
+    "type": "verb",
+    "difficulty": 25,
+    "verbInfo": "2타",
+    "sourceOrder": 3
+  },
+  {
+    "id": "compare-core-verbs-JLPTN3_5",
+    "setId": "compare-core-verbs",
+    "japanese": "分かる",
+    "reading": "わかる",
+    "meaning": "(이해로써) 알다",
+    "type": "verb",
+    "difficulty": 12,
+    "verbInfo": "1자",
+    "sourceOrder": 4
+  },
+  {
+    "id": "compare-core-verbs-JLPTN3_6",
+    "setId": "compare-core-verbs",
+    "japanese": "見分ける",
+    "reading": "みわける",
+    "meaning": "구별하다",
+    "type": "verb",
+    "difficulty": 34,
+    "verbInfo": "2타",
+    "sourceOrder": 5
+  }
+]

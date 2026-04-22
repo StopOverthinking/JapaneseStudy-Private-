@@ -4,6 +4,7 @@ import { ConjugationResultPage } from '@/features/conjugation/ConjugationResultP
 import { ConjugationSessionPage } from '@/features/conjugation/ConjugationSessionPage'
 import { ConjugationSetupPage } from '@/features/conjugation/ConjugationSetupPage'
 import { DebugPage } from '@/features/debug/DebugPage'
+import { EditorScreen } from '@/features/editor/EditorScreen'
 import { ExamResultPage } from '@/features/exam/ExamResultPage'
 import { ExamSessionPage } from '@/features/exam/ExamSessionPage'
 import { ExamSetupPage } from '@/features/exam/ExamSetupPage'
@@ -21,6 +22,10 @@ import { SmartReviewSetupPage } from '@/features/smart-review/SmartReviewSetupPa
 
 export const router = createBrowserRouter(
   [
+    {
+      path: '/editor',
+      element: <EditorScreen />,
+    },
     {
       path: '/',
       element: <App />,

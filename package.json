@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predev": "node scripts/extract-legacy-vocab.mjs",
+    "dev:editor": "vite --open /editor.html",
+    "predev": "node scripts/generate-vocab-data.mjs",
     "build": "tsc -b && vite build",
-    "prebuild": "node scripts/extract-legacy-vocab.mjs",
+    "prebuild": "node scripts/generate-vocab-data.mjs",
     "preview": "vite preview",
-    "extract:vocab": "node scripts/extract-legacy-vocab.mjs",
+    "extract:vocab": "node scripts/generate-vocab-data.mjs",
     "test": "vitest run"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.5"
   },
   "devDependencies": {

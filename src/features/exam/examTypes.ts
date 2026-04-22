@@ -1,4 +1,4 @@
-import type { VocabularyWord } from '@/features/vocab/model/types'
+import type { StudyItem, VocabularyWord } from '@/features/vocab/model/types'
 
 export type ExamGradingMode = 'auto' | 'manual'
 export type ExamSetId = string | 'wrong_answers'
@@ -14,7 +14,8 @@ export type ExamManualUndoSnapshot = {
 export type StartExamPayload = {
   setId: ExamSetId
   setName: string
-  words: VocabularyWord[]
+  items?: StudyItem[]
+  words?: VocabularyWord[]
   gradingMode: ExamGradingMode
 }
 
@@ -35,7 +36,7 @@ export type ExamSessionRecord = {
 }
 
 export type ExamWrongItem = {
-  wordId: string
+  itemId: string
   userAnswer?: string
 }
 

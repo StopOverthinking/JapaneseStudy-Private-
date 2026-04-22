@@ -74,8 +74,8 @@ describe('examEngine', () => {
       startedAt: '',
       updatedAt: '',
     }, (wordId) => ({
-      w1: { japanese: '猫' },
-      w2: { japanese: '犬' },
+      w1: { id: 'w1', kind: 'word' as const, expectedAnswer: '猫' },
+      w2: { id: 'w2', kind: 'word' as const, expectedAnswer: '犬' },
     }[wordId]))
 
     const manualResult = buildExamResult({
@@ -92,11 +92,11 @@ describe('examEngine', () => {
       isAnswerRevealed: false,
       startedAt: '',
       updatedAt: '',
-    }, () => ({ japanese: 'unused' }))
+    }, () => ({ id: 'unused', kind: 'word' as const, expectedAnswer: 'unused' }))
 
     expect(autoResult.correctCount).toBe(1)
-    expect(autoResult.wrongItems).toEqual([{ wordId: 'w2', userAnswer: '' }])
+    expect(autoResult.wrongItems).toEqual([{ itemId: 'w2', userAnswer: '' }])
     expect(manualResult.correctCount).toBe(1)
-    expect(manualResult.wrongItems).toEqual([{ wordId: 'w2' }])
+    expect(manualResult.wrongItems).toEqual([{ itemId: 'w2' }])
   })
 })

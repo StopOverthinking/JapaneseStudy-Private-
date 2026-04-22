@@ -1,5 +1,5 @@
-import type { VocabularyWord } from '@/features/vocab/model/types'
-import { getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
+import type { StudyItem } from '@/features/vocab/model/types'
+import { getStudyItemById, getStudyItemsForSet, isStudyItemFavorite } from '@/features/vocab/model/selectors'
 import { shuffleArray } from '@/lib/random'
 
 export type WordSelectionOptions = {
@@ -21,27 +21,27 @@ export function getFilteredWords({
   rangeStart,
   rangeEnd,
 }: WordSelectionOptions) {
-  let words: VocabularyWord[] =
+  let items: StudyItem[] =
     setId === 'wrong_answers'
       ? wrongAnswerIds
-          .map((wordId) => getWordById(wordId))
-          .filter((word): word is VocabularyWord => word !== undefined)
-      : getWordsForSet(setId, favoriteIds)
+          .map((wordId) => getStudyItemById(wordId))
+          .filter((item): item is StudyItem => item !== undefined)
+      : getStudyItemsForSet(setId, favoriteIds)
 
   if (favoritesOnly) {
-    words = words.filter((word) => favoriteIds.includes(word.id))
+    items = items.filter((item) => isStudyItemFavorite(item, favoriteIds))
   }
 
   if (rangeEnabled) {
     const start = Math.max(1, rangeStart)
     const end = Math.max(start, rangeEnd)
-    words = words.slice(start - 1, end)
+    items = items.slice(start - 1, end)
   }
 
-  return shuffleArray(words)
+  return shuffleArray(items)
 }
 
-export function buildCandidateWords(words: VocabularyWord[], wordCount: number) {
+export function buildCandidateWords(words: StudyItem[], wordCount: number) {
   const normalizedWordCount = Math.max(1, Math.floor(wordCount) || 1)
   return words.slice(0, Math.min(normalizedWordCount, words.length))
 }

@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { BookOpen, ChevronRight, Heart } from 'lucide-react'
+import { ArrowLeftRight, BookOpen, ChevronRight, Heart, Sparkles } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { allSets, getWordById, getWordsForSet } from '@/features/vocab/model/selectors'
+import { allSelectableWordbooks, allSets, getWordById, getWordsForSet, getWordbookKind } from '@/features/vocab/model/selectors'
 import type { VocabularyWord } from '@/features/vocab/model/types'
 import styles from '@/features/list/list.module.css'
 
@@ -71,7 +71,7 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
         </button>
       ) : null}
 
-      {allSets.map((set) => (
+      {allSelectableWordbooks.map((set) => (
         <button
           key={set.id}
           className={styles.menuItem}
@@ -79,13 +79,13 @@ export function VocabularySetMenu({ onSelect }: VocabularySetMenuProps) {
           onClick={() => handleSelectSet(set.id)}
         >
           <span className={styles.menuItemIcon}>
-            <BookOpen size={22} />
+            {getWordbookKind(set.id) === 'theme' ? <Sparkles size={22} /> : getWordbookKind(set.id) === 'compare' ? <ArrowLeftRight size={22} /> : <BookOpen size={22} />}
           </span>
           <span className={styles.menuItemBody}>
             <strong>{set.name}</strong>
           </span>
           <span className={styles.menuItemMeta}>
-            <span className="miniChip">{set.wordIds.length}개</span>
+            <span className="miniChip">{set.itemCount}개</span>
             <ChevronRight size={18} />
           </span>
         </button>

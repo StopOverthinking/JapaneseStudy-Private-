@@ -6,7 +6,7 @@ import { Tooltip } from '@/components/Tooltip'
 import styles from '@/features/exam/exam.module.css'
 import { useExamStore } from '@/features/exam/examStore'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
-import { getWordById } from '@/features/vocab/model/selectors'
+import { getStudyItemAnswerSubtext, getStudyItemAnswerText, getStudyItemById, getStudyItemQuestionText } from '@/features/vocab/model/selectors'
 
 export function ExamResultPage() {
   const navigate = useNavigate()
@@ -20,8 +20,8 @@ export function ExamResultPage() {
 
   const wrongItems = lastResult.wrongItems
     .map((item) => {
-      const word = getWordById(item.wordId)
-      return word ? { ...item, word } : null
+      const studyItem = getStudyItemById(item.itemId)
+      return studyItem ? { ...item, studyItem } : null
     })
     .filter((item): item is NonNullable<typeof item> => item !== null)
 
@@ -60,27 +60,30 @@ export function ExamResultPage() {
           {wrongItems.length > 0 ? (
             <div className={styles.wrongList}>
               {wrongItems.map((item) => {
-                const isFavorite = favoriteIds.includes(item.word.id)
+                const favoriteWordId = item.studyItem.kind === 'word' ? item.studyItem.word.id : null
+                const isFavorite = favoriteWordId ? favoriteIds.includes(favoriteWordId) : false
 
                 return (
-                  <GlassPanel key={item.word.id} className={styles.wrongItem} padding="sm">
+                  <GlassPanel key={item.itemId} className={styles.wrongItem} padding="sm">
                     <div className={styles.wrongHeader}>
                       <div>
-                        <p className={styles.wrongMeaning}>문제: {item.word.meaning}</p>
+                        <p className={styles.wrongMeaning}>문제: {getStudyItemQuestionText(item.studyItem)}</p>
                         <p className={styles.correctAnswer}>
-                          정답: <strong>{item.word.japanese}</strong> ({item.word.reading})
+                          정답: <strong>{getStudyItemAnswerText(item.studyItem)}</strong> ({getStudyItemAnswerSubtext(item.studyItem)})
                         </p>
                       </div>
-                      <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
-                        <span>
-                          <IconButton
-                            icon={Heart}
-                            label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-                            active={isFavorite}
-                            onClick={() => toggleFavorite(item.word.id)}
-                          />
-                        </span>
-                      </Tooltip>
+                      {favoriteWordId ? (
+                        <Tooltip label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}>
+                          <span>
+                            <IconButton
+                              icon={Heart}
+                              label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                              active={isFavorite}
+                              onClick={() => toggleFavorite(favoriteWordId)}
+                            />
+                          </span>
+                        </Tooltip>
+                      ) : null}
                     </div>
                     {lastResult.gradingMode === 'auto' ? (
                       <p className={styles.wrongAnswer}>내 답안: {item.userAnswer || '(미입력)'}</p>

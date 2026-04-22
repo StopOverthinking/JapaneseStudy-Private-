@@ -15,7 +15,6 @@ import {
 import { loadBotHistory, loadPlayerMmr, loadPlayerNickname, loadSingleModeRecords, savePlayerNickname } from '@/features/game/gameStorage'
 import { useGameStore } from '@/features/game/gameStore'
 import type { GameMode, GameQuizType } from '@/features/game/gameTypes'
-import { buildCandidateWords } from '@/features/study/wordSelection'
 import { allWords, getSetName } from '@/features/vocab/model/selectors'
 import styles from '@/features/game/game.module.css'
 
@@ -52,7 +51,7 @@ export function GameSetupPage() {
 
   const targetQuestionCount = getQuestionCount(selection.quizType)
   const previewWords = useMemo(
-    () => buildCandidateWords(availableWords, targetQuestionCount),
+    () => availableWords.slice(0, Math.min(targetQuestionCount, availableWords.length)),
     [availableWords, targetQuestionCount],
   )
 

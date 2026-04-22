@@ -2,29 +2,29 @@ import type { VocabularyWord } from '../model/types'
 
 export const vocabularyWords: VocabularyWord[] = [
   {
-    "id": "1_1",
+    "id": "JLPTN3_1",
     "setId": "jlpt-n3",
     "japanese": "飽きる",
     "reading": "あきる",
     "meaning": "질리다, 싫증나다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "2자",
     "sourceOrder": 0
   },
   {
-    "id": "1_2",
+    "id": "JLPTN3_2",
     "setId": "jlpt-n3",
     "japanese": "預ける",
     "reading": "あずける",
-    "meaning": "맡기다",
+    "meaning": "보관시키다, 맡기다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": "2타",
     "sourceOrder": 1
   },
   {
-    "id": "1_3",
+    "id": "JLPTN3_3",
     "setId": "jlpt-n3",
     "japanese": "当たる",
     "reading": "あたる",
@@ -35,18 +35,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 2
   },
   {
-    "id": "1_4",
+    "id": "JLPTN3_4",
     "setId": "jlpt-n3",
     "japanese": "余る",
     "reading": "あまる",
-    "meaning": "남다",
+    "meaning": "남다, 초과하다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": "1자",
     "sourceOrder": 3
   },
   {
-    "id": "1_5",
+    "id": "JLPTN3_5",
     "setId": "jlpt-n3",
     "japanese": "編む",
     "reading": "あむ",
@@ -57,29 +57,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 4
   },
   {
-    "id": "1_6",
+    "id": "JLPTN3_6",
     "setId": "jlpt-n3",
     "japanese": "表す",
     "reading": "あらわす",
-    "meaning": "나타내다, 표현하다",
+    "meaning": "표현하다",
     "type": "verb",
     "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 5
   },
   {
-    "id": "1_7",
+    "id": "JLPTN3_7",
     "setId": "jlpt-n3",
     "japanese": "慌てる",
     "reading": "あわてる",
     "meaning": "허둥대다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 35,
     "verbInfo": "2자",
     "sourceOrder": 6
   },
   {
-    "id": "1_8",
+    "id": "JLPTN3_8",
     "setId": "jlpt-n3",
     "japanese": "急ぐ",
     "reading": "いそぐ",
@@ -90,18 +90,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 7
   },
   {
-    "id": "1_9",
+    "id": "JLPTN3_9",
     "setId": "jlpt-n3",
     "japanese": "挑む",
     "reading": "いどむ",
     "meaning": "도전하다",
     "type": "verb",
-    "difficulty": 45,
+    "difficulty": 42,
     "verbInfo": "1자",
     "sourceOrder": 8
   },
   {
-    "id": "1_10",
+    "id": "JLPTN3_10",
     "setId": "jlpt-n3",
     "japanese": "植える",
     "reading": "うえる",
@@ -112,7 +112,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 9
   },
   {
-    "id": "1_11",
+    "id": "JLPTN3_11",
     "setId": "jlpt-n3",
     "japanese": "受け取る",
     "reading": "うけとる",
@@ -123,18 +123,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 10
   },
   {
-    "id": "1_12",
+    "id": "JLPTN3_12",
     "setId": "jlpt-n3",
     "japanese": "疑う",
     "reading": "うたがう",
     "meaning": "의심하다",
     "type": "verb",
-    "difficulty": 37,
+    "difficulty": 36,
     "verbInfo": "1타",
     "sourceOrder": 11
   },
   {
-    "id": "1_13",
+    "id": "JLPTN3_13",
     "setId": "jlpt-n3",
     "japanese": "打つ",
     "reading": "うつ",
@@ -145,7 +145,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 12
   },
   {
-    "id": "1_14",
+    "id": "JLPTN3_14",
     "setId": "jlpt-n3",
     "japanese": "移る",
     "reading": "うつる",
@@ -156,29 +156,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 13
   },
   {
-    "id": "1_15",
+    "id": "JLPTN3_15",
     "setId": "jlpt-n3",
     "japanese": "奪う",
     "reading": "うばう",
     "meaning": "빼앗다",
     "type": "verb",
-    "difficulty": 42,
+    "difficulty": 32,
     "verbInfo": "1타",
     "sourceOrder": 14
   },
   {
-    "id": "1_16",
+    "id": "JLPTN3_16",
     "setId": "jlpt-n3",
     "japanese": "埋める",
     "reading": "うめる",
     "meaning": "(땅에) 묻다, 메우다, 채우다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": "2타",
     "sourceOrder": 15
   },
   {
-    "id": "1_17",
+    "id": "JLPTN3_17",
     "setId": "jlpt-n3",
     "japanese": "売り切れる",
     "reading": "うりきれる",
@@ -189,29 +189,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 16
   },
   {
-    "id": "1_18",
+    "id": "JLPTN3_18",
     "setId": "jlpt-n3",
     "japanese": "追いつく",
     "reading": "おいつく",
     "meaning": "따라잡다",
     "type": "verb",
-    "difficulty": 31,
+    "difficulty": 30,
     "verbInfo": "1자",
     "sourceOrder": 17
   },
   {
-    "id": "1_19",
+    "id": "JLPTN3_19",
     "setId": "jlpt-n3",
     "japanese": "抑える",
     "reading": "おさえる",
     "meaning": "(감정, 요구를) 억제하다, (소비, 지출을) 줄이다",
     "type": "verb",
-    "difficulty": 44,
+    "difficulty": 38,
     "verbInfo": "2타",
     "sourceOrder": 18
   },
   {
-    "id": "1_20",
+    "id": "JLPTN3_20",
     "setId": "jlpt-n3",
     "japanese": "押す",
     "reading": "おす",
@@ -222,7 +222,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 19
   },
   {
-    "id": "1_21",
+    "id": "JLPTN3_21",
     "setId": "jlpt-n3",
     "japanese": "落ち着く",
     "reading": "おちつく",
@@ -233,7 +233,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 20
   },
   {
-    "id": "1_22",
+    "id": "JLPTN3_22",
     "setId": "jlpt-n3",
     "japanese": "驚く",
     "reading": "おどろく",
@@ -244,7 +244,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 21
   },
   {
-    "id": "1_23",
+    "id": "JLPTN3_23",
     "setId": "jlpt-n3",
     "japanese": "覚える",
     "reading": "おぼえる",
@@ -255,7 +255,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 22
   },
   {
-    "id": "1_24",
+    "id": "JLPTN3_24",
     "setId": "jlpt-n3",
     "japanese": "折る",
     "reading": "おる",
@@ -266,7 +266,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 23
   },
   {
-    "id": "1_25",
+    "id": "JLPTN3_25",
     "setId": "jlpt-n3",
     "japanese": "折れる",
     "reading": "おれる",
@@ -277,7 +277,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 24
   },
   {
-    "id": "1_26",
+    "id": "JLPTN3_26",
     "setId": "jlpt-n3",
     "japanese": "替える",
     "reading": "かえる",
@@ -288,62 +288,62 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 25
   },
   {
-    "id": "1_27",
+    "id": "JLPTN3_27",
     "setId": "jlpt-n3",
     "japanese": "輝く",
     "reading": "かがやく",
     "meaning": "(강하고 눈부시게) 빛나다, 찬란하게 빛나다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "1자",
     "sourceOrder": 26
   },
   {
-    "id": "1_28",
+    "id": "JLPTN3_28",
     "setId": "jlpt-n3",
     "japanese": "隠す",
     "reading": "かくす",
     "meaning": "숨기다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 26,
     "verbInfo": "1타",
     "sourceOrder": 27
   },
   {
-    "id": "1_29",
+    "id": "JLPTN3_29",
     "setId": "jlpt-n3",
     "japanese": "駆ける",
     "reading": "かける",
     "meaning": "전속력으로 달리다, 뛰다",
     "type": "verb",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": "2자",
     "sourceOrder": 28
   },
   {
-    "id": "1_30",
+    "id": "JLPTN3_30",
     "setId": "jlpt-n3",
     "japanese": "囲む",
     "reading": "かこむ",
-    "meaning": "둘러싸다",
+    "meaning": "둘러싸다, 에워싸다",
     "type": "verb",
     "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 29
   },
   {
-    "id": "1_31",
+    "id": "JLPTN3_31",
     "setId": "jlpt-n3",
     "japanese": "重ねる",
     "reading": "かさねる",
     "meaning": "겹치다, 포개다, 거듭하다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": "2타",
     "sourceOrder": 30
   },
   {
-    "id": "1_32",
+    "id": "JLPTN3_32",
     "setId": "jlpt-n3",
     "japanese": "飾る",
     "reading": "かざる",
@@ -354,7 +354,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 31
   },
   {
-    "id": "1_33",
+    "id": "JLPTN3_33",
     "setId": "jlpt-n3",
     "japanese": "貸す",
     "reading": "かす",
@@ -365,7 +365,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 32
   },
   {
-    "id": "1_34",
+    "id": "JLPTN3_34",
     "setId": "jlpt-n3",
     "japanese": "借りる",
     "reading": "かりる",
@@ -376,18 +376,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 33
   },
   {
-    "id": "1_35",
+    "id": "JLPTN3_35",
     "setId": "jlpt-n3",
     "japanese": "枯れる",
     "reading": "かれる",
     "meaning": "(식물이) 시들어 마르다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 36,
     "verbInfo": "2자",
     "sourceOrder": 34
   },
   {
-    "id": "1_36",
+    "id": "JLPTN3_36",
     "setId": "jlpt-n3",
     "japanese": "乾く",
     "reading": "かわく",
@@ -398,7 +398,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 35
   },
   {
-    "id": "1_37",
+    "id": "JLPTN3_37",
     "setId": "jlpt-n3",
     "japanese": "消える",
     "reading": "きえる",
@@ -409,7 +409,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 36
   },
   {
-    "id": "1_38",
+    "id": "JLPTN3_38",
     "setId": "jlpt-n3",
     "japanese": "嫌う",
     "reading": "きらう",
@@ -420,7 +420,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 37
   },
   {
-    "id": "1_39",
+    "id": "JLPTN3_39",
     "setId": "jlpt-n3",
     "japanese": "配る",
     "reading": "くばる",
@@ -431,18 +431,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 38
   },
   {
-    "id": "1_40",
+    "id": "JLPTN3_40",
     "setId": "jlpt-n3",
     "japanese": "組み立てる",
     "reading": "くみたてる",
     "meaning": "조립하다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": "2타",
     "sourceOrder": 39
   },
   {
-    "id": "1_41",
+    "id": "JLPTN3_41",
     "setId": "jlpt-n3",
     "japanese": "組む",
     "reading": "くむ",
@@ -453,29 +453,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 40
   },
   {
-    "id": "1_42",
+    "id": "JLPTN3_42",
     "setId": "jlpt-n3",
     "japanese": "繰り返す",
     "reading": "くりかえす",
     "meaning": "반복하다",
     "type": "verb",
-    "difficulty": 33,
+    "difficulty": 32,
     "verbInfo": "1타",
     "sourceOrder": 41
   },
   {
-    "id": "1_43",
+    "id": "JLPTN3_43",
     "setId": "jlpt-n3",
     "japanese": "加える",
     "reading": "くわえる",
     "meaning": "더하다, 추가하다",
     "type": "verb",
-    "difficulty": 31,
+    "difficulty": 30,
     "verbInfo": "2타",
     "sourceOrder": 42
   },
   {
-    "id": "1_44",
+    "id": "JLPTN3_44",
     "setId": "jlpt-n3",
     "japanese": "消す",
     "reading": "けす",
@@ -486,7 +486,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 43
   },
   {
-    "id": "1_45",
+    "id": "JLPTN3_45",
     "setId": "jlpt-n3",
     "japanese": "凍る",
     "reading": "こおる",
@@ -497,29 +497,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 44
   },
   {
-    "id": "1_46",
+    "id": "JLPTN3_46",
     "setId": "jlpt-n3",
     "japanese": "焦げる",
     "reading": "こげる",
     "meaning": "(음식이) 타다, 눌어붙다",
     "type": "verb",
-    "difficulty": 39,
+    "difficulty": 37,
     "verbInfo": "2자",
     "sourceOrder": 45
   },
   {
-    "id": "1_47",
+    "id": "JLPTN3_47",
     "setId": "jlpt-n3",
     "japanese": "断る",
     "reading": "ことわる",
     "meaning": "거절하다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": "1타",
     "sourceOrder": 46
   },
   {
-    "id": "1_48",
+    "id": "JLPTN3_48",
     "setId": "jlpt-n3",
     "japanese": "転ぶ",
     "reading": "ころぶ",
@@ -530,7 +530,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 47
   },
   {
-    "id": "1_49",
+    "id": "JLPTN3_49",
     "setId": "jlpt-n3",
     "japanese": "怖がる",
     "reading": "こわがる",
@@ -541,29 +541,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 48
   },
   {
-    "id": "1_50",
+    "id": "JLPTN3_50",
     "setId": "jlpt-n3",
     "japanese": "覚める",
     "reading": "さめる",
     "meaning": "(잠, 취기, 꿈 등에서) 깨다, (눈이) 떠지다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 30,
     "verbInfo": "2자",
     "sourceOrder": 49
   },
   {
-    "id": "1_51",
+    "id": "JLPTN3_51",
     "setId": "jlpt-n3",
     "japanese": "騒ぐ",
     "reading": "さわぐ",
     "meaning": "떠들다, 소란 피우다",
     "type": "verb",
-    "difficulty": 31,
+    "difficulty": 26,
     "verbInfo": "1자",
     "sourceOrder": 50
   },
   {
-    "id": "1_52",
+    "id": "JLPTN3_52",
     "setId": "jlpt-n3",
     "japanese": "触る",
     "reading": "さわる",
@@ -574,73 +574,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 51
   },
   {
-    "id": "1_53",
+    "id": "JLPTN3_53",
     "setId": "jlpt-n3",
     "japanese": "沈む",
     "reading": "しずむ",
     "meaning": "(물/해 등이) 가라앉다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "1자",
     "sourceOrder": 52
   },
   {
-    "id": "1_54",
+    "id": "JLPTN3_54",
     "setId": "jlpt-n3",
     "japanese": "従う",
     "reading": "したがう",
     "meaning": "따르다",
     "type": "verb",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": "1자",
     "sourceOrder": 53
   },
   {
-    "id": "1_55",
+    "id": "JLPTN3_55",
     "setId": "jlpt-n3",
     "japanese": "縛る",
     "reading": "しばる",
     "meaning": "(끈으로) 묶다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 36,
     "verbInfo": "1타",
     "sourceOrder": 54
   },
   {
-    "id": "1_56",
+    "id": "JLPTN3_56",
     "setId": "jlpt-n3",
     "japanese": "絞る",
     "reading": "しぼる",
     "meaning": "(물기를) 짜다, (범위를) 줄이다",
     "type": "verb",
-    "difficulty": 41,
+    "difficulty": 37,
     "verbInfo": "1타",
     "sourceOrder": 55
   },
   {
-    "id": "1_57",
+    "id": "JLPTN3_57",
     "setId": "jlpt-n3",
     "japanese": "示す",
     "reading": "しめす",
-    "meaning": "나타내다, 제시하다",
+    "meaning": "제시하다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 56
   },
   {
-    "id": "1_58",
+    "id": "JLPTN3_58",
     "setId": "jlpt-n3",
     "japanese": "締める",
     "reading": "しめる",
     "meaning": "바싹 졸라 메다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": "2타",
     "sourceOrder": 57
   },
   {
-    "id": "1_59",
+    "id": "JLPTN3_59",
     "setId": "jlpt-n3",
     "japanese": "信じる",
     "reading": "しんじる",
@@ -651,7 +651,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 58
   },
   {
-    "id": "1_60",
+    "id": "JLPTN3_60",
     "setId": "jlpt-n3",
     "japanese": "過ぎる",
     "reading": "すぎる",
@@ -662,7 +662,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 59
   },
   {
-    "id": "1_61",
+    "id": "JLPTN3_61",
     "setId": "jlpt-n3",
     "japanese": "捨てる",
     "reading": "すてる",
@@ -673,7 +673,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 60
   },
   {
-    "id": "1_62",
+    "id": "JLPTN3_62",
     "setId": "jlpt-n3",
     "japanese": "育てる",
     "reading": "そだてる",
@@ -684,7 +684,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 61
   },
   {
-    "id": "1_63",
+    "id": "JLPTN3_63",
     "setId": "jlpt-n3",
     "japanese": "倒れる",
     "reading": "たおれる",
@@ -695,7 +695,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 62
   },
   {
-    "id": "1_64",
+    "id": "JLPTN3_64",
     "setId": "jlpt-n3",
     "japanese": "確かめる",
     "reading": "たしかめる",
@@ -706,7 +706,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 63
   },
   {
-    "id": "1_65",
+    "id": "JLPTN3_65",
     "setId": "jlpt-n3",
     "japanese": "戦う",
     "reading": "たたかう",
@@ -717,18 +717,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 64
   },
   {
-    "id": "1_66",
+    "id": "JLPTN3_66",
     "setId": "jlpt-n3",
     "japanese": "畳む",
     "reading": "たたむ",
     "meaning": "(빨래를) 개다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 65
   },
   {
-    "id": "1_67",
+    "id": "JLPTN3_67",
     "setId": "jlpt-n3",
     "japanese": "経つ",
     "reading": "たつ",
@@ -739,7 +739,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 66
   },
   {
-    "id": "1_68",
+    "id": "JLPTN3_68",
     "setId": "jlpt-n3",
     "japanese": "黙る",
     "reading": "だまる",
@@ -750,18 +750,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 67
   },
   {
-    "id": "1_69",
+    "id": "JLPTN3_69",
     "setId": "jlpt-n3",
     "japanese": "頼る",
     "reading": "たよる",
     "meaning": "의지하다, 기대다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 35,
     "verbInfo": "1자",
     "sourceOrder": 68
   },
   {
-    "id": "1_70",
+    "id": "JLPTN3_70",
     "setId": "jlpt-n3",
     "japanese": "違う",
     "reading": "ちがう",
@@ -772,7 +772,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 69
   },
   {
-    "id": "1_71",
+    "id": "JLPTN3_71",
     "setId": "jlpt-n3",
     "japanese": "疲れる",
     "reading": "つかれる",
@@ -783,7 +783,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 70
   },
   {
-    "id": "1_72",
+    "id": "JLPTN3_72",
     "setId": "jlpt-n3",
     "japanese": "伝わる",
     "reading": "つたわる",
@@ -794,29 +794,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 71
   },
   {
-    "id": "1_73",
+    "id": "JLPTN3_73",
     "setId": "jlpt-n3",
     "japanese": "包む",
     "reading": "つつむ",
     "meaning": "(물건을) 싸다, 포장하다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": "1타",
     "sourceOrder": 72
   },
   {
-    "id": "1_74",
+    "id": "JLPTN3_74",
     "setId": "jlpt-n3",
     "japanese": "勤める",
     "reading": "つとめる",
     "meaning": "근무하다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 28,
     "verbInfo": "2자",
     "sourceOrder": 73
   },
   {
-    "id": "1_75",
+    "id": "JLPTN3_75",
     "setId": "jlpt-n3",
     "japanese": "通る",
     "reading": "とおる",
@@ -827,29 +827,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 74
   },
   {
-    "id": "1_76",
+    "id": "JLPTN3_76",
     "setId": "jlpt-n3",
     "japanese": "解ける",
     "reading": "とける",
     "meaning": "(문제가) 풀리다, 해결되다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": "2자",
     "sourceOrder": 75
   },
   {
-    "id": "1_77",
+    "id": "JLPTN3_77",
     "setId": "jlpt-n3",
     "japanese": "溶ける",
     "reading": "とける",
     "meaning": "(눈/얼음 등이) 녹다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 33,
     "verbInfo": "2자",
     "sourceOrder": 76
   },
   {
-    "id": "1_78",
+    "id": "JLPTN3_78",
     "setId": "jlpt-n3",
     "japanese": "閉じる",
     "reading": "とじる",
@@ -860,18 +860,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 77
   },
   {
-    "id": "1_79",
+    "id": "JLPTN3_79",
     "setId": "jlpt-n3",
     "japanese": "怒鳴る",
     "reading": "どなる",
     "meaning": "고함치다, 호통치다",
     "type": "verb",
-    "difficulty": 43,
+    "difficulty": 37,
     "verbInfo": "1자",
     "sourceOrder": 78
   },
   {
-    "id": "1_80",
+    "id": "JLPTN3_80",
     "setId": "jlpt-n3",
     "japanese": "飛ぶ",
     "reading": "とぶ",
@@ -882,18 +882,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 79
   },
   {
-    "id": "1_81",
+    "id": "JLPTN3_81",
     "setId": "jlpt-n3",
     "japanese": "取り消す",
     "reading": "とりけす",
     "meaning": "취소하다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 31,
     "verbInfo": "1타",
     "sourceOrder": 80
   },
   {
-    "id": "1_82",
+    "id": "JLPTN3_82",
     "setId": "jlpt-n3",
     "japanese": "流れる",
     "reading": "ながれる",
@@ -904,7 +904,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 81
   },
   {
-    "id": "1_83",
+    "id": "JLPTN3_83",
     "setId": "jlpt-n3",
     "japanese": "泣く",
     "reading": "なく",
@@ -915,18 +915,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 82
   },
   {
-    "id": "1_84",
+    "id": "JLPTN3_84",
     "setId": "jlpt-n3",
     "japanese": "慰める",
     "reading": "なぐさめる",
     "meaning": "위로하다",
     "type": "verb",
-    "difficulty": 46,
+    "difficulty": 43,
     "verbInfo": "2타",
     "sourceOrder": 83
   },
   {
-    "id": "1_85",
+    "id": "JLPTN3_85",
     "setId": "jlpt-n3",
     "japanese": "投げる",
     "reading": "なげる",
@@ -937,7 +937,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 84
   },
   {
-    "id": "1_86",
+    "id": "JLPTN3_86",
     "setId": "jlpt-n3",
     "japanese": "並ぶ",
     "reading": "ならぶ",
@@ -948,18 +948,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 85
   },
   {
-    "id": "1_87",
+    "id": "JLPTN3_87",
     "setId": "jlpt-n3",
     "japanese": "似合う",
     "reading": "にあう",
     "meaning": "(옷, 색, 분위기와) 어울리다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 26,
     "verbInfo": "1자",
     "sourceOrder": 86
   },
   {
-    "id": "1_88",
+    "id": "JLPTN3_88",
     "setId": "jlpt-n3",
     "japanese": "握る",
     "reading": "にぎる",
@@ -970,29 +970,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 87
   },
   {
-    "id": "1_89",
+    "id": "JLPTN3_89",
     "setId": "jlpt-n3",
     "japanese": "逃げる",
     "reading": "にげる",
     "meaning": "도망치다",
     "type": "verb",
-    "difficulty": 26,
+    "difficulty": 20,
     "verbInfo": "2자",
     "sourceOrder": 88
   },
   {
-    "id": "1_90",
+    "id": "JLPTN3_90",
     "setId": "jlpt-n3",
     "japanese": "濡れる",
     "reading": "ぬれる",
     "meaning": "(물/비 등에) 젖다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": "2자",
     "sourceOrder": 89
   },
   {
-    "id": "1_91",
+    "id": "JLPTN3_91",
     "setId": "jlpt-n3",
     "japanese": "願う",
     "reading": "ねがう",
@@ -1003,7 +1003,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 90
   },
   {
-    "id": "1_92",
+    "id": "JLPTN3_92",
     "setId": "jlpt-n3",
     "japanese": "眠る",
     "reading": "ねむる",
@@ -1014,29 +1014,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 91
   },
   {
-    "id": "1_93",
+    "id": "JLPTN3_93",
     "setId": "jlpt-n3",
     "japanese": "残る",
     "reading": "のこる",
-    "meaning": "남다",
+    "meaning": "남다, 잔존하다",
     "type": "verb",
     "difficulty": 25,
     "verbInfo": "1자",
     "sourceOrder": 92
   },
   {
-    "id": "1_94",
+    "id": "JLPTN3_94",
     "setId": "jlpt-n3",
     "japanese": "延ばす",
     "reading": "のばす",
     "meaning": "(시일을) 연장시키다, 미루다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 93
   },
   {
-    "id": "1_95",
+    "id": "JLPTN3_95",
     "setId": "jlpt-n3",
     "japanese": "生える",
     "reading": "はえる",
@@ -1047,29 +1047,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 94
   },
   {
-    "id": "1_96",
+    "id": "JLPTN3_96",
     "setId": "jlpt-n3",
     "japanese": "測る",
     "reading": "はかる",
     "meaning": "(길이, 높이, 속도 등을) 측정하다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": "1타",
     "sourceOrder": 95
   },
   {
-    "id": "1_97",
+    "id": "JLPTN3_97",
     "setId": "jlpt-n3",
     "japanese": "量る",
     "reading": "はかる",
     "meaning": "(무게, 중량 등을) 측정하다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": "1타",
     "sourceOrder": 96
   },
   {
-    "id": "1_98",
+    "id": "JLPTN3_98",
     "setId": "jlpt-n3",
     "japanese": "運ぶ",
     "reading": "はこぶ",
@@ -1080,7 +1080,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 97
   },
   {
-    "id": "1_99",
+    "id": "JLPTN3_99",
     "setId": "jlpt-n3",
     "japanese": "離す",
     "reading": "はなす",
@@ -1091,7 +1091,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 98
   },
   {
-    "id": "1_100",
+    "id": "JLPTN3_100",
     "setId": "jlpt-n3",
     "japanese": "冷える",
     "reading": "ひえる",
@@ -1102,7 +1102,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 99
   },
   {
-    "id": "1_101",
+    "id": "JLPTN3_101",
     "setId": "jlpt-n3",
     "japanese": "光る",
     "reading": "ひかる",
@@ -1113,18 +1113,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 100
   },
   {
-    "id": "1_102",
+    "id": "JLPTN3_102",
     "setId": "jlpt-n3",
     "japanese": "引き受ける",
     "reading": "ひきうける",
-    "meaning": "일, 책임, 부탁 등을 맡아 받아들이다",
+    "meaning": "일을 맡다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": "2타",
     "sourceOrder": 101
   },
   {
-    "id": "1_103",
+    "id": "JLPTN3_103",
     "setId": "jlpt-n3",
     "japanese": "拾う",
     "reading": "ひろう",
@@ -1135,51 +1135,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 102
   },
   {
-    "id": "1_104",
+    "id": "JLPTN3_104",
     "setId": "jlpt-n3",
     "japanese": "拭く",
     "reading": "ふく",
     "meaning": "(물기, 먼지 등을) 닦아 내다",
     "type": "verb",
-    "difficulty": 29,
+    "difficulty": 27,
     "verbInfo": "1타",
     "sourceOrder": 103
   },
   {
-    "id": "1_105",
+    "id": "JLPTN3_105",
     "setId": "jlpt-n3",
     "japanese": "防ぐ",
     "reading": "ふせぐ",
     "meaning": "막다, 방지하다",
     "type": "verb",
-    "difficulty": 37,
+    "difficulty": 29,
     "verbInfo": "1타",
     "sourceOrder": 104
   },
   {
-    "id": "1_106",
+    "id": "JLPTN3_106",
     "setId": "jlpt-n3",
     "japanese": "触れる",
     "reading": "ふれる",
-    "meaning": "<자동사> 닿다 <타동사> 만지다",
+    "meaning": "닿다",
     "type": "verb",
-    "difficulty": 39,
+    "difficulty": 35,
     "verbInfo": "2자",
     "sourceOrder": 105
   },
   {
-    "id": "1_107",
+    "id": "JLPTN3_107",
     "setId": "jlpt-n3",
     "japanese": "干す",
     "reading": "ほす",
     "meaning": "(빨래를) 말리다, 건조시키다, 널다",
     "type": "verb",
-    "difficulty": 33,
+    "difficulty": 32,
     "verbInfo": "1타",
     "sourceOrder": 106
   },
   {
-    "id": "1_108",
+    "id": "JLPTN3_108",
     "setId": "jlpt-n3",
     "japanese": "曲げる",
     "reading": "まげる",
@@ -1190,7 +1190,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 107
   },
   {
-    "id": "1_109",
+    "id": "JLPTN3_109",
     "setId": "jlpt-n3",
     "japanese": "混ぜる",
     "reading": "まぜる",
@@ -1201,18 +1201,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 108
   },
   {
-    "id": "1_110",
+    "id": "JLPTN3_110",
     "setId": "jlpt-n3",
     "japanese": "待ち合わせる",
     "reading": "まちあわせる",
     "meaning": "(장소, 시간을 정하고) 만나기로 하다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 29,
     "verbInfo": "2자",
     "sourceOrder": 109
   },
   {
-    "id": "1_111",
+    "id": "JLPTN3_111",
     "setId": "jlpt-n3",
     "japanese": "学ぶ",
     "reading": "まなぶ",
@@ -1223,29 +1223,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 110
   },
   {
-    "id": "1_112",
+    "id": "JLPTN3_112",
     "setId": "jlpt-n3",
     "japanese": "間に合う",
     "reading": "まにあう",
-    "meaning": "시간에 대다, 시간에 맞추다",
+    "meaning": "제 시간에 맞다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 27,
     "verbInfo": "1자",
     "sourceOrder": 111
   },
   {
-    "id": "1_113",
+    "id": "JLPTN3_113",
     "setId": "jlpt-n3",
     "japanese": "守る",
     "reading": "まもる",
-    "meaning": "지키다",
+    "meaning": "지키다, 보호하다",
     "type": "verb",
-    "difficulty": 22,
+    "difficulty": 21,
     "verbInfo": "1타",
     "sourceOrder": 112
   },
   {
-    "id": "1_114",
+    "id": "JLPTN3_114",
     "setId": "jlpt-n3",
     "japanese": "回す",
     "reading": "まわす",
@@ -1256,7 +1256,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 113
   },
   {
-    "id": "1_115",
+    "id": "JLPTN3_115",
     "setId": "jlpt-n3",
     "japanese": "見つける",
     "reading": "みつける",
@@ -1267,7 +1267,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 114
   },
   {
-    "id": "1_116",
+    "id": "JLPTN3_116",
     "setId": "jlpt-n3",
     "japanese": "結ぶ",
     "reading": "むすぶ",
@@ -1278,29 +1278,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 115
   },
   {
-    "id": "1_117",
+    "id": "JLPTN3_117",
     "setId": "jlpt-n3",
     "japanese": "申し込む",
     "reading": "もうしこむ",
     "meaning": "신청하다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": "1타",
     "sourceOrder": 116
   },
   {
-    "id": "1_118",
+    "id": "JLPTN3_118",
     "setId": "jlpt-n3",
     "japanese": "燃える",
     "reading": "もえる",
     "meaning": "(불에) 타다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 24,
     "verbInfo": "2자",
     "sourceOrder": 117
   },
   {
-    "id": "1_119",
+    "id": "JLPTN3_119",
     "setId": "jlpt-n3",
     "japanese": "焼く",
     "reading": "やく",
@@ -1311,40 +1311,40 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 118
   },
   {
-    "id": "1_120",
+    "id": "JLPTN3_120",
     "setId": "jlpt-n3",
     "japanese": "破る",
     "reading": "やぶる",
     "meaning": "(종이, 봉투 등을) 찢다, (규칙, 약속 등을) 어기다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 28,
     "verbInfo": "1타",
     "sourceOrder": 119
   },
   {
-    "id": "1_121",
+    "id": "JLPTN3_121",
     "setId": "jlpt-n3",
     "japanese": "破れる",
     "reading": "やぶれる",
     "meaning": "(종이, 천 등이) 찢어지다, 해어지다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": "2자",
     "sourceOrder": 120
   },
   {
-    "id": "1_122",
+    "id": "JLPTN3_122",
     "setId": "jlpt-n3",
     "japanese": "許す",
     "reading": "ゆるす",
     "meaning": "허락하다, 용서하다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 121
   },
   {
-    "id": "1_123",
+    "id": "JLPTN3_123",
     "setId": "jlpt-n3",
     "japanese": "揺れる",
     "reading": "ゆれる",
@@ -1355,7 +1355,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 122
   },
   {
-    "id": "1_124",
+    "id": "JLPTN3_124",
     "setId": "jlpt-n3",
     "japanese": "汚れる",
     "reading": "よごれる",
@@ -1366,18 +1366,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 123
   },
   {
-    "id": "1_125",
+    "id": "JLPTN3_125",
     "setId": "jlpt-n3",
     "japanese": "呼びかける",
     "reading": "よびかける",
-    "meaning": "호소하다, 당부하다",
+    "meaning": "호소하다, 부르다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": "2자",
     "sourceOrder": 124
   },
   {
-    "id": "1_126",
+    "id": "JLPTN3_126",
     "setId": "jlpt-n3",
     "japanese": "渡す",
     "reading": "わたす",
@@ -1388,7 +1388,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 125
   },
   {
-    "id": "1_127",
+    "id": "JLPTN3_127",
     "setId": "jlpt-n3",
     "japanese": "割れる",
     "reading": "われる",
@@ -1399,7 +1399,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 126
   },
   {
-    "id": "1_128",
+    "id": "JLPTN3_128",
     "setId": "jlpt-n3",
     "japanese": "浅い",
     "reading": "あさい",
@@ -1410,7 +1410,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 127
   },
   {
-    "id": "1_129",
+    "id": "JLPTN3_129",
     "setId": "jlpt-n3",
     "japanese": "厚い",
     "reading": "あつい",
@@ -1421,29 +1421,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 128
   },
   {
-    "id": "1_130",
+    "id": "JLPTN3_130",
     "setId": "jlpt-n3",
     "japanese": "甘い",
     "reading": "あまい",
-    "meaning": "(맛이) 달다, 엄하지 않다",
+    "meaning": "(맛이) 달다, 기준이 느슨하다",
     "type": "i_adj",
     "difficulty": 18,
     "verbInfo": null,
     "sourceOrder": 129
   },
   {
-    "id": "1_131",
+    "id": "JLPTN3_131",
     "setId": "jlpt-n3",
     "japanese": "怪しい",
     "reading": "あやしい",
     "meaning": "수상하다",
     "type": "i_adj",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 130
   },
   {
-    "id": "1_132",
+    "id": "JLPTN3_132",
     "setId": "jlpt-n3",
     "japanese": "薄い",
     "reading": "うすい",
@@ -1454,7 +1454,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 131
   },
   {
-    "id": "1_133",
+    "id": "JLPTN3_133",
     "setId": "jlpt-n3",
     "japanese": "美しい",
     "reading": "うつくしい",
@@ -1465,7 +1465,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 132
   },
   {
-    "id": "1_134",
+    "id": "JLPTN3_134",
     "setId": "jlpt-n3",
     "japanese": "偉い",
     "reading": "えらい",
@@ -1476,18 +1476,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 133
   },
   {
-    "id": "1_135",
+    "id": "JLPTN3_135",
     "setId": "jlpt-n3",
     "japanese": "惜しい",
     "reading": "おしい",
     "meaning": "아깝다, 애석하다",
     "type": "i_adj",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 134
   },
   {
-    "id": "1_136",
+    "id": "JLPTN3_136",
     "setId": "jlpt-n3",
     "japanese": "悲しい",
     "reading": "かなしい",
@@ -1498,7 +1498,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 135
   },
   {
-    "id": "1_137",
+    "id": "JLPTN3_137",
     "setId": "jlpt-n3",
     "japanese": "辛い",
     "reading": "からい",
@@ -1509,7 +1509,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 136
   },
   {
-    "id": "1_138",
+    "id": "JLPTN3_138",
     "setId": "jlpt-n3",
     "japanese": "汚い",
     "reading": "きたない",
@@ -1520,18 +1520,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 137
   },
   {
-    "id": "1_139",
+    "id": "JLPTN3_139",
     "setId": "jlpt-n3",
     "japanese": "厳しい",
     "reading": "きびしい",
     "meaning": "엄격하다",
     "type": "i_adj",
-    "difficulty": 35,
+    "difficulty": 30,
     "verbInfo": null,
     "sourceOrder": 138
   },
   {
-    "id": "1_140",
+    "id": "JLPTN3_140",
     "setId": "jlpt-n3",
     "japanese": "暗い",
     "reading": "くらい",
@@ -1542,7 +1542,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 139
   },
   {
-    "id": "1_141",
+    "id": "JLPTN3_141",
     "setId": "jlpt-n3",
     "japanese": "苦しい",
     "reading": "くるしい",
@@ -1553,29 +1553,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 140
   },
   {
-    "id": "1_142",
+    "id": "JLPTN3_142",
     "setId": "jlpt-n3",
     "japanese": "詳しい",
     "reading": "くわしい",
     "meaning": "자세하다, 상세하다, 잘 알고 있다",
     "type": "i_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 141
   },
   {
-    "id": "1_143",
+    "id": "JLPTN3_143",
     "setId": "jlpt-n3",
     "japanese": "恋しい",
     "reading": "こいしい",
     "meaning": "(사람/장소 등이) 그립다",
     "type": "i_adj",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 142
   },
   {
-    "id": "1_144",
+    "id": "JLPTN3_144",
     "setId": "jlpt-n3",
     "japanese": "細かい",
     "reading": "こまかい",
@@ -1586,29 +1586,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 143
   },
   {
-    "id": "1_145",
+    "id": "JLPTN3_145",
     "setId": "jlpt-n3",
     "japanese": "親しい",
     "reading": "したしい",
     "meaning": "친하다",
     "type": "i_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 144
   },
   {
-    "id": "1_146",
+    "id": "JLPTN3_146",
     "setId": "jlpt-n3",
     "japanese": "懐かしい",
     "reading": "なつかしい",
     "meaning": "(옛 추억이) 그립다",
     "type": "i_adj",
-    "difficulty": 33,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 145
   },
   {
-    "id": "1_147",
+    "id": "JLPTN3_147",
     "setId": "jlpt-n3",
     "japanese": "深い",
     "reading": "ふかい",
@@ -1619,7 +1619,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 146
   },
   {
-    "id": "1_148",
+    "id": "JLPTN3_148",
     "setId": "jlpt-n3",
     "japanese": "細い",
     "reading": "ほそい",
@@ -1630,18 +1630,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 147
   },
   {
-    "id": "1_149",
+    "id": "JLPTN3_149",
     "setId": "jlpt-n3",
     "japanese": "貧しい",
     "reading": "まずしい",
     "meaning": "가난하다",
     "type": "i_adj",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 148
   },
   {
-    "id": "1_150",
+    "id": "JLPTN3_150",
     "setId": "jlpt-n3",
     "japanese": "丸い",
     "reading": "まるい",
@@ -1652,7 +1652,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 149
   },
   {
-    "id": "1_151",
+    "id": "JLPTN3_151",
     "setId": "jlpt-n3",
     "japanese": "短い",
     "reading": "みじかい",
@@ -1663,7 +1663,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 150
   },
   {
-    "id": "1_152",
+    "id": "JLPTN3_152",
     "setId": "jlpt-n3",
     "japanese": "易しい",
     "reading": "やさしい",
@@ -1674,7 +1674,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 151
   },
   {
-    "id": "1_153",
+    "id": "JLPTN3_153",
     "setId": "jlpt-n3",
     "japanese": "優しい",
     "reading": "やさしい",
@@ -1685,18 +1685,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 152
   },
   {
-    "id": "1_154",
+    "id": "JLPTN3_154",
     "setId": "jlpt-n3",
     "japanese": "緩い",
     "reading": "ゆるい",
     "meaning": "느슨하다, 엄하지 않다",
     "type": "i_adj",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 153
   },
   {
-    "id": "1_155",
+    "id": "JLPTN3_155",
     "setId": "jlpt-n3",
     "japanese": "若い",
     "reading": "わかい",
@@ -1707,51 +1707,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 154
   },
   {
-    "id": "1_156",
+    "id": "JLPTN3_156",
     "setId": "jlpt-n3",
     "japanese": "一般的だ",
     "reading": "いっぱんてきだ",
     "meaning": "일반적이다",
     "type": "na_adj",
-    "difficulty": 42,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 155
   },
   {
-    "id": "1_157",
+    "id": "JLPTN3_157",
     "setId": "jlpt-n3",
     "japanese": "主だ",
     "reading": "おもだ",
     "meaning": "주되다",
     "type": "na_adj",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 156
   },
   {
-    "id": "1_158",
+    "id": "JLPTN3_158",
     "setId": "jlpt-n3",
     "japanese": "確実だ",
     "reading": "かくじつだ",
     "meaning": "확실하다",
     "type": "na_adj",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 157
   },
   {
-    "id": "1_159",
+    "id": "JLPTN3_159",
     "setId": "jlpt-n3",
     "japanese": "感情的だ",
     "reading": "かんじょうてきだ",
     "meaning": "감정적이다",
     "type": "na_adj",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 158
   },
   {
-    "id": "1_160",
+    "id": "JLPTN3_160",
     "setId": "jlpt-n3",
     "japanese": "簡単だ",
     "reading": "かんたんだ",
@@ -1762,249 +1762,249 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 159
   },
   {
-    "id": "1_161",
+    "id": "JLPTN3_161",
     "setId": "jlpt-n3",
     "japanese": "具体的だ",
     "reading": "ぐたいてきだ",
     "meaning": "구체적이다",
     "type": "na_adj",
-    "difficulty": 42,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 160
   },
   {
-    "id": "1_162",
+    "id": "JLPTN3_162",
     "setId": "jlpt-n3",
     "japanese": "盛んだ",
     "reading": "さかんだ",
     "meaning": "활발하다, 성행하다",
     "type": "na_adj",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 161
   },
   {
-    "id": "1_163",
+    "id": "JLPTN3_163",
     "setId": "jlpt-n3",
     "japanese": "実用的だ",
     "reading": "じつようてきだ",
     "meaning": "실용적이다",
     "type": "na_adj",
-    "difficulty": 44,
+    "difficulty": 38,
     "verbInfo": null,
     "sourceOrder": 162
   },
   {
-    "id": "1_164",
+    "id": "JLPTN3_164",
     "setId": "jlpt-n3",
     "japanese": "重要だ",
     "reading": "じゅうようだ",
     "meaning": "중요하다",
     "type": "na_adj",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 163
   },
   {
-    "id": "1_165",
+    "id": "JLPTN3_165",
     "setId": "jlpt-n3",
     "japanese": "主要だ",
     "reading": "しゅようだ",
     "meaning": "주요하다",
     "type": "na_adj",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 164
   },
   {
-    "id": "1_166",
+    "id": "JLPTN3_166",
     "setId": "jlpt-n3",
     "japanese": "正直だ",
     "reading": "しょうじきだ",
     "meaning": "정직하다",
     "type": "na_adj",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 165
   },
   {
-    "id": "1_167",
+    "id": "JLPTN3_167",
     "setId": "jlpt-n3",
     "japanese": "新鮮だ",
     "reading": "しんせんだ",
     "meaning": "신선하다",
     "type": "na_adj",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 166
   },
   {
-    "id": "1_168",
+    "id": "JLPTN3_168",
     "setId": "jlpt-n3",
     "japanese": "正確だ",
     "reading": "せいかくだ",
     "meaning": "정확하다",
     "type": "na_adj",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 167
   },
   {
-    "id": "1_169",
+    "id": "JLPTN3_169",
     "setId": "jlpt-n3",
     "japanese": "清潔だ",
     "reading": "せいけつだ",
     "meaning": "청결하다",
     "type": "na_adj",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 168
   },
   {
-    "id": "1_170",
+    "id": "JLPTN3_170",
     "setId": "jlpt-n3",
     "japanese": "積極的だ",
     "reading": "せっきょくてきだ",
     "meaning": "적극적이다",
     "type": "na_adj",
-    "difficulty": 45,
+    "difficulty": 39,
     "verbInfo": null,
     "sourceOrder": 169
   },
   {
-    "id": "1_171",
+    "id": "JLPTN3_171",
     "setId": "jlpt-n3",
     "japanese": "退屈だ",
     "reading": "たいくつだ",
     "meaning": "따분하다",
     "type": "na_adj",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 170
   },
   {
-    "id": "1_172",
+    "id": "JLPTN3_172",
     "setId": "jlpt-n3",
     "japanese": "代表的だ",
     "reading": "だいひょうてきだ",
     "meaning": "대표적이다",
     "type": "na_adj",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 171
   },
   {
-    "id": "1_173",
+    "id": "JLPTN3_173",
     "setId": "jlpt-n3",
     "japanese": "短気だ",
     "reading": "たんきだ",
     "meaning": "성미가 급하다",
     "type": "na_adj",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 172
   },
   {
-    "id": "1_174",
+    "id": "JLPTN3_174",
     "setId": "jlpt-n3",
     "japanese": "単純だ",
     "reading": "たんじゅんだ",
     "meaning": "단순하다",
     "type": "na_adj",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 173
   },
   {
-    "id": "1_175",
+    "id": "JLPTN3_175",
     "setId": "jlpt-n3",
     "japanese": "得意だ",
     "reading": "とくいだ",
     "meaning": "잘한다, 숙련되다",
     "type": "na_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 174
   },
   {
-    "id": "1_176",
+    "id": "JLPTN3_176",
     "setId": "jlpt-n3",
     "japanese": "苦手だ",
     "reading": "にがてだ",
     "meaning": "서투르다, 질색이다",
     "type": "na_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 175
   },
   {
-    "id": "1_177",
+    "id": "JLPTN3_177",
     "setId": "jlpt-n3",
     "japanese": "派手だ",
     "reading": "はでだ",
     "meaning": "화려하다",
     "type": "na_adj",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 176
   },
   {
-    "id": "1_178",
+    "id": "JLPTN3_178",
     "setId": "jlpt-n3",
     "japanese": "不安だ",
     "reading": "ふぁんだ",
     "meaning": "불안하다",
     "type": "na_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 177
   },
   {
-    "id": "1_179",
+    "id": "JLPTN3_179",
     "setId": "jlpt-n3",
     "japanese": "複雑だ",
     "reading": "ふくざつだ",
     "meaning": "복잡하다",
     "type": "na_adj",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 178
   },
   {
-    "id": "1_180",
+    "id": "JLPTN3_180",
     "setId": "jlpt-n3",
     "japanese": "無事だ",
     "reading": "ぶじだ",
     "meaning": "무사하다",
     "type": "na_adj",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 179
   },
   {
-    "id": "1_181",
+    "id": "JLPTN3_181",
     "setId": "jlpt-n3",
     "japanese": "立派だ",
     "reading": "りっぱだ",
     "meaning": "훌륭하다",
     "type": "na_adj",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 180
   },
   {
-    "id": "1_182",
+    "id": "JLPTN3_182",
     "setId": "jlpt-n3",
     "japanese": "合図",
     "reading": "あいず",
     "meaning": "(눈짓, 몸짓, 손짓, 소리 등의) 신호",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 181
   },
   {
-    "id": "1_183",
+    "id": "JLPTN3_183",
     "setId": "jlpt-n3",
     "japanese": "相手",
     "reading": "あいて",
@@ -2015,7 +2015,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 182
   },
   {
-    "id": "1_184",
+    "id": "JLPTN3_184",
     "setId": "jlpt-n3",
     "japanese": "穴",
     "reading": "あな",
@@ -2026,7 +2026,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 183
   },
   {
-    "id": "1_185",
+    "id": "JLPTN3_185",
     "setId": "jlpt-n3",
     "japanese": "油",
     "reading": "あぶら",
@@ -2037,18 +2037,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 184
   },
   {
-    "id": "1_186",
+    "id": "JLPTN3_186",
     "setId": "jlpt-n3",
     "japanese": "泡",
     "reading": "あわ",
     "meaning": "거품",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 185
   },
   {
-    "id": "1_187",
+    "id": "JLPTN3_187",
     "setId": "jlpt-n3",
     "japanese": "以下",
     "reading": "いか",
@@ -2059,7 +2059,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 186
   },
   {
-    "id": "1_188",
+    "id": "JLPTN3_188",
     "setId": "jlpt-n3",
     "japanese": "息",
     "reading": "いき",
@@ -2070,7 +2070,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 187
   },
   {
-    "id": "1_189",
+    "id": "JLPTN3_189",
     "setId": "jlpt-n3",
     "japanese": "行き先",
     "reading": "いきさき(ゆきさき)",
@@ -2081,51 +2081,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 188
   },
   {
-    "id": "1_190",
+    "id": "JLPTN3_190",
     "setId": "jlpt-n3",
     "japanese": "以降",
     "reading": "いこう",
     "meaning": "이후",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 189
   },
   {
-    "id": "1_191",
+    "id": "JLPTN3_191",
     "setId": "jlpt-n3",
     "japanese": "意識",
     "reading": "いしき",
     "meaning": "의식",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 190
   },
   {
-    "id": "1_192",
+    "id": "JLPTN3_192",
     "setId": "jlpt-n3",
     "japanese": "板",
     "reading": "いた",
     "meaning": "판자, 널빤지",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 191
   },
   {
-    "id": "1_193",
+    "id": "JLPTN3_193",
     "setId": "jlpt-n3",
     "japanese": "位置",
     "reading": "いち",
     "meaning": "위치",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 192
   },
   {
-    "id": "1_194",
+    "id": "JLPTN3_194",
     "setId": "jlpt-n3",
     "japanese": "一秒",
     "reading": "いちびょう",
@@ -2136,84 +2136,84 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 193
   },
   {
-    "id": "1_195",
+    "id": "JLPTN3_195",
     "setId": "jlpt-n3",
     "japanese": "移転",
     "reading": "いてん",
     "meaning": "이전",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 194
   },
   {
-    "id": "1_196",
+    "id": "JLPTN3_196",
     "setId": "jlpt-n3",
     "japanese": "移動",
     "reading": "いどう",
     "meaning": "이동",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 195
   },
   {
-    "id": "1_197",
+    "id": "JLPTN3_197",
     "setId": "jlpt-n3",
     "japanese": "印象",
     "reading": "いんしょう",
     "meaning": "인상",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 196
   },
   {
-    "id": "1_198",
+    "id": "JLPTN3_198",
     "setId": "jlpt-n3",
     "japanese": "右折",
     "reading": "うせつ",
     "meaning": "우회전",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 197
   },
   {
-    "id": "1_199",
+    "id": "JLPTN3_199",
     "setId": "jlpt-n3",
     "japanese": "裏側",
     "reading": "うらがわ",
     "meaning": "뒤쪽, 안쪽",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 198
   },
   {
-    "id": "1_200",
+    "id": "JLPTN3_200",
     "setId": "jlpt-n3",
     "japanese": "影響",
     "reading": "えいきょう",
     "meaning": "영향",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 199
   },
   {
-    "id": "1_201",
+    "id": "JLPTN3_201",
     "setId": "jlpt-n3",
     "japanese": "栄養",
     "reading": "えいよう",
     "meaning": "영양",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 200
   },
   {
-    "id": "1_202",
+    "id": "JLPTN3_202",
     "setId": "jlpt-n3",
     "japanese": "笑顔",
     "reading": "えがお",
@@ -2224,7 +2224,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 201
   },
   {
-    "id": "1_203",
+    "id": "JLPTN3_203",
     "setId": "jlpt-n3",
     "japanese": "枝",
     "reading": "えだ",
@@ -2235,18 +2235,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 202
   },
   {
-    "id": "1_204",
+    "id": "JLPTN3_204",
     "setId": "jlpt-n3",
     "japanese": "演奏",
     "reading": "えんそう",
     "meaning": "연주",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 203
   },
   {
-    "id": "1_205",
+    "id": "JLPTN3_205",
     "setId": "jlpt-n3",
     "japanese": "お祝い",
     "reading": "おいわい",
@@ -2257,84 +2257,84 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 204
   },
   {
-    "id": "1_206",
+    "id": "JLPTN3_206",
     "setId": "jlpt-n3",
     "japanese": "応援",
     "reading": "おうえん",
     "meaning": "응원",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 205
   },
   {
-    "id": "1_207",
+    "id": "JLPTN3_207",
     "setId": "jlpt-n3",
     "japanese": "横断",
     "reading": "おうだん",
     "meaning": "횡단",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 206
   },
   {
-    "id": "1_208",
+    "id": "JLPTN3_208",
     "setId": "jlpt-n3",
     "japanese": "往復",
     "reading": "おうふく",
     "meaning": "왕복",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 207
   },
   {
-    "id": "1_209",
+    "id": "JLPTN3_209",
     "setId": "jlpt-n3",
     "japanese": "応募",
     "reading": "おうぼ",
     "meaning": "응모",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 208
   },
   {
-    "id": "1_210",
+    "id": "JLPTN3_210",
     "setId": "jlpt-n3",
     "japanese": "応用",
     "reading": "おうよう",
     "meaning": "응용",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 209
   },
   {
-    "id": "1_211",
+    "id": "JLPTN3_211",
     "setId": "jlpt-n3",
     "japanese": "お代わり",
     "reading": "おかわり",
     "meaning": "한 그릇 더 먹음, 리필",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 210
   },
   {
-    "id": "1_212",
+    "id": "JLPTN3_212",
     "setId": "jlpt-n3",
     "japanese": "お見舞い",
     "reading": "おみまい",
     "meaning": "병문안",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 211
   },
   {
-    "id": "1_213",
+    "id": "JLPTN3_213",
     "setId": "jlpt-n3",
     "japanese": "温泉",
     "reading": "おんせん",
@@ -2345,84 +2345,84 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 212
   },
   {
-    "id": "1_214",
+    "id": "JLPTN3_214",
     "setId": "jlpt-n3",
     "japanese": "会計",
     "reading": "かいけい",
     "meaning": "회계, 계산",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 213
   },
   {
-    "id": "1_215",
+    "id": "JLPTN3_215",
     "setId": "jlpt-n3",
     "japanese": "改札(口)",
     "reading": "かいさつ(ぐち)",
     "meaning": "개찰(구)",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 214
   },
   {
-    "id": "1_216",
+    "id": "JLPTN3_216",
     "setId": "jlpt-n3",
     "japanese": "回収",
     "reading": "かいしゅう",
     "meaning": "회수",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 215
   },
   {
-    "id": "1_217",
+    "id": "JLPTN3_217",
     "setId": "jlpt-n3",
     "japanese": "香り",
     "reading": "かおり",
     "meaning": "향기",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 216
   },
   {
-    "id": "1_218",
+    "id": "JLPTN3_218",
     "setId": "jlpt-n3",
     "japanese": "各自",
     "reading": "かくじ",
     "meaning": "각자",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 217
   },
   {
-    "id": "1_219",
+    "id": "JLPTN3_219",
     "setId": "jlpt-n3",
     "japanese": "各地",
     "reading": "かくち",
     "meaning": "각지",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 218
   },
   {
-    "id": "1_220",
+    "id": "JLPTN3_220",
     "setId": "jlpt-n3",
     "japanese": "確認",
     "reading": "かくにん",
     "meaning": "확인",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 219
   },
   {
-    "id": "1_221",
+    "id": "JLPTN3_221",
     "setId": "jlpt-n3",
     "japanese": "過去",
     "reading": "かこ",
@@ -2433,7 +2433,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 220
   },
   {
-    "id": "1_222",
+    "id": "JLPTN3_222",
     "setId": "jlpt-n3",
     "japanese": "数",
     "reading": "かず",
@@ -2444,18 +2444,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 221
   },
   {
-    "id": "1_223",
+    "id": "JLPTN3_223",
     "setId": "jlpt-n3",
     "japanese": "下線",
     "reading": "かせん",
     "meaning": "밑줄",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 222
   },
   {
-    "id": "1_224",
+    "id": "JLPTN3_224",
     "setId": "jlpt-n3",
     "japanese": "肩",
     "reading": "かた",
@@ -2466,7 +2466,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 223
   },
   {
-    "id": "1_225",
+    "id": "JLPTN3_225",
     "setId": "jlpt-n3",
     "japanese": "形",
     "reading": "かたち",
@@ -2477,95 +2477,95 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 224
   },
   {
-    "id": "1_226",
+    "id": "JLPTN3_226",
     "setId": "jlpt-n3",
     "japanese": "片方",
     "reading": "かたほう",
     "meaning": "한쪽",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 225
   },
   {
-    "id": "1_227",
+    "id": "JLPTN3_227",
     "setId": "jlpt-n3",
     "japanese": "片道",
     "reading": "かたみち",
     "meaning": "편도",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 226
   },
   {
-    "id": "1_228",
+    "id": "JLPTN3_228",
     "setId": "jlpt-n3",
     "japanese": "価値",
     "reading": "かち",
     "meaning": "가치",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 227
   },
   {
-    "id": "1_229",
+    "id": "JLPTN3_229",
     "setId": "jlpt-n3",
     "japanese": "活気",
     "reading": "かっき",
     "meaning": "활기",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 228
   },
   {
-    "id": "1_230",
+    "id": "JLPTN3_230",
     "setId": "jlpt-n3",
     "japanese": "楽器",
     "reading": "がっき",
     "meaning": "악기",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 229
   },
   {
-    "id": "1_231",
+    "id": "JLPTN3_231",
     "setId": "jlpt-n3",
     "japanese": "活動",
     "reading": "かつどう",
     "meaning": "활동",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 230
   },
   {
-    "id": "1_232",
+    "id": "JLPTN3_232",
     "setId": "jlpt-n3",
     "japanese": "仮定",
     "reading": "かてい",
     "meaning": "가정",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 231
   },
   {
-    "id": "1_233",
+    "id": "JLPTN3_233",
     "setId": "jlpt-n3",
     "japanese": "我慢",
     "reading": "がまん",
     "meaning": "참음",
     "type": "noun",
-    "difficulty": 42,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 232
   },
   {
-    "id": "1_234",
+    "id": "JLPTN3_234",
     "setId": "jlpt-n3",
     "japanese": "空",
     "reading": "から",
@@ -2576,7 +2576,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 233
   },
   {
-    "id": "1_235",
+    "id": "JLPTN3_235",
     "setId": "jlpt-n3",
     "japanese": "皮",
     "reading": "かわ",
@@ -2587,161 +2587,161 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 234
   },
   {
-    "id": "1_236",
+    "id": "JLPTN3_236",
     "setId": "jlpt-n3",
     "japanese": "間隔",
     "reading": "かんかく",
     "meaning": "간격",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 235
   },
   {
-    "id": "1_237",
+    "id": "JLPTN3_237",
     "setId": "jlpt-n3",
     "japanese": "感覚",
     "reading": "かんかく",
     "meaning": "감각",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 236
   },
   {
-    "id": "1_238",
+    "id": "JLPTN3_238",
     "setId": "jlpt-n3",
     "japanese": "観客",
     "reading": "かんきゃく",
     "meaning": "관객",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 237
   },
   {
-    "id": "1_239",
+    "id": "JLPTN3_239",
     "setId": "jlpt-n3",
     "japanese": "環境",
     "reading": "かんきょう",
     "meaning": "환경",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 238
   },
   {
-    "id": "1_240",
+    "id": "JLPTN3_240",
     "setId": "jlpt-n3",
     "japanese": "関係",
     "reading": "かんけい",
     "meaning": "관계",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 239
   },
   {
-    "id": "1_241",
+    "id": "JLPTN3_241",
     "setId": "jlpt-n3",
     "japanese": "感激",
     "reading": "かんげき",
     "meaning": "감격",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 240
   },
   {
-    "id": "1_242",
+    "id": "JLPTN3_242",
     "setId": "jlpt-n3",
     "japanese": "観光",
     "reading": "かんこう",
     "meaning": "관광",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 241
   },
   {
-    "id": "1_243",
+    "id": "JLPTN3_243",
     "setId": "jlpt-n3",
     "japanese": "観察",
     "reading": "かんさつ",
     "meaning": "관찰",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 242
   },
   {
-    "id": "1_244",
+    "id": "JLPTN3_244",
     "setId": "jlpt-n3",
     "japanese": "関心",
     "reading": "かんしん",
     "meaning": "관심",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 243
   },
   {
-    "id": "1_245",
+    "id": "JLPTN3_245",
     "setId": "jlpt-n3",
     "japanese": "完成",
     "reading": "かんせい",
     "meaning": "완성",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 244
   },
   {
-    "id": "1_246",
+    "id": "JLPTN3_246",
     "setId": "jlpt-n3",
     "japanese": "機械",
     "reading": "きかい",
     "meaning": "기계",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 245
   },
   {
-    "id": "1_247",
+    "id": "JLPTN3_247",
     "setId": "jlpt-n3",
     "japanese": "機会",
     "reading": "きかい",
     "meaning": "기회",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 246
   },
   {
-    "id": "1_248",
+    "id": "JLPTN3_248",
     "setId": "jlpt-n3",
     "japanese": "期限",
     "reading": "きげん",
     "meaning": "기한",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 247
   },
   {
-    "id": "1_249",
+    "id": "JLPTN3_249",
     "setId": "jlpt-n3",
     "japanese": "技術",
     "reading": "ぎじゅつ",
     "meaning": "기술",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 248
   },
   {
-    "id": "1_250",
+    "id": "JLPTN3_250",
     "setId": "jlpt-n3",
     "japanese": "傷",
     "reading": "きず",
@@ -2752,51 +2752,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 249
   },
   {
-    "id": "1_251",
+    "id": "JLPTN3_251",
     "setId": "jlpt-n3",
     "japanese": "基礎",
     "reading": "きそ",
     "meaning": "기초",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 250
   },
   {
-    "id": "1_252",
+    "id": "JLPTN3_252",
     "setId": "jlpt-n3",
     "japanese": "規則",
     "reading": "きそく",
     "meaning": "규칙",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 251
   },
   {
-    "id": "1_253",
+    "id": "JLPTN3_253",
     "setId": "jlpt-n3",
     "japanese": "期待",
     "reading": "きたい",
     "meaning": "기대",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 252
   },
   {
-    "id": "1_254",
+    "id": "JLPTN3_254",
     "setId": "jlpt-n3",
     "japanese": "帰宅",
     "reading": "きたく",
     "meaning": "귀가",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 253
   },
   {
-    "id": "1_255",
+    "id": "JLPTN3_255",
     "setId": "jlpt-n3",
     "japanese": "切手",
     "reading": "きって",
@@ -2807,40 +2807,40 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 254
   },
   {
-    "id": "1_256",
+    "id": "JLPTN3_256",
     "setId": "jlpt-n3",
     "japanese": "記念",
     "reading": "きねん",
     "meaning": "기념",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 255
   },
   {
-    "id": "1_257",
+    "id": "JLPTN3_257",
     "setId": "jlpt-n3",
     "japanese": "基本",
     "reading": "きほん",
     "meaning": "기본",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 256
   },
   {
-    "id": "1_258",
+    "id": "JLPTN3_258",
     "setId": "jlpt-n3",
     "japanese": "逆",
     "reading": "ぎゃく",
     "meaning": "반대, 거꾸로임",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 257
   },
   {
-    "id": "1_259",
+    "id": "JLPTN3_259",
     "setId": "jlpt-n3",
     "japanese": "休日",
     "reading": "きゅうじつ",
@@ -2851,106 +2851,106 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 258
   },
   {
-    "id": "1_260",
+    "id": "JLPTN3_260",
     "setId": "jlpt-n3",
     "japanese": "教師",
     "reading": "きょうし",
     "meaning": "교사",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 259
   },
   {
-    "id": "1_261",
+    "id": "JLPTN3_261",
     "setId": "jlpt-n3",
     "japanese": "競争",
     "reading": "きょうそう",
     "meaning": "경쟁",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 260
   },
   {
-    "id": "1_262",
+    "id": "JLPTN3_262",
     "setId": "jlpt-n3",
     "japanese": "共通",
     "reading": "きょうつう",
     "meaning": "공통",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 261
   },
   {
-    "id": "1_263",
+    "id": "JLPTN3_263",
     "setId": "jlpt-n3",
     "japanese": "興味",
     "reading": "きょうみ",
     "meaning": "흥미",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 262
   },
   {
-    "id": "1_264",
+    "id": "JLPTN3_264",
     "setId": "jlpt-n3",
     "japanese": "協力",
     "reading": "きょうりょく",
     "meaning": "협력",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 263
   },
   {
-    "id": "1_265",
+    "id": "JLPTN3_265",
     "setId": "jlpt-n3",
     "japanese": "距離",
     "reading": "きょり",
     "meaning": "거리",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 264
   },
   {
-    "id": "1_266",
+    "id": "JLPTN3_266",
     "setId": "jlpt-n3",
     "japanese": "記録",
     "reading": "きろく",
     "meaning": "기록",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 265
   },
   {
-    "id": "1_267",
+    "id": "JLPTN3_267",
     "setId": "jlpt-n3",
     "japanese": "禁煙",
     "reading": "きんえん",
     "meaning": "금연",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 266
   },
   {
-    "id": "1_268",
+    "id": "JLPTN3_268",
     "setId": "jlpt-n3",
     "japanese": "禁止",
     "reading": "きんし",
     "meaning": "금지",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 267
   },
   {
-    "id": "1_269",
+    "id": "JLPTN3_269",
     "setId": "jlpt-n3",
     "japanese": "首",
     "reading": "くび",
@@ -2961,205 +2961,205 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 268
   },
   {
-    "id": "1_270",
+    "id": "JLPTN3_270",
     "setId": "jlpt-n3",
     "japanese": "工夫",
     "reading": "くふう",
     "meaning": "고안, 궁리",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 269
   },
   {
-    "id": "1_271",
+    "id": "JLPTN3_271",
     "setId": "jlpt-n3",
     "japanese": "区分",
     "reading": "くぶん",
     "meaning": "구분",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 270
   },
   {
-    "id": "1_272",
+    "id": "JLPTN3_272",
     "setId": "jlpt-n3",
     "japanese": "区別",
     "reading": "くべつ",
     "meaning": "구별",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 271
   },
   {
-    "id": "1_273",
+    "id": "JLPTN3_273",
     "setId": "jlpt-n3",
     "japanese": "訓練",
     "reading": "くんれん",
     "meaning": "훈련",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 272
   },
   {
-    "id": "1_274",
+    "id": "JLPTN3_274",
     "setId": "jlpt-n3",
     "japanese": "経営",
     "reading": "けいえい",
     "meaning": "경영",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 273
   },
   {
-    "id": "1_275",
+    "id": "JLPTN3_275",
     "setId": "jlpt-n3",
     "japanese": "計画",
     "reading": "けいかく",
     "meaning": "계획",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 274
   },
   {
-    "id": "1_276",
+    "id": "JLPTN3_276",
     "setId": "jlpt-n3",
     "japanese": "経験",
     "reading": "けいけん",
     "meaning": "경험",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 275
   },
   {
-    "id": "1_277",
+    "id": "JLPTN3_277",
     "setId": "jlpt-n3",
     "japanese": "経済",
     "reading": "けいざい",
     "meaning": "경제",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 276
   },
   {
-    "id": "1_278",
+    "id": "JLPTN3_278",
     "setId": "jlpt-n3",
     "japanese": "計算",
     "reading": "けいさん",
     "meaning": "계산",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 277
   },
   {
-    "id": "1_279",
+    "id": "JLPTN3_279",
     "setId": "jlpt-n3",
     "japanese": "経由",
     "reading": "けいゆ",
     "meaning": "경유",
     "type": "noun",
-    "difficulty": 42,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 278
   },
   {
-    "id": "1_280",
+    "id": "JLPTN3_280",
     "setId": "jlpt-n3",
     "japanese": "外科",
     "reading": "げか",
     "meaning": "외과",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 279
   },
   {
-    "id": "1_281",
+    "id": "JLPTN3_281",
     "setId": "jlpt-n3",
     "japanese": "景色",
     "reading": "けしき",
     "meaning": "경치",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 280
   },
   {
-    "id": "1_282",
+    "id": "JLPTN3_282",
     "setId": "jlpt-n3",
     "japanese": "血液",
     "reading": "けつえき",
     "meaning": "혈액",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 281
   },
   {
-    "id": "1_283",
+    "id": "JLPTN3_283",
     "setId": "jlpt-n3",
     "japanese": "欠席",
     "reading": "けっせき",
     "meaning": "결석",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 282
   },
   {
-    "id": "1_284",
+    "id": "JLPTN3_284",
     "setId": "jlpt-n3",
     "japanese": "欠点",
     "reading": "けってん",
     "meaning": "결점",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 283
   },
   {
-    "id": "1_285",
+    "id": "JLPTN3_285",
     "setId": "jlpt-n3",
     "japanese": "煙",
     "reading": "けむり",
     "meaning": "(불) 연기",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 284
   },
   {
-    "id": "1_286",
+    "id": "JLPTN3_286",
     "setId": "jlpt-n3",
     "japanese": "原因",
     "reading": "げんいん",
     "meaning": "원인",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 285
   },
   {
-    "id": "1_287",
+    "id": "JLPTN3_287",
     "setId": "jlpt-n3",
     "japanese": "研究",
     "reading": "けんきゅう",
     "meaning": "연구",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 286
   },
   {
-    "id": "1_288",
+    "id": "JLPTN3_288",
     "setId": "jlpt-n3",
     "japanese": "現金",
     "reading": "げんきん",
@@ -3170,7 +3170,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 287
   },
   {
-    "id": "1_289",
+    "id": "JLPTN3_289",
     "setId": "jlpt-n3",
     "japanese": "健康",
     "reading": "けんこう",
@@ -3181,161 +3181,161 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 288
   },
   {
-    "id": "1_290",
+    "id": "JLPTN3_290",
     "setId": "jlpt-n3",
     "japanese": "検査",
     "reading": "けんさ",
     "meaning": "검사",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 289
   },
   {
-    "id": "1_291",
+    "id": "JLPTN3_291",
     "setId": "jlpt-n3",
     "japanese": "現在",
     "reading": "げんざい",
     "meaning": "현재",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 290
   },
   {
-    "id": "1_292",
+    "id": "JLPTN3_292",
     "setId": "jlpt-n3",
     "japanese": "減少",
     "reading": "げんしょう",
     "meaning": "감소",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 291
   },
   {
-    "id": "1_293",
+    "id": "JLPTN3_293",
     "setId": "jlpt-n3",
     "japanese": "建設",
     "reading": "けんせつ",
     "meaning": "건설",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 292
   },
   {
-    "id": "1_294",
+    "id": "JLPTN3_294",
     "setId": "jlpt-n3",
     "japanese": "見物",
     "reading": "けんぶつ",
     "meaning": "구경",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 293
   },
   {
-    "id": "1_295",
+    "id": "JLPTN3_295",
     "setId": "jlpt-n3",
     "japanese": "原料",
     "reading": "げんりょう",
     "meaning": "원료",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 294
   },
   {
-    "id": "1_296",
+    "id": "JLPTN3_296",
     "setId": "jlpt-n3",
     "japanese": "講演",
     "reading": "こうえん",
     "meaning": "강연",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 295
   },
   {
-    "id": "1_297",
+    "id": "JLPTN3_297",
     "setId": "jlpt-n3",
     "japanese": "効果",
     "reading": "こうか",
     "meaning": "효과",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 296
   },
   {
-    "id": "1_298",
+    "id": "JLPTN3_298",
     "setId": "jlpt-n3",
     "japanese": "合計",
     "reading": "ごうけい",
     "meaning": "합계",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 297
   },
   {
-    "id": "1_299",
+    "id": "JLPTN3_299",
     "setId": "jlpt-n3",
     "japanese": "広告",
     "reading": "こうこく",
     "meaning": "광고",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 298
   },
   {
-    "id": "1_300",
+    "id": "JLPTN3_300",
     "setId": "jlpt-n3",
     "japanese": "交代",
     "reading": "こうたい",
     "meaning": "교대",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 299
   },
   {
-    "id": "1_301",
+    "id": "JLPTN3_301",
     "setId": "jlpt-n3",
     "japanese": "交替",
     "reading": "こうたい",
     "meaning": "교체",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 300
   },
   {
-    "id": "1_302",
+    "id": "JLPTN3_302",
     "setId": "jlpt-n3",
     "japanese": "行動",
     "reading": "こうどう",
     "meaning": "행동",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 301
   },
   {
-    "id": "1_303",
+    "id": "JLPTN3_303",
     "setId": "jlpt-n3",
     "japanese": "交流",
     "reading": "こうりゅう",
     "meaning": "교류",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 302
   },
   {
-    "id": "1_304",
+    "id": "JLPTN3_304",
     "setId": "jlpt-n3",
     "japanese": "氷",
     "reading": "こおり",
@@ -3346,51 +3346,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 303
   },
   {
-    "id": "1_305",
+    "id": "JLPTN3_305",
     "setId": "jlpt-n3",
     "japanese": "呼吸",
     "reading": "こきゅう",
     "meaning": "호흡",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 304
   },
   {
-    "id": "1_306",
+    "id": "JLPTN3_306",
     "setId": "jlpt-n3",
     "japanese": "腰",
     "reading": "こし",
     "meaning": "허리",
     "type": "noun",
-    "difficulty": 28,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 305
   },
   {
-    "id": "1_307",
+    "id": "JLPTN3_307",
     "setId": "jlpt-n3",
     "japanese": "故障",
     "reading": "こしょう",
     "meaning": "고장",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 306
   },
   {
-    "id": "1_308",
+    "id": "JLPTN3_308",
     "setId": "jlpt-n3",
     "japanese": "個人",
     "reading": "こじん",
     "meaning": "개인",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 307
   },
   {
-    "id": "1_309",
+    "id": "JLPTN3_309",
     "setId": "jlpt-n3",
     "japanese": "粉",
     "reading": "こな",
@@ -3401,7 +3401,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 308
   },
   {
-    "id": "1_310",
+    "id": "JLPTN3_310",
     "setId": "jlpt-n3",
     "japanese": "米",
     "reading": "こめ",
@@ -3412,73 +3412,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 309
   },
   {
-    "id": "1_311",
+    "id": "JLPTN3_311",
     "setId": "jlpt-n3",
     "japanese": "最終",
     "reading": "さいしゅう",
     "meaning": "최종",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 310
   },
   {
-    "id": "1_312",
+    "id": "JLPTN3_312",
     "setId": "jlpt-n3",
     "japanese": "最上",
     "reading": "さいじょう",
     "meaning": "최상",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 311
   },
   {
-    "id": "1_313",
+    "id": "JLPTN3_313",
     "setId": "jlpt-n3",
     "japanese": "材料",
     "reading": "ざいりょう",
     "meaning": "재료",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 312
   },
   {
-    "id": "1_314",
+    "id": "JLPTN3_314",
     "setId": "jlpt-n3",
     "japanese": "坂道",
     "reading": "さかみち",
     "meaning": "비탈길",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 313
   },
   {
-    "id": "1_315",
+    "id": "JLPTN3_315",
     "setId": "jlpt-n3",
     "japanese": "作業",
     "reading": "さぎょう",
     "meaning": "작업",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 314
   },
   {
-    "id": "1_316",
+    "id": "JLPTN3_316",
     "setId": "jlpt-n3",
     "japanese": "作物",
     "reading": "さくもつ",
     "meaning": "작물, 농작물",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 315
   },
   {
-    "id": "1_317",
+    "id": "JLPTN3_317",
     "setId": "jlpt-n3",
     "japanese": "雑誌",
     "reading": "ざっし",
@@ -3489,40 +3489,40 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 316
   },
   {
-    "id": "1_318",
+    "id": "JLPTN3_318",
     "setId": "jlpt-n3",
     "japanese": "左右",
     "reading": "さゆう",
     "meaning": "좌우",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 317
   },
   {
-    "id": "1_319",
+    "id": "JLPTN3_319",
     "setId": "jlpt-n3",
     "japanese": "参加",
     "reading": "さんか",
     "meaning": "참가",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 318
   },
   {
-    "id": "1_320",
+    "id": "JLPTN3_320",
     "setId": "jlpt-n3",
     "japanese": "賛成",
     "reading": "さんせい",
     "meaning": "찬성",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 319
   },
   {
-    "id": "1_321",
+    "id": "JLPTN3_321",
     "setId": "jlpt-n3",
     "japanese": "塩",
     "reading": "しお",
@@ -3533,73 +3533,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 320
   },
   {
-    "id": "1_322",
+    "id": "JLPTN3_322",
     "setId": "jlpt-n3",
     "japanese": "支給",
     "reading": "しきゅう",
     "meaning": "지급",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 321
   },
   {
-    "id": "1_323",
+    "id": "JLPTN3_323",
     "setId": "jlpt-n3",
     "japanese": "資源",
     "reading": "しげん",
     "meaning": "자원",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 322
   },
   {
-    "id": "1_324",
+    "id": "JLPTN3_324",
     "setId": "jlpt-n3",
     "japanese": "支出",
     "reading": "ししゅつ",
     "meaning": "지출",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 323
   },
   {
-    "id": "1_325",
+    "id": "JLPTN3_325",
     "setId": "jlpt-n3",
     "japanese": "事情",
     "reading": "じじょう",
     "meaning": "사정",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 324
   },
   {
-    "id": "1_326",
+    "id": "JLPTN3_326",
     "setId": "jlpt-n3",
     "japanese": "自信",
     "reading": "じしん",
-    "meaning": "자신",
+    "meaning": "자신감",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 325
   },
   {
-    "id": "1_327",
+    "id": "JLPTN3_327",
     "setId": "jlpt-n3",
     "japanese": "姿勢",
     "reading": "しせい",
     "meaning": "자세",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 326
   },
   {
-    "id": "1_328",
+    "id": "JLPTN3_328",
     "setId": "jlpt-n3",
     "japanese": "自然",
     "reading": "しぜん",
@@ -3610,205 +3610,205 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 327
   },
   {
-    "id": "1_329",
+    "id": "JLPTN3_329",
     "setId": "jlpt-n3",
     "japanese": "支度",
     "reading": "したく",
     "meaning": "준비, 채비",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 328
   },
   {
-    "id": "1_330",
+    "id": "JLPTN3_330",
     "setId": "jlpt-n3",
     "japanese": "失業",
     "reading": "しつぎょう",
     "meaning": "실업",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 329
   },
   {
-    "id": "1_331",
+    "id": "JLPTN3_331",
     "setId": "jlpt-n3",
     "japanese": "実力",
     "reading": "じつりょく",
     "meaning": "실력",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 330
   },
   {
-    "id": "1_332",
+    "id": "JLPTN3_332",
     "setId": "jlpt-n3",
     "japanese": "指導",
     "reading": "しどう",
     "meaning": "지도",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 331
   },
   {
-    "id": "1_333",
+    "id": "JLPTN3_333",
     "setId": "jlpt-n3",
     "japanese": "締め切り",
     "reading": "しめきり",
     "meaning": "마감",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 332
   },
   {
-    "id": "1_334",
+    "id": "JLPTN3_334",
     "setId": "jlpt-n3",
     "japanese": "地面",
     "reading": "じめん",
     "meaning": "지면",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 333
   },
   {
-    "id": "1_335",
+    "id": "JLPTN3_335",
     "setId": "jlpt-n3",
     "japanese": "地元",
     "reading": "じもと",
     "meaning": "출신 지역, 고장, 현지",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 334
   },
   {
-    "id": "1_336",
+    "id": "JLPTN3_336",
     "setId": "jlpt-n3",
     "japanese": "集合",
     "reading": "しゅうごう",
     "meaning": "집합",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 335
   },
   {
-    "id": "1_337",
+    "id": "JLPTN3_337",
     "setId": "jlpt-n3",
     "japanese": "収集",
     "reading": "しゅうしゅう",
     "meaning": "수집",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 336
   },
   {
-    "id": "1_338",
+    "id": "JLPTN3_338",
     "setId": "jlpt-n3",
     "japanese": "渋滞",
     "reading": "じゅうたい",
     "meaning": "정체",
     "type": "noun",
-    "difficulty": 48,
+    "difficulty": 42,
     "verbInfo": null,
     "sourceOrder": 337
   },
   {
-    "id": "1_339",
+    "id": "JLPTN3_339",
     "setId": "jlpt-n3",
     "japanese": "集中",
     "reading": "しゅうちゅう",
     "meaning": "집중",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 338
   },
   {
-    "id": "1_340",
+    "id": "JLPTN3_340",
     "setId": "jlpt-n3",
     "japanese": "修理",
     "reading": "しゅうり",
     "meaning": "수리",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 339
   },
   {
-    "id": "1_341",
+    "id": "JLPTN3_341",
     "setId": "jlpt-n3",
     "japanese": "縮小",
     "reading": "しゅくしょう",
     "meaning": "축소",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 340
   },
   {
-    "id": "1_342",
+    "id": "JLPTN3_342",
     "setId": "jlpt-n3",
     "japanese": "手術",
     "reading": "しゅじゅつ",
     "meaning": "수술",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 341
   },
   {
-    "id": "1_343",
+    "id": "JLPTN3_343",
     "setId": "jlpt-n3",
     "japanese": "手段",
     "reading": "しゅだん",
     "meaning": "수단",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 342
   },
   {
-    "id": "1_344",
+    "id": "JLPTN3_344",
     "setId": "jlpt-n3",
     "japanese": "主張",
     "reading": "しゅちょう",
     "meaning": "주장",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 343
   },
   {
-    "id": "1_345",
+    "id": "JLPTN3_345",
     "setId": "jlpt-n3",
     "japanese": "出張",
     "reading": "しゅっちょう",
     "meaning": "출장",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 344
   },
   {
-    "id": "1_346",
+    "id": "JLPTN3_346",
     "setId": "jlpt-n3",
     "japanese": "首都",
     "reading": "しゅと",
-    "meaning": "수도",
+    "meaning": "(국가의) 수도",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 345
   },
   {
-    "id": "1_347",
+    "id": "JLPTN3_347",
     "setId": "jlpt-n3",
     "japanese": "趣味",
     "reading": "しゅみ",
@@ -3819,18 +3819,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 346
   },
   {
-    "id": "1_348",
+    "id": "JLPTN3_348",
     "setId": "jlpt-n3",
     "japanese": "順番",
     "reading": "じゅんばん",
     "meaning": "순번",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 347
   },
   {
-    "id": "1_349",
+    "id": "JLPTN3_349",
     "setId": "jlpt-n3",
     "japanese": "紹介",
     "reading": "しょうかい",
@@ -3841,73 +3841,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 348
   },
   {
-    "id": "1_350",
+    "id": "JLPTN3_350",
     "setId": "jlpt-n3",
     "japanese": "商業",
     "reading": "しょうぎょう",
     "meaning": "상업",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 349
   },
   {
-    "id": "1_351",
+    "id": "JLPTN3_351",
     "setId": "jlpt-n3",
     "japanese": "条件",
     "reading": "じょうけん",
     "meaning": "조건",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 350
   },
   {
-    "id": "1_352",
+    "id": "JLPTN3_352",
     "setId": "jlpt-n3",
     "japanese": "乗車",
     "reading": "じょうしゃ",
     "meaning": "승차",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 351
   },
   {
-    "id": "1_353",
+    "id": "JLPTN3_353",
     "setId": "jlpt-n3",
     "japanese": "招待",
     "reading": "しょうたい",
     "meaning": "초대",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 352
   },
   {
-    "id": "1_354",
+    "id": "JLPTN3_354",
     "setId": "jlpt-n3",
     "japanese": "商売",
     "reading": "しょうぱい",
     "meaning": "장사",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 353
   },
   {
-    "id": "1_355",
+    "id": "JLPTN3_355",
     "setId": "jlpt-n3",
     "japanese": "消費",
     "reading": "しょうひ",
     "meaning": "소비",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 354
   },
   {
-    "id": "1_356",
+    "id": "JLPTN3_356",
     "setId": "jlpt-n3",
     "japanese": "商品",
     "reading": "しょうひん",
@@ -3918,106 +3918,106 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 355
   },
   {
-    "id": "1_357",
+    "id": "JLPTN3_357",
     "setId": "jlpt-n3",
     "japanese": "情報",
     "reading": "じょうほう",
     "meaning": "정보",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 356
   },
   {
-    "id": "1_358",
+    "id": "JLPTN3_358",
     "setId": "jlpt-n3",
     "japanese": "証明",
     "reading": "しょうめい",
     "meaning": "증명",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 357
   },
   {
-    "id": "1_359",
+    "id": "JLPTN3_359",
     "setId": "jlpt-n3",
     "japanese": "正面",
     "reading": "しょうめん",
     "meaning": "정면",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 358
   },
   {
-    "id": "1_360",
+    "id": "JLPTN3_360",
     "setId": "jlpt-n3",
     "japanese": "植物",
     "reading": "しょくぶつ",
     "meaning": "식물",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 359
   },
   {
-    "id": "1_361",
+    "id": "JLPTN3_361",
     "setId": "jlpt-n3",
     "japanese": "食器",
     "reading": "しょっき",
     "meaning": "식기",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 360
   },
   {
-    "id": "1_362",
+    "id": "JLPTN3_362",
     "setId": "jlpt-n3",
     "japanese": "資料",
     "reading": "しりょう",
     "meaning": "자료",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 361
   },
   {
-    "id": "1_363",
+    "id": "JLPTN3_363",
     "setId": "jlpt-n3",
     "japanese": "進行",
     "reading": "しんこう",
     "meaning": "진행",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 362
   },
   {
-    "id": "1_364",
+    "id": "JLPTN3_364",
     "setId": "jlpt-n3",
     "japanese": "申請",
     "reading": "しんせい",
     "meaning": "신청",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 363
   },
   {
-    "id": "1_365",
+    "id": "JLPTN3_365",
     "setId": "jlpt-n3",
     "japanese": "進歩",
     "reading": "しんぽ",
     "meaning": "진보",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 364
   },
   {
-    "id": "1_366",
+    "id": "JLPTN3_366",
     "setId": "jlpt-n3",
     "japanese": "数字",
     "reading": "すうじ",
@@ -4028,18 +4028,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 365
   },
   {
-    "id": "1_367",
+    "id": "JLPTN3_367",
     "setId": "jlpt-n3",
     "japanese": "頭痛",
     "reading": "ずつう",
     "meaning": "두통",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 366
   },
   {
-    "id": "1_368",
+    "id": "JLPTN3_368",
     "setId": "jlpt-n3",
     "japanese": "砂",
     "reading": "すな",
@@ -4050,117 +4050,117 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 367
   },
   {
-    "id": "1_369",
+    "id": "JLPTN3_369",
     "setId": "jlpt-n3",
     "japanese": "正解",
     "reading": "せいかい",
     "meaning": "정답",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 368
   },
   {
-    "id": "1_370",
+    "id": "JLPTN3_370",
     "setId": "jlpt-n3",
     "japanese": "性格",
     "reading": "せいかく",
     "meaning": "성격",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 369
   },
   {
-    "id": "1_371",
+    "id": "JLPTN3_371",
     "setId": "jlpt-n3",
     "japanese": "税金",
     "reading": "ぜいきん",
     "meaning": "세금",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 370
   },
   {
-    "id": "1_372",
+    "id": "JLPTN3_372",
     "setId": "jlpt-n3",
     "japanese": "制限",
     "reading": "せいげん",
     "meaning": "제한",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 371
   },
   {
-    "id": "1_373",
+    "id": "JLPTN3_373",
     "setId": "jlpt-n3",
     "japanese": "成功",
     "reading": "せいこう",
     "meaning": "성공",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 372
   },
   {
-    "id": "1_374",
+    "id": "JLPTN3_374",
     "setId": "jlpt-n3",
     "japanese": "正常",
     "reading": "せいじょう",
     "meaning": "정상",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 373
   },
   {
-    "id": "1_375",
+    "id": "JLPTN3_375",
     "setId": "jlpt-n3",
     "japanese": "成績",
     "reading": "せいせき",
     "meaning": "성적",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 374
   },
   {
-    "id": "1_376",
+    "id": "JLPTN3_376",
     "setId": "jlpt-n3",
     "japanese": "整理",
     "reading": "せいり",
     "meaning": "정리",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 375
   },
   {
-    "id": "1_377",
+    "id": "JLPTN3_377",
     "setId": "jlpt-n3",
     "japanese": "石油",
     "reading": "せきゆ",
     "meaning": "석유",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 376
   },
   {
-    "id": "1_378",
+    "id": "JLPTN3_378",
     "setId": "jlpt-n3",
     "japanese": "選手",
     "reading": "せんしゅ",
     "meaning": "선수",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 377
   },
   {
-    "id": "1_379",
+    "id": "JLPTN3_379",
     "setId": "jlpt-n3",
     "japanese": "洗濯",
     "reading": "せんたく",
@@ -4171,73 +4171,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 378
   },
   {
-    "id": "1_380",
+    "id": "JLPTN3_380",
     "setId": "jlpt-n3",
     "japanese": "宣伝",
     "reading": "せんでん",
     "meaning": "선전",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 379
   },
   {
-    "id": "1_381",
+    "id": "JLPTN3_381",
     "setId": "jlpt-n3",
     "japanese": "専門",
     "reading": "せんもん",
     "meaning": "전문",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 380
   },
   {
-    "id": "1_382",
+    "id": "JLPTN3_382",
     "setId": "jlpt-n3",
     "japanese": "想像",
     "reading": "そうぞう",
     "meaning": "상상",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 381
   },
   {
-    "id": "1_383",
+    "id": "JLPTN3_383",
     "setId": "jlpt-n3",
     "japanese": "早退",
     "reading": "そうたい",
     "meaning": "조퇴",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 382
   },
   {
-    "id": "1_384",
+    "id": "JLPTN3_384",
     "setId": "jlpt-n3",
     "japanese": "相談",
     "reading": "そうだん",
     "meaning": "상담",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 383
   },
   {
-    "id": "1_385",
+    "id": "JLPTN3_385",
     "setId": "jlpt-n3",
     "japanese": "速度",
     "reading": "そくど",
     "meaning": "속도",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 384
   },
   {
-    "id": "1_386",
+    "id": "JLPTN3_386",
     "setId": "jlpt-n3",
     "japanese": "底",
     "reading": "そこ",
@@ -4248,29 +4248,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 385
   },
   {
-    "id": "1_387",
+    "id": "JLPTN3_387",
     "setId": "jlpt-n3",
     "japanese": "卒業",
     "reading": "そつぎょう",
     "meaning": "졸업",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 386
   },
   {
-    "id": "1_388",
+    "id": "JLPTN3_388",
     "setId": "jlpt-n3",
     "japanese": "存在",
     "reading": "そんざい",
     "meaning": "존재",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 387
   },
   {
-    "id": "1_389",
+    "id": "JLPTN3_389",
     "setId": "jlpt-n3",
     "japanese": "大会",
     "reading": "たいかい",
@@ -4281,40 +4281,40 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 388
   },
   {
-    "id": "1_390",
+    "id": "JLPTN3_390",
     "setId": "jlpt-n3",
     "japanese": "代金",
     "reading": "だいきん",
     "meaning": "대금",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 389
   },
   {
-    "id": "1_391",
+    "id": "JLPTN3_391",
     "setId": "jlpt-n3",
     "japanese": "滞在",
     "reading": "たいざい",
     "meaning": "체재",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 390
   },
   {
-    "id": "1_392",
+    "id": "JLPTN3_392",
     "setId": "jlpt-n3",
     "japanese": "台所",
     "reading": "だいどころ",
     "meaning": "부엌",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 391
   },
   {
-    "id": "1_393",
+    "id": "JLPTN3_393",
     "setId": "jlpt-n3",
     "japanese": "台風",
     "reading": "たいふう",
@@ -4325,95 +4325,95 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 392
   },
   {
-    "id": "1_394",
+    "id": "JLPTN3_394",
     "setId": "jlpt-n3",
     "japanese": "体力",
     "reading": "たいりょく",
     "meaning": "체력",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 393
   },
   {
-    "id": "1_395",
+    "id": "JLPTN3_395",
     "setId": "jlpt-n3",
     "japanese": "他人",
     "reading": "たにん",
     "meaning": "타인",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 394
   },
   {
-    "id": "1_396",
+    "id": "JLPTN3_396",
     "setId": "jlpt-n3",
     "japanese": "誕生",
     "reading": "たんじょう",
     "meaning": "탄생",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 395
   },
   {
-    "id": "1_397",
+    "id": "JLPTN3_397",
     "setId": "jlpt-n3",
     "japanese": "団体",
     "reading": "だんたい",
     "meaning": "단체",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 396
   },
   {
-    "id": "1_398",
+    "id": "JLPTN3_398",
     "setId": "jlpt-n3",
     "japanese": "遅刻",
     "reading": "ちこく",
     "meaning": "지각",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 397
   },
   {
-    "id": "1_399",
+    "id": "JLPTN3_399",
     "setId": "jlpt-n3",
     "japanese": "中古",
     "reading": "ちゅうこ",
     "meaning": "중고",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 398
   },
   {
-    "id": "1_400",
+    "id": "JLPTN3_400",
     "setId": "jlpt-n3",
     "japanese": "駐車",
     "reading": "ちゅうしゃ",
     "meaning": "주차",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 399
   },
   {
-    "id": "1_401",
+    "id": "JLPTN3_401",
     "setId": "jlpt-n3",
     "japanese": "調子",
     "reading": "ちょうし",
     "meaning": "(몸, 기계) 상태",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 400
   },
   {
-    "id": "1_402",
+    "id": "JLPTN3_402",
     "setId": "jlpt-n3",
     "japanese": "朝食",
     "reading": "ちょうしょく",
@@ -4424,249 +4424,249 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 401
   },
   {
-    "id": "1_403",
+    "id": "JLPTN3_403",
     "setId": "jlpt-n3",
     "japanese": "貯金",
     "reading": "ちょきん",
     "meaning": "저금",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 402
   },
   {
-    "id": "1_404",
+    "id": "JLPTN3_404",
     "setId": "jlpt-n3",
     "japanese": "直接",
     "reading": "ちょくせつ",
     "meaning": "직접",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 403
   },
   {
-    "id": "1_405",
+    "id": "JLPTN3_405",
     "setId": "jlpt-n3",
     "japanese": "通勤",
     "reading": "つうきん",
     "meaning": "통근",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 404
   },
   {
-    "id": "1_406",
+    "id": "JLPTN3_406",
     "setId": "jlpt-n3",
     "japanese": "通訳",
     "reading": "つうやく",
     "meaning": "통역",
     "type": "noun",
-    "difficulty": 42,
+    "difficulty": 36,
     "verbInfo": null,
     "sourceOrder": 405
   },
   {
-    "id": "1_407",
+    "id": "JLPTN3_407",
     "setId": "jlpt-n3",
     "japanese": "都合",
     "reading": "つごう",
     "meaning": "사정, 형편",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 406
   },
   {
-    "id": "1_408",
+    "id": "JLPTN3_408",
     "setId": "jlpt-n3",
     "japanese": "停電",
     "reading": "ていでん",
     "meaning": "정전",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 407
   },
   {
-    "id": "1_409",
+    "id": "JLPTN3_409",
     "setId": "jlpt-n3",
     "japanese": "伝言",
     "reading": "でんごん",
     "meaning": "전언, 전하는 말, 메시지",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 408
   },
   {
-    "id": "1_410",
+    "id": "JLPTN3_410",
     "setId": "jlpt-n3",
     "japanese": "天井",
     "reading": "てんじょう",
     "meaning": "천정",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 409
   },
   {
-    "id": "1_411",
+    "id": "JLPTN3_411",
     "setId": "jlpt-n3",
     "japanese": "動作",
     "reading": "どうさ",
     "meaning": "동작",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 410
   },
   {
-    "id": "1_412",
+    "id": "JLPTN3_412",
     "setId": "jlpt-n3",
     "japanese": "当日",
     "reading": "とうじつ",
     "meaning": "당일",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 411
   },
   {
-    "id": "1_413",
+    "id": "JLPTN3_413",
     "setId": "jlpt-n3",
     "japanese": "登場",
     "reading": "とうじょう",
     "meaning": "등장",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 412
   },
   {
-    "id": "1_414",
+    "id": "JLPTN3_414",
     "setId": "jlpt-n3",
     "japanese": "到着",
     "reading": "とうちゃく",
     "meaning": "도착",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 413
   },
   {
-    "id": "1_415",
+    "id": "JLPTN3_415",
     "setId": "jlpt-n3",
     "japanese": "登録",
     "reading": "とうろく",
     "meaning": "등록",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 414
   },
   {
-    "id": "1_416",
+    "id": "JLPTN3_416",
     "setId": "jlpt-n3",
     "japanese": "独身",
     "reading": "どくしん",
     "meaning": "독신",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 415
   },
   {
-    "id": "1_417",
+    "id": "JLPTN3_417",
     "setId": "jlpt-n3",
     "japanese": "特徴",
     "reading": "とくちょう",
     "meaning": "특징",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 416
   },
   {
-    "id": "1_418",
+    "id": "JLPTN3_418",
     "setId": "jlpt-n3",
     "japanese": "独立",
     "reading": "どくりつ",
     "meaning": "독립",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 417
   },
   {
-    "id": "1_419",
+    "id": "JLPTN3_419",
     "setId": "jlpt-n3",
     "japanese": "登山",
     "reading": "とざん",
     "meaning": "등산",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 418
   },
   {
-    "id": "1_420",
+    "id": "JLPTN3_420",
     "setId": "jlpt-n3",
     "japanese": "途中",
     "reading": "とちゅう",
     "meaning": "도중",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 419
   },
   {
-    "id": "1_421",
+    "id": "JLPTN3_421",
     "setId": "jlpt-n3",
     "japanese": "努力",
     "reading": "どりょく",
     "meaning": "노력",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 420
   },
   {
-    "id": "1_422",
+    "id": "JLPTN3_422",
     "setId": "jlpt-n3",
     "japanese": "内緒",
     "reading": "ないしょ",
     "meaning": "비밀",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 421
   },
   {
-    "id": "1_423",
+    "id": "JLPTN3_423",
     "setId": "jlpt-n3",
     "japanese": "内容",
     "reading": "ないよう",
     "meaning": "내용",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 422
   },
   {
-    "id": "1_424",
+    "id": "JLPTN3_424",
     "setId": "jlpt-n3",
     "japanese": "中身",
     "reading": "なかみ",
     "meaning": "속, 알맹이, 내용물",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 423
   },
   {
-    "id": "1_425",
+    "id": "JLPTN3_425",
     "setId": "jlpt-n3",
     "japanese": "波",
     "reading": "なみ",
@@ -4677,7 +4677,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 424
   },
   {
-    "id": "1_426",
+    "id": "JLPTN3_426",
     "setId": "jlpt-n3",
     "japanese": "涙",
     "reading": "なみだ",
@@ -4688,7 +4688,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 425
   },
   {
-    "id": "1_427",
+    "id": "JLPTN3_427",
     "setId": "jlpt-n3",
     "japanese": "荷物",
     "reading": "にもつ",
@@ -4699,7 +4699,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 426
   },
   {
-    "id": "1_428",
+    "id": "JLPTN3_428",
     "setId": "jlpt-n3",
     "japanese": "人間",
     "reading": "にんげん",
@@ -4710,7 +4710,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 427
   },
   {
-    "id": "1_429",
+    "id": "JLPTN3_429",
     "setId": "jlpt-n3",
     "japanese": "値段",
     "reading": "ねだん",
@@ -4721,51 +4721,51 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 428
   },
   {
-    "id": "1_430",
+    "id": "JLPTN3_430",
     "setId": "jlpt-n3",
     "japanese": "根",
     "reading": "ね",
     "meaning": "(식물의) 뿌리",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 429
   },
   {
-    "id": "1_431",
+    "id": "JLPTN3_431",
     "setId": "jlpt-n3",
     "japanese": "年中",
     "reading": "ねんじゅう",
     "meaning": "연중",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 430
   },
   {
-    "id": "1_432",
+    "id": "JLPTN3_432",
     "setId": "jlpt-n3",
     "japanese": "農業",
     "reading": "のうぎょう",
     "meaning": "농업",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 431
   },
   {
-    "id": "1_433",
+    "id": "JLPTN3_433",
     "setId": "jlpt-n3",
     "japanese": "歯",
     "reading": "は",
     "meaning": "(신체) 이, 치아",
     "type": "noun",
-    "difficulty": 20,
+    "difficulty": 18,
     "verbInfo": null,
     "sourceOrder": 432
   },
   {
-    "id": "1_434",
+    "id": "JLPTN3_434",
     "setId": "jlpt-n3",
     "japanese": "葉",
     "reading": "は",
@@ -4776,7 +4776,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 433
   },
   {
-    "id": "1_435",
+    "id": "JLPTN3_435",
     "setId": "jlpt-n3",
     "japanese": "~倍",
     "reading": "~ばい",
@@ -4787,73 +4787,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 434
   },
   {
-    "id": "1_436",
+    "id": "JLPTN3_436",
     "setId": "jlpt-n3",
     "japanese": "発生",
     "reading": "はっせい",
     "meaning": "발생",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 435
   },
   {
-    "id": "1_437",
+    "id": "JLPTN3_437",
     "setId": "jlpt-n3",
     "japanese": "発展",
     "reading": "はってん",
     "meaning": "발전",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 436
   },
   {
-    "id": "1_438",
+    "id": "JLPTN3_438",
     "setId": "jlpt-n3",
     "japanese": "発表",
     "reading": "はっぴょう",
     "meaning": "발표",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 437
   },
   {
-    "id": "1_439",
+    "id": "JLPTN3_439",
     "setId": "jlpt-n3",
     "japanese": "反対",
     "reading": "はんたい",
     "meaning": "반대",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 438
   },
   {
-    "id": "1_440",
+    "id": "JLPTN3_440",
     "setId": "jlpt-n3",
     "japanese": "販売",
     "reading": "はんばい",
     "meaning": "판매",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 439
   },
   {
-    "id": "1_441",
+    "id": "JLPTN3_441",
     "setId": "jlpt-n3",
     "japanese": "比較",
     "reading": "ひかく",
     "meaning": "비교",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 440
   },
   {
-    "id": "1_442",
+    "id": "JLPTN3_442",
     "setId": "jlpt-n3",
     "japanese": "光",
     "reading": "ひかり",
@@ -4864,62 +4864,62 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 441
   },
   {
-    "id": "1_443",
+    "id": "JLPTN3_443",
     "setId": "jlpt-n3",
     "japanese": "否定",
     "reading": "ひてい",
     "meaning": "부정",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 442
   },
   {
-    "id": "1_444",
+    "id": "JLPTN3_444",
     "setId": "jlpt-n3",
     "japanese": "表示",
     "reading": "ひょうじ",
     "meaning": "표시",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 443
   },
   {
-    "id": "1_445",
+    "id": "JLPTN3_445",
     "setId": "jlpt-n3",
     "japanese": "表面",
     "reading": "ひょうめん",
     "meaning": "표면",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 444
   },
   {
-    "id": "1_446",
+    "id": "JLPTN3_446",
     "setId": "jlpt-n3",
     "japanese": "風景",
     "reading": "ふうけい",
     "meaning": "풍경",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 445
   },
   {
-    "id": "1_447",
+    "id": "JLPTN3_447",
     "setId": "jlpt-n3",
     "japanese": "複数",
     "reading": "ふくすう",
     "meaning": "복수",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 446
   },
   {
-    "id": "1_448",
+    "id": "JLPTN3_448",
     "setId": "jlpt-n3",
     "japanese": "袋",
     "reading": "ふくろ",
@@ -4930,29 +4930,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 447
   },
   {
-    "id": "1_449",
+    "id": "JLPTN3_449",
     "setId": "jlpt-n3",
     "japanese": "物価",
     "reading": "ぶっか",
     "meaning": "물가",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 448
   },
   {
-    "id": "1_450",
+    "id": "JLPTN3_450",
     "setId": "jlpt-n3",
     "japanese": "沸騰",
     "reading": "ふっとう",
     "meaning": "비등, 물이 끓음",
     "type": "noun",
-    "difficulty": 65,
+    "difficulty": 59,
     "verbInfo": null,
     "sourceOrder": 449
   },
   {
-    "id": "1_451",
+    "id": "JLPTN3_451",
     "setId": "jlpt-n3",
     "japanese": "布団",
     "reading": "ふとん",
@@ -4963,128 +4963,128 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 450
   },
   {
-    "id": "1_452",
+    "id": "JLPTN3_452",
     "setId": "jlpt-n3",
     "japanese": "部分",
     "reading": "ぶぶん",
     "meaning": "부분",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 451
   },
   {
-    "id": "1_453",
+    "id": "JLPTN3_453",
     "setId": "jlpt-n3",
     "japanese": "文章",
     "reading": "ぶんしょう",
     "meaning": "문장",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 452
   },
   {
-    "id": "1_454",
+    "id": "JLPTN3_454",
     "setId": "jlpt-n3",
     "japanese": "分類",
     "reading": "ぶんるい",
     "meaning": "분류",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 453
   },
   {
-    "id": "1_455",
+    "id": "JLPTN3_455",
     "setId": "jlpt-n3",
     "japanese": "平均",
     "reading": "へいきん",
     "meaning": "평균",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 454
   },
   {
-    "id": "1_456",
+    "id": "JLPTN3_456",
     "setId": "jlpt-n3",
     "japanese": "変化",
     "reading": "へんか",
     "meaning": "변화",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 455
   },
   {
-    "id": "1_457",
+    "id": "JLPTN3_457",
     "setId": "jlpt-n3",
     "japanese": "貿易",
     "reading": "ぼうえき",
     "meaning": "무역",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 456
   },
   {
-    "id": "1_458",
+    "id": "JLPTN3_458",
     "setId": "jlpt-n3",
     "japanese": "方向",
     "reading": "ほうこう",
     "meaning": "방향",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 457
   },
   {
-    "id": "1_459",
+    "id": "JLPTN3_459",
     "setId": "jlpt-n3",
     "japanese": "方法",
     "reading": "ほうほう",
     "meaning": "방법",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 458
   },
   {
-    "id": "1_460",
+    "id": "JLPTN3_460",
     "setId": "jlpt-n3",
     "japanese": "訪問",
     "reading": "ほうもん",
     "meaning": "방문",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 459
   },
   {
-    "id": "1_461",
+    "id": "JLPTN3_461",
     "setId": "jlpt-n3",
     "japanese": "法律",
     "reading": "ほうりつ",
     "meaning": "법률",
     "type": "noun",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 460
   },
   {
-    "id": "1_462",
+    "id": "JLPTN3_462",
     "setId": "jlpt-n3",
     "japanese": "募集",
     "reading": "ぼしゅう",
     "meaning": "모집",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 461
   },
   {
-    "id": "1_463",
+    "id": "JLPTN3_463",
     "setId": "jlpt-n3",
     "japanese": "孫",
     "reading": "まご",
@@ -5095,7 +5095,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 462
   },
   {
-    "id": "1_464",
+    "id": "JLPTN3_464",
     "setId": "jlpt-n3",
     "japanese": "豆",
     "reading": "まめ",
@@ -5106,29 +5106,29 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 463
   },
   {
-    "id": "1_465",
+    "id": "JLPTN3_465",
     "setId": "jlpt-n3",
     "japanese": "満足",
     "reading": "まんぞく",
     "meaning": "만족",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 464
   },
   {
-    "id": "1_466",
+    "id": "JLPTN3_466",
     "setId": "jlpt-n3",
     "japanese": "湖",
     "reading": "みずうみ",
     "meaning": "호수",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 465
   },
   {
-    "id": "1_467",
+    "id": "JLPTN3_467",
     "setId": "jlpt-n3",
     "japanese": "緑",
     "reading": "みどり",
@@ -5139,73 +5139,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 466
   },
   {
-    "id": "1_468",
+    "id": "JLPTN3_468",
     "setId": "jlpt-n3",
     "japanese": "未来",
     "reading": "みらい",
     "meaning": "미래",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 467
   },
   {
-    "id": "1_469",
+    "id": "JLPTN3_469",
     "setId": "jlpt-n3",
     "japanese": "命令",
     "reading": "めいれい",
     "meaning": "명령",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 468
   },
   {
-    "id": "1_470",
+    "id": "JLPTN3_470",
     "setId": "jlpt-n3",
     "japanese": "免許",
     "reading": "めんきょ",
     "meaning": "면허",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 469
   },
   {
-    "id": "1_471",
+    "id": "JLPTN3_471",
     "setId": "jlpt-n3",
     "japanese": "面接",
     "reading": "めんせつ",
     "meaning": "면접",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 470
   },
   {
-    "id": "1_472",
+    "id": "JLPTN3_472",
     "setId": "jlpt-n3",
     "japanese": "目的",
     "reading": "もくてき",
     "meaning": "목적",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 471
   },
   {
-    "id": "1_473",
+    "id": "JLPTN3_473",
     "setId": "jlpt-n3",
     "japanese": "目標",
     "reading": "もくひょう",
     "meaning": "목표",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 472
   },
   {
-    "id": "1_474",
+    "id": "JLPTN3_474",
     "setId": "jlpt-n3",
     "japanese": "文字",
     "reading": "もじ",
@@ -5216,7 +5216,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 473
   },
   {
-    "id": "1_475",
+    "id": "JLPTN3_475",
     "setId": "jlpt-n3",
     "japanese": "森",
     "reading": "もり",
@@ -5227,73 +5227,73 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 474
   },
   {
-    "id": "1_476",
+    "id": "JLPTN3_476",
     "setId": "jlpt-n3",
     "japanese": "文句",
     "reading": "もんく",
     "meaning": "불평, 불만",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 475
   },
   {
-    "id": "1_477",
+    "id": "JLPTN3_477",
     "setId": "jlpt-n3",
     "japanese": "屋根",
     "reading": "やね",
     "meaning": "지붕",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 476
   },
   {
-    "id": "1_478",
+    "id": "JLPTN3_478",
     "setId": "jlpt-n3",
     "japanese": "床",
     "reading": "ゆか",
     "meaning": "마루",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 477
   },
   {
-    "id": "1_479",
+    "id": "JLPTN3_479",
     "setId": "jlpt-n3",
     "japanese": "輸出",
     "reading": "ゆしゅつ",
     "meaning": "수출",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 478
   },
   {
-    "id": "1_480",
+    "id": "JLPTN3_480",
     "setId": "jlpt-n3",
     "japanese": "輸入",
     "reading": "ゆにゅう",
     "meaning": "수입",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 479
   },
   {
-    "id": "1_481",
+    "id": "JLPTN3_481",
     "setId": "jlpt-n3",
     "japanese": "容器",
     "reading": "ようき",
     "meaning": "용기",
     "type": "noun",
-    "difficulty": 34,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 480
   },
   {
-    "id": "1_482",
+    "id": "JLPTN3_482",
     "setId": "jlpt-n3",
     "japanese": "横",
     "reading": "よこ",
@@ -5304,7 +5304,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 481
   },
   {
-    "id": "1_483",
+    "id": "JLPTN3_483",
     "setId": "jlpt-n3",
     "japanese": "汚れ",
     "reading": "よごれ",
@@ -5315,18 +5315,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 482
   },
   {
-    "id": "1_484",
+    "id": "JLPTN3_484",
     "setId": "jlpt-n3",
     "japanese": "予測",
     "reading": "よそく",
     "meaning": "예측",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 483
   },
   {
-    "id": "1_485",
+    "id": "JLPTN3_485",
     "setId": "jlpt-n3",
     "japanese": "夜中",
     "reading": "よなか",
@@ -5337,84 +5337,84 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 484
   },
   {
-    "id": "1_486",
+    "id": "JLPTN3_486",
     "setId": "jlpt-n3",
     "japanese": "予防",
     "reading": "よぼう",
     "meaning": "예방",
     "type": "noun",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 485
   },
   {
-    "id": "1_487",
+    "id": "JLPTN3_487",
     "setId": "jlpt-n3",
     "japanese": "留守",
     "reading": "るす",
     "meaning": "부재(중)",
     "type": "noun",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 486
   },
   {
-    "id": "1_488",
+    "id": "JLPTN3_488",
     "setId": "jlpt-n3",
     "japanese": "列",
     "reading": "れつ",
     "meaning": "열, 줄",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 487
   },
   {
-    "id": "1_489",
+    "id": "JLPTN3_489",
     "setId": "jlpt-n3",
     "japanese": "連休",
     "reading": "れんきゅう",
     "meaning": "연휴",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 488
   },
   {
-    "id": "1_490",
+    "id": "JLPTN3_490",
     "setId": "jlpt-n3",
     "japanese": "訳",
     "reading": "わけ",
     "meaning": "이유",
     "type": "noun",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 489
   },
   {
-    "id": "1_491",
+    "id": "JLPTN3_491",
     "setId": "jlpt-n3",
     "japanese": "割合",
     "reading": "わりあい",
     "meaning": "비율",
     "type": "noun",
-    "difficulty": 36,
+    "difficulty": 33,
     "verbInfo": null,
     "sourceOrder": 490
   },
   {
-    "id": "1_492",
+    "id": "JLPTN3_492",
     "setId": "jlpt-n3",
     "japanese": "相変わらず",
     "reading": "あいかわらず",
     "meaning": "변함없이",
     "type": "adv",
-    "difficulty": 45,
+    "difficulty": 39,
     "verbInfo": null,
     "sourceOrder": 491
   },
   {
-    "id": "1_493",
+    "id": "JLPTN3_493",
     "setId": "jlpt-n3",
     "japanese": "必ず",
     "reading": "かならず",
@@ -5425,7 +5425,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 492
   },
   {
-    "id": "1_494",
+    "id": "JLPTN3_494",
     "setId": "jlpt-n3",
     "japanese": "急に",
     "reading": "きゅうに",
@@ -5436,18 +5436,18 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 493
   },
   {
-    "id": "1_495",
+    "id": "JLPTN3_495",
     "setId": "jlpt-n3",
     "japanese": "次第に",
     "reading": "しだいに",
     "meaning": "점점, 서서히",
     "type": "adv",
-    "difficulty": 35,
+    "difficulty": 32,
     "verbInfo": null,
     "sourceOrder": 494
   },
   {
-    "id": "1_496",
+    "id": "JLPTN3_496",
     "setId": "jlpt-n3",
     "japanese": "全て",
     "reading": "すべて",
@@ -5458,46 +5458,46 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 495
   },
   {
-    "id": "1_497",
+    "id": "JLPTN3_497",
     "setId": "jlpt-n3",
     "japanese": "絶対",
     "reading": "ぜったい",
     "meaning": "절대로, 꼭",
     "type": "adv",
-    "difficulty": 30,
+    "difficulty": 29,
     "verbInfo": null,
     "sourceOrder": 496
   },
   {
-    "id": "1_498",
+    "id": "JLPTN3_498",
     "setId": "jlpt-n3",
     "japanese": "多少",
     "reading": "たしょう",
     "meaning": "다소",
     "type": "adv",
-    "difficulty": 38,
+    "difficulty": 34,
     "verbInfo": null,
     "sourceOrder": 497
   },
   {
-    "id": "1_499",
+    "id": "JLPTN3_499",
     "setId": "jlpt-n3",
     "japanese": "当然",
     "reading": "とうぜん",
     "meaning": "당연히",
     "type": "adv",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 498
   },
   {
-    "id": "1_500",
+    "id": "JLPTN3_500",
     "setId": "jlpt-n3",
     "japanese": "突然",
     "reading": "とつぜん",
     "meaning": "돌연, 갑자기",
     "type": "adv",
-    "difficulty": 32,
+    "difficulty": 31,
     "verbInfo": null,
     "sourceOrder": 499
   },
@@ -5596,7 +5596,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "えぐい",
     "meaning": "칼칼하다, 끔찍하다, 쩐다",
     "type": "i_adj",
-    "difficulty": 55,
+    "difficulty": 47,
     "verbInfo": null,
     "sourceOrder": 8
   },
@@ -5607,7 +5607,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "きさま",
     "meaning": "네 녀석",
     "type": "noun",
-    "difficulty": 45,
+    "difficulty": 41,
     "verbInfo": null,
     "sourceOrder": 9
   },
@@ -5618,7 +5618,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "そこしれない",
     "meaning": "정체 모를, 끝을 모르는",
     "type": "i_adj",
-    "difficulty": 50,
+    "difficulty": 44,
     "verbInfo": null,
     "sourceOrder": 10
   },
@@ -5629,7 +5629,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "まめちしき",
     "meaning": "토막 지식",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 38,
     "verbInfo": null,
     "sourceOrder": 11
   },
@@ -6168,7 +6168,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "すいそう",
     "meaning": "수조",
     "type": "noun",
-    "difficulty": 45,
+    "difficulty": 41,
     "verbInfo": null,
     "sourceOrder": 60
   },
@@ -6179,7 +6179,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "せんしゅ",
     "meaning": "선수",
     "type": "noun",
-    "difficulty": 25,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 61
   },
@@ -6190,7 +6190,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "きめる",
     "meaning": "결정하다",
     "type": "verb",
-    "difficulty": 22,
+    "difficulty": 19,
     "verbInfo": "2타",
     "sourceOrder": 62
   },
@@ -6212,7 +6212,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "へり",
     "meaning": "모서리",
     "type": "noun",
-    "difficulty": 50,
+    "difficulty": 44,
     "verbInfo": null,
     "sourceOrder": 64
   },
@@ -6223,7 +6223,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "きぜつ",
     "meaning": "기절",
     "type": "noun",
-    "difficulty": 45,
+    "difficulty": 41,
     "verbInfo": null,
     "sourceOrder": 65
   },
@@ -6245,7 +6245,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "はり",
     "meaning": "(의료용) 침",
     "type": "noun",
-    "difficulty": 60,
+    "difficulty": 52,
     "verbInfo": null,
     "sourceOrder": 67
   },
@@ -6256,7 +6256,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "こし",
     "meaning": "허리",
     "type": "noun",
-    "difficulty": 25,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 68
   },
@@ -6267,7 +6267,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "やわらぐ",
     "meaning": "긴장, 통증, 표정 등이 누그러지다",
     "type": "verb",
-    "difficulty": 40,
+    "difficulty": 38,
     "verbInfo": "1자",
     "sourceOrder": 69
   },
@@ -6300,7 +6300,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "ご",
     "meaning": "바둑",
     "type": "noun",
-    "difficulty": 40,
+    "difficulty": 38,
     "verbInfo": null,
     "sourceOrder": 72
   },
@@ -6421,7 +6421,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "るろう",
     "meaning": "유랑",
     "type": "noun",
-    "difficulty": 65,
+    "difficulty": 57,
     "verbInfo": null,
     "sourceOrder": 83
   },
@@ -6441,7 +6441,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "setId": "set-2",
     "japanese": "自分",
     "reading": "じぶん",
-    "meaning": "자신",
+    "meaning": "자기 자신",
     "type": "noun",
     "difficulty": 18,
     "verbInfo": null,
@@ -6452,7 +6452,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "setId": "set-2",
     "japanese": "大切だ",
     "reading": "たいせつだ",
-    "meaning": "중요함, 소중함",
+    "meaning": "중요하다, 소중하다",
     "type": "na_adj",
     "difficulty": 22,
     "verbInfo": null,
@@ -6498,7 +6498,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "しゅうり",
     "meaning": "수리",
     "type": "noun",
-    "difficulty": 25,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 90
   },
@@ -6509,7 +6509,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "やね",
     "meaning": "지붕",
     "type": "noun",
-    "difficulty": 25,
+    "difficulty": 27,
     "verbInfo": null,
     "sourceOrder": 91
   },
@@ -6542,7 +6542,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "きびしい",
     "meaning": "가혹하다, 심하다",
     "type": "i_adj",
-    "difficulty": 28,
+    "difficulty": 30,
     "verbInfo": null,
     "sourceOrder": 94
   },
@@ -6564,7 +6564,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "は",
     "meaning": "치아",
     "type": "noun",
-    "difficulty": 15,
+    "difficulty": 18,
     "verbInfo": null,
     "sourceOrder": 96
   },
@@ -6619,7 +6619,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "いちぶしじゅう",
     "meaning": "자초지종",
     "type": "noun",
-    "difficulty": 55,
+    "difficulty": 47,
     "verbInfo": null,
     "sourceOrder": 101
   },
@@ -6729,7 +6729,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "あいしょう",
     "meaning": "애칭",
     "type": "noun",
-    "difficulty": 45,
+    "difficulty": 41,
     "verbInfo": null,
     "sourceOrder": 111
   },
@@ -6872,7 +6872,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "がくい",
     "meaning": "학위",
     "type": "noun",
-    "difficulty": 45,
+    "difficulty": 41,
     "verbInfo": null,
     "sourceOrder": 124
   },
@@ -7004,7 +7004,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "ぜつだいだ",
     "meaning": "지대하다",
     "type": "na_adj",
-    "difficulty": 48,
+    "difficulty": 44,
     "verbInfo": null,
     "sourceOrder": 136
   },
@@ -7092,7 +7092,7 @@ export const vocabularyWords: VocabularyWord[] = [
     "reading": "ふはい",
     "meaning": "부패",
     "type": "noun",
-    "difficulty": 50,
+    "difficulty": 44,
     "verbInfo": null,
     "sourceOrder": 144
   },
@@ -7196,8 +7196,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 153
   },
   {
-    "id": "darakwonverb_1",
-    "setId": "500",
+    "id": "AbsoluteVerb_1",
+    "setId": "AbsoluteVerb",
     "japanese": "寝る",
     "reading": "ねる",
     "meaning": "자다, 잠자리에 들다, 눕다",
@@ -7207,8 +7207,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 0
   },
   {
-    "id": "darakwonverb_2",
-    "setId": "500",
+    "id": "AbsoluteVerb_2",
+    "setId": "AbsoluteVerb",
     "japanese": "寝かす",
     "reading": "ねかす",
     "meaning": "(잠을) 재우다, 누이다",
@@ -7218,8 +7218,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 1
   },
   {
-    "id": "darakwonverb_3",
-    "setId": "500",
+    "id": "AbsoluteVerb_3",
+    "setId": "AbsoluteVerb",
     "japanese": "眠る",
     "reading": "ねむる",
     "meaning": "잠들다, 잠든 채 자다",
@@ -7229,19 +7229,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 2
   },
   {
-    "id": "darakwonverb_4",
-    "setId": "500",
+    "id": "AbsoluteVerb_4",
+    "setId": "AbsoluteVerb",
     "japanese": "覚める",
     "reading": "さめる",
     "meaning": "(잠, 취기, 꿈 등에서) 깨다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 30,
     "verbInfo": "2자",
     "sourceOrder": 3
   },
   {
-    "id": "darakwonverb_5",
-    "setId": "500",
+    "id": "AbsoluteVerb_5",
+    "setId": "AbsoluteVerb",
     "japanese": "起きる",
     "reading": "おきる",
     "meaning": "일어나다",
@@ -7251,8 +7251,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 4
   },
   {
-    "id": "darakwonverb_6",
-    "setId": "500",
+    "id": "AbsoluteVerb_6",
+    "setId": "AbsoluteVerb",
     "japanese": "起こす",
     "reading": "おこす",
     "meaning": "(잠을) 깨우다, (쓰러진 것을) 일으키다",
@@ -7262,19 +7262,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 5
   },
   {
-    "id": "darakwonverb_7",
-    "setId": "500",
+    "id": "AbsoluteVerb_7",
+    "setId": "AbsoluteVerb",
     "japanese": "畳む",
     "reading": "たたむ",
     "meaning": "(이불 등을) 개다, (우산을) 접다, 걷어치우다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 6
   },
   {
-    "id": "darakwonverb_8",
-    "setId": "500",
+    "id": "AbsoluteVerb_8",
+    "setId": "AbsoluteVerb",
     "japanese": "洗う",
     "reading": "あらう",
     "meaning": "씻다, (머리를) 감다, (빨래를) 빨다",
@@ -7284,8 +7284,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 7
   },
   {
-    "id": "darakwonverb_9",
-    "setId": "500",
+    "id": "AbsoluteVerb_9",
+    "setId": "AbsoluteVerb",
     "japanese": "剃る",
     "reading": "そる",
     "meaning": "깎다, 면도하다",
@@ -7295,8 +7295,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 8
   },
   {
-    "id": "darakwonverb_10",
-    "setId": "500",
+    "id": "AbsoluteVerb_10",
+    "setId": "AbsoluteVerb",
     "japanese": "磨く",
     "reading": "みがく",
     "meaning": "(표면을 문질러) 닦다, 윤을 내다",
@@ -7306,19 +7306,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 9
   },
   {
-    "id": "darakwonverb_11",
-    "setId": "500",
+    "id": "AbsoluteVerb_11",
+    "setId": "AbsoluteVerb",
     "japanese": "拭く",
     "reading": "ふく",
     "meaning": "(물기, 먼지 등을) 닦아 내다",
     "type": "verb",
-    "difficulty": 24,
+    "difficulty": 27,
     "verbInfo": "1타",
     "sourceOrder": 10
   },
   {
-    "id": "darakwonverb_12",
-    "setId": "500",
+    "id": "AbsoluteVerb_12",
+    "setId": "AbsoluteVerb",
     "japanese": "休む",
     "reading": "やすむ",
     "meaning": "쉬다, 결석하다, 취침하다",
@@ -7328,8 +7328,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 11
   },
   {
-    "id": "darakwonverb_13",
-    "setId": "500",
+    "id": "AbsoluteVerb_13",
+    "setId": "AbsoluteVerb",
     "japanese": "明ける",
     "reading": "あける",
     "meaning": "(날이) 밝다, (해가) 바뀌다",
@@ -7339,8 +7339,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 12
   },
   {
-    "id": "darakwonverb_14",
-    "setId": "500",
+    "id": "AbsoluteVerb_14",
+    "setId": "AbsoluteVerb",
     "japanese": "暮れる",
     "reading": "くれる",
     "meaning": "저물다, 지새우다",
@@ -7350,19 +7350,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 13
   },
   {
-    "id": "darakwonverb_15",
-    "setId": "500",
+    "id": "AbsoluteVerb_15",
+    "setId": "AbsoluteVerb",
     "japanese": "沈む",
     "reading": "しずむ",
     "meaning": "가라앉다, (해/달이) 지다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "1자",
     "sourceOrder": 14
   },
   {
-    "id": "darakwonverb_16",
-    "setId": "500",
+    "id": "AbsoluteVerb_16",
+    "setId": "AbsoluteVerb",
     "japanese": "吹く",
     "reading": "ふく",
     "meaning": "(바람이) 불다, (입으로/악기를) 불다, 허풍 떨다",
@@ -7372,8 +7372,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 15
   },
   {
-    "id": "darakwonverb_17",
-    "setId": "500",
+    "id": "AbsoluteVerb_17",
+    "setId": "AbsoluteVerb",
     "japanese": "降る",
     "reading": "ふる",
     "meaning": "(비 등이) 내리다",
@@ -7383,8 +7383,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 16
   },
   {
-    "id": "darakwonverb_18",
-    "setId": "500",
+    "id": "AbsoluteVerb_18",
+    "setId": "AbsoluteVerb",
     "japanese": "止む",
     "reading": "やむ",
     "meaning": "그치다, 멎다",
@@ -7394,8 +7394,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 17
   },
   {
-    "id": "darakwonverb_19",
-    "setId": "500",
+    "id": "AbsoluteVerb_19",
+    "setId": "AbsoluteVerb",
     "japanese": "凍る",
     "reading": "こおる",
     "meaning": "얼다",
@@ -7405,19 +7405,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 18
   },
   {
-    "id": "darakwonverb_20",
-    "setId": "500",
+    "id": "AbsoluteVerb_20",
+    "setId": "AbsoluteVerb",
     "japanese": "溶ける",
     "reading": "とける",
     "meaning": "녹다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 33,
     "verbInfo": "2자",
     "sourceOrder": 19
   },
   {
-    "id": "darakwonverb_21",
-    "setId": "500",
+    "id": "AbsoluteVerb_21",
+    "setId": "AbsoluteVerb",
     "japanese": "光る",
     "reading": "ひかる",
     "meaning": "(물체가) 빛을 내다, 반짝이다",
@@ -7427,19 +7427,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 20
   },
   {
-    "id": "darakwonverb_22",
-    "setId": "500",
+    "id": "AbsoluteVerb_22",
+    "setId": "AbsoluteVerb",
     "japanese": "輝く",
     "reading": "かがやく",
     "meaning": "(강하고 눈부시게) 빛나다, 찬란하게 빛나다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "1자",
     "sourceOrder": 21
   },
   {
-    "id": "darakwonverb_23",
-    "setId": "500",
+    "id": "AbsoluteVerb_23",
+    "setId": "AbsoluteVerb",
     "japanese": "晴れる",
     "reading": "はれる",
     "meaning": "맑게 개다, 마음이 밝아지다",
@@ -7449,8 +7449,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 22
   },
   {
-    "id": "darakwonverb_24",
-    "setId": "500",
+    "id": "AbsoluteVerb_24",
+    "setId": "AbsoluteVerb",
     "japanese": "曇る",
     "reading": "くもる",
     "meaning": "(날씨가) 흐려지다, 희미해지다",
@@ -7460,8 +7460,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 23
   },
   {
-    "id": "darakwonverb_25",
-    "setId": "500",
+    "id": "AbsoluteVerb_25",
+    "setId": "AbsoluteVerb",
     "japanese": "漏れる",
     "reading": "もれる",
     "meaning": "(물/빛/비밀 등이) 새다",
@@ -7471,8 +7471,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 24
   },
   {
-    "id": "darakwonverb_26",
-    "setId": "500",
+    "id": "AbsoluteVerb_26",
+    "setId": "AbsoluteVerb",
     "japanese": "鳴る",
     "reading": "なる",
     "meaning": "울리다",
@@ -7482,8 +7482,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 25
   },
   {
-    "id": "darakwonverb_27",
-    "setId": "500",
+    "id": "AbsoluteVerb_27",
+    "setId": "AbsoluteVerb",
     "japanese": "続ける",
     "reading": "つづける",
     "meaning": "계속하다",
@@ -7493,8 +7493,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 26
   },
   {
-    "id": "darakwonverb_28",
-    "setId": "500",
+    "id": "AbsoluteVerb_28",
+    "setId": "AbsoluteVerb",
     "japanese": "遭う",
     "reading": "あう",
     "meaning": "(일을) 당하다, 겪다",
@@ -7504,8 +7504,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 27
   },
   {
-    "id": "darakwonverb_29",
-    "setId": "500",
+    "id": "AbsoluteVerb_29",
+    "setId": "AbsoluteVerb",
     "japanese": "喜ぶ",
     "reading": "よろこぶ",
     "meaning": "기뻐하다",
@@ -7515,8 +7515,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 28
   },
   {
-    "id": "darakwonverb_30",
-    "setId": "500",
+    "id": "AbsoluteVerb_30",
+    "setId": "AbsoluteVerb",
     "japanese": "見る",
     "reading": "みる",
     "meaning": "보다, (꿈을) 꾸다",
@@ -7526,8 +7526,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 29
   },
   {
-    "id": "darakwonverb_31",
-    "setId": "500",
+    "id": "AbsoluteVerb_31",
+    "setId": "AbsoluteVerb",
     "japanese": "聞く",
     "reading": "きく",
     "meaning": "듣다, 묻다",
@@ -7537,8 +7537,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 30
   },
   {
-    "id": "darakwonverb_32",
-    "setId": "500",
+    "id": "AbsoluteVerb_32",
+    "setId": "AbsoluteVerb",
     "japanese": "言う",
     "reading": "いう",
     "meaning": "말하다",
@@ -7548,8 +7548,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 31
   },
   {
-    "id": "darakwonverb_33",
-    "setId": "500",
+    "id": "AbsoluteVerb_33",
+    "setId": "AbsoluteVerb",
     "japanese": "食べる",
     "reading": "たべる",
     "meaning": "먹다",
@@ -7559,8 +7559,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 32
   },
   {
-    "id": "darakwonverb_34",
-    "setId": "500",
+    "id": "AbsoluteVerb_34",
+    "setId": "AbsoluteVerb",
     "japanese": "飲む",
     "reading": "のむ",
     "meaning": "마시다, 약을 먹다",
@@ -7570,8 +7570,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 33
   },
   {
-    "id": "darakwonverb_35",
-    "setId": "500",
+    "id": "AbsoluteVerb_35",
+    "setId": "AbsoluteVerb",
     "japanese": "噛む",
     "reading": "かむ",
     "meaning": "씹다, 물다",
@@ -7581,8 +7581,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 34
   },
   {
-    "id": "darakwonverb_36",
-    "setId": "500",
+    "id": "AbsoluteVerb_36",
+    "setId": "AbsoluteVerb",
     "japanese": "吸う",
     "reading": "すう",
     "meaning": "들이마시다, (담배를) 피우다, 흡수하다",
@@ -7592,8 +7592,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 35
   },
   {
-    "id": "darakwonverb_37",
-    "setId": "500",
+    "id": "AbsoluteVerb_37",
+    "setId": "AbsoluteVerb",
     "japanese": "読む",
     "reading": "よむ",
     "meaning": "읽다",
@@ -7603,8 +7603,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 36
   },
   {
-    "id": "darakwonverb_38",
-    "setId": "500",
+    "id": "AbsoluteVerb_38",
+    "setId": "AbsoluteVerb",
     "japanese": "書く",
     "reading": "かく",
     "meaning": "쓰다, 그리다",
@@ -7614,8 +7614,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 37
   },
   {
-    "id": "darakwonverb_39",
-    "setId": "500",
+    "id": "AbsoluteVerb_39",
+    "setId": "AbsoluteVerb",
     "japanese": "泣く",
     "reading": "なく",
     "meaning": "울다",
@@ -7625,8 +7625,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 38
   },
   {
-    "id": "darakwonverb_40",
-    "setId": "500",
+    "id": "AbsoluteVerb_40",
+    "setId": "AbsoluteVerb",
     "japanese": "笑う",
     "reading": "わらう",
     "meaning": "웃다, 비웃다",
@@ -7636,8 +7636,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 39
   },
   {
-    "id": "darakwonverb_41",
-    "setId": "500",
+    "id": "AbsoluteVerb_41",
+    "setId": "AbsoluteVerb",
     "japanese": "歩く",
     "reading": "あるく",
     "meaning": "걷다",
@@ -7647,8 +7647,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 40
   },
   {
-    "id": "darakwonverb_42",
-    "setId": "500",
+    "id": "AbsoluteVerb_42",
+    "setId": "AbsoluteVerb",
     "japanese": "走る",
     "reading": "はしる",
     "meaning": "달리다, (부정적으로) 쏠리다, 치우치다",
@@ -7658,8 +7658,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 41
   },
   {
-    "id": "darakwonverb_43",
-    "setId": "500",
+    "id": "AbsoluteVerb_43",
+    "setId": "AbsoluteVerb",
     "japanese": "跳ねる",
     "reading": "はねる",
     "meaning": "뛰어오르다, 튀기다, 들이받다",
@@ -7669,8 +7669,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 42
   },
   {
-    "id": "darakwonverb_44",
-    "setId": "500",
+    "id": "AbsoluteVerb_44",
+    "setId": "AbsoluteVerb",
     "japanese": "飛ぶ",
     "reading": "とぶ",
     "meaning": "날다, 건너뛰다, 누락되다",
@@ -7680,8 +7680,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 43
   },
   {
-    "id": "darakwonverb_45",
-    "setId": "500",
+    "id": "AbsoluteVerb_45",
+    "setId": "AbsoluteVerb",
     "japanese": "泳ぐ",
     "reading": "およぐ",
     "meaning": "헤엄치다",
@@ -7691,8 +7691,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 44
   },
   {
-    "id": "darakwonverb_46",
-    "setId": "500",
+    "id": "AbsoluteVerb_46",
+    "setId": "AbsoluteVerb",
     "japanese": "投げる",
     "reading": "なげる",
     "meaning": "던지다",
@@ -7702,8 +7702,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 45
   },
   {
-    "id": "darakwonverb_47",
-    "setId": "500",
+    "id": "AbsoluteVerb_47",
+    "setId": "AbsoluteVerb",
     "japanese": "蹴る",
     "reading": "ける",
     "meaning": "(발로) 차다",
@@ -7713,8 +7713,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 46
   },
   {
-    "id": "darakwonverb_48",
-    "setId": "500",
+    "id": "AbsoluteVerb_48",
+    "setId": "AbsoluteVerb",
     "japanese": "打つ",
     "reading": "うつ",
     "meaning": "치다, 부딪치다, 찌르다, (마음을) 울리다, (바둑을) 두다",
@@ -7724,8 +7724,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 47
   },
   {
-    "id": "darakwonverb_49",
-    "setId": "500",
+    "id": "AbsoluteVerb_49",
+    "setId": "AbsoluteVerb",
     "japanese": "思う",
     "reading": "おもう",
     "meaning": "(주관적/의지적) 생각하다",
@@ -7735,8 +7735,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 48
   },
   {
-    "id": "darakwonverb_50",
-    "setId": "500",
+    "id": "AbsoluteVerb_50",
+    "setId": "AbsoluteVerb",
     "japanese": "考える",
     "reading": "かんがえる",
     "meaning": "(이성적/객관적) 생각하다",
@@ -7746,8 +7746,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 49
   },
   {
-    "id": "darakwonverb_51",
-    "setId": "500",
+    "id": "AbsoluteVerb_51",
+    "setId": "AbsoluteVerb",
     "japanese": "悩む",
     "reading": "なやむ",
     "meaning": "고민하다",
@@ -7757,19 +7757,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 50
   },
   {
-    "id": "darakwonverb_52",
-    "setId": "500",
+    "id": "AbsoluteVerb_52",
+    "setId": "AbsoluteVerb",
     "japanese": "疑う",
     "reading": "うたがう",
     "meaning": "의심하다",
     "type": "verb",
-    "difficulty": 37,
+    "difficulty": 36,
     "verbInfo": "1타",
     "sourceOrder": 51
   },
   {
-    "id": "darakwonverb_53",
-    "setId": "500",
+    "id": "AbsoluteVerb_53",
+    "setId": "AbsoluteVerb",
     "japanese": "落ち着く",
     "reading": "おちつく",
     "meaning": "진정되다, 정착하다",
@@ -7779,8 +7779,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 52
   },
   {
-    "id": "darakwonverb_54",
-    "setId": "500",
+    "id": "AbsoluteVerb_54",
+    "setId": "AbsoluteVerb",
     "japanese": "確かめる",
     "reading": "たしかめる",
     "meaning": "확인하다",
@@ -7790,8 +7790,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 53
   },
   {
-    "id": "darakwonverb_55",
-    "setId": "500",
+    "id": "AbsoluteVerb_55",
+    "setId": "AbsoluteVerb",
     "japanese": "信じる",
     "reading": "しんじる",
     "meaning": "믿다",
@@ -7801,8 +7801,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 54
   },
   {
-    "id": "darakwonverb_56",
-    "setId": "500",
+    "id": "AbsoluteVerb_56",
+    "setId": "AbsoluteVerb",
     "japanese": "痛む",
     "reading": "いたむ",
     "meaning": "아프다",
@@ -7812,8 +7812,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 55
   },
   {
-    "id": "darakwonverb_57",
-    "setId": "500",
+    "id": "AbsoluteVerb_57",
+    "setId": "AbsoluteVerb",
     "japanese": "傷む",
     "reading": "いたむ",
     "meaning": "(무생물이) 상하다, 망가지다",
@@ -7823,8 +7823,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 56
   },
   {
-    "id": "darakwonverb_58",
-    "setId": "500",
+    "id": "AbsoluteVerb_58",
+    "setId": "AbsoluteVerb",
     "japanese": "感じる",
     "reading": "かんじる",
     "meaning": "느끼다",
@@ -7834,8 +7834,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 57
   },
   {
-    "id": "darakwonverb_59",
-    "setId": "500",
+    "id": "AbsoluteVerb_59",
+    "setId": "AbsoluteVerb",
     "japanese": "染みる",
     "reading": "しみる",
     "meaning": "시리다, 스며들다",
@@ -7845,8 +7845,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 58
   },
   {
-    "id": "darakwonverb_60",
-    "setId": "500",
+    "id": "AbsoluteVerb_60",
+    "setId": "AbsoluteVerb",
     "japanese": "話す",
     "reading": "はなす",
     "meaning": "이야기하다, 말하다",
@@ -7856,8 +7856,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 59
   },
   {
-    "id": "darakwonverb_61",
-    "setId": "500",
+    "id": "AbsoluteVerb_61",
+    "setId": "AbsoluteVerb",
     "japanese": "しゃべる",
     "reading": "しゃべる",
     "meaning": "수다 떨다, 지껄이다",
@@ -7867,8 +7867,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 60
   },
   {
-    "id": "darakwonverb_62",
-    "setId": "500",
+    "id": "AbsoluteVerb_62",
+    "setId": "AbsoluteVerb",
     "japanese": "語る",
     "reading": "かたる",
     "meaning": "(감정, 서사를) 이야기하다",
@@ -7878,8 +7878,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 61
   },
   {
-    "id": "darakwonverb_63",
-    "setId": "500",
+    "id": "AbsoluteVerb_63",
+    "setId": "AbsoluteVerb",
     "japanese": "物語る",
     "reading": "ものがたる",
     "meaning": "(상황이 어떤 사실을) 말해주다",
@@ -7889,8 +7889,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 62
   },
   {
-    "id": "darakwonverb_64",
-    "setId": "500",
+    "id": "AbsoluteVerb_64",
+    "setId": "AbsoluteVerb",
     "japanese": "述べる",
     "reading": "のべる",
     "meaning": "진술하다, 서술하다",
@@ -7900,8 +7900,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 63
   },
   {
-    "id": "darakwonverb_65",
-    "setId": "500",
+    "id": "AbsoluteVerb_65",
+    "setId": "AbsoluteVerb",
     "japanese": "つぶやく",
     "reading": "つぶやく",
     "meaning": "중얼거리다",
@@ -7911,8 +7911,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 64
   },
   {
-    "id": "darakwonverb_66",
-    "setId": "500",
+    "id": "AbsoluteVerb_66",
+    "setId": "AbsoluteVerb",
     "japanese": "ささやく",
     "reading": "ささやく",
     "meaning": "속삭이다",
@@ -7922,8 +7922,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 65
   },
   {
-    "id": "darakwonverb_67",
-    "setId": "500",
+    "id": "AbsoluteVerb_67",
+    "setId": "AbsoluteVerb",
     "japanese": "どもる",
     "reading": "どもる",
     "meaning": "말을 더듬다",
@@ -7933,8 +7933,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 66
   },
   {
-    "id": "darakwonverb_68",
-    "setId": "500",
+    "id": "AbsoluteVerb_68",
+    "setId": "AbsoluteVerb",
     "japanese": "呼ぶ",
     "reading": "よぶ",
     "meaning": "부르다",
@@ -7944,8 +7944,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 67
   },
   {
-    "id": "darakwonverb_69",
-    "setId": "500",
+    "id": "AbsoluteVerb_69",
+    "setId": "AbsoluteVerb",
     "japanese": "叫ぶ",
     "reading": "さけぶ",
     "meaning": "외치다",
@@ -7955,8 +7955,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 68
   },
   {
-    "id": "darakwonverb_70",
-    "setId": "500",
+    "id": "AbsoluteVerb_70",
+    "setId": "AbsoluteVerb",
     "japanese": "黙る",
     "reading": "だまる",
     "meaning": "입 다물다",
@@ -7966,8 +7966,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 69
   },
   {
-    "id": "darakwonverb_71",
-    "setId": "500",
+    "id": "AbsoluteVerb_71",
+    "setId": "AbsoluteVerb",
     "japanese": "掛ける",
     "reading": "かける",
     "meaning": "(벽 등에) 걸다, 걸쳐 두다, (전화를) 걸다, (자물쇠를) 잠그다, (안경을) 쓰다 등",
@@ -7977,8 +7977,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 70
   },
   {
-    "id": "darakwonverb_72",
-    "setId": "500",
+    "id": "AbsoluteVerb_72",
+    "setId": "AbsoluteVerb",
     "japanese": "掛かる",
     "reading": "かかる",
     "meaning": "(벽 등에) 걸리다, (말, 유혹 등을) 걸어오다, (열쇠, 단추 등이) 채워지다",
@@ -7988,8 +7988,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 71
   },
   {
-    "id": "darakwonverb_73",
-    "setId": "500",
+    "id": "AbsoluteVerb_73",
+    "setId": "AbsoluteVerb",
     "japanese": "付ける",
     "reading": "つける",
     "meaning": "(붙여서) 달다, 덧붙이다, 기록하다, (실력, 습관 등을) 몸에 익히다",
@@ -7999,8 +7999,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 72
   },
   {
-    "id": "darakwonverb_74",
-    "setId": "500",
+    "id": "AbsoluteVerb_74",
+    "setId": "AbsoluteVerb",
     "japanese": "点ける",
     "reading": "つける",
     "meaning": "(불, 전등 등을) 켜다",
@@ -8010,8 +8010,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 73
   },
   {
-    "id": "darakwonverb_75",
-    "setId": "500",
+    "id": "AbsoluteVerb_75",
+    "setId": "AbsoluteVerb",
     "japanese": "消す",
     "reading": "けす",
     "meaning": "지우다, 없애다, 끄다",
@@ -8021,8 +8021,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 74
   },
   {
-    "id": "darakwonverb_76",
-    "setId": "500",
+    "id": "AbsoluteVerb_76",
+    "setId": "AbsoluteVerb",
     "japanese": "開ける",
     "reading": "あける",
     "meaning": "(문, 뚜껑 등을) 열다, (눈을) 뜨다",
@@ -8032,8 +8032,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 75
   },
   {
-    "id": "darakwonverb_77",
-    "setId": "500",
+    "id": "AbsoluteVerb_77",
+    "setId": "AbsoluteVerb",
     "japanese": "開く",
     "reading": "あく",
     "meaning": "(문, 뚜껑 등이) 열리다, (눈이) 떠지다",
@@ -8043,8 +8043,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 76
   },
   {
-    "id": "darakwonverb_78",
-    "setId": "500",
+    "id": "AbsoluteVerb_78",
+    "setId": "AbsoluteVerb",
     "japanese": "閉める",
     "reading": "しめる",
     "meaning": "닫다, 영업 종료하다",
@@ -8054,8 +8054,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 77
   },
   {
-    "id": "darakwonverb_79",
-    "setId": "500",
+    "id": "AbsoluteVerb_79",
+    "setId": "AbsoluteVerb",
     "japanese": "閉まる",
     "reading": "しまる",
     "meaning": "닫히다",
@@ -8065,8 +8065,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 78
   },
   {
-    "id": "darakwonverb_80",
-    "setId": "500",
+    "id": "AbsoluteVerb_80",
+    "setId": "AbsoluteVerb",
     "japanese": "取る",
     "reading": "とる",
     "meaning": "집다, 따다, 떼어 내다, 받아들이다",
@@ -8076,8 +8076,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 79
   },
   {
-    "id": "darakwonverb_81",
-    "setId": "500",
+    "id": "AbsoluteVerb_81",
+    "setId": "AbsoluteVerb",
     "japanese": "持つ",
     "reading": "もつ",
     "meaning": "가지다, 들다",
@@ -8087,8 +8087,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 80
   },
   {
-    "id": "darakwonverb_82",
-    "setId": "500",
+    "id": "AbsoluteVerb_82",
+    "setId": "AbsoluteVerb",
     "japanese": "押す",
     "reading": "おす",
     "meaning": "밀다, 눌러서 작동시키다, (도장을) 찍다",
@@ -8098,8 +8098,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 81
   },
   {
-    "id": "darakwonverb_83",
-    "setId": "500",
+    "id": "AbsoluteVerb_83",
+    "setId": "AbsoluteVerb",
     "japanese": "引く",
     "reading": "ひく",
     "meaning": "당기다, 끌다, 빼다",
@@ -8109,8 +8109,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 82
   },
   {
-    "id": "darakwonverb_84",
-    "setId": "500",
+    "id": "AbsoluteVerb_84",
+    "setId": "AbsoluteVerb",
     "japanese": "引っ張る",
     "reading": "ひっぱる",
     "meaning": "잡아끌다, 연행하다",
@@ -8120,8 +8120,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 83
   },
   {
-    "id": "darakwonverb_85",
-    "setId": "500",
+    "id": "AbsoluteVerb_85",
+    "setId": "AbsoluteVerb",
     "japanese": "押さえる",
     "reading": "おさえる",
     "meaning": "꾹 눌러 고정하다, (핵심을) 파악하다",
@@ -8131,8 +8131,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 84
   },
   {
-    "id": "darakwonverb_86",
-    "setId": "500",
+    "id": "AbsoluteVerb_86",
+    "setId": "AbsoluteVerb",
     "japanese": "撫でる",
     "reading": "なでる",
     "meaning": "쓰다듬다, 어루만지다",
@@ -8142,8 +8142,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 85
   },
   {
-    "id": "darakwonverb_87",
-    "setId": "500",
+    "id": "AbsoluteVerb_87",
+    "setId": "AbsoluteVerb",
     "japanese": "振る",
     "reading": "ふる",
     "meaning": "좌우로 흔들다, (연인에게) 차다",
@@ -8153,8 +8153,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 86
   },
   {
-    "id": "darakwonverb_88",
-    "setId": "500",
+    "id": "AbsoluteVerb_88",
+    "setId": "AbsoluteVerb",
     "japanese": "掴む",
     "reading": "つかむ",
     "meaning": "움켜쥐다, 손에 넣다, 파악하다",
@@ -8164,8 +8164,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 87
   },
   {
-    "id": "darakwonverb_89",
-    "setId": "500",
+    "id": "AbsoluteVerb_89",
+    "setId": "AbsoluteVerb",
     "japanese": "握る",
     "reading": "にぎる",
     "meaning": "쥐다, 장악하다",
@@ -8175,8 +8175,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 88
   },
   {
-    "id": "darakwonverb_90",
-    "setId": "500",
+    "id": "AbsoluteVerb_90",
+    "setId": "AbsoluteVerb",
     "japanese": "結ぶ",
     "reading": "むすぶ",
     "meaning": "매다, 묶다, 이어 맺다",
@@ -8186,19 +8186,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 89
   },
   {
-    "id": "darakwonverb_91",
-    "setId": "500",
+    "id": "AbsoluteVerb_91",
+    "setId": "AbsoluteVerb",
     "japanese": "縛る",
     "reading": "しばる",
     "meaning": "묶다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 36,
     "verbInfo": "1타",
     "sourceOrder": 90
   },
   {
-    "id": "darakwonverb_92",
-    "setId": "500",
+    "id": "AbsoluteVerb_92",
+    "setId": "AbsoluteVerb",
     "japanese": "触る",
     "reading": "さわる",
     "meaning": "닿다, 손대다",
@@ -8208,8 +8208,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 91
   },
   {
-    "id": "darakwonverb_93",
-    "setId": "500",
+    "id": "AbsoluteVerb_93",
+    "setId": "AbsoluteVerb",
     "japanese": "障る",
     "reading": "さわる",
     "meaning": "방해가 되다, 거슬리다",
@@ -8219,8 +8219,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 92
   },
   {
-    "id": "darakwonverb_94",
-    "setId": "500",
+    "id": "AbsoluteVerb_94",
+    "setId": "AbsoluteVerb",
     "japanese": "叩く",
     "reading": "たたく",
     "meaning": "때리다, 비난하다",
@@ -8230,8 +8230,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 93
   },
   {
-    "id": "darakwonverb_95",
-    "setId": "500",
+    "id": "AbsoluteVerb_95",
+    "setId": "AbsoluteVerb",
     "japanese": "追い払う",
     "reading": "おいはらう",
     "meaning": "내쫓다",
@@ -8241,8 +8241,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 94
   },
   {
-    "id": "darakwonverb_96",
-    "setId": "500",
+    "id": "AbsoluteVerb_96",
+    "setId": "AbsoluteVerb",
     "japanese": "貼る",
     "reading": "はる",
     "meaning": "(얇은 것을) 붙이다",
@@ -8252,8 +8252,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 95
   },
   {
-    "id": "darakwonverb_97",
-    "setId": "500",
+    "id": "AbsoluteVerb_97",
+    "setId": "AbsoluteVerb",
     "japanese": "塗る",
     "reading": "ぬる",
     "meaning": "칠하다, 바르다",
@@ -8263,8 +8263,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 96
   },
   {
-    "id": "darakwonverb_98",
-    "setId": "500",
+    "id": "AbsoluteVerb_98",
+    "setId": "AbsoluteVerb",
     "japanese": "縫う",
     "reading": "ぬう",
     "meaning": "꿰메다",
@@ -8274,8 +8274,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 97
   },
   {
-    "id": "darakwonverb_99",
-    "setId": "500",
+    "id": "AbsoluteVerb_99",
+    "setId": "AbsoluteVerb",
     "japanese": "捲る",
     "reading": "めくる",
     "meaning": "(종이 등을) 넘기다, 들추다",
@@ -8285,8 +8285,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 98
   },
   {
-    "id": "darakwonverb_100",
-    "setId": "500",
+    "id": "AbsoluteVerb_100",
+    "setId": "AbsoluteVerb",
     "japanese": "捲る",
     "reading": "まくる",
     "meaning": "걷어올리다",
@@ -8296,8 +8296,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 99
   },
   {
-    "id": "darakwonverb_101",
-    "setId": "500",
+    "id": "AbsoluteVerb_101",
+    "setId": "AbsoluteVerb",
     "japanese": "出す",
     "reading": "だす",
     "meaning": "내다, 제출하다",
@@ -8307,8 +8307,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 100
   },
   {
-    "id": "darakwonverb_102",
-    "setId": "500",
+    "id": "AbsoluteVerb_102",
+    "setId": "AbsoluteVerb",
     "japanese": "作る",
     "reading": "つくる",
     "meaning": "만들다",
@@ -8318,8 +8318,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 101
   },
   {
-    "id": "darakwonverb_103",
-    "setId": "500",
+    "id": "AbsoluteVerb_103",
+    "setId": "AbsoluteVerb",
     "japanese": "置く",
     "reading": "おく",
     "meaning": "놓다, (간격을) 두다",
@@ -8329,8 +8329,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 102
   },
   {
-    "id": "darakwonverb_104",
-    "setId": "500",
+    "id": "AbsoluteVerb_104",
+    "setId": "AbsoluteVerb",
     "japanese": "立つ",
     "reading": "たつ",
     "meaning": "서다",
@@ -8340,8 +8340,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 103
   },
   {
-    "id": "darakwonverb_105",
-    "setId": "500",
+    "id": "AbsoluteVerb_105",
+    "setId": "AbsoluteVerb",
     "japanese": "立ち上がる",
     "reading": "たちあがる",
     "meaning": "일어서다",
@@ -8351,8 +8351,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 104
   },
   {
-    "id": "darakwonverb_106",
-    "setId": "500",
+    "id": "AbsoluteVerb_106",
+    "setId": "AbsoluteVerb",
     "japanese": "座る",
     "reading": "すわる",
     "meaning": "앉다",
@@ -8362,8 +8362,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 105
   },
   {
-    "id": "darakwonverb_107",
-    "setId": "500",
+    "id": "AbsoluteVerb_107",
+    "setId": "AbsoluteVerb",
     "japanese": "しゃがむ",
     "reading": "しゃがむ",
     "meaning": "웅크리다",
@@ -8373,8 +8373,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 106
   },
   {
-    "id": "darakwonverb_108",
-    "setId": "500",
+    "id": "AbsoluteVerb_108",
+    "setId": "AbsoluteVerb",
     "japanese": "伏せる",
     "reading": "ふせる",
     "meaning": "엎드리다, 엎어 놓다, 숨기다",
@@ -8384,8 +8384,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 107
   },
   {
-    "id": "darakwonverb_109",
-    "setId": "500",
+    "id": "AbsoluteVerb_109",
+    "setId": "AbsoluteVerb",
     "japanese": "横になる",
     "reading": "よこになる",
     "meaning": "드러눕다",
@@ -8395,8 +8395,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 108
   },
   {
-    "id": "darakwonverb_110",
-    "setId": "500",
+    "id": "AbsoluteVerb_110",
+    "setId": "AbsoluteVerb",
     "japanese": "曲げる",
     "reading": "まげる",
     "meaning": "굽히다",
@@ -8406,8 +8406,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 109
   },
   {
-    "id": "darakwonverb_111",
-    "setId": "500",
+    "id": "AbsoluteVerb_111",
+    "setId": "AbsoluteVerb",
     "japanese": "組む",
     "reading": "くむ",
     "meaning": "(팔짱을) 끼다, (끈 등을)짜다, 구성하다",
@@ -8417,8 +8417,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 110
   },
   {
-    "id": "darakwonverb_112",
-    "setId": "500",
+    "id": "AbsoluteVerb_112",
+    "setId": "AbsoluteVerb",
     "japanese": "踏む",
     "reading": "ふむ",
     "meaning": "밟다",
@@ -8428,8 +8428,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 111
   },
   {
-    "id": "darakwonverb_113",
-    "setId": "500",
+    "id": "AbsoluteVerb_113",
+    "setId": "AbsoluteVerb",
     "japanese": "悲しむ",
     "reading": "かなしむ",
     "meaning": "슬퍼하다",
@@ -8439,8 +8439,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 112
   },
   {
-    "id": "darakwonverb_114",
-    "setId": "500",
+    "id": "AbsoluteVerb_114",
+    "setId": "AbsoluteVerb",
     "japanese": "悼む",
     "reading": "いたむ",
     "meaning": "애도하다",
@@ -8450,8 +8450,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 113
   },
   {
-    "id": "darakwonverb_115",
-    "setId": "500",
+    "id": "AbsoluteVerb_115",
+    "setId": "AbsoluteVerb",
     "japanese": "楽しむ",
     "reading": "たのしむ",
     "meaning": "즐기다",
@@ -8461,8 +8461,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 114
   },
   {
-    "id": "darakwonverb_116",
-    "setId": "500",
+    "id": "AbsoluteVerb_116",
+    "setId": "AbsoluteVerb",
     "japanese": "好む",
     "reading": "このむ",
     "meaning": "좋아하다",
@@ -8472,8 +8472,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 115
   },
   {
-    "id": "darakwonverb_117",
-    "setId": "500",
+    "id": "AbsoluteVerb_117",
+    "setId": "AbsoluteVerb",
     "japanese": "嫌う",
     "reading": "きらう",
     "meaning": "싫어하다",
@@ -8483,8 +8483,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 116
   },
   {
-    "id": "darakwonverb_118",
-    "setId": "500",
+    "id": "AbsoluteVerb_118",
+    "setId": "AbsoluteVerb",
     "japanese": "憎む",
     "reading": "にくむ",
     "meaning": "미워하다",
@@ -8494,8 +8494,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 117
   },
   {
-    "id": "darakwonverb_119",
-    "setId": "500",
+    "id": "AbsoluteVerb_119",
+    "setId": "AbsoluteVerb",
     "japanese": "恐れる",
     "reading": "おそれる",
     "meaning": "두려워하다",
@@ -8505,8 +8505,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 118
   },
   {
-    "id": "darakwonverb_120",
-    "setId": "500",
+    "id": "AbsoluteVerb_120",
+    "setId": "AbsoluteVerb",
     "japanese": "惜しむ",
     "reading": "おしむ",
     "meaning": "소중히 여기다, 아쉬워하다",
@@ -8516,8 +8516,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 119
   },
   {
-    "id": "darakwonverb_121",
-    "setId": "500",
+    "id": "AbsoluteVerb_121",
+    "setId": "AbsoluteVerb",
     "japanese": "恨む",
     "reading": "うらむ",
     "meaning": "원망하다",
@@ -8527,8 +8527,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 120
   },
   {
-    "id": "darakwonverb_122",
-    "setId": "500",
+    "id": "AbsoluteVerb_122",
+    "setId": "AbsoluteVerb",
     "japanese": "驚く",
     "reading": "おどろく",
     "meaning": "놀라다",
@@ -8538,8 +8538,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 121
   },
   {
-    "id": "darakwonverb_123",
-    "setId": "500",
+    "id": "AbsoluteVerb_123",
+    "setId": "AbsoluteVerb",
     "japanese": "驚かす",
     "reading": "おどろかす",
     "meaning": "놀라게 하다",
@@ -8549,8 +8549,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 122
   },
   {
-    "id": "darakwonverb_124",
-    "setId": "500",
+    "id": "AbsoluteVerb_124",
+    "setId": "AbsoluteVerb",
     "japanese": "びっくりする",
     "reading": "びっくりする",
     "meaning": "깜짝 놀라다",
@@ -8560,8 +8560,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 123
   },
   {
-    "id": "darakwonverb_125",
-    "setId": "500",
+    "id": "AbsoluteVerb_125",
+    "setId": "AbsoluteVerb",
     "japanese": "ときめく",
     "reading": "ときめく",
     "meaning": "설레다",
@@ -8571,8 +8571,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 124
   },
   {
-    "id": "darakwonverb_126",
-    "setId": "500",
+    "id": "AbsoluteVerb_126",
+    "setId": "AbsoluteVerb",
     "japanese": "可愛がる",
     "reading": "かわいがる",
     "meaning": "귀여워하다",
@@ -8582,19 +8582,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 125
   },
   {
-    "id": "darakwonverb_127",
-    "setId": "500",
+    "id": "AbsoluteVerb_127",
+    "setId": "AbsoluteVerb",
     "japanese": "飽きる",
     "reading": "あきる",
     "meaning": "질리다",
     "type": "verb",
-    "difficulty": 35,
+    "difficulty": 34,
     "verbInfo": "2자",
     "sourceOrder": 126
   },
   {
-    "id": "darakwonverb_128",
-    "setId": "500",
+    "id": "AbsoluteVerb_128",
+    "setId": "AbsoluteVerb",
     "japanese": "呆れる",
     "reading": "あきれる",
     "meaning": "어이가 없다",
@@ -8604,8 +8604,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 127
   },
   {
-    "id": "darakwonverb_129",
-    "setId": "500",
+    "id": "AbsoluteVerb_129",
+    "setId": "AbsoluteVerb",
     "japanese": "怒る",
     "reading": "おこる",
     "meaning": "화내다, 꾸짖다",
@@ -8615,8 +8615,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 128
   },
   {
-    "id": "darakwonverb_130",
-    "setId": "500",
+    "id": "AbsoluteVerb_130",
+    "setId": "AbsoluteVerb",
     "japanese": "叱る",
     "reading": "しかる",
     "meaning": "꾸짖다",
@@ -8626,8 +8626,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 129
   },
   {
-    "id": "darakwonverb_131",
-    "setId": "500",
+    "id": "AbsoluteVerb_131",
+    "setId": "AbsoluteVerb",
     "japanese": "褒める",
     "reading": "ほめる",
     "meaning": "칭찬하다",
@@ -8637,8 +8637,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 130
   },
   {
-    "id": "darakwonverb_132",
-    "setId": "500",
+    "id": "AbsoluteVerb_132",
+    "setId": "AbsoluteVerb",
     "japanese": "いじめる",
     "reading": "いじめる",
     "meaning": "(악의적으로) 괴롭히다",
@@ -8648,8 +8648,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 131
   },
   {
-    "id": "darakwonverb_133",
-    "setId": "500",
+    "id": "AbsoluteVerb_133",
+    "setId": "AbsoluteVerb",
     "japanese": "甘える",
     "reading": "あまえる",
     "meaning": "응석부리다, (호의를) 스스럼없이 받아들이다",
@@ -8659,8 +8659,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 132
   },
   {
-    "id": "darakwonverb_134",
-    "setId": "500",
+    "id": "AbsoluteVerb_134",
+    "setId": "AbsoluteVerb",
     "japanese": "甘やかす",
     "reading": "あまやかす",
     "meaning": "응석을 받아주다",
@@ -8670,8 +8670,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 133
   },
   {
-    "id": "darakwonverb_135",
-    "setId": "500",
+    "id": "AbsoluteVerb_135",
+    "setId": "AbsoluteVerb",
     "japanese": "責める",
     "reading": "せめる",
     "meaning": "비난하다",
@@ -8681,8 +8681,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 134
   },
   {
-    "id": "darakwonverb_136",
-    "setId": "500",
+    "id": "AbsoluteVerb_136",
+    "setId": "AbsoluteVerb",
     "japanese": "からかう",
     "reading": "からかう",
     "meaning": "놀리다",
@@ -8692,8 +8692,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 135
   },
   {
-    "id": "darakwonverb_137",
-    "setId": "500",
+    "id": "AbsoluteVerb_137",
+    "setId": "AbsoluteVerb",
     "japanese": "ふざける",
     "reading": "ふざける",
     "meaning": "희롱하다",
@@ -8703,8 +8703,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 136
   },
   {
-    "id": "darakwonverb_138",
-    "setId": "500",
+    "id": "AbsoluteVerb_138",
+    "setId": "AbsoluteVerb",
     "japanese": "狂う",
     "reading": "くるう",
     "meaning": "미치다, (예상이) 어긋나다",
@@ -8714,8 +8714,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 137
   },
   {
-    "id": "darakwonverb_139",
-    "setId": "500",
+    "id": "AbsoluteVerb_139",
+    "setId": "AbsoluteVerb",
     "japanese": "睨む",
     "reading": "にらむ",
     "meaning": "노려보다, 짐작하다",
@@ -8725,8 +8725,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 138
   },
   {
-    "id": "darakwonverb_140",
-    "setId": "500",
+    "id": "AbsoluteVerb_140",
+    "setId": "AbsoluteVerb",
     "japanese": "微笑む",
     "reading": "ほほえむ",
     "meaning": "미소 짓다",
@@ -8736,8 +8736,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 139
   },
   {
-    "id": "darakwonverb_141",
-    "setId": "500",
+    "id": "AbsoluteVerb_141",
+    "setId": "AbsoluteVerb",
     "japanese": "悩ます",
     "reading": "なやます",
     "meaning": "골치 아프게 하다, 시달리게 하다",
@@ -8747,8 +8747,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 140
   },
   {
-    "id": "darakwonverb_142",
-    "setId": "500",
+    "id": "AbsoluteVerb_142",
+    "setId": "AbsoluteVerb",
     "japanese": "苦しむ",
     "reading": "くるしむ",
     "meaning": "고생하다",
@@ -8758,8 +8758,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 141
   },
   {
-    "id": "darakwonverb_143",
-    "setId": "500",
+    "id": "AbsoluteVerb_143",
+    "setId": "AbsoluteVerb",
     "japanese": "迷う",
     "reading": "まよう",
     "meaning": "헤매다, 망설이다",
@@ -8769,8 +8769,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 142
   },
   {
-    "id": "darakwonverb_144",
-    "setId": "500",
+    "id": "AbsoluteVerb_144",
+    "setId": "AbsoluteVerb",
     "japanese": "戸惑う",
     "reading": "とまどう",
     "meaning": "어리둥절하다",
@@ -8780,19 +8780,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 143
   },
   {
-    "id": "darakwonverb_145",
-    "setId": "500",
+    "id": "AbsoluteVerb_145",
+    "setId": "AbsoluteVerb",
     "japanese": "慌てる",
     "reading": "あわてる",
     "meaning": "허둥지둥하다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 35,
     "verbInfo": "2자",
     "sourceOrder": 144
   },
   {
-    "id": "darakwonverb_146",
-    "setId": "500",
+    "id": "AbsoluteVerb_146",
+    "setId": "AbsoluteVerb",
     "japanese": "うろたえる",
     "reading": "うろたえる",
     "meaning": "(꼴사납게) 당황하다",
@@ -8802,8 +8802,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 145
   },
   {
-    "id": "darakwonverb_147",
-    "setId": "500",
+    "id": "AbsoluteVerb_147",
+    "setId": "AbsoluteVerb",
     "japanese": "うろつく",
     "reading": "うろつく",
     "meaning": "서성거리다",
@@ -8813,8 +8813,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 146
   },
   {
-    "id": "darakwonverb_148",
-    "setId": "500",
+    "id": "AbsoluteVerb_148",
+    "setId": "AbsoluteVerb",
     "japanese": "焦る",
     "reading": "あせる",
     "meaning": "초조해하다",
@@ -8824,8 +8824,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 147
   },
   {
-    "id": "darakwonverb_149",
-    "setId": "500",
+    "id": "AbsoluteVerb_149",
+    "setId": "AbsoluteVerb",
     "japanese": "困る",
     "reading": "こまる",
     "meaning": "곤란하다",
@@ -8835,8 +8835,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 148
   },
   {
-    "id": "darakwonverb_150",
-    "setId": "500",
+    "id": "AbsoluteVerb_150",
+    "setId": "AbsoluteVerb",
     "japanese": "ためらう",
     "reading": "ためらう",
     "meaning": "주저하다",
@@ -8846,19 +8846,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 149
   },
   {
-    "id": "darakwonverb_151",
-    "setId": "500",
+    "id": "AbsoluteVerb_151",
+    "setId": "AbsoluteVerb",
     "japanese": "頼る",
     "reading": "たよる",
     "meaning": "의지하다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 35,
     "verbInfo": "1자",
     "sourceOrder": 150
   },
   {
-    "id": "darakwonverb_152",
-    "setId": "500",
+    "id": "AbsoluteVerb_152",
+    "setId": "AbsoluteVerb",
     "japanese": "望む",
     "reading": "のぞむ",
     "meaning": "(목표로서) 바라다",
@@ -8868,8 +8868,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 151
   },
   {
-    "id": "darakwonverb_153",
-    "setId": "500",
+    "id": "AbsoluteVerb_153",
+    "setId": "AbsoluteVerb",
     "japanese": "願う",
     "reading": "ねがう",
     "meaning": "기원하다",
@@ -8879,8 +8879,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 152
   },
   {
-    "id": "darakwonverb_154",
-    "setId": "500",
+    "id": "AbsoluteVerb_154",
+    "setId": "AbsoluteVerb",
     "japanese": "求める",
     "reading": "もとめる",
     "meaning": "찾다, 요구하다",
@@ -8890,8 +8890,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 153
   },
   {
-    "id": "darakwonverb_155",
-    "setId": "500",
+    "id": "AbsoluteVerb_155",
+    "setId": "AbsoluteVerb",
     "japanese": "祈る",
     "reading": "いのる",
     "meaning": "기도하다",
@@ -8901,8 +8901,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 154
   },
   {
-    "id": "darakwonverb_156",
-    "setId": "500",
+    "id": "AbsoluteVerb_156",
+    "setId": "AbsoluteVerb",
     "japanese": "諦める",
     "reading": "あきらめる",
     "meaning": "포기하다",
@@ -8912,19 +8912,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 155
   },
   {
-    "id": "darakwonverb_157",
-    "setId": "500",
+    "id": "AbsoluteVerb_157",
+    "setId": "AbsoluteVerb",
     "japanese": "慰める",
     "reading": "なぐさめる",
     "meaning": "위로하다",
     "type": "verb",
-    "difficulty": 46,
+    "difficulty": 43,
     "verbInfo": "2타",
     "sourceOrder": 156
   },
   {
-    "id": "darakwonverb_158",
-    "setId": "500",
+    "id": "AbsoluteVerb_158",
+    "setId": "AbsoluteVerb",
     "japanese": "謝る",
     "reading": "あやまる",
     "meaning": "사과하다",
@@ -8934,19 +8934,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 157
   },
   {
-    "id": "darakwonverb_159",
-    "setId": "500",
+    "id": "AbsoluteVerb_159",
+    "setId": "AbsoluteVerb",
     "japanese": "許す",
     "reading": "ゆるす",
     "meaning": "용서하다, 허락하다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 158
   },
   {
-    "id": "darakwonverb_160",
-    "setId": "500",
+    "id": "AbsoluteVerb_160",
+    "setId": "AbsoluteVerb",
     "japanese": "抱く",
     "reading": "いだく",
     "meaning": "(생각을) 품다",
@@ -8956,8 +8956,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 159
   },
   {
-    "id": "darakwonverb_161",
-    "setId": "500",
+    "id": "AbsoluteVerb_161",
+    "setId": "AbsoluteVerb",
     "japanese": "ある",
     "reading": "ある",
     "meaning": "(사물, 식물이) 있다",
@@ -8967,8 +8967,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 160
   },
   {
-    "id": "darakwonverb_162",
-    "setId": "500",
+    "id": "AbsoluteVerb_162",
+    "setId": "AbsoluteVerb",
     "japanese": "いる",
     "reading": "いる",
     "meaning": "(사람, 동물이) 있다",
@@ -8978,8 +8978,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 161
   },
   {
-    "id": "darakwonverb_163",
-    "setId": "500",
+    "id": "AbsoluteVerb_163",
+    "setId": "AbsoluteVerb",
     "japanese": "生む",
     "reading": "うむ",
     "meaning": "낳다",
@@ -8989,8 +8989,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 162
   },
   {
-    "id": "darakwonverb_164",
-    "setId": "500",
+    "id": "AbsoluteVerb_164",
+    "setId": "AbsoluteVerb",
     "japanese": "生まれる",
     "reading": "うまれる",
     "meaning": "태어나다",
@@ -9000,8 +9000,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 163
   },
   {
-    "id": "darakwonverb_165",
-    "setId": "500",
+    "id": "AbsoluteVerb_165",
+    "setId": "AbsoluteVerb",
     "japanese": "生きる",
     "reading": "いきる",
     "meaning": "(생명의 의미로) 살다",
@@ -9011,8 +9011,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 164
   },
   {
-    "id": "darakwonverb_166",
-    "setId": "500",
+    "id": "AbsoluteVerb_166",
+    "setId": "AbsoluteVerb",
     "japanese": "住む",
     "reading": "すむ",
     "meaning": "(주거의 의미로) 살다",
@@ -9022,8 +9022,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 165
   },
   {
-    "id": "darakwonverb_167",
-    "setId": "500",
+    "id": "AbsoluteVerb_167",
+    "setId": "AbsoluteVerb",
     "japanese": "住まう",
     "reading": "すまう",
     "meaning": "거주하다",
@@ -9033,8 +9033,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 166
   },
   {
-    "id": "darakwonverb_168",
-    "setId": "500",
+    "id": "AbsoluteVerb_168",
+    "setId": "AbsoluteVerb",
     "japanese": "暮らす",
     "reading": "くらす",
     "meaning": "(생활의 의미로) 살다",
@@ -9044,8 +9044,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 167
   },
   {
-    "id": "darakwonverb_169",
-    "setId": "500",
+    "id": "AbsoluteVerb_169",
+    "setId": "AbsoluteVerb",
     "japanese": "育つ",
     "reading": "そだつ",
     "meaning": "자라다",
@@ -9055,8 +9055,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 168
   },
   {
-    "id": "darakwonverb_170",
-    "setId": "500",
+    "id": "AbsoluteVerb_170",
+    "setId": "AbsoluteVerb",
     "japanese": "育てる",
     "reading": "そだてる",
     "meaning": "기르다",
@@ -9066,8 +9066,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 169
   },
   {
-    "id": "darakwonverb_171",
-    "setId": "500",
+    "id": "AbsoluteVerb_171",
+    "setId": "AbsoluteVerb",
     "japanese": "死ぬ",
     "reading": "しぬ",
     "meaning": "죽다",
@@ -9077,8 +9077,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 170
   },
   {
-    "id": "darakwonverb_172",
-    "setId": "500",
+    "id": "AbsoluteVerb_172",
+    "setId": "AbsoluteVerb",
     "japanese": "亡くなる",
     "reading": "なくなる",
     "meaning": "(죽음) 돌아가시다",
@@ -9088,8 +9088,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 171
   },
   {
-    "id": "darakwonverb_173",
-    "setId": "500",
+    "id": "AbsoluteVerb_173",
+    "setId": "AbsoluteVerb",
     "japanese": "咲く",
     "reading": "さく",
     "meaning": "(꽃이) 피다",
@@ -9099,8 +9099,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 172
   },
   {
-    "id": "darakwonverb_174",
-    "setId": "500",
+    "id": "AbsoluteVerb_174",
+    "setId": "AbsoluteVerb",
     "japanese": "散る",
     "reading": "ちる",
     "meaning": "(꽃, 잎이) 지다, 흩날리다, (주의가) 산란해지다",
@@ -9110,8 +9110,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 173
   },
   {
-    "id": "darakwonverb_175",
-    "setId": "500",
+    "id": "AbsoluteVerb_175",
+    "setId": "AbsoluteVerb",
     "japanese": "茂る",
     "reading": "しげる",
     "meaning": "우거지다",
@@ -9121,19 +9121,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 174
   },
   {
-    "id": "darakwonverb_176",
-    "setId": "500",
+    "id": "AbsoluteVerb_176",
+    "setId": "AbsoluteVerb",
     "japanese": "枯れる",
     "reading": "かれる",
     "meaning": "(식물이) 시들어 마르다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 36,
     "verbInfo": "2자",
     "sourceOrder": 175
   },
   {
-    "id": "darakwonverb_177",
-    "setId": "500",
+    "id": "AbsoluteVerb_177",
+    "setId": "AbsoluteVerb",
     "japanese": "蒔く",
     "reading": "まく",
     "meaning": "파종하다",
@@ -9143,8 +9143,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 176
   },
   {
-    "id": "darakwonverb_178",
-    "setId": "500",
+    "id": "AbsoluteVerb_178",
+    "setId": "AbsoluteVerb",
     "japanese": "芽を出す",
     "reading": "めをだす",
     "meaning": "싹을 내다",
@@ -9154,8 +9154,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 177
   },
   {
-    "id": "darakwonverb_179",
-    "setId": "500",
+    "id": "AbsoluteVerb_179",
+    "setId": "AbsoluteVerb",
     "japanese": "実る",
     "reading": "みのる",
     "meaning": "열매를 맺다",
@@ -9165,8 +9165,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 178
   },
   {
-    "id": "darakwonverb_180",
-    "setId": "500",
+    "id": "AbsoluteVerb_180",
+    "setId": "AbsoluteVerb",
     "japanese": "熟す",
     "reading": "じゅくす",
     "meaning": "(과일이) 익다, (기회가) 무르익다",
@@ -9176,8 +9176,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 179
   },
   {
-    "id": "darakwonverb_181",
-    "setId": "500",
+    "id": "AbsoluteVerb_181",
+    "setId": "AbsoluteVerb",
     "japanese": "萎む",
     "reading": "しぼむ",
     "meaning": "(꽃, 잎, 풍선 등이) 오그라들며 시들다",
@@ -9187,8 +9187,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 180
   },
   {
-    "id": "darakwonverb_182",
-    "setId": "500",
+    "id": "AbsoluteVerb_182",
+    "setId": "AbsoluteVerb",
     "japanese": "植える",
     "reading": "うえる",
     "meaning": "심다",
@@ -9198,8 +9198,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 181
   },
   {
-    "id": "darakwonverb_183",
-    "setId": "500",
+    "id": "AbsoluteVerb_183",
+    "setId": "AbsoluteVerb",
     "japanese": "生える",
     "reading": "はえる",
     "meaning": "(수염, 풀 등이) 나다, 자라다",
@@ -9209,8 +9209,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 182
   },
   {
-    "id": "darakwonverb_184",
-    "setId": "500",
+    "id": "AbsoluteVerb_184",
+    "setId": "AbsoluteVerb",
     "japanese": "飼う",
     "reading": "かう",
     "meaning": "(동물을) 기르다",
@@ -9220,8 +9220,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 183
   },
   {
-    "id": "darakwonverb_185",
-    "setId": "500",
+    "id": "AbsoluteVerb_185",
+    "setId": "AbsoluteVerb",
     "japanese": "鳴く",
     "reading": "なく",
     "meaning": "(새, 벌레, 짐승 등이) 울다",
@@ -9231,8 +9231,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 184
   },
   {
-    "id": "darakwonverb_186",
-    "setId": "500",
+    "id": "AbsoluteVerb_186",
+    "setId": "AbsoluteVerb",
     "japanese": "吠える",
     "reading": "ほえる",
     "meaning": "짖다",
@@ -9242,8 +9242,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 185
   },
   {
-    "id": "darakwonverb_187",
-    "setId": "500",
+    "id": "AbsoluteVerb_187",
+    "setId": "AbsoluteVerb",
     "japanese": "吼える",
     "reading": "ほえる",
     "meaning": "포효하다",
@@ -9253,8 +9253,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 186
   },
   {
-    "id": "darakwonverb_188",
-    "setId": "500",
+    "id": "AbsoluteVerb_188",
+    "setId": "AbsoluteVerb",
     "japanese": "馴れる",
     "reading": "なれる",
     "meaning": "사람을 따르다",
@@ -9264,8 +9264,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 187
   },
   {
-    "id": "darakwonverb_189",
-    "setId": "500",
+    "id": "AbsoluteVerb_189",
+    "setId": "AbsoluteVerb",
     "japanese": "着る",
     "reading": "きる",
     "meaning": "(허리 위, 또는 전신 옷을) 입다",
@@ -9275,8 +9275,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 188
   },
   {
-    "id": "darakwonverb_190",
-    "setId": "500",
+    "id": "AbsoluteVerb_190",
+    "setId": "AbsoluteVerb",
     "japanese": "脱ぐ",
     "reading": "ぬぐ",
     "meaning": "벗다",
@@ -9286,8 +9286,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 189
   },
   {
-    "id": "darakwonverb_191",
-    "setId": "500",
+    "id": "AbsoluteVerb_191",
+    "setId": "AbsoluteVerb",
     "japanese": "履く",
     "reading": "はく",
     "meaning": "(발에) 신다",
@@ -9297,8 +9297,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 190
   },
   {
-    "id": "darakwonverb_192",
-    "setId": "500",
+    "id": "AbsoluteVerb_192",
+    "setId": "AbsoluteVerb",
     "japanese": "穿く",
     "reading": "はく",
     "meaning": "(허리 아래로) 입다",
@@ -9308,8 +9308,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 191
   },
   {
-    "id": "darakwonverb_193",
-    "setId": "500",
+    "id": "AbsoluteVerb_193",
+    "setId": "AbsoluteVerb",
     "japanese": "はめる",
     "reading": "はめる",
     "meaning": "(장갑, 장신구 등을) 끼다",
@@ -9319,8 +9319,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 192
   },
   {
-    "id": "darakwonverb_194",
-    "setId": "500",
+    "id": "AbsoluteVerb_194",
+    "setId": "AbsoluteVerb",
     "japanese": "被る",
     "reading": "かぶる",
     "meaning": "(머리에) 쓰다",
@@ -9330,8 +9330,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 193
   },
   {
-    "id": "darakwonverb_195",
-    "setId": "500",
+    "id": "AbsoluteVerb_195",
+    "setId": "AbsoluteVerb",
     "japanese": "被せる",
     "reading": "かぶせる",
     "meaning": "씌우다",
@@ -9341,8 +9341,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 194
   },
   {
-    "id": "darakwonverb_196",
-    "setId": "500",
+    "id": "AbsoluteVerb_196",
+    "setId": "AbsoluteVerb",
     "japanese": "飾る",
     "reading": "かざる",
     "meaning": "장식하다",
@@ -9352,8 +9352,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 195
   },
   {
-    "id": "darakwonverb_197",
-    "setId": "500",
+    "id": "AbsoluteVerb_197",
+    "setId": "AbsoluteVerb",
     "japanese": "外す",
     "reading": "はずす",
     "meaning": "(장착/고정을) 떼다, 제외하다, 빗나가다",
@@ -9363,8 +9363,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 196
   },
   {
-    "id": "darakwonverb_198",
-    "setId": "500",
+    "id": "AbsoluteVerb_198",
+    "setId": "AbsoluteVerb",
     "japanese": "巻く",
     "reading": "まく",
     "meaning": "감다, 말다, 두르다",
@@ -9374,8 +9374,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 197
   },
   {
-    "id": "darakwonverb_199",
-    "setId": "500",
+    "id": "AbsoluteVerb_199",
+    "setId": "AbsoluteVerb",
     "japanese": "差す",
     "reading": "さす",
     "meaning": "가리다, (우산을) 쓰다",
@@ -9385,8 +9385,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 198
   },
   {
-    "id": "darakwonverb_200",
-    "setId": "500",
+    "id": "AbsoluteVerb_200",
+    "setId": "AbsoluteVerb",
     "japanese": "切る",
     "reading": "きる",
     "meaning": "자르다",
@@ -9396,8 +9396,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 199
   },
   {
-    "id": "darakwonverb_201",
-    "setId": "500",
+    "id": "AbsoluteVerb_201",
+    "setId": "AbsoluteVerb",
     "japanese": "刻む",
     "reading": "きざむ",
     "meaning": "잘게 썰다, 새기다, 명심하다",
@@ -9407,8 +9407,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 200
   },
   {
-    "id": "darakwonverb_202",
-    "setId": "500",
+    "id": "AbsoluteVerb_202",
+    "setId": "AbsoluteVerb",
     "japanese": "むく",
     "reading": "むく",
     "meaning": "(껍질을) 까다",
@@ -9418,8 +9418,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 201
   },
   {
-    "id": "darakwonverb_203",
-    "setId": "500",
+    "id": "AbsoluteVerb_203",
+    "setId": "AbsoluteVerb",
     "japanese": "揚げる",
     "reading": "あげる",
     "meaning": "튀기다, (깃발을) 올리다",
@@ -9429,8 +9429,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 202
   },
   {
-    "id": "darakwonverb_204",
-    "setId": "500",
+    "id": "AbsoluteVerb_204",
+    "setId": "AbsoluteVerb",
     "japanese": "炒める",
     "reading": "いためる",
     "meaning": "기름에 볶다",
@@ -9440,8 +9440,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 203
   },
   {
-    "id": "darakwonverb_205",
-    "setId": "500",
+    "id": "AbsoluteVerb_205",
+    "setId": "AbsoluteVerb",
     "japanese": "煎る",
     "reading": "いる",
     "meaning": "(기름 없이) 볶다",
@@ -9451,8 +9451,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 204
   },
   {
-    "id": "darakwonverb_206",
-    "setId": "500",
+    "id": "AbsoluteVerb_206",
+    "setId": "AbsoluteVerb",
     "japanese": "煮る",
     "reading": "にる",
     "meaning": "(재료를) 끓이다",
@@ -9462,8 +9462,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 205
   },
   {
-    "id": "darakwonverb_207",
-    "setId": "500",
+    "id": "AbsoluteVerb_207",
+    "setId": "AbsoluteVerb",
     "japanese": "ゆでる",
     "reading": "ゆでる",
     "meaning": "삶다",
@@ -9473,8 +9473,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 206
   },
   {
-    "id": "darakwonverb_208",
-    "setId": "500",
+    "id": "AbsoluteVerb_208",
+    "setId": "AbsoluteVerb",
     "japanese": "沸く",
     "reading": "わく",
     "meaning": "끓다",
@@ -9484,8 +9484,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 207
   },
   {
-    "id": "darakwonverb_209",
-    "setId": "500",
+    "id": "AbsoluteVerb_209",
+    "setId": "AbsoluteVerb",
     "japanese": "沸かす",
     "reading": "わかす",
     "meaning": "(액체를) 끓이다",
@@ -9495,8 +9495,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 208
   },
   {
-    "id": "darakwonverb_210",
-    "setId": "500",
+    "id": "AbsoluteVerb_210",
+    "setId": "AbsoluteVerb",
     "japanese": "焼く",
     "reading": "やく",
     "meaning": "굽다",
@@ -9506,8 +9506,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 209
   },
   {
-    "id": "darakwonverb_211",
-    "setId": "500",
+    "id": "AbsoluteVerb_211",
+    "setId": "AbsoluteVerb",
     "japanese": "焼ける",
     "reading": "やける",
     "meaning": "구워지다, (햇볕 등에) 타다",
@@ -9517,8 +9517,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 210
   },
   {
-    "id": "darakwonverb_212",
-    "setId": "500",
+    "id": "AbsoluteVerb_212",
+    "setId": "AbsoluteVerb",
     "japanese": "和える",
     "reading": "あえる",
     "meaning": "무치다, 버무리다",
@@ -9528,8 +9528,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 211
   },
   {
-    "id": "darakwonverb_213",
-    "setId": "500",
+    "id": "AbsoluteVerb_213",
+    "setId": "AbsoluteVerb",
     "japanese": "蒸す",
     "reading": "むす",
     "meaning": "찌다, 후텁지근하다",
@@ -9539,8 +9539,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 212
   },
   {
-    "id": "darakwonverb_214",
-    "setId": "500",
+    "id": "AbsoluteVerb_214",
+    "setId": "AbsoluteVerb",
     "japanese": "漬ける",
     "reading": "つける",
     "meaning": "담그다, 절이다",
@@ -9550,8 +9550,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 213
   },
   {
-    "id": "darakwonverb_215",
-    "setId": "500",
+    "id": "AbsoluteVerb_215",
+    "setId": "AbsoluteVerb",
     "japanese": "炊く",
     "reading": "たく",
     "meaning": "밥을 짓다",
@@ -9561,19 +9561,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 214
   },
   {
-    "id": "darakwonverb_216",
-    "setId": "500",
+    "id": "AbsoluteVerb_216",
+    "setId": "AbsoluteVerb",
     "japanese": "焦げる",
     "reading": "こげる",
     "meaning": "(식재료 등이) 타다, 그을리다",
     "type": "verb",
-    "difficulty": 39,
+    "difficulty": 37,
     "verbInfo": "2자",
     "sourceOrder": 215
   },
   {
-    "id": "darakwonverb_217",
-    "setId": "500",
+    "id": "AbsoluteVerb_217",
+    "setId": "AbsoluteVerb",
     "japanese": "練る",
     "reading": "ねる",
     "meaning": "반죽하다, 짓이기다",
@@ -9583,8 +9583,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 216
   },
   {
-    "id": "darakwonverb_218",
-    "setId": "500",
+    "id": "AbsoluteVerb_218",
+    "setId": "AbsoluteVerb",
     "japanese": "擦る",
     "reading": "する",
     "meaning": "문지르다, 으깨다, 빻다",
@@ -9594,8 +9594,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 217
   },
   {
-    "id": "darakwonverb_219",
-    "setId": "500",
+    "id": "AbsoluteVerb_219",
+    "setId": "AbsoluteVerb",
     "japanese": "する",
     "reading": "する",
     "meaning": "갈다",
@@ -9605,8 +9605,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 218
   },
   {
-    "id": "darakwonverb_220",
-    "setId": "500",
+    "id": "AbsoluteVerb_220",
+    "setId": "AbsoluteVerb",
     "japanese": "潰す",
     "reading": "つぶす",
     "meaning": "으깨다",
@@ -9616,8 +9616,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 219
   },
   {
-    "id": "darakwonverb_221",
-    "setId": "500",
+    "id": "AbsoluteVerb_221",
+    "setId": "AbsoluteVerb",
     "japanese": "混ぜる",
     "reading": "まぜる",
     "meaning": "서로 섞이게 하다, 뒤섞다",
@@ -9627,8 +9627,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 220
   },
   {
-    "id": "darakwonverb_222",
-    "setId": "500",
+    "id": "AbsoluteVerb_222",
+    "setId": "AbsoluteVerb",
     "japanese": "冷やす",
     "reading": "ひやす",
     "meaning": "차갑게 하다, 식혀서 차게 만들다",
@@ -9638,8 +9638,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 221
   },
   {
-    "id": "darakwonverb_223",
-    "setId": "500",
+    "id": "AbsoluteVerb_223",
+    "setId": "AbsoluteVerb",
     "japanese": "温める",
     "reading": "あたためる",
     "meaning": "데우다",
@@ -9649,8 +9649,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 222
   },
   {
-    "id": "darakwonverb_224",
-    "setId": "500",
+    "id": "AbsoluteVerb_224",
+    "setId": "AbsoluteVerb",
     "japanese": "教える",
     "reading": "おしえる",
     "meaning": "가르치다",
@@ -9660,8 +9660,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 223
   },
   {
-    "id": "darakwonverb_225",
-    "setId": "500",
+    "id": "AbsoluteVerb_225",
+    "setId": "AbsoluteVerb",
     "japanese": "習う",
     "reading": "ならう",
     "meaning": "(기술적으로) 배우다",
@@ -9671,8 +9671,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 224
   },
   {
-    "id": "darakwonverb_226",
-    "setId": "500",
+    "id": "AbsoluteVerb_226",
+    "setId": "AbsoluteVerb",
     "japanese": "学ぶ",
     "reading": "まなぶ",
     "meaning": "(학문적으로) 배우다",
@@ -9682,8 +9682,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 225
   },
   {
-    "id": "darakwonverb_227",
-    "setId": "500",
+    "id": "AbsoluteVerb_227",
+    "setId": "AbsoluteVerb",
     "japanese": "教わる",
     "reading": "おそわる",
     "meaning": "가르침을 받다",
@@ -9693,8 +9693,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 226
   },
   {
-    "id": "darakwonverb_228",
-    "setId": "500",
+    "id": "AbsoluteVerb_228",
+    "setId": "AbsoluteVerb",
     "japanese": "覚える",
     "reading": "おぼえる",
     "meaning": "외우다, 기억하다",
@@ -9704,8 +9704,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 227
   },
   {
-    "id": "darakwonverb_229",
-    "setId": "500",
+    "id": "AbsoluteVerb_229",
+    "setId": "AbsoluteVerb",
     "japanese": "忘れる",
     "reading": "わすれる",
     "meaning": "잊다",
@@ -9715,8 +9715,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 228
   },
   {
-    "id": "darakwonverb_230",
-    "setId": "500",
+    "id": "AbsoluteVerb_230",
+    "setId": "AbsoluteVerb",
     "japanese": "分かる",
     "reading": "わかる",
     "meaning": "(이해로써) 알다",
@@ -9726,8 +9726,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 229
   },
   {
-    "id": "darakwonverb_231",
-    "setId": "500",
+    "id": "AbsoluteVerb_231",
+    "setId": "AbsoluteVerb",
     "japanese": "知る",
     "reading": "しる",
     "meaning": "(지식으로써) 알다",
@@ -9737,8 +9737,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 230
   },
   {
-    "id": "darakwonverb_232",
-    "setId": "500",
+    "id": "AbsoluteVerb_232",
+    "setId": "AbsoluteVerb",
     "japanese": "身に着ける",
     "reading": "みにつける",
     "meaning": "(학문, 기술 등을) 익히다",
@@ -9748,8 +9748,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 231
   },
   {
-    "id": "darakwonverb_233",
-    "setId": "500",
+    "id": "AbsoluteVerb_233",
+    "setId": "AbsoluteVerb",
     "japanese": "サボる",
     "reading": "さぼる",
     "meaning": "게을리 하다",
@@ -9759,8 +9759,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 232
   },
   {
-    "id": "darakwonverb_234",
-    "setId": "500",
+    "id": "AbsoluteVerb_234",
+    "setId": "AbsoluteVerb",
     "japanese": "眺める",
     "reading": "ながめる",
     "meaning": "바라보다",
@@ -9770,8 +9770,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 233
   },
   {
-    "id": "darakwonverb_235",
-    "setId": "500",
+    "id": "AbsoluteVerb_235",
+    "setId": "AbsoluteVerb",
     "japanese": "見える",
     "reading": "みえる",
     "meaning": "보이다",
@@ -9781,8 +9781,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 234
   },
   {
-    "id": "darakwonverb_236",
-    "setId": "500",
+    "id": "AbsoluteVerb_236",
+    "setId": "AbsoluteVerb",
     "japanese": "見せる",
     "reading": "みせる",
     "meaning": "보여주다",
@@ -9792,8 +9792,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 235
   },
   {
-    "id": "darakwonverb_237",
-    "setId": "500",
+    "id": "AbsoluteVerb_237",
+    "setId": "AbsoluteVerb",
     "japanese": "覗く",
     "reading": "のぞく",
     "meaning": "들여다보다, 엿보다",
@@ -9803,8 +9803,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 236
   },
   {
-    "id": "darakwonverb_238",
-    "setId": "500",
+    "id": "AbsoluteVerb_238",
+    "setId": "AbsoluteVerb",
     "japanese": "見付かる",
     "reading": "みつかる",
     "meaning": "발견되다",
@@ -9814,8 +9814,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 237
   },
   {
-    "id": "darakwonverb_239",
-    "setId": "500",
+    "id": "AbsoluteVerb_239",
+    "setId": "AbsoluteVerb",
     "japanese": "見付ける",
     "reading": "みつける",
     "meaning": "눈으로 찾아내다, 발견하다",
@@ -9825,8 +9825,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 238
   },
   {
-    "id": "darakwonverb_240",
-    "setId": "500",
+    "id": "AbsoluteVerb_240",
+    "setId": "AbsoluteVerb",
     "japanese": "聞こえる",
     "reading": "きこえる",
     "meaning": "(소리가) 들리다",
@@ -9836,8 +9836,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 239
   },
   {
-    "id": "darakwonverb_241",
-    "setId": "500",
+    "id": "AbsoluteVerb_241",
+    "setId": "AbsoluteVerb",
     "japanese": "問う",
     "reading": "とう",
     "meaning": "(진리, 책임, 의견을) 묻다",
@@ -9847,8 +9847,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 240
   },
   {
-    "id": "darakwonverb_242",
-    "setId": "500",
+    "id": "AbsoluteVerb_242",
+    "setId": "AbsoluteVerb",
     "japanese": "尋ねる",
     "reading": "たずねる",
     "meaning": "(일상적 정보를 정중하게) 묻다",
@@ -9858,8 +9858,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 241
   },
   {
-    "id": "darakwonverb_243",
-    "setId": "500",
+    "id": "AbsoluteVerb_243",
+    "setId": "AbsoluteVerb",
     "japanese": "答える",
     "reading": "こたえる",
     "meaning": "대답하다",
@@ -9869,8 +9869,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 242
   },
   {
-    "id": "darakwonverb_244",
-    "setId": "500",
+    "id": "AbsoluteVerb_244",
+    "setId": "AbsoluteVerb",
     "japanese": "伝わる",
     "reading": "つたわる",
     "meaning": "전해지다",
@@ -9880,8 +9880,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 243
   },
   {
-    "id": "darakwonverb_245",
-    "setId": "500",
+    "id": "AbsoluteVerb_245",
+    "setId": "AbsoluteVerb",
     "japanese": "伝える",
     "reading": "つたえる",
     "meaning": "전하다",
@@ -9891,8 +9891,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 244
   },
   {
-    "id": "darakwonverb_246",
-    "setId": "500",
+    "id": "AbsoluteVerb_246",
+    "setId": "AbsoluteVerb",
     "japanese": "知らせる",
     "reading": "しらせる",
     "meaning": "알리다",
@@ -9902,8 +9902,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 245
   },
   {
-    "id": "darakwonverb_247",
-    "setId": "500",
+    "id": "AbsoluteVerb_247",
+    "setId": "AbsoluteVerb",
     "japanese": "写す",
     "reading": "うつす",
     "meaning": "베끼다, 사진을 찍다",
@@ -9913,8 +9913,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 246
   },
   {
-    "id": "darakwonverb_248",
-    "setId": "500",
+    "id": "AbsoluteVerb_248",
+    "setId": "AbsoluteVerb",
     "japanese": "載る",
     "reading": "のる",
     "meaning": "게재되다",
@@ -9924,8 +9924,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 247
   },
   {
-    "id": "darakwonverb_249",
-    "setId": "500",
+    "id": "AbsoluteVerb_249",
+    "setId": "AbsoluteVerb",
     "japanese": "載せる",
     "reading": "のせる",
     "meaning": "게재하다",
@@ -9935,8 +9935,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 248
   },
   {
-    "id": "darakwonverb_250",
-    "setId": "500",
+    "id": "AbsoluteVerb_250",
+    "setId": "AbsoluteVerb",
     "japanese": "現れる",
     "reading": "あらわれる",
     "meaning": "모습이 나타나다",
@@ -9946,8 +9946,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 249
   },
   {
-    "id": "darakwonverb_251",
-    "setId": "500",
+    "id": "AbsoluteVerb_251",
+    "setId": "AbsoluteVerb",
     "japanese": "表す",
     "reading": "あらわす",
     "meaning": "표현하다",
@@ -9957,8 +9957,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 250
   },
   {
-    "id": "darakwonverb_252",
-    "setId": "500",
+    "id": "AbsoluteVerb_252",
+    "setId": "AbsoluteVerb",
     "japanese": "現す",
     "reading": "あらわす",
     "meaning": "모습을 드러내다",
@@ -9968,8 +9968,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 251
   },
   {
-    "id": "darakwonverb_253",
-    "setId": "500",
+    "id": "AbsoluteVerb_253",
+    "setId": "AbsoluteVerb",
     "japanese": "著す",
     "reading": "あらわす",
     "meaning": "저술하다",
@@ -9979,8 +9979,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 252
   },
   {
-    "id": "darakwonverb_254",
-    "setId": "500",
+    "id": "AbsoluteVerb_254",
+    "setId": "AbsoluteVerb",
     "japanese": "行く",
     "reading": "いく",
     "meaning": "가다",
@@ -9990,8 +9990,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 253
   },
   {
-    "id": "darakwonverb_255",
-    "setId": "500",
+    "id": "AbsoluteVerb_255",
+    "setId": "AbsoluteVerb",
     "japanese": "来る",
     "reading": "くる",
     "meaning": "오다",
@@ -10001,8 +10001,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 254
   },
   {
-    "id": "darakwonverb_256",
-    "setId": "500",
+    "id": "AbsoluteVerb_256",
+    "setId": "AbsoluteVerb",
     "japanese": "帰る",
     "reading": "かえる",
     "meaning": "귀환하다",
@@ -10012,19 +10012,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 255
   },
   {
-    "id": "darakwonverb_257",
-    "setId": "500",
+    "id": "AbsoluteVerb_257",
+    "setId": "AbsoluteVerb",
     "japanese": "戻る",
     "reading": "もどる",
-    "meaning": "되돌아가다",
+    "meaning": "(원래 상태로) 되돌아가다",
     "type": "verb",
     "difficulty": 18,
     "verbInfo": "1자",
     "sourceOrder": 256
   },
   {
-    "id": "darakwonverb_258",
-    "setId": "500",
+    "id": "AbsoluteVerb_258",
+    "setId": "AbsoluteVerb",
     "japanese": "入る",
     "reading": "はいる",
     "meaning": "들어가다",
@@ -10034,8 +10034,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 257
   },
   {
-    "id": "darakwonverb_259",
-    "setId": "500",
+    "id": "AbsoluteVerb_259",
+    "setId": "AbsoluteVerb",
     "japanese": "入れる",
     "reading": "いれる",
     "meaning": "넣다",
@@ -10045,8 +10045,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 258
   },
   {
-    "id": "darakwonverb_260",
-    "setId": "500",
+    "id": "AbsoluteVerb_260",
+    "setId": "AbsoluteVerb",
     "japanese": "出る",
     "reading": "でる",
     "meaning": "나가다",
@@ -10056,8 +10056,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 259
   },
   {
-    "id": "darakwonverb_261",
-    "setId": "500",
+    "id": "AbsoluteVerb_261",
+    "setId": "AbsoluteVerb",
     "japanese": "出掛ける",
     "reading": "でかける",
     "meaning": "외출하다",
@@ -10067,8 +10067,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 260
   },
   {
-    "id": "darakwonverb_262",
-    "setId": "500",
+    "id": "AbsoluteVerb_262",
+    "setId": "AbsoluteVerb",
     "japanese": "去る",
     "reading": "さる",
     "meaning": "떠나다",
@@ -10078,8 +10078,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 261
   },
   {
-    "id": "darakwonverb_263",
-    "setId": "500",
+    "id": "AbsoluteVerb_263",
+    "setId": "AbsoluteVerb",
     "japanese": "通う",
     "reading": "かよう",
     "meaning": "왕래하다, 통하다",
@@ -10089,8 +10089,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 262
   },
   {
-    "id": "darakwonverb_264",
-    "setId": "500",
+    "id": "AbsoluteVerb_264",
+    "setId": "AbsoluteVerb",
     "japanese": "寄る",
     "reading": "よる",
     "meaning": "들르다, 다가서다",
@@ -10100,8 +10100,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 263
   },
   {
-    "id": "darakwonverb_265",
-    "setId": "500",
+    "id": "AbsoluteVerb_265",
+    "setId": "AbsoluteVerb",
     "japanese": "上がる",
     "reading": "あがる",
     "meaning": "오르다, (집으로) 들어가다, 끝나다",
@@ -10111,8 +10111,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 264
   },
   {
-    "id": "darakwonverb_266",
-    "setId": "500",
+    "id": "AbsoluteVerb_266",
+    "setId": "AbsoluteVerb",
     "japanese": "上げる",
     "reading": "あげる",
     "meaning": "올리다",
@@ -10122,8 +10122,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 265
   },
   {
-    "id": "darakwonverb_267",
-    "setId": "500",
+    "id": "AbsoluteVerb_267",
+    "setId": "AbsoluteVerb",
     "japanese": "上る",
     "reading": "のぼる",
     "meaning": "(계단 등, 단계적으로) 오르다, 달하다",
@@ -10133,8 +10133,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 266
   },
   {
-    "id": "darakwonverb_268",
-    "setId": "500",
+    "id": "AbsoluteVerb_268",
+    "setId": "AbsoluteVerb",
     "japanese": "登る",
     "reading": "のぼる",
     "meaning": "(높이, 노력을 다해) 오르다",
@@ -10144,8 +10144,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 267
   },
   {
-    "id": "darakwonverb_269",
-    "setId": "500",
+    "id": "AbsoluteVerb_269",
+    "setId": "AbsoluteVerb",
     "japanese": "昇る",
     "reading": "のぼる",
     "meaning": "떠오르다, 승진하다",
@@ -10155,8 +10155,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 268
   },
   {
-    "id": "darakwonverb_270",
-    "setId": "500",
+    "id": "AbsoluteVerb_270",
+    "setId": "AbsoluteVerb",
     "japanese": "下る",
     "reading": "くだる",
     "meaning": "(경로를 따라) 내려가다, (명령 등이) 내려지다",
@@ -10166,8 +10166,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 269
   },
   {
-    "id": "darakwonverb_271",
-    "setId": "500",
+    "id": "AbsoluteVerb_271",
+    "setId": "AbsoluteVerb",
     "japanese": "下りる",
     "reading": "おりる",
     "meaning": "(수직적으로) 내려가다, (탈것에서) 내리다",
@@ -10177,8 +10177,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 270
   },
   {
-    "id": "darakwonverb_272",
-    "setId": "500",
+    "id": "AbsoluteVerb_272",
+    "setId": "AbsoluteVerb",
     "japanese": "下がる",
     "reading": "さがる",
     "meaning": "(수치가) 낮아지다",
@@ -10188,8 +10188,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 271
   },
   {
-    "id": "darakwonverb_273",
-    "setId": "500",
+    "id": "AbsoluteVerb_273",
+    "setId": "AbsoluteVerb",
     "japanese": "下げる",
     "reading": "さげる",
     "meaning": "내리다",
@@ -10199,8 +10199,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 272
   },
   {
-    "id": "darakwonverb_274",
-    "setId": "500",
+    "id": "AbsoluteVerb_274",
+    "setId": "AbsoluteVerb",
     "japanese": "落ちる",
     "reading": "おちる",
     "meaning": "떨어지다, 누락되다",
@@ -10210,8 +10210,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 273
   },
   {
-    "id": "darakwonverb_275",
-    "setId": "500",
+    "id": "AbsoluteVerb_275",
+    "setId": "AbsoluteVerb",
     "japanese": "回る",
     "reading": "まわる",
     "meaning": "돌다",
@@ -10221,8 +10221,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 274
   },
   {
-    "id": "darakwonverb_276",
-    "setId": "500",
+    "id": "AbsoluteVerb_276",
+    "setId": "AbsoluteVerb",
     "japanese": "回す",
     "reading": "まわす",
     "meaning": "돌리다",
@@ -10232,8 +10232,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 275
   },
   {
-    "id": "darakwonverb_277",
-    "setId": "500",
+    "id": "AbsoluteVerb_277",
+    "setId": "AbsoluteVerb",
     "japanese": "通る",
     "reading": "とおる",
     "meaning": "지나가다, 널리 알려지다",
@@ -10243,8 +10243,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 276
   },
   {
-    "id": "darakwonverb_278",
-    "setId": "500",
+    "id": "AbsoluteVerb_278",
+    "setId": "AbsoluteVerb",
     "japanese": "通す",
     "reading": "とおす",
     "meaning": "통과시키다, 관철하다",
@@ -10254,8 +10254,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 277
   },
   {
-    "id": "darakwonverb_279",
-    "setId": "500",
+    "id": "AbsoluteVerb_279",
+    "setId": "AbsoluteVerb",
     "japanese": "通じる",
     "reading": "つうじる",
     "meaning": "연결되다, (언어 등이) 통하다",
@@ -10265,8 +10265,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 278
   },
   {
-    "id": "darakwonverb_280",
-    "setId": "500",
+    "id": "AbsoluteVerb_280",
+    "setId": "AbsoluteVerb",
     "japanese": "戻す",
     "reading": "もどす",
     "meaning": "되돌리다",
@@ -10276,8 +10276,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 279
   },
   {
-    "id": "darakwonverb_281",
-    "setId": "500",
+    "id": "AbsoluteVerb_281",
+    "setId": "AbsoluteVerb",
     "japanese": "飛ばす",
     "reading": "とばす",
     "meaning": "날리다, 빨리 몰다, 건너뛰다",
@@ -10287,8 +10287,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 280
   },
   {
-    "id": "darakwonverb_282",
-    "setId": "500",
+    "id": "AbsoluteVerb_282",
+    "setId": "AbsoluteVerb",
     "japanese": "渡す",
     "reading": "わたす",
     "meaning": "건네다, 넘겨주다",
@@ -10298,8 +10298,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 281
   },
   {
-    "id": "darakwonverb_283",
-    "setId": "500",
+    "id": "AbsoluteVerb_283",
+    "setId": "AbsoluteVerb",
     "japanese": "流れる",
     "reading": "ながれる",
     "meaning": "흐르다, 무산되다",
@@ -10309,8 +10309,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 282
   },
   {
-    "id": "darakwonverb_284",
-    "setId": "500",
+    "id": "AbsoluteVerb_284",
+    "setId": "AbsoluteVerb",
     "japanese": "流す",
     "reading": "ながす",
     "meaning": "흘리다, 씻어내다, 퍼뜨리다",
@@ -10320,8 +10320,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 283
   },
   {
-    "id": "darakwonverb_285",
-    "setId": "500",
+    "id": "AbsoluteVerb_285",
+    "setId": "AbsoluteVerb",
     "japanese": "行う",
     "reading": "おこなう",
     "meaning": "실시하다",
@@ -10331,8 +10331,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 284
   },
   {
-    "id": "darakwonverb_286",
-    "setId": "500",
+    "id": "AbsoluteVerb_286",
+    "setId": "AbsoluteVerb",
     "japanese": "倒れる",
     "reading": "たおれる",
     "meaning": "넘어지다, 쓰러지다",
@@ -10342,8 +10342,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 285
   },
   {
-    "id": "darakwonverb_287",
-    "setId": "500",
+    "id": "AbsoluteVerb_287",
+    "setId": "AbsoluteVerb",
     "japanese": "転ぶ",
     "reading": "ころぶ",
     "meaning": "넘어지다, 자빠지다",
@@ -10353,8 +10353,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 286
   },
   {
-    "id": "darakwonverb_288",
-    "setId": "500",
+    "id": "AbsoluteVerb_288",
+    "setId": "AbsoluteVerb",
     "japanese": "滑る",
     "reading": "すべる",
     "meaning": "미끄러지다, 낙방하다",
@@ -10364,8 +10364,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 287
   },
   {
-    "id": "darakwonverb_289",
-    "setId": "500",
+    "id": "AbsoluteVerb_289",
+    "setId": "AbsoluteVerb",
     "japanese": "真似る",
     "reading": "まねる",
     "meaning": "흉내 내다",
@@ -10375,19 +10375,19 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 288
   },
   {
-    "id": "darakwonverb_290",
-    "setId": "500",
+    "id": "AbsoluteVerb_290",
+    "setId": "AbsoluteVerb",
     "japanese": "囲む",
     "reading": "かこむ",
-    "meaning": "둘러싸다",
+    "meaning": "둘러싸다, 에워싸다",
     "type": "verb",
     "difficulty": 33,
     "verbInfo": "1타",
     "sourceOrder": 289
   },
   {
-    "id": "darakwonverb_291",
-    "setId": "500",
+    "id": "AbsoluteVerb_291",
+    "setId": "AbsoluteVerb",
     "japanese": "暴れる",
     "reading": "あばれる",
     "meaning": "난폭하게 행동하다, 난동 피우다",
@@ -10397,8 +10397,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 290
   },
   {
-    "id": "darakwonverb_292",
-    "setId": "500",
+    "id": "AbsoluteVerb_292",
+    "setId": "AbsoluteVerb",
     "japanese": "疲れる",
     "reading": "つかれる",
     "meaning": "지치다",
@@ -10408,8 +10408,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 291
   },
   {
-    "id": "darakwonverb_293",
-    "setId": "500",
+    "id": "AbsoluteVerb_293",
+    "setId": "AbsoluteVerb",
     "japanese": "くたびれる",
     "reading": "くたびれる",
     "meaning": "(구어적) 지치다, 녹초가 되다, 낡아지다",
@@ -10419,8 +10419,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 292
   },
   {
-    "id": "darakwonverb_294",
-    "setId": "500",
+    "id": "AbsoluteVerb_294",
+    "setId": "AbsoluteVerb",
     "japanese": "寛ぐ",
     "reading": "くつろぐ",
     "meaning": "편히 쉬다",
@@ -10430,8 +10430,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 293
   },
   {
-    "id": "darakwonverb_295",
-    "setId": "500",
+    "id": "AbsoluteVerb_295",
+    "setId": "AbsoluteVerb",
     "japanese": "動く",
     "reading": "うごく",
     "meaning": "움직이다",
@@ -10441,8 +10441,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 294
   },
   {
-    "id": "darakwonverb_296",
-    "setId": "500",
+    "id": "AbsoluteVerb_296",
+    "setId": "AbsoluteVerb",
     "japanese": "動かす",
     "reading": "うごかす",
     "meaning": "옮기다, (마음을) 움직이다",
@@ -10452,8 +10452,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 295
   },
   {
-    "id": "darakwonverb_297",
-    "setId": "500",
+    "id": "AbsoluteVerb_297",
+    "setId": "AbsoluteVerb",
     "japanese": "進む",
     "reading": "すすむ",
     "meaning": "나아가다, 진학하다",
@@ -10463,8 +10463,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 296
   },
   {
-    "id": "darakwonverb_298",
-    "setId": "500",
+    "id": "AbsoluteVerb_298",
+    "setId": "AbsoluteVerb",
     "japanese": "止まる",
     "reading": "とまる",
     "meaning": "멈추다",
@@ -10474,8 +10474,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 297
   },
   {
-    "id": "darakwonverb_299",
-    "setId": "500",
+    "id": "AbsoluteVerb_299",
+    "setId": "AbsoluteVerb",
     "japanese": "止める",
     "reading": "とめる",
     "meaning": "멈추게 하다",
@@ -10485,30 +10485,30 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 298
   },
   {
-    "id": "darakwonverb_300",
-    "setId": "500",
+    "id": "AbsoluteVerb_300",
+    "setId": "AbsoluteVerb",
     "japanese": "張る",
     "reading": "はる",
     "meaning": "덮이다, 팽팽해지다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 32,
     "verbInfo": "1자",
     "sourceOrder": 299
   },
   {
-    "id": "darakwonverb_301",
-    "setId": "500",
+    "id": "AbsoluteVerb_301",
+    "setId": "AbsoluteVerb",
     "japanese": "張る",
     "reading": "はる",
     "meaning": "펴다, (텐트 등을) 치다, (액체를) 채우다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 32,
     "verbInfo": "1타",
     "sourceOrder": 300
   },
   {
-    "id": "darakwonverb_302",
-    "setId": "500",
+    "id": "AbsoluteVerb_302",
+    "setId": "AbsoluteVerb",
     "japanese": "浮く",
     "reading": "うく",
     "meaning": "(부양, 바닥과의 분리로서) 뜨다",
@@ -10518,8 +10518,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 301
   },
   {
-    "id": "darakwonverb_303",
-    "setId": "500",
+    "id": "AbsoluteVerb_303",
+    "setId": "AbsoluteVerb",
     "japanese": "浮かぶ",
     "reading": "うかぶ",
     "meaning": "(동작, 현상, 풍경으로서) 뜨다",
@@ -10529,8 +10529,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 302
   },
   {
-    "id": "darakwonverb_304",
-    "setId": "500",
+    "id": "AbsoluteVerb_304",
+    "setId": "AbsoluteVerb",
     "japanese": "浮かべる",
     "reading": "うかべる",
     "meaning": "띄우다",
@@ -10540,8 +10540,8 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 303
   },
   {
-    "id": "darakwonverb_305",
-    "setId": "500",
+    "id": "AbsoluteVerb_305",
+    "setId": "AbsoluteVerb",
     "japanese": "潜る",
     "reading": "もぐる",
     "meaning": "잠수하다",
@@ -10551,2148 +10551,960 @@ export const vocabularyWords: VocabularyWord[] = [
     "sourceOrder": 304
   },
   {
-    "id": "darakwonverb_306",
-    "setId": "500",
-    "japanese": "片付ける",
-    "reading": "かたづける",
-    "meaning": "정리하다, 치우다",
+    "id": "AbsoluteVerb_306",
+    "setId": "AbsoluteVerb",
+    "japanese": "買う",
+    "reading": "かう",
+    "meaning": "사다",
     "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "2타",
+    "difficulty": 12,
+    "verbInfo": "1타",
     "sourceOrder": 305
   },
   {
-    "id": "darakwonverb_307",
-    "setId": "500",
-    "japanese": "整える",
-    "reading": "ととのえる",
-    "meaning": "정돈하다, 갖추다",
+    "id": "AbsoluteVerb_307",
+    "setId": "AbsoluteVerb",
+    "japanese": "売る",
+    "reading": "うる",
+    "meaning": "팔다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2타",
+    "difficulty": 14,
+    "verbInfo": "1타",
     "sourceOrder": 306
   },
   {
-    "id": "darakwonverb_308",
-    "setId": "500",
-    "japanese": "整う",
-    "reading": "ととのう",
-    "meaning": "정돈되다, 갖추어지다",
+    "id": "AbsoluteVerb_308",
+    "setId": "AbsoluteVerb",
+    "japanese": "気に入る",
+    "reading": "きにいる",
+    "meaning": "마음에 들다(주로 과거형 사용)",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 22,
     "verbInfo": "1자",
     "sourceOrder": 307
   },
   {
-    "id": "darakwonverb_309",
-    "setId": "500",
-    "japanese": "直る",
-    "reading": "なおる",
-    "meaning": "(고장, 잘못, 흐트러짐이) 고쳐지다",
+    "id": "AbsoluteVerb_309",
+    "setId": "AbsoluteVerb",
+    "japanese": "似合う",
+    "reading": "にあう",
+    "meaning": "어울리다, 잘 맞다",
     "type": "verb",
-    "difficulty": 18,
+    "difficulty": 26,
     "verbInfo": "1자",
     "sourceOrder": 308
   },
   {
-    "id": "darakwonverb_310",
-    "setId": "500",
-    "japanese": "治る",
-    "reading": "なおる",
-    "meaning": "(병, 상처가) 낫다, 치료되다",
+    "id": "AbsoluteVerb_310",
+    "setId": "AbsoluteVerb",
+    "japanese": "選ぶ",
+    "reading": "えらぶ",
+    "meaning": "선택하다",
     "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1자",
+    "difficulty": 16,
+    "verbInfo": "1타",
     "sourceOrder": 309
   },
   {
-    "id": "darakwonverb_311",
-    "setId": "500",
-    "japanese": "直す",
-    "reading": "なおす",
-    "meaning": "(고장, 틀린 점을) 고치다, 바로잡다",
+    "id": "AbsoluteVerb_311",
+    "setId": "AbsoluteVerb",
+    "japanese": "払う",
+    "reading": "はらう",
+    "meaning": "지불하다, 털어내다",
     "type": "verb",
-    "difficulty": 18,
+    "difficulty": 16,
     "verbInfo": "1타",
     "sourceOrder": 310
   },
   {
-    "id": "darakwonverb_312",
-    "setId": "500",
-    "japanese": "治す",
-    "reading": "なおす",
-    "meaning": "(병, 상처를) 고치다, 치료하다",
+    "id": "AbsoluteVerb_312",
+    "setId": "AbsoluteVerb",
+    "japanese": "包む",
+    "reading": "つつむ",
+    "meaning": "포장하다",
     "type": "verb",
-    "difficulty": 20,
+    "difficulty": 29,
     "verbInfo": "1타",
     "sourceOrder": 311
   },
   {
-    "id": "darakwonverb_313",
-    "setId": "500",
-    "japanese": "受け入れる",
-    "reading": "うけいれる",
-    "meaning": "상대, 의견, 현실 등을 받아들이다",
+    "id": "AbsoluteVerb_313",
+    "setId": "AbsoluteVerb",
+    "japanese": "届く",
+    "reading": "とどく",
+    "meaning": "도착하다, 닿다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 312
   },
   {
-    "id": "darakwonverb_314",
-    "setId": "500",
-    "japanese": "受け止める",
-    "reading": "うけとめる",
-    "meaning": "날아오는 것을 받아내다, 의미나 감정을 받아들이다",
+    "id": "AbsoluteVerb_314",
+    "setId": "AbsoluteVerb",
+    "japanese": "勧める",
+    "reading": "すすめる",
+    "meaning": "권하다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 26,
     "verbInfo": "2타",
     "sourceOrder": 313
   },
   {
-    "id": "darakwonverb_315",
-    "setId": "500",
-    "japanese": "受かる",
-    "reading": "うかる",
-    "meaning": "합격하다",
+    "id": "AbsoluteVerb_315",
+    "setId": "AbsoluteVerb",
+    "japanese": "取り扱う",
+    "reading": "とりあつかう",
+    "meaning": "취급하다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
+    "difficulty": 34,
+    "verbInfo": "1타",
     "sourceOrder": 314
   },
   {
-    "id": "darakwonverb_316",
-    "setId": "500",
-    "japanese": "落とす",
-    "reading": "おとす",
-    "meaning": "떨어뜨리다, 빠뜨리다",
+    "id": "AbsoluteVerb_316",
+    "setId": "AbsoluteVerb",
+    "japanese": "祝う",
+    "reading": "いわう",
+    "meaning": "축하하다",
     "type": "verb",
-    "difficulty": 18,
+    "difficulty": 20,
     "verbInfo": "1타",
     "sourceOrder": 315
   },
   {
-    "id": "darakwonverb_317",
-    "setId": "500",
-    "japanese": "落ち込む",
-    "reading": "おちこむ",
-    "meaning": "침울해지다, 빠지다",
+    "id": "AbsoluteVerb_317",
+    "setId": "AbsoluteVerb",
+    "japanese": "招く",
+    "reading": "まねく",
+    "meaning": "초대하다, 초래하다",
     "type": "verb",
     "difficulty": 30,
-    "verbInfo": "1자",
+    "verbInfo": "1타",
     "sourceOrder": 316
   },
   {
-    "id": "darakwonverb_318",
-    "setId": "500",
-    "japanese": "引き出す",
-    "reading": "ひきだす",
-    "meaning": "끌어내다, 인출하다",
+    "id": "AbsoluteVerb_318",
+    "setId": "AbsoluteVerb",
+    "japanese": "遊ぶ",
+    "reading": "あそぶ",
+    "meaning": "놀다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 12,
+    "verbInfo": "1자",
     "sourceOrder": 317
   },
   {
-    "id": "darakwonverb_319",
-    "setId": "500",
-    "japanese": "引き返す",
-    "reading": "ひきかえす",
-    "meaning": "되돌아가다",
+    "id": "AbsoluteVerb_319",
+    "setId": "AbsoluteVerb",
+    "japanese": "歌う",
+    "reading": "うたう",
+    "meaning": "노래 부르다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 12,
     "verbInfo": "1자",
     "sourceOrder": 318
   },
   {
-    "id": "darakwonverb_320",
-    "setId": "500",
-    "japanese": "引っ込む",
-    "reading": "ひっこむ",
-    "meaning": "들어가다, 물러나다",
+    "id": "AbsoluteVerb_320",
+    "setId": "AbsoluteVerb",
+    "japanese": "おごる",
+    "reading": "おごる",
+    "meaning": "한턱내다",
     "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1자",
+    "difficulty": 28,
+    "verbInfo": "1타",
     "sourceOrder": 319
   },
   {
-    "id": "darakwonverb_321",
-    "setId": "500",
-    "japanese": "追いかける",
-    "reading": "おいかける",
-    "meaning": "뒤쫓다",
+    "id": "AbsoluteVerb_321",
+    "setId": "AbsoluteVerb",
+    "japanese": "酔う",
+    "reading": "よう",
+    "meaning": "(술에) 취하다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "2타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 320
   },
   {
-    "id": "darakwonverb_322",
-    "setId": "500",
-    "japanese": "追い越す",
-    "reading": "おいこす",
-    "meaning": "추월하다",
+    "id": "AbsoluteVerb_322",
+    "setId": "AbsoluteVerb",
+    "japanese": "よっぱらう",
+    "reading": "よっぱらう",
+    "meaning": "만취하다",
     "type": "verb",
     "difficulty": 28,
-    "verbInfo": "1타",
+    "verbInfo": "1자",
     "sourceOrder": 321
   },
   {
-    "id": "darakwonverb_323",
-    "setId": "500",
-    "japanese": "追い抜く",
-    "reading": "おいぬく",
-    "meaning": "앞지르다",
+    "id": "AbsoluteVerb_323",
+    "setId": "AbsoluteVerb",
+    "japanese": "踊る",
+    "reading": "おどる",
+    "meaning": "춤추다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 322
   },
   {
-    "id": "darakwonverb_324",
-    "setId": "500",
-    "japanese": "追い込む",
-    "reading": "おいこむ",
-    "meaning": "몰아넣다",
+    "id": "AbsoluteVerb_324",
+    "setId": "AbsoluteVerb",
+    "japanese": "弾く",
+    "reading": "ひく",
+    "meaning": "연주하다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 24,
     "verbInfo": "1타",
     "sourceOrder": 323
   },
   {
-    "id": "darakwonverb_325",
-    "setId": "500",
-    "japanese": "抜く",
-    "reading": "ぬく",
-    "meaning": "속에서 뽑다, 빼내다",
+    "id": "AbsoluteVerb_325",
+    "setId": "AbsoluteVerb",
+    "japanese": "騒ぐ",
+    "reading": "さわぐ",
+    "meaning": "떠들다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1타",
+    "difficulty": 26,
+    "verbInfo": "1자",
     "sourceOrder": 324
   },
   {
-    "id": "darakwonverb_326",
-    "setId": "500",
-    "japanese": "抜ける",
-    "reading": "ぬける",
-    "meaning": "빠지다, 빠져나가다",
+    "id": "AbsoluteVerb_326",
+    "setId": "AbsoluteVerb",
+    "japanese": "やる",
+    "reading": "やる",
+    "meaning": "(낮춤말) 주다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "2자",
+    "difficulty": 14,
+    "verbInfo": "1타",
     "sourceOrder": 325
   },
   {
-    "id": "darakwonverb_327",
-    "setId": "500",
-    "japanese": "泊まる",
-    "reading": "とまる",
-    "meaning": "숙박하다",
+    "id": "AbsoluteVerb_327",
+    "setId": "AbsoluteVerb",
+    "japanese": "与える",
+    "reading": "あたえる",
+    "meaning": "(권한, 기회 등을) 주다, 부여하다",
     "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1자",
+    "difficulty": 24,
+    "verbInfo": "2타",
     "sourceOrder": 326
   },
   {
-    "id": "darakwonverb_328",
-    "setId": "500",
-    "japanese": "泊める",
-    "reading": "とめる",
-    "meaning": "묵게 하다",
+    "id": "AbsoluteVerb_328",
+    "setId": "AbsoluteVerb",
+    "japanese": "あげる",
+    "reading": "あげる",
+    "meaning": "(내가 남에게) 주다",
     "type": "verb",
-    "difficulty": 24,
+    "difficulty": 12,
     "verbInfo": "2타",
     "sourceOrder": 327
   },
   {
-    "id": "darakwonverb_329",
-    "setId": "500",
-    "japanese": "済む",
-    "reading": "すむ",
-    "meaning": "끝나다, 해결되다",
+    "id": "AbsoluteVerb_329",
+    "setId": "AbsoluteVerb",
+    "japanese": "くれる",
+    "reading": "くれる",
+    "meaning": "(남이 내게) 주다",
     "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1자",
+    "difficulty": 12,
+    "verbInfo": "2타",
     "sourceOrder": 328
   },
   {
-    "id": "darakwonverb_330",
-    "setId": "500",
-    "japanese": "済ませる",
-    "reading": "すませる",
-    "meaning": "끝내다, 해결하다",
+    "id": "AbsoluteVerb_330",
+    "setId": "AbsoluteVerb",
+    "japanese": "下さる",
+    "reading": "くださる",
+    "meaning": "주시다 (くれる의 높임말)",
     "type": "verb",
     "difficulty": 24,
-    "verbInfo": "2타",
+    "verbInfo": "1타",
     "sourceOrder": 329
   },
   {
-    "id": "darakwonverb_331",
-    "setId": "500",
-    "japanese": "支える",
-    "reading": "ささえる",
-    "meaning": "지탱하다, 떠받치다",
+    "id": "AbsoluteVerb_331",
+    "setId": "AbsoluteVerb",
+    "japanese": "もらう",
+    "reading": "もらう",
+    "meaning": "받다, 얻다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2타",
+    "difficulty": 12,
+    "verbInfo": "1타",
     "sourceOrder": 330
   },
   {
-    "id": "darakwonverb_332",
-    "setId": "500",
-    "japanese": "支払う",
-    "reading": "しはらう",
-    "meaning": "지불하다",
+    "id": "AbsoluteVerb_332",
+    "setId": "AbsoluteVerb",
+    "japanese": "受ける",
+    "reading": "うける",
+    "meaning": "받다, (시험을) 치다, (피해를) 입다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1타",
+    "difficulty": 16,
+    "verbInfo": "2타",
     "sourceOrder": 331
   },
   {
-    "id": "darakwonverb_333",
-    "setId": "500",
-    "japanese": "見送る",
-    "reading": "みおくる",
-    "meaning": "배웅하다, 떠나는 모습을 끝까지 보다",
+    "id": "AbsoluteVerb_333",
+    "setId": "AbsoluteVerb",
+    "japanese": "渡す",
+    "reading": "わたす",
+    "meaning": "건네다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 22,
     "verbInfo": "1타",
     "sourceOrder": 332
   },
   {
-    "id": "darakwonverb_334",
-    "setId": "500",
-    "japanese": "見直す",
-    "reading": "みなおす",
-    "meaning": "다시 보다, 재검토하다",
+    "id": "AbsoluteVerb_334",
+    "setId": "AbsoluteVerb",
+    "japanese": "配る",
+    "reading": "くばる",
+    "meaning": "나누어 주다",
     "type": "verb",
     "difficulty": 28,
     "verbInfo": "1타",
     "sourceOrder": 333
   },
   {
-    "id": "darakwonverb_335",
-    "setId": "500",
-    "japanese": "見守る",
-    "reading": "みまもる",
-    "meaning": "곁에서 계속 지켜보다, 주의 깊게 보다",
+    "id": "AbsoluteVerb_335",
+    "setId": "AbsoluteVerb",
+    "japanese": "守る",
+    "reading": "まもる",
+    "meaning": "지키다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 21,
     "verbInfo": "1타",
     "sourceOrder": 334
   },
   {
-    "id": "darakwonverb_336",
-    "setId": "500",
-    "japanese": "見分ける",
-    "reading": "みわける",
-    "meaning": "구별하다",
+    "id": "AbsoluteVerb_336",
+    "setId": "AbsoluteVerb",
+    "japanese": "破る",
+    "reading": "やぶる",
+    "meaning": "(약속을) 어기다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
+    "difficulty": 28,
+    "verbInfo": "1타",
     "sourceOrder": 335
   },
   {
-    "id": "darakwonverb_337",
-    "setId": "500",
-    "japanese": "見渡す",
-    "reading": "みわたす",
-    "meaning": "둘러보다",
+    "id": "AbsoluteVerb_337",
+    "setId": "AbsoluteVerb",
+    "japanese": "取り消す",
+    "reading": "とりけす",
+    "meaning": "취소하다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 31,
     "verbInfo": "1타",
     "sourceOrder": 336
   },
   {
-    "id": "darakwonverb_338",
-    "setId": "500",
-    "japanese": "眩む",
-    "reading": "くらむ",
-    "meaning": "아찔해지다, 현기증이 나다",
+    "id": "AbsoluteVerb_338",
+    "setId": "AbsoluteVerb",
+    "japanese": "遅れる",
+    "reading": "おくれる",
+    "meaning": "지각하다, 늦다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
+    "difficulty": 18,
+    "verbInfo": "2자",
     "sourceOrder": 337
   },
   {
-    "id": "darakwonverb_339",
-    "setId": "500",
-    "japanese": "聞き取る",
-    "reading": "ききとる",
-    "meaning": "알아듣다, 청취하다",
+    "id": "AbsoluteVerb_339",
+    "setId": "AbsoluteVerb",
+    "japanese": "間に合う",
+    "reading": "まにあう",
+    "meaning": "제 시간에 맞다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 27,
+    "verbInfo": "1자",
     "sourceOrder": 338
   },
   {
-    "id": "darakwonverb_340",
-    "setId": "500",
-    "japanese": "聞き返す",
-    "reading": "ききかえす",
-    "meaning": "되묻다",
+    "id": "AbsoluteVerb_340",
+    "setId": "AbsoluteVerb",
+    "japanese": "決まる",
+    "reading": "きまる",
+    "meaning": "결정되다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1타",
+    "difficulty": 16,
+    "verbInfo": "1자",
     "sourceOrder": 339
   },
   {
-    "id": "darakwonverb_341",
-    "setId": "500",
-    "japanese": "話し合う",
-    "reading": "はなしあう",
-    "meaning": "의논하다",
+    "id": "AbsoluteVerb_341",
+    "setId": "AbsoluteVerb",
+    "japanese": "決める",
+    "reading": "きめる",
+    "meaning": "결정하다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
+    "difficulty": 19,
+    "verbInfo": "2타",
     "sourceOrder": 340
   },
   {
-    "id": "darakwonverb_342",
-    "setId": "500",
-    "japanese": "言い出す",
-    "reading": "いいだす",
-    "meaning": "말을 꺼내다",
+    "id": "AbsoluteVerb_342",
+    "setId": "AbsoluteVerb",
+    "japanese": "待つ",
+    "reading": "まつ",
+    "meaning": "기다리다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1자",
+    "difficulty": 12,
+    "verbInfo": "1타",
     "sourceOrder": 341
   },
   {
-    "id": "darakwonverb_343",
-    "setId": "500",
-    "japanese": "言い返す",
-    "reading": "いいかえす",
-    "meaning": "말대꾸하다",
+    "id": "AbsoluteVerb_343",
+    "setId": "AbsoluteVerb",
+    "japanese": "待たせる",
+    "reading": "またせる",
+    "meaning": "기다리게 하다",
     "type": "verb",
     "difficulty": 24,
-    "verbInfo": "1타",
+    "verbInfo": "2타",
     "sourceOrder": 342
   },
   {
-    "id": "darakwonverb_344",
-    "setId": "500",
-    "japanese": "言い換える",
-    "reading": "いいかえる",
-    "meaning": "바꾸어 말하다",
+    "id": "AbsoluteVerb_344",
+    "setId": "AbsoluteVerb",
+    "japanese": "待ち合わせる",
+    "reading": "まちあわせる",
+    "meaning": "(장소, 시간을 정하고) 만나기로 하다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
+    "difficulty": 29,
+    "verbInfo": "2자",
     "sourceOrder": 343
   },
   {
-    "id": "darakwonverb_345",
-    "setId": "500",
-    "japanese": "読み返す",
-    "reading": "よみかえす",
-    "meaning": "다시 읽다",
+    "id": "AbsoluteVerb_345",
+    "setId": "AbsoluteVerb",
+    "japanese": "着く",
+    "reading": "つく",
+    "meaning": "도착하다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
+    "difficulty": 14,
+    "verbInfo": "1자",
     "sourceOrder": 344
   },
   {
-    "id": "darakwonverb_346",
-    "setId": "500",
-    "japanese": "読み上げる",
-    "reading": "よみあげる",
-    "meaning": "소리 내어 읽다",
+    "id": "AbsoluteVerb_346",
+    "setId": "AbsoluteVerb",
+    "japanese": "掛かる",
+    "reading": "かかる",
+    "meaning": "(시간이) 소요되다",
     "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "2타",
+    "difficulty": 22,
+    "verbInfo": "1자",
     "sourceOrder": 345
   },
   {
-    "id": "darakwonverb_347",
-    "setId": "500",
-    "japanese": "書き直す",
-    "reading": "かきなおす",
-    "meaning": "다시 쓰다",
+    "id": "AbsoluteVerb_347",
+    "setId": "AbsoluteVerb",
+    "japanese": "混む",
+    "reading": "こむ",
+    "meaning": "붐비다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 346
   },
   {
-    "id": "darakwonverb_348",
-    "setId": "500",
-    "japanese": "書き留める",
-    "reading": "かきとめる",
-    "meaning": "적어 두다",
+    "id": "AbsoluteVerb_348",
+    "setId": "AbsoluteVerb",
+    "japanese": "空く",
+    "reading": "あく",
+    "meaning": "비다, 쓰이지 않다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 347
   },
   {
-    "id": "darakwonverb_349",
-    "setId": "500",
-    "japanese": "書き込む",
-    "reading": "かきこむ",
-    "meaning": "써넣다, 입력하다",
+    "id": "AbsoluteVerb_349",
+    "setId": "AbsoluteVerb",
+    "japanese": "乗る",
+    "reading": "のる",
+    "meaning": "(탈것에) 타다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 16,
+    "verbInfo": "1자",
     "sourceOrder": 348
   },
   {
-    "id": "darakwonverb_350",
-    "setId": "500",
-    "japanese": "考え込む",
-    "reading": "かんがえこむ",
-    "meaning": "곰곰이 생각하다",
+    "id": "AbsoluteVerb_350",
+    "setId": "AbsoluteVerb",
+    "japanese": "乗せる",
+    "reading": "のせる",
+    "meaning": "(탈것에) 태우다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1자",
+    "difficulty": 18,
+    "verbInfo": "2타",
     "sourceOrder": 349
   },
   {
-    "id": "darakwonverb_351",
-    "setId": "500",
-    "japanese": "思い出す",
-    "reading": "おもいだす",
-    "meaning": "생각해내다",
+    "id": "AbsoluteVerb_351",
+    "setId": "AbsoluteVerb",
+    "japanese": "降りる",
+    "reading": "おりる",
+    "meaning": "(탈것에서) 내리다, 내려오다",
     "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1타",
+    "difficulty": 14,
+    "verbInfo": "2자",
     "sourceOrder": 350
   },
   {
-    "id": "darakwonverb_352",
-    "setId": "500",
-    "japanese": "思い込む",
-    "reading": "おもいこむ",
-    "meaning": "굳게 믿다, 단정하다",
+    "id": "AbsoluteVerb_352",
+    "setId": "AbsoluteVerb",
+    "japanese": "乗り換える",
+    "reading": "のりかえる",
+    "meaning": "갈아타다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1자",
+    "difficulty": 26,
+    "verbInfo": "2자",
     "sourceOrder": 351
   },
   {
-    "id": "darakwonverb_353",
-    "setId": "500",
-    "japanese": "忘れ去る",
-    "reading": "わすれさる",
-    "meaning": "완전히 잊어버리다",
+    "id": "AbsoluteVerb_353",
+    "setId": "AbsoluteVerb",
+    "japanese": "乗り過ごす",
+    "reading": "のりすごす",
+    "meaning": "하차역을 지나치다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 30,
     "verbInfo": "1타",
     "sourceOrder": 352
   },
   {
-    "id": "darakwonverb_354",
-    "setId": "500",
-    "japanese": "訳す",
-    "reading": "やく",
-    "meaning": "번역하다",
+    "id": "AbsoluteVerb_354",
+    "setId": "AbsoluteVerb",
+    "japanese": "酔う",
+    "reading": "よう",
+    "meaning": "멀미하다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 353
   },
   {
-    "id": "darakwonverb_355",
-    "setId": "500",
-    "japanese": "比べる",
-    "reading": "くらべる",
-    "meaning": "비교하다",
+    "id": "AbsoluteVerb_355",
+    "setId": "AbsoluteVerb",
+    "japanese": "争う",
+    "reading": "あらそう",
+    "meaning": "(경쟁으로써) 다투다",
     "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "2타",
+    "difficulty": 30,
+    "verbInfo": "1자",
     "sourceOrder": 354
   },
   {
-    "id": "darakwonverb_356",
-    "setId": "500",
-    "japanese": "例える",
-    "reading": "たとえる",
-    "meaning": "비유하다",
+    "id": "AbsoluteVerb_356",
+    "setId": "AbsoluteVerb",
+    "japanese": "戦う",
+    "reading": "たたかう",
+    "meaning": "(싸움으로써) 싸우다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
+    "difficulty": 32,
+    "verbInfo": "1자",
     "sourceOrder": 355
   },
   {
-    "id": "darakwonverb_357",
-    "setId": "500",
-    "japanese": "認める",
-    "reading": "みとめる",
-    "meaning": "인정하다",
+    "id": "AbsoluteVerb_357",
+    "setId": "AbsoluteVerb",
+    "japanese": "勝つ",
+    "reading": "かつ",
+    "meaning": "이기다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 356
   },
   {
-    "id": "darakwonverb_358",
-    "setId": "500",
-    "japanese": "見込む",
-    "reading": "みこむ",
-    "meaning": "예상하다, 기대하다",
+    "id": "AbsoluteVerb_358",
+    "setId": "AbsoluteVerb",
+    "japanese": "負ける",
+    "reading": "まける",
+    "meaning": "(일상체) 패배하다, 값을 깎다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "2자",
     "sourceOrder": 357
   },
   {
-    "id": "darakwonverb_359",
-    "setId": "500",
-    "japanese": "取り上げる",
-    "reading": "とりあげる",
-    "meaning": "집어 들다, 채택하다",
+    "id": "AbsoluteVerb_359",
+    "setId": "AbsoluteVerb",
+    "japanese": "敗れる",
+    "reading": "やぶれる",
+    "meaning": "(문어체) 패배하다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
+    "difficulty": 28,
+    "verbInfo": "2자",
     "sourceOrder": 358
   },
   {
-    "id": "darakwonverb_360",
-    "setId": "500",
-    "japanese": "取り戻す",
-    "reading": "とりもどす",
-    "meaning": "되찾다",
+    "id": "AbsoluteVerb_360",
+    "setId": "AbsoluteVerb",
+    "japanese": "殴る",
+    "reading": "なぐる",
+    "meaning": "때리다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 26,
     "verbInfo": "1타",
     "sourceOrder": 359
   },
   {
-    "id": "darakwonverb_361",
-    "setId": "500",
-    "japanese": "取り替える",
-    "reading": "とりかえる",
-    "meaning": "교체하다",
+    "id": "AbsoluteVerb_361",
+    "setId": "AbsoluteVerb",
+    "japanese": "ひっぱたく",
+    "reading": "ひっぱたく",
+    "meaning": "(손으로) 후려치다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2타",
+    "difficulty": 36,
+    "verbInfo": "1타",
     "sourceOrder": 360
   },
   {
-    "id": "darakwonverb_362",
-    "setId": "500",
-    "japanese": "取り替わる",
-    "reading": "とりかわる",
-    "meaning": "교체되다",
+    "id": "AbsoluteVerb_362",
+    "setId": "AbsoluteVerb",
+    "japanese": "蹴飛ばす",
+    "reading": "けとばす",
+    "meaning": "걷어차다",
     "type": "verb",
     "difficulty": 34,
-    "verbInfo": "1자",
+    "verbInfo": "1타",
     "sourceOrder": 361
   },
   {
-    "id": "darakwonverb_363",
-    "setId": "500",
-    "japanese": "取り組む",
-    "reading": "とりくむ",
-    "meaning": "맞서다, 몰두하다",
+    "id": "AbsoluteVerb_363",
+    "setId": "AbsoluteVerb",
+    "japanese": "突く",
+    "reading": "つく",
+    "meaning": "찌르다, (공 등을) 치다, (팔꿈치 등을) 괴다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1자",
+    "difficulty": 28,
+    "verbInfo": "1타",
     "sourceOrder": 362
   },
   {
-    "id": "darakwonverb_364",
-    "setId": "500",
-    "japanese": "取り寄せる",
-    "reading": "とりよせる",
-    "meaning": "주문하여 받아오다",
+    "id": "AbsoluteVerb_364",
+    "setId": "AbsoluteVerb",
+    "japanese": "絡む",
+    "reading": "からむ",
+    "meaning": "얽히다, 시비를 걸다",
     "type": "verb",
     "difficulty": 30,
-    "verbInfo": "2타",
+    "verbInfo": "1자",
     "sourceOrder": 363
   },
   {
-    "id": "darakwonverb_365",
-    "setId": "500",
-    "japanese": "取り外す",
-    "reading": "とりはずす",
-    "meaning": "떼어내다",
+    "id": "AbsoluteVerb_365",
+    "setId": "AbsoluteVerb",
+    "japanese": "起こる",
+    "reading": "おこる",
+    "meaning": "일어나다, 발생하다",
     "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 364
   },
   {
-    "id": "darakwonverb_366",
-    "setId": "500",
-    "japanese": "取り巻く",
-    "reading": "とりまく",
-    "meaning": "둘러싸다",
+    "id": "AbsoluteVerb_366",
+    "setId": "AbsoluteVerb",
+    "japanese": "盗む",
+    "reading": "ぬすむ",
+    "meaning": "훔치다",
     "type": "verb",
-    "difficulty": 36,
+    "difficulty": 26,
     "verbInfo": "1타",
     "sourceOrder": 365
   },
   {
-    "id": "darakwonverb_367",
-    "setId": "500",
-    "japanese": "取り締まる",
-    "reading": "とりしまる",
-    "meaning": "단속하다",
+    "id": "AbsoluteVerb_367",
+    "setId": "AbsoluteVerb",
+    "japanese": "だます",
+    "reading": "だます",
+    "meaning": "속이다",
     "type": "verb",
-    "difficulty": 40,
+    "difficulty": 24,
     "verbInfo": "1타",
     "sourceOrder": 366
   },
   {
-    "id": "darakwonverb_368",
-    "setId": "500",
-    "japanese": "差し出す",
-    "reading": "さしだす",
-    "meaning": "내밀다, 제출하다",
+    "id": "AbsoluteVerb_368",
+    "setId": "AbsoluteVerb",
+    "japanese": "奪う",
+    "reading": "うばう",
+    "meaning": "빼앗다",
     "type": "verb",
-    "difficulty": 26,
+    "difficulty": 32,
     "verbInfo": "1타",
     "sourceOrder": 367
   },
   {
-    "id": "darakwonverb_369",
-    "setId": "500",
-    "japanese": "差し引く",
-    "reading": "さしひく",
-    "meaning": "셈해서 빼다, 공제하다",
+    "id": "AbsoluteVerb_369",
+    "setId": "AbsoluteVerb",
+    "japanese": "犯す",
+    "reading": "おかす",
+    "meaning": "(죄를) 범하다, (규칙을) 어기다",
     "type": "verb",
     "difficulty": 34,
     "verbInfo": "1타",
     "sourceOrder": 368
   },
   {
-    "id": "darakwonverb_370",
-    "setId": "500",
-    "japanese": "差し掛かる",
-    "reading": "さしかかる",
-    "meaning": "이르다, 다다르다",
+    "id": "AbsoluteVerb_370",
+    "setId": "AbsoluteVerb",
+    "japanese": "訴える",
+    "reading": "うったえる",
+    "meaning": "고소하다, 호소하다",
     "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "1자",
+    "difficulty": 30,
+    "verbInfo": "2타",
     "sourceOrder": 369
   },
   {
-    "id": "darakwonverb_371",
-    "setId": "500",
-    "japanese": "振り返る",
-    "reading": "ふりかえる",
-    "meaning": "뒤돌아보다, 되돌아보다",
+    "id": "AbsoluteVerb_371",
+    "setId": "AbsoluteVerb",
+    "japanese": "調べる",
+    "reading": "しらべる",
+    "meaning": "조사하다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
+    "difficulty": 18,
+    "verbInfo": "2타",
     "sourceOrder": 370
   },
   {
-    "id": "darakwonverb_372",
-    "setId": "500",
-    "japanese": "振り向く",
-    "reading": "ふりむく",
-    "meaning": "뒤돌아보다",
+    "id": "AbsoluteVerb_372",
+    "setId": "AbsoluteVerb",
+    "japanese": "燃える",
+    "reading": "もえる",
+    "meaning": "불타다",
     "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1자",
+    "difficulty": 24,
+    "verbInfo": "2자",
     "sourceOrder": 371
   },
   {
-    "id": "darakwonverb_373",
-    "setId": "500",
-    "japanese": "振り込む",
-    "reading": "ふりこむ",
-    "meaning": "송금하다",
+    "id": "AbsoluteVerb_373",
+    "setId": "AbsoluteVerb",
+    "japanese": "燃やす",
+    "reading": "もやす",
+    "meaning": "불태우다",
     "type": "verb",
-    "difficulty": 34,
+    "difficulty": 22,
     "verbInfo": "1타",
     "sourceOrder": 372
   },
   {
-    "id": "darakwonverb_374",
-    "setId": "500",
-    "japanese": "投げ出す",
-    "reading": "なげだす",
-    "meaning": "내던지다, 포기하다",
+    "id": "AbsoluteVerb_374",
+    "setId": "AbsoluteVerb",
+    "japanese": "腐る",
+    "reading": "くさる",
+    "meaning": "썩다",
     "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
+    "difficulty": 26,
+    "verbInfo": "1자",
     "sourceOrder": 373
   },
   {
-    "id": "darakwonverb_375",
-    "setId": "500",
-    "japanese": "押し付ける",
-    "reading": "おしつける",
-    "meaning": "강요하다, 밀어붙이다",
+    "id": "AbsoluteVerb_375",
+    "setId": "AbsoluteVerb",
+    "japanese": "ぶつかる",
+    "reading": "ぶつかる",
+    "meaning": "(자동사) 부딪치다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
+    "difficulty": 18,
+    "verbInfo": "1자",
     "sourceOrder": 374
   },
   {
-    "id": "darakwonverb_376",
-    "setId": "500",
-    "japanese": "押し寄せる",
-    "reading": "おしよせる",
-    "meaning": "밀려오다",
+    "id": "AbsoluteVerb_376",
+    "setId": "AbsoluteVerb",
+    "japanese": "ぶつける",
+    "reading": "ぶつける",
+    "meaning": "(타동사) 부딪치다",
     "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2자",
+    "difficulty": 22,
+    "verbInfo": "2타",
     "sourceOrder": 375
   },
   {
-    "id": "darakwonverb_377",
-    "setId": "500",
-    "japanese": "押し込む",
-    "reading": "おしこむ",
-    "meaning": "밀어 넣다",
+    "id": "AbsoluteVerb_377",
+    "setId": "AbsoluteVerb",
+    "japanese": "防ぐ",
+    "reading": "ふせぐ",
+    "meaning": "막다",
     "type": "verb",
-    "difficulty": 28,
+    "difficulty": 29,
     "verbInfo": "1타",
     "sourceOrder": 376
   },
   {
-    "id": "darakwonverb_378",
-    "setId": "500",
-    "japanese": "押し切る",
-    "reading": "おしきる",
-    "meaning": "밀어붙여 해내다",
+    "id": "AbsoluteVerb_378",
+    "setId": "AbsoluteVerb",
+    "japanese": "避ける",
+    "reading": "さける",
+    "meaning": "(상황 등을) 피하다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1타",
+    "difficulty": 22,
+    "verbInfo": "2타",
     "sourceOrder": 377
   },
   {
-    "id": "darakwonverb_379",
-    "setId": "500",
-    "japanese": "折り返す",
-    "reading": "おりかえす",
-    "meaning": "되돌리다, 접어 넘기다",
+    "id": "AbsoluteVerb_379",
+    "setId": "AbsoluteVerb",
+    "japanese": "よける",
+    "reading": "よける",
+    "meaning": "(순간적으로) 피하다",
     "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
+    "difficulty": 18,
+    "verbInfo": "2타",
     "sourceOrder": 378
   },
   {
-    "id": "darakwonverb_380",
-    "setId": "500",
-    "japanese": "折り重なる",
-    "reading": "おりかさなる",
-    "meaning": "겹겹이 포개지다",
+    "id": "AbsoluteVerb_380",
+    "setId": "AbsoluteVerb",
+    "japanese": "逃げる",
+    "reading": "にげる",
+    "meaning": "도망치다",
     "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1자",
+    "difficulty": 20,
+    "verbInfo": "2자",
     "sourceOrder": 379
   },
   {
-    "id": "darakwonverb_381",
-    "setId": "500",
-    "japanese": "駆けつける",
-    "reading": "かけつける",
-    "meaning": "급히 달려가다",
+    "id": "AbsoluteVerb_381",
+    "setId": "AbsoluteVerb",
+    "japanese": "隠れる",
+    "reading": "かくれる",
+    "meaning": "숨다, 가려지다",
     "type": "verb",
-    "difficulty": 30,
+    "difficulty": 18,
     "verbInfo": "2자",
     "sourceOrder": 380
   },
   {
-    "id": "darakwonverb_382",
-    "setId": "500",
-    "japanese": "駆け回る",
-    "reading": "かけまわる",
-    "meaning": "뛰어다니다",
+    "id": "AbsoluteVerb_382",
+    "setId": "AbsoluteVerb",
+    "japanese": "隠す",
+    "reading": "かくす",
+    "meaning": "숨기다, 가리다",
     "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
+    "difficulty": 26,
+    "verbInfo": "1타",
     "sourceOrder": 381
   },
   {
-    "id": "darakwonverb_383",
-    "setId": "500",
-    "japanese": "噛みつく",
-    "reading": "かみつく",
-    "meaning": "물다, 덤벼들다",
+    "id": "AbsoluteVerb_383",
+    "setId": "AbsoluteVerb",
+    "japanese": "追いかける",
+    "reading": "おいかける",
+    "meaning": "뒤쫓다",
     "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "1자",
+    "difficulty": 24,
+    "verbInfo": "2타",
     "sourceOrder": 382
   },
   {
-    "id": "darakwonverb_384",
-    "setId": "500",
-    "japanese": "噛み合う",
-    "reading": "かみあう",
-    "meaning": "맞물리다, 서로 잘 맞다",
+    "id": "AbsoluteVerb_384",
+    "setId": "AbsoluteVerb",
+    "japanese": "捕まる",
+    "reading": "つかまる",
+    "meaning": "잡히다, 꼭 붙잡고 매달리다",
     "type": "verb",
-    "difficulty": 32,
+    "difficulty": 22,
     "verbInfo": "1자",
     "sourceOrder": 383
   },
   {
-    "id": "darakwonverb_385",
-    "setId": "500",
-    "japanese": "かじる",
-    "reading": "かじる",
-    "meaning": "베어 먹다, 조금 맛보다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 384
-  },
-  {
-    "id": "darakwonverb_386",
-    "setId": "500",
-    "japanese": "くっつく",
-    "reading": "くっつく",
-    "meaning": "달라붙다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 385
-  },
-  {
-    "id": "darakwonverb_387",
-    "setId": "500",
-    "japanese": "くっつける",
-    "reading": "くっつける",
-    "meaning": "붙이다",
+    "id": "AbsoluteVerb_385",
+    "setId": "AbsoluteVerb",
+    "japanese": "捕まえる",
+    "reading": "つかまえる",
+    "meaning": "붙잡다",
     "type": "verb",
     "difficulty": 22,
     "verbInfo": "2타",
+    "sourceOrder": 384
+  },
+  {
+    "id": "AbsoluteVerb_386",
+    "setId": "AbsoluteVerb",
+    "japanese": "とらえる",
+    "reading": "とらえる",
+    "meaning": "포착하다",
+    "type": "verb",
+    "difficulty": 28,
+    "verbInfo": "2타",
+    "sourceOrder": 385
+  },
+  {
+    "id": "AbsoluteVerb_387",
+    "setId": "AbsoluteVerb",
+    "japanese": "釣る",
+    "reading": "つる",
+    "meaning": "(생선 등을) 낚다",
+    "type": "verb",
+    "difficulty": 20,
+    "verbInfo": "1타",
     "sourceOrder": 386
   },
   {
-    "id": "darakwonverb_388",
-    "setId": "500",
-    "japanese": "くり抜く",
-    "reading": "くりぬく",
-    "meaning": "도려내다, 파내다",
+    "id": "AbsoluteVerb_388",
+    "setId": "AbsoluteVerb",
+    "japanese": "働く",
+    "reading": "はたらく",
+    "meaning": "일하다",
     "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1타",
+    "difficulty": 14,
+    "verbInfo": "1자",
     "sourceOrder": 387
   },
   {
-    "id": "darakwonverb_389",
-    "setId": "500",
-    "japanese": "くみ取る",
-    "reading": "くみとる",
-    "meaning": "퍼내다, 헤아리다",
+    "id": "AbsoluteVerb_389",
+    "setId": "AbsoluteVerb",
+    "japanese": "雇う",
+    "reading": "やとう",
+    "meaning": "고용하다",
     "type": "verb",
-    "difficulty": 40,
+    "difficulty": 24,
     "verbInfo": "1타",
     "sourceOrder": 388
   },
   {
-    "id": "darakwonverb_390",
-    "setId": "500",
-    "japanese": "転がる",
-    "reading": "ころがる",
-    "meaning": "구르다",
+    "id": "AbsoluteVerb_390",
+    "setId": "AbsoluteVerb",
+    "japanese": "勤める",
+    "reading": "つとめる",
+    "meaning": "근무하다",
     "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
+    "difficulty": 28,
+    "verbInfo": "2자",
     "sourceOrder": 389
   },
   {
-    "id": "darakwonverb_391",
-    "setId": "500",
-    "japanese": "転がす",
-    "reading": "ころがす",
-    "meaning": "굴리다",
+    "id": "AbsoluteVerb_391",
+    "setId": "AbsoluteVerb",
+    "japanese": "務める",
+    "reading": "つとめる",
+    "meaning": "(임무를) 맡다",
     "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
+    "difficulty": 30,
+    "verbInfo": "2타",
     "sourceOrder": 390
   },
   {
-    "id": "darakwonverb_392",
-    "setId": "500",
-    "japanese": "転げ落ちる",
-    "reading": "ころげおちる",
-    "meaning": "굴러 떨어지다",
+    "id": "AbsoluteVerb_392",
+    "setId": "AbsoluteVerb",
+    "japanese": "努める",
+    "reading": "つとめる",
+    "meaning": "노력하다",
     "type": "verb",
-    "difficulty": 38,
+    "difficulty": 26,
     "verbInfo": "2자",
     "sourceOrder": 391
-  },
-  {
-    "id": "darakwonverb_393",
-    "setId": "500",
-    "japanese": "逆らう",
-    "reading": "さからう",
-    "meaning": "거역하다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
-    "sourceOrder": 392
-  },
-  {
-    "id": "darakwonverb_394",
-    "setId": "500",
-    "japanese": "さびる",
-    "reading": "さびる",
-    "meaning": "녹슬다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2자",
-    "sourceOrder": 393
-  },
-  {
-    "id": "darakwonverb_395",
-    "setId": "500",
-    "japanese": "冷ます",
-    "reading": "さます",
-    "meaning": "뜨거운 것을 식히다, 흥분을 가라앉히다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 394
-  },
-  {
-    "id": "darakwonverb_396",
-    "setId": "500",
-    "japanese": "冷める",
-    "reading": "さめる",
-    "meaning": "식다, 식어 가다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "2자",
-    "sourceOrder": 395
-  },
-  {
-    "id": "darakwonverb_397",
-    "setId": "500",
-    "japanese": "しくじる",
-    "reading": "しくじる",
-    "meaning": "실수하다, 실패하다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "2자",
-    "sourceOrder": 396
-  },
-  {
-    "id": "darakwonverb_398",
-    "setId": "500",
-    "japanese": "しのぐ",
-    "reading": "しのぐ",
-    "meaning": "견디다, 버텨 넘기다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1타",
-    "sourceOrder": 397
-  },
-  {
-    "id": "darakwonverb_399",
-    "setId": "500",
-    "japanese": "しぼり込む",
-    "reading": "しぼりこむ",
-    "meaning": "압축하다, 추려내다",
-    "type": "verb",
-    "difficulty": 40,
-    "verbInfo": "1타",
-    "sourceOrder": 398
-  },
-  {
-    "id": "darakwonverb_400",
-    "setId": "500",
-    "japanese": "すれ違う",
-    "reading": "すれちがう",
-    "meaning": "스쳐 지나가다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1자",
-    "sourceOrder": 399
-  },
-  {
-    "id": "darakwonverb_401",
-    "setId": "500",
-    "japanese": "すり替える",
-    "reading": "すりかえる",
-    "meaning": "바꿔치기하다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "2타",
-    "sourceOrder": 400
-  },
-  {
-    "id": "darakwonverb_402",
-    "setId": "500",
-    "japanese": "すり減る",
-    "reading": "すりへる",
-    "meaning": "닳다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
-    "sourceOrder": 401
-  },
-  {
-    "id": "darakwonverb_403",
-    "setId": "500",
-    "japanese": "ずらす",
-    "reading": "ずらす",
-    "meaning": "비키다, 어긋나게 하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 402
-  },
-  {
-    "id": "darakwonverb_404",
-    "setId": "500",
-    "japanese": "迫る",
-    "reading": "せまる",
-    "meaning": "다가오다, 압박하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1자",
-    "sourceOrder": 403
-  },
-  {
-    "id": "darakwonverb_405",
-    "setId": "500",
-    "japanese": "添える",
-    "reading": "そえる",
-    "meaning": "곁들이다, 덧붙이다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "2타",
-    "sourceOrder": 404
-  },
-  {
-    "id": "darakwonverb_406",
-    "setId": "500",
-    "japanese": "備える",
-    "reading": "そなえる",
-    "meaning": "갖추다, 대비하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
-    "sourceOrder": 405
-  },
-  {
-    "id": "darakwonverb_407",
-    "setId": "500",
-    "japanese": "損なう",
-    "reading": "そこなう",
-    "meaning": "손상시키다, 해치다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1타",
-    "sourceOrder": 406
-  },
-  {
-    "id": "darakwonverb_408",
-    "setId": "500",
-    "japanese": "損ねる",
-    "reading": "そこねる",
-    "meaning": "놓치다, 그르치다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "2타",
-    "sourceOrder": 407
-  },
-  {
-    "id": "darakwonverb_409",
-    "setId": "500",
-    "japanese": "揃う",
-    "reading": "そろう",
-    "meaning": "모이다, 갖추어지다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 408
-  },
-  {
-    "id": "darakwonverb_410",
-    "setId": "500",
-    "japanese": "揃える",
-    "reading": "そろえる",
-    "meaning": "가지런히 하다, 갖추다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2타",
-    "sourceOrder": 409
-  },
-  {
-    "id": "darakwonverb_411",
-    "setId": "500",
-    "japanese": "蓄える",
-    "reading": "たくわえる",
-    "meaning": "저축하다, 비축하다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2타",
-    "sourceOrder": 410
-  },
-  {
-    "id": "darakwonverb_412",
-    "setId": "500",
-    "japanese": "たどる",
-    "reading": "たどる",
-    "meaning": "더듬어 가다, 추적하다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "1타",
-    "sourceOrder": 411
-  },
-  {
-    "id": "darakwonverb_413",
-    "setId": "500",
-    "japanese": "立ち寄る",
-    "reading": "たちよる",
-    "meaning": "잠시 들르다",
-    "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1자",
-    "sourceOrder": 412
-  },
-  {
-    "id": "darakwonverb_414",
-    "setId": "500",
-    "japanese": "立て替える",
-    "reading": "たてかえる",
-    "meaning": "대신 지불하다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "2타",
-    "sourceOrder": 413
-  },
-  {
-    "id": "darakwonverb_415",
-    "setId": "500",
-    "japanese": "立て込む",
-    "reading": "たてこむ",
-    "meaning": "붐비다, 일이 몰리다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1자",
-    "sourceOrder": 414
-  },
-  {
-    "id": "darakwonverb_416",
-    "setId": "500",
-    "japanese": "縮む",
-    "reading": "ちぢむ",
-    "meaning": "줄어들다, 오그라들다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 415
-  },
-  {
-    "id": "darakwonverb_417",
-    "setId": "500",
-    "japanese": "縮める",
-    "reading": "ちぢめる",
-    "meaning": "줄이다, 단축하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2타",
-    "sourceOrder": 416
-  },
-  {
-    "id": "darakwonverb_418",
-    "setId": "500",
-    "japanese": "近づく",
-    "reading": "ちかづく",
-    "meaning": "가까워지다, 다가가다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 417
-  },
-  {
-    "id": "darakwonverb_419",
-    "setId": "500",
-    "japanese": "近づける",
-    "reading": "ちかづける",
-    "meaning": "가깝게 하다, 가까이 대다",
-    "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "2타",
-    "sourceOrder": 418
-  },
-  {
-    "id": "darakwonverb_420",
-    "setId": "500",
-    "japanese": "散らかる",
-    "reading": "ちらかる",
-    "meaning": "어질러지다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 419
-  },
-  {
-    "id": "darakwonverb_421",
-    "setId": "500",
-    "japanese": "散らかす",
-    "reading": "ちらかす",
-    "meaning": "어지르다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 420
-  },
-  {
-    "id": "darakwonverb_422",
-    "setId": "500",
-    "japanese": "散らばる",
-    "reading": "ちらばる",
-    "meaning": "흩어지다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 421
-  },
-  {
-    "id": "darakwonverb_423",
-    "setId": "500",
-    "japanese": "散らす",
-    "reading": "ちらす",
-    "meaning": "흩뜨리다, 흩뿌리다",
-    "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1타",
-    "sourceOrder": 422
-  },
-  {
-    "id": "darakwonverb_424",
-    "setId": "500",
-    "japanese": "つまずく",
-    "reading": "つまずく",
-    "meaning": "걸려 넘어지다, 좌절하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 423
-  },
-  {
-    "id": "darakwonverb_425",
-    "setId": "500",
-    "japanese": "つなぐ",
-    "reading": "つなぐ",
-    "meaning": "떨어진 것을 이어 붙이다, 연결하다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1타",
-    "sourceOrder": 424
-  },
-  {
-    "id": "darakwonverb_426",
-    "setId": "500",
-    "japanese": "つながる",
-    "reading": "つながる",
-    "meaning": "이어지다, 연결되다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 425
-  },
-  {
-    "id": "darakwonverb_427",
-    "setId": "500",
-    "japanese": "つり合う",
-    "reading": "つりあう",
-    "meaning": "서로 균형이 맞다, 조화를 이루다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
-    "sourceOrder": 426
-  },
-  {
-    "id": "darakwonverb_428",
-    "setId": "500",
-    "japanese": "つり上げる",
-    "reading": "つりあげる",
-    "meaning": "끌어올리다, 들어 올리다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2타",
-    "sourceOrder": 427
-  },
-  {
-    "id": "darakwonverb_429",
-    "setId": "500",
-    "japanese": "出迎える",
-    "reading": "でむかえる",
-    "meaning": "마중 나가다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "2타",
-    "sourceOrder": 428
-  },
-  {
-    "id": "darakwonverb_430",
-    "setId": "500",
-    "japanese": "出会う",
-    "reading": "であう",
-    "meaning": "만나다, 우연히 마주치다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 429
-  },
-  {
-    "id": "darakwonverb_431",
-    "setId": "500",
-    "japanese": "出直す",
-    "reading": "でなおす",
-    "meaning": "다시 오다, 새로 시작하다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1자",
-    "sourceOrder": 430
-  },
-  {
-    "id": "darakwonverb_432",
-    "setId": "500",
-    "japanese": "研ぐ",
-    "reading": "とぐ",
-    "meaning": "갈다, (쌀을) 씻다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
-    "sourceOrder": 431
-  },
-  {
-    "id": "darakwonverb_433",
-    "setId": "500",
-    "japanese": "捕らえる",
-    "reading": "とらえる",
-    "meaning": "붙잡다, 파악하다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
-    "sourceOrder": 432
-  },
-  {
-    "id": "darakwonverb_434",
-    "setId": "500",
-    "japanese": "飛び込む",
-    "reading": "とびこむ",
-    "meaning": "뛰어들다",
-    "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "1자",
-    "sourceOrder": 433
-  },
-  {
-    "id": "darakwonverb_435",
-    "setId": "500",
-    "japanese": "飛び出す",
-    "reading": "とびだす",
-    "meaning": "뛰쳐나가다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 434
-  },
-  {
-    "id": "darakwonverb_436",
-    "setId": "500",
-    "japanese": "飛び乗る",
-    "reading": "とびのる",
-    "meaning": "뛰어 타다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1자",
-    "sourceOrder": 435
-  },
-  {
-    "id": "darakwonverb_437",
-    "setId": "500",
-    "japanese": "飛び降りる",
-    "reading": "とびおりる",
-    "meaning": "뛰어내리다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2자",
-    "sourceOrder": 436
-  },
-  {
-    "id": "darakwonverb_438",
-    "setId": "500",
-    "japanese": "とぼける",
-    "reading": "とぼける",
-    "meaning": "시치미 떼다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2자",
-    "sourceOrder": 437
-  },
-  {
-    "id": "darakwonverb_439",
-    "setId": "500",
-    "japanese": "溶かす",
-    "reading": "とかす",
-    "meaning": "녹이다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
-    "sourceOrder": 438
-  },
-  {
-    "id": "darakwonverb_440",
-    "setId": "500",
-    "japanese": "溶け込む",
-    "reading": "とけこむ",
-    "meaning": "주변에 자연스럽게 스며들어 어울리다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1자",
-    "sourceOrder": 439
-  },
-  {
-    "id": "darakwonverb_441",
-    "setId": "500",
-    "japanese": "解く",
-    "reading": "とく",
-    "meaning": "풀다, 해명하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 440
-  },
-  {
-    "id": "darakwonverb_442",
-    "setId": "500",
-    "japanese": "どける",
-    "reading": "どける",
-    "meaning": "치우다, 비키게 하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2타",
-    "sourceOrder": 441
-  },
-  {
-    "id": "darakwonverb_443",
-    "setId": "500",
-    "japanese": "どく",
-    "reading": "どく",
-    "meaning": "비키다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 442
-  },
-  {
-    "id": "darakwonverb_444",
-    "setId": "500",
-    "japanese": "取り乱す",
-    "reading": "とりみだす",
-    "meaning": "허둥대다, 평정을 잃다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "1타",
-    "sourceOrder": 443
-  },
-  {
-    "id": "darakwonverb_445",
-    "setId": "500",
-    "japanese": "泣き出す",
-    "reading": "なきだす",
-    "meaning": "울기 시작하다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1자",
-    "sourceOrder": 444
-  },
-  {
-    "id": "darakwonverb_446",
-    "setId": "500",
-    "japanese": "投げ込む",
-    "reading": "なげこむ",
-    "meaning": "내던지다, 투입하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
-    "sourceOrder": 445
-  },
-  {
-    "id": "darakwonverb_447",
-    "setId": "500",
-    "japanese": "慣らす",
-    "reading": "ならす",
-    "meaning": "익숙하게 하다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
-    "sourceOrder": 446
-  },
-  {
-    "id": "darakwonverb_448",
-    "setId": "500",
-    "japanese": "匂う",
-    "reading": "におう",
-    "meaning": "냄새가 나다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1자",
-    "sourceOrder": 447
-  },
-  {
-    "id": "darakwonverb_449",
-    "setId": "500",
-    "japanese": "塗り替える",
-    "reading": "ぬりかえる",
-    "meaning": "새로 칠하다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
-    "sourceOrder": 448
-  },
-  {
-    "id": "darakwonverb_450",
-    "setId": "500",
-    "japanese": "ぬらす",
-    "reading": "ぬらす",
-    "meaning": "적시다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1타",
-    "sourceOrder": 449
-  },
-  {
-    "id": "darakwonverb_451",
-    "setId": "500",
-    "japanese": "乗り越える",
-    "reading": "のりこえる",
-    "meaning": "넘어서다, 극복하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
-    "sourceOrder": 450
-  },
-  {
-    "id": "darakwonverb_452",
-    "setId": "500",
-    "japanese": "伸びる",
-    "reading": "のびる",
-    "meaning": "늘어나다, 자라다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "2자",
-    "sourceOrder": 451
-  },
-  {
-    "id": "darakwonverb_453",
-    "setId": "500",
-    "japanese": "伸ばす",
-    "reading": "のばす",
-    "meaning": "늘리다, 뻗다",
-    "type": "verb",
-    "difficulty": 20,
-    "verbInfo": "1타",
-    "sourceOrder": 452
-  },
-  {
-    "id": "darakwonverb_454",
-    "setId": "500",
-    "japanese": "のめり込む",
-    "reading": "のめりこむ",
-    "meaning": "깊이 빠져들다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1자",
-    "sourceOrder": 453
-  },
-  {
-    "id": "darakwonverb_455",
-    "setId": "500",
-    "japanese": "映す",
-    "reading": "うつす",
-    "meaning": "비추다, 반영하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
-    "sourceOrder": 454
-  },
-  {
-    "id": "darakwonverb_456",
-    "setId": "500",
-    "japanese": "映る",
-    "reading": "うつる",
-    "meaning": "비치다, 반영되다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1자",
-    "sourceOrder": 455
-  },
-  {
-    "id": "darakwonverb_457",
-    "setId": "500",
-    "japanese": "はがす",
-    "reading": "はがす",
-    "meaning": "벗기다, 떼어 내다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 456
-  },
-  {
-    "id": "darakwonverb_458",
-    "setId": "500",
-    "japanese": "はがれる",
-    "reading": "はがれる",
-    "meaning": "벗겨지다, 떨어지다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2자",
-    "sourceOrder": 457
-  },
-  {
-    "id": "darakwonverb_459",
-    "setId": "500",
-    "japanese": "はずむ",
-    "reading": "はずむ",
-    "meaning": "튀다, 들뜨다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1자",
-    "sourceOrder": 458
-  },
-  {
-    "id": "darakwonverb_460",
-    "setId": "500",
-    "japanese": "はみ出す",
-    "reading": "はみだす",
-    "meaning": "삐져나오다, 벗어나다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1자",
-    "sourceOrder": 459
-  },
-  {
-    "id": "darakwonverb_461",
-    "setId": "500",
-    "japanese": "払い戻す",
-    "reading": "はらいもどす",
-    "meaning": "환불하다",
-    "type": "verb",
-    "difficulty": 38,
-    "verbInfo": "1타",
-    "sourceOrder": 460
-  },
-  {
-    "id": "darakwonverb_462",
-    "setId": "500",
-    "japanese": "引き止める",
-    "reading": "ひきとめる",
-    "meaning": "만류하다, 붙잡다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2타",
-    "sourceOrder": 461
-  },
-  {
-    "id": "darakwonverb_463",
-    "setId": "500",
-    "japanese": "引き抜く",
-    "reading": "ひきぬく",
-    "meaning": "뽑아내다, 빼내다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1타",
-    "sourceOrder": 462
-  },
-  {
-    "id": "darakwonverb_464",
-    "setId": "500",
-    "japanese": "引き寄せる",
-    "reading": "ひきよせる",
-    "meaning": "끌어당기다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
-    "sourceOrder": 463
-  },
-  {
-    "id": "darakwonverb_465",
-    "setId": "500",
-    "japanese": "引きずる",
-    "reading": "ひきずる",
-    "meaning": "질질 끌다, 오래 끌다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1타",
-    "sourceOrder": 464
-  },
-  {
-    "id": "darakwonverb_466",
-    "setId": "500",
-    "japanese": "広がる",
-    "reading": "ひろがる",
-    "meaning": "퍼지다, 넓어지다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1자",
-    "sourceOrder": 465
-  },
-  {
-    "id": "darakwonverb_467",
-    "setId": "500",
-    "japanese": "広げる",
-    "reading": "ひろげる",
-    "meaning": "펼치다, 넓히다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "2타",
-    "sourceOrder": 466
-  },
-  {
-    "id": "darakwonverb_468",
-    "setId": "500",
-    "japanese": "深まる",
-    "reading": "ふかまる",
-    "meaning": "깊어지다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1자",
-    "sourceOrder": 467
-  },
-  {
-    "id": "darakwonverb_469",
-    "setId": "500",
-    "japanese": "深める",
-    "reading": "ふかめる",
-    "meaning": "깊게 하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
-    "sourceOrder": 468
-  },
-  {
-    "id": "darakwonverb_470",
-    "setId": "500",
-    "japanese": "ふくらむ",
-    "reading": "ふくらむ",
-    "meaning": "부풀다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 469
-  },
-  {
-    "id": "darakwonverb_471",
-    "setId": "500",
-    "japanese": "ふくらませる",
-    "reading": "ふくらませる",
-    "meaning": "부풀리다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "2타",
-    "sourceOrder": 470
-  },
-  {
-    "id": "darakwonverb_472",
-    "setId": "500",
-    "japanese": "ふるえる",
-    "reading": "ふるえる",
-    "meaning": "떨리다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "2자",
-    "sourceOrder": 471
-  },
-  {
-    "id": "darakwonverb_473",
-    "setId": "500",
-    "japanese": "へこむ",
-    "reading": "へこむ",
-    "meaning": "움푹 패다, 풀이 죽다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 472
-  },
-  {
-    "id": "darakwonverb_474",
-    "setId": "500",
-    "japanese": "へらす",
-    "reading": "へらす",
-    "meaning": "줄이다",
-    "type": "verb",
-    "difficulty": 18,
-    "verbInfo": "1타",
-    "sourceOrder": 473
-  },
-  {
-    "id": "darakwonverb_475",
-    "setId": "500",
-    "japanese": "ほぐす",
-    "reading": "ほぐす",
-    "meaning": "엉킨 것이나 굳은 것을 풀다, 느슨하게 하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
-    "sourceOrder": 474
-  },
-  {
-    "id": "darakwonverb_476",
-    "setId": "500",
-    "japanese": "ほぐれる",
-    "reading": "ほぐれる",
-    "meaning": "엉킨 것이나 긴장이 풀리다, 누그러지다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2자",
-    "sourceOrder": 475
-  },
-  {
-    "id": "darakwonverb_477",
-    "setId": "500",
-    "japanese": "ほどく",
-    "reading": "ほどく",
-    "meaning": "(매듭, 끈 등을) 풀다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 476
-  },
-  {
-    "id": "darakwonverb_478",
-    "setId": "500",
-    "japanese": "ほどける",
-    "reading": "ほどける",
-    "meaning": "(매듭, 끈 등이) 풀리다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2자",
-    "sourceOrder": 477
-  },
-  {
-    "id": "darakwonverb_479",
-    "setId": "500",
-    "japanese": "まかなう",
-    "reading": "まかなう",
-    "meaning": "마련하다, 충당하다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "1타",
-    "sourceOrder": 478
-  },
-  {
-    "id": "darakwonverb_480",
-    "setId": "500",
-    "japanese": "交わる",
-    "reading": "まじわる",
-    "meaning": "교차하다, 사귀다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "1자",
-    "sourceOrder": 479
-  },
-  {
-    "id": "darakwonverb_481",
-    "setId": "500",
-    "japanese": "交える",
-    "reading": "まじえる",
-    "meaning": "서로 섞다, 사이에 끼워 넣다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2타",
-    "sourceOrder": 480
-  },
-  {
-    "id": "darakwonverb_482",
-    "setId": "500",
-    "japanese": "混じる",
-    "reading": "まじる",
-    "meaning": "섞이다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 481
-  },
-  {
-    "id": "darakwonverb_483",
-    "setId": "500",
-    "japanese": "まとめる",
-    "reading": "まとめる",
-    "meaning": "정리하다, 종합하다",
-    "type": "verb",
-    "difficulty": 22,
-    "verbInfo": "2타",
-    "sourceOrder": 482
-  },
-  {
-    "id": "darakwonverb_484",
-    "setId": "500",
-    "japanese": "丸める",
-    "reading": "まるめる",
-    "meaning": "둥글게 말다, 둥글리다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2타",
-    "sourceOrder": 483
-  },
-  {
-    "id": "darakwonverb_485",
-    "setId": "500",
-    "japanese": "満たす",
-    "reading": "みたす",
-    "meaning": "채우다, 만족시키다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
-    "sourceOrder": 484
-  },
-  {
-    "id": "darakwonverb_486",
-    "setId": "500",
-    "japanese": "満ちる",
-    "reading": "みちる",
-    "meaning": "차다, 가득 차다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1자",
-    "sourceOrder": 485
-  },
-  {
-    "id": "darakwonverb_487",
-    "setId": "500",
-    "japanese": "むしる",
-    "reading": "むしる",
-    "meaning": "쥐어뜯다, 뽑아내다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
-    "sourceOrder": 486
-  },
-  {
-    "id": "darakwonverb_488",
-    "setId": "500",
-    "japanese": "めくれる",
-    "reading": "めくれる",
-    "meaning": "젖혀지다, 들리다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "2자",
-    "sourceOrder": 487
-  },
-  {
-    "id": "darakwonverb_489",
-    "setId": "500",
-    "japanese": "燃やす",
-    "reading": "もやす",
-    "meaning": "태우다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 488
-  },
-  {
-    "id": "darakwonverb_490",
-    "setId": "500",
-    "japanese": "盛る",
-    "reading": "もる",
-    "meaning": "담다, 쌓아 올리다",
-    "type": "verb",
-    "difficulty": 28,
-    "verbInfo": "1타",
-    "sourceOrder": 489
-  },
-  {
-    "id": "darakwonverb_491",
-    "setId": "500",
-    "japanese": "漏らす",
-    "reading": "もらす",
-    "meaning": "새게 하다, 누설하다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "1타",
-    "sourceOrder": 490
-  },
-  {
-    "id": "darakwonverb_492",
-    "setId": "500",
-    "japanese": "持ち上げる",
-    "reading": "もちあげる",
-    "meaning": "들어 올리다, 치켜세우다",
-    "type": "verb",
-    "difficulty": 30,
-    "verbInfo": "2타",
-    "sourceOrder": 491
-  },
-  {
-    "id": "darakwonverb_493",
-    "setId": "500",
-    "japanese": "もてなす",
-    "reading": "もてなす",
-    "meaning": "대접하다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "1타",
-    "sourceOrder": 492
-  },
-  {
-    "id": "darakwonverb_494",
-    "setId": "500",
-    "japanese": "もみ消す",
-    "reading": "もみけす",
-    "meaning": "무마하다, 없던 일로 하다",
-    "type": "verb",
-    "difficulty": 42,
-    "verbInfo": "1타",
-    "sourceOrder": 493
-  },
-  {
-    "id": "darakwonverb_495",
-    "setId": "500",
-    "japanese": "もむ",
-    "reading": "もむ",
-    "meaning": "주무르다, 문지르다",
-    "type": "verb",
-    "difficulty": 26,
-    "verbInfo": "1타",
-    "sourceOrder": 494
-  },
-  {
-    "id": "darakwonverb_496",
-    "setId": "500",
-    "japanese": "やり直す",
-    "reading": "やりなおす",
-    "meaning": "다시 하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 495
-  },
-  {
-    "id": "darakwonverb_497",
-    "setId": "500",
-    "japanese": "やり遂げる",
-    "reading": "やりとげる",
-    "meaning": "끝까지 해내다",
-    "type": "verb",
-    "difficulty": 32,
-    "verbInfo": "2타",
-    "sourceOrder": 496
-  },
-  {
-    "id": "darakwonverb_498",
-    "setId": "500",
-    "japanese": "やり過ごす",
-    "reading": "やりすごす",
-    "meaning": "그냥 넘기다",
-    "type": "verb",
-    "difficulty": 36,
-    "verbInfo": "1타",
-    "sourceOrder": 497
-  },
-  {
-    "id": "darakwonverb_499",
-    "setId": "500",
-    "japanese": "やわらげる",
-    "reading": "やわらげる",
-    "meaning": "완화하다",
-    "type": "verb",
-    "difficulty": 34,
-    "verbInfo": "2타",
-    "sourceOrder": 498
-  },
-  {
-    "id": "darakwonverb_500",
-    "setId": "500",
-    "japanese": "揺らす",
-    "reading": "ゆらす",
-    "meaning": "흔들리게 하다, 흔들어 움직이게 하다",
-    "type": "verb",
-    "difficulty": 24,
-    "verbInfo": "1타",
-    "sourceOrder": 499
   }
 ]

@@ -1,5 +1,5 @@
 import { shuffleArray } from '@/lib/random'
-import type { VocabularyWord } from '@/features/vocab/model/types'
+import type { StudyItem } from '@/features/vocab/model/types'
 import {
   EXAM_MANUAL_UNDO_LIMIT,
   type ExamGradingMode,
@@ -10,7 +10,10 @@ import {
   type StartExamPayload,
 } from '@/features/exam/examTypes'
 
-type ResolvedWord = Pick<VocabularyWord, 'japanese'>
+type ResolvedItem = Pick<StudyItem, 'kind'> & {
+  id: string
+  expectedAnswer: string
+}
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null
@@ -59,7 +62,7 @@ function normalizeManualUndoSnapshots(savedSnapshots: unknown, expectedLength: n
 }
 
 export function createExamSession(payload: StartExamPayload, seed = Date.now()): ExamSessionRecord {
-  const questionIds = shuffleArray(payload.words.map((word) => word.id), seed)
+  const questionIds = shuffleArray((payload.items ?? payload.words?.map((word) => ({ id: word.id })) ?? []).map((item) => item.id), seed)
   const now = new Date().toISOString()
 
   return {
@@ -126,22 +129,22 @@ export function normalizeExamSessionRecord(raw: unknown): ExamSessionRecord | nu
 
 export function buildExamResult(
   record: ExamSessionRecord,
-  resolveWord: (wordId: string) => ResolvedWord | undefined,
+  resolveItem: (itemId: string) => ResolvedItem | undefined,
 ): ExamResult {
-  const wrongItems = record.questionIds.flatMap((wordId, index) => {
-    const word = resolveWord(wordId)
+  const wrongItems = record.questionIds.flatMap((itemId, index) => {
+    const item = resolveItem(itemId)
     const userAnswer = record.userAnswers[index] ?? ''
     const isCorrect = record.gradingMode === 'manual'
       ? record.manualGrades[index] === true
-      : word !== undefined && userAnswer === word.japanese
+      : item !== undefined && userAnswer === item.expectedAnswer
 
     if (isCorrect) {
       return []
     }
 
     return record.gradingMode === 'manual'
-      ? [{ wordId }]
-      : [{ wordId, userAnswer }]
+      ? [{ itemId }]
+      : [{ itemId, userAnswer }]
   })
 
   return {

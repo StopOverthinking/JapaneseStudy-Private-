@@ -1,5 +1,5 @@
 import { Play, RefreshCcw, RotateCcw, Undo2, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -14,7 +14,7 @@ import { useConjugationStore } from '@/features/conjugation/conjugationStore'
 import type { ConjugationForm } from '@/features/conjugation/conjugationTypes'
 import { useFavoritesStore } from '@/features/favorites/favoritesStore'
 import { usePreferencesStore } from '@/features/preferences/preferencesStore'
-import { allSets, getSetName, getWordsForSet } from '@/features/vocab/model/selectors'
+import { allSets, getSetName, getWordsForSet, normalizeSelectableSetId } from '@/features/vocab/model/selectors'
 
 const DEFAULT_FORMS: ConjugationForm[] = ['masu', 'te', 'ta', 'nai']
 const COUNT_STEPS = [-8, -4, 4, 8] as const
@@ -49,12 +49,19 @@ export function ConjugationSetupPage() {
   const [questionCount, setQuestionCount] = useState(12)
   const [selectedForms, setSelectedForms] = useState<ConjugationForm[]>(DEFAULT_FORMS)
   const [error, setError] = useState<string | null>(null)
+  const selectedSetId = normalizeSelectableSetId(lastSelectedSetId)
+
+  useEffect(() => {
+    if (selectedSetId !== lastSelectedSetId) {
+      setLastSelectedSetId(selectedSetId)
+    }
+  }, [lastSelectedSetId, selectedSetId, setLastSelectedSetId])
 
   const normalizedQuestionCount = normalizeQuestionCount(questionCount)
 
   const availableWords = useMemo(
-    () => getEligibleConjugationWords(getWordsForSet(lastSelectedSetId, favoriteIds)),
-    [favoriteIds, lastSelectedSetId],
+    () => getEligibleConjugationWords(getWordsForSet(selectedSetId, favoriteIds)),
+    [favoriteIds, selectedSetId],
   )
 
   const previewQuestionCount = useMemo(
@@ -85,8 +92,8 @@ export function ConjugationSetupPage() {
     }
 
     const started = startSession({
-      setId: lastSelectedSetId,
-      setName: getSetName(lastSelectedSetId),
+      setId: selectedSetId,
+      setName: getSetName(selectedSetId),
       promptMode: DEFAULT_PROMPT_MODE,
       selectedForms,
       questionCount: normalizedQuestionCount,
@@ -112,7 +119,7 @@ export function ConjugationSetupPage() {
             </span>
           </Tooltip>
           <div className="page-header__meta">
-            <p className="page-header__caption">{getSetName(lastSelectedSetId)}</p>
+            <p className="page-header__caption">{getSetName(selectedSetId)}</p>
             <h1 className="page-header__title">동사 활용 훈련</h1>
           </div>
         </div>
@@ -184,7 +191,7 @@ export function ConjugationSetupPage() {
             <select
               id="conjugation-set-select"
               className="glass-select"
-              value={lastSelectedSetId}
+              value={selectedSetId}
               onChange={(event) => setLastSelectedSetId(event.target.value)}
             >
               <option value="all">전체 세트</option>

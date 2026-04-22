@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ClipboardCheck, RotateCcw, Undo2, X } from 'lucide-react'
+import { ArrowLeftRight, ClipboardCheck, RotateCcw, Sparkles, Undo2, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { GlassPanel } from '@/components/GlassPanel'
 import { IconButton } from '@/components/IconButton'
@@ -7,7 +7,7 @@ import { Tooltip } from '@/components/Tooltip'
 import styles from '@/features/exam/exam.module.css'
 import { useExamStore } from '@/features/exam/examStore'
 import type { ExamGradingMode, ExamSetId } from '@/features/exam/examTypes'
-import { allSets, getWordById } from '@/features/vocab/model/selectors'
+import { getSelectableWordbooks, getStudyItemById, getStudyItemsForSet, getWordbookKind } from '@/features/vocab/model/selectors'
 
 const wrongAnswerSetId = 'wrong_answers'
 
@@ -17,11 +17,12 @@ export function ExamSetupPage() {
   const [gradingMode, setGradingMode] = useState<ExamGradingMode>('auto')
 
   const wrongAnswerWords = useMemo(
-    () => wrongAnswerIds.map((wordId) => getWordById(wordId)).filter((word): word is NonNullable<typeof word> => word !== undefined),
+    () => wrongAnswerIds.map((itemId) => getStudyItemById(itemId)).filter((item): item is NonNullable<typeof item> => item !== undefined),
     [wrongAnswerIds],
   )
+  const selectableWordbooks = useMemo(() => getSelectableWordbooks(), [])
 
-  function handleStartExam(params: { setId: ExamSetId; setName: string; words: typeof wrongAnswerWords }) {
+  function handleStartExam(params: { setId: ExamSetId; setName: string; items: typeof wrongAnswerWords; gradingMode?: ExamGradingMode }) {
     if (session && !window.confirm('진행 중인 시험이 있습니다. 새 시험을 시작하면 현재 진행 내용이 대체됩니다. 계속할까요?')) {
       return
     }
@@ -29,8 +30,8 @@ export function ExamSetupPage() {
     startExam({
       setId: params.setId,
       setName: params.setName,
-      words: params.words,
-      gradingMode,
+      items: params.items,
+      gradingMode: params.gradingMode ?? gradingMode,
     })
     navigate('/exam/session')
   }
@@ -127,7 +128,7 @@ export function ExamSetupPage() {
                   handleStartExam({
                     setId: wrongAnswerSetId,
                     setName: '시험 오답 세트',
-                    words: wrongAnswerWords,
+                    items: wrongAnswerWords,
                   })
                 }
               >
@@ -138,8 +139,10 @@ export function ExamSetupPage() {
               </button>
             ) : null}
 
-            {allSets.map((set) => {
-              const words = set.wordIds.map((wordId) => getWordById(wordId)).filter((word): word is NonNullable<typeof word> => word !== undefined)
+            {selectableWordbooks.map((set) => {
+              const items = getStudyItemsForSet(set.id)
+              const wordbookKind = getWordbookKind(set.id)
+              const isComparison = wordbookKind === 'compare'
 
               return (
                 <button
@@ -150,13 +153,20 @@ export function ExamSetupPage() {
                     handleStartExam({
                       setId: set.id,
                       setName: set.name,
-                      words,
+                      items,
+                      gradingMode: isComparison ? 'manual' : gradingMode,
                     })
                   }
                 >
+                  <div className={styles.selectionCardHead}>
+                    <span className={styles.selectionCardIcon}>
+                      {isComparison ? <ArrowLeftRight size={18} /> : wordbookKind === 'theme' ? <Sparkles size={18} /> : <ClipboardCheck size={18} />}
+                    </span>
+                  </div>
                   <div>
                     <h3 className={styles.selectionCardTitle}>{set.name}</h3>
-                    <p className={styles.selectionCardCount}>{set.wordIds.length}문제</p>
+                    <p className={styles.selectionCardCount}>{set.itemCount}문제</p>
+                    {isComparison ? <p className={styles.selectionCardCopy}>직접 체크</p> : null}
                   </div>
                 </button>
               )

@@ -1,2 +1,7 @@
+export { comparisonPairs } from './comparisonPairs'
+export { comparisonWords } from './comparisonWords'
+export { comparisonWordbooks } from './comparisonWordbooks'
+export { themeWords } from './themeWords'
+export { themeWordbooks } from './themeWordbooks'
 export { vocabularySets } from './vocabularySets'
 export { vocabularyWords } from './vocabularyWords'

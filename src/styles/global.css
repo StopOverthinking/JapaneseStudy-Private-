@@ -162,16 +162,16 @@ a {
   z-index: 30;
 }
 
-.tooltip-wrap[data-active="true"] .tooltip {
+.tooltip[data-active="true"] {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, calc(-100% - 10px));
 }
 
 .tooltip {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 10px);
-  transform: translate(-50%, 6px);
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 4px));
   opacity: 0;
   white-space: nowrap;
   padding: 8px 10px;
@@ -182,13 +182,15 @@ a {
   color: var(--text-soft);
   transition: opacity 0.18s ease, transform 0.18s ease;
   pointer-events: none;
-  z-index: 40;
+  z-index: 999;
 }
 
-.tooltip-wrap[data-placement="bottom"] .tooltip {
-  top: calc(100% + 10px);
-  bottom: auto;
-  transform: translate(-50%, -6px);
+.tooltip[data-placement="bottom"] {
+  transform: translate(-50%, 4px);
+}
+
+.tooltip[data-placement="bottom"][data-active="true"] {
+  transform: translate(-50%, 0);
 }
 
 .section-title {

@@ -91,6 +91,21 @@
   line-height: 1.5;
 }
 
+.selectionCardHead {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.selectionCardIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--surface-icon);
+  color: var(--accent-ice);
+}
+
 .selectionMeta {
   display: flex;
   flex-wrap: wrap;

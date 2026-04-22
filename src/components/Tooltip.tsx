@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 type TooltipPlacement = 'top' | 'bottom'
+type TooltipCoords = {
+  left: number
+  top: number
+}
 
 export function Tooltip({ children, label }: React.PropsWithChildren<{ label: string }>) {
   const wrapRef = useRef<HTMLSpanElement | null>(null)
@@ -8,6 +13,7 @@ export function Tooltip({ children, label }: React.PropsWithChildren<{ label: st
   const ignoreFocusRef = useRef(false)
   const [active, setActive] = useState(false)
   const [placement, setPlacement] = useState<TooltipPlacement>('top')
+  const [coords, setCoords] = useState<TooltipCoords>({ left: 0, top: 0 })
 
   useEffect(() => {
     if (!active) {
@@ -28,8 +34,20 @@ export function Tooltip({ children, label }: React.PropsWithChildren<{ label: st
       const neededHeight = tooltipRect.height + tooltipGap
       const spaceAbove = wrapRect.top
       const spaceBelow = window.innerHeight - wrapRect.bottom
+      const nextPlacement = spaceAbove >= neededHeight || spaceAbove >= spaceBelow ? 'top' : 'bottom'
+      const horizontalMargin = 12
+      const halfWidth = tooltipRect.width / 2
+      const centeredLeft = wrapRect.left + wrapRect.width / 2
+      const clampedLeft = Math.min(
+        window.innerWidth - horizontalMargin - halfWidth,
+        Math.max(horizontalMargin + halfWidth, centeredLeft),
+      )
+      const top = nextPlacement === 'top'
+        ? wrapRect.top - tooltipGap
+        : wrapRect.bottom + tooltipGap
 
-      setPlacement(spaceAbove >= neededHeight || spaceAbove >= spaceBelow ? 'top' : 'bottom')
+      setPlacement(nextPlacement)
+      setCoords({ left: clampedLeft, top })
     }
 
     updatePlacement()
@@ -55,7 +73,6 @@ export function Tooltip({ children, label }: React.PropsWithChildren<{ label: st
       ref={wrapRef}
       className="tooltip-wrap"
       data-active={active}
-      data-placement={placement}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onPointerDownCapture={(event) => {
@@ -89,9 +106,23 @@ export function Tooltip({ children, label }: React.PropsWithChildren<{ label: st
       }}
     >
       {children}
-      <span ref={tooltipRef} className="tooltip">
-        {label}
-      </span>
+      {active && typeof document !== 'undefined'
+        ? createPortal(
+            <span
+              ref={tooltipRef}
+              className="tooltip"
+              data-active={active}
+              data-placement={placement}
+              style={{
+                left: `${coords.left}px`,
+                top: `${coords.top}px`,
+              }}
+            >
+              {label}
+            </span>,
+            document.body,
+          )
+        : null}
     </span>
   )
 }

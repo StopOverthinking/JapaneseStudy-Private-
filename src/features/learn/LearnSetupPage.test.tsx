@@ -74,7 +74,7 @@ describe('LearnSetupPage', () => {
     expect(within(columns[0] as HTMLElement).getByRole('button', { name: '-5' })).toBeInTheDocument()
     expect(within(columns[1] as HTMLElement).getByRole('button', { name: '+5' })).toBeInTheDocument()
     expect(within(columns[1] as HTMLElement).getByRole('button', { name: '+10' })).toBeInTheDocument()
-    expect(screen.getByRole('spinbutton', { name: '학습 단어 수' })).toBeInTheDocument()
+    expect(screen.getByRole('spinbutton', { name: '학습 항목 수' })).toBeInTheDocument()
   })
 
   it('allows starting a learn session from exam wrong answers', async () => {

@@ -13,7 +13,7 @@ import { getWordById } from '@/features/vocab/model/selectors'
 
 export function SmartReviewSessionPage() {
   const navigate = useNavigate()
-  const { isHydrated, status, session, profiles, submitAnswer, submitDebugAnswer, advanceToNext, abandonSession } = useSmartReviewStore()
+  const { isHydrated, status, session, profiles, submitAnswer, submitDebugAnswer, advanceToNext, abandonSession, clearSession } = useSmartReviewStore()
   const isGodMode = useDebugDateStore((state) => state.godMode)
   const debugDayOffset = useDebugDateStore((state) => state.dayOffset)
   const [answer, setAnswer] = useState('')
@@ -52,6 +52,13 @@ export function SmartReviewSessionPage() {
 
     return daysSince === 0 ? '오늘 학습' : `${daysSince}일 전 학습`
   }, [currentProfile, debugDayOffset, session?.currentWordId])
+
+  useEffect(() => {
+    if (isHydrated && session && (!word || !prompt)) {
+      clearSession()
+      navigate('/smart-review', { replace: true })
+    }
+  }, [clearSession, isHydrated, navigate, prompt, session, word])
 
   if (!session || !word || !prompt) return null
 
